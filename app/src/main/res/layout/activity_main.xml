@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dq.huibao.ui.MainActivity"
+    android:background="#fff">
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/view_mian">
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/view_mian"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#F0F0F0"
+        android:layout_above="@+id/lin_footer"/>
+
+    <LinearLayout
+        android:id="@+id/lin_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <!--首页-->
+            <LinearLayout
+                android:id="@+id/lin_home_page"
+                style="@style/lin_footer_style">
+
+                <ImageView
+                    android:id="@+id/iv_home_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_homepage001" />
+
+                <TextView
+                    android:id="@+id/tv_home_page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="首页"
+                    android:textColor="#999"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+            <!--小店-->
+            <LinearLayout
+                android:id="@+id/lin_hp_store"
+                style="@style/lin_footer_style"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_hp_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_homepage001" />
+
+                <TextView
+                    android:id="@+id/tv_hp_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小店"
+                    android:textColor="#999"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!--分类-->
+        <LinearLayout
+            android:id="@+id/lin_classify"
+            style="@style/lin_footer_style">
+
+            <ImageView
+                android:id="@+id/iv_classify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_classify001" />
+
+            <TextView
+                android:id="@+id/tv_classify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分类"
+                android:textColor="#999"
+                android:layout_marginTop="2dp"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <!--小店-->
+            <LinearLayout
+                android:id="@+id/lin_store"
+                style="@style/lin_footer_style">
+
+                <ImageView
+                    android:id="@+id/iv_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_memcen001" />
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/tv_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小店"
+                    android:textColor="#999"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+            <!--分销中心-->
+            <LinearLayout
+                android:id="@+id/lin_distribution"
+                style="@style/lin_footer_style"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_distribution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_memcen001" />
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/tv_distribution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分销中心"
+                    android:textColor="#999"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--购物车-->
+        <LinearLayout
+            android:id="@+id/lin_shopcar"
+            style="@style/lin_footer_style">
+
+                <ImageView
+                    android:id="@+id/iv_shopcar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_shopcar001" />
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/tv_shopcar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_shopping"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="购物车"
+                    android:textColor="#999"
+                    android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <!--会员中心-->
+        <LinearLayout
+            android:id="@+id/lin_members_center"
+            style="@style/lin_footer_style">
+
+            <ImageView
+                android:id="@+id/iv_members_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_memcen001" />
+
+            <TextView
+                android:layout_marginTop="2dp"
+                android:id="@+id/tv_members_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="会员中心"
+                android:textColor="#999"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

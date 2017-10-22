@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--搜索-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F20000"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="输入关键字在店铺内搜索"
+                        android:padding="3dp"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_hp_sreach"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:src="@mipmap/ic_sreach" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--轮播图-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <fragment
+                    android:id="@+id/fragment_cycle_viewpager_content"
+                    android:name="com.dq.huibao.lunbotu.CycleViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="135dp" />
+
+            </LinearLayout>
+
+            <!--菜单-->
+            <include layout="@layout/include_hp_menu" />
+
+            <!--广告-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EEEEEE">
+
+                    <TextView
+                        style="@style/text_adware"
+                        android:layout_margin="10dp"
+                        android:text="秋季新装先到先得，万款产品等你嗨！购！" />
+                    
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_adware" />
+
+            </LinearLayout>
+
+            <!--hot-->
+            <include layout="@layout/include_hot_classify" />
+
+            <!--每日推荐-->
+            <include layout="@layout/include_recommend"/>
+
+            <!--热销产品-->
+            <include layout="@layout/include_hot_selling"/>
+
+            <!--猜你喜欢-->
+            <include layout="@layout/include_youlike"/>
+            
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

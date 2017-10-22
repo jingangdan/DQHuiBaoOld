@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 控件点击背景 -->
+    <color name="rel_back">#E1E1E1</color>
+    <color name="rel_transparent">#fff</color>
+
+    <color name="mycolor">#F15252</color>
+
+    <!--F15252  8B8B8B-->
+</resources>
