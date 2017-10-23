@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:padding="5dp"
+    android:layout_margin="2.5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/info_text"
+            style="@style/text_adware"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="测试商品名称"
+            android:layout_margin="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/text_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥100.00"
+                android:textColor="#F15353" />
+
+            <TextView
+                style="@style/text_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥100.00" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

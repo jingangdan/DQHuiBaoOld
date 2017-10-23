@@ -2,12 +2,21 @@ package com.dq.huibao.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.adapter.ClassifyAdapter;
+import com.dq.huibao.adapter.GoodsAdapter;
 import com.dq.huibao.base.BaseFragment;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Description：分类
@@ -15,13 +24,53 @@ import com.dq.huibao.base.BaseFragment;
  */
 
 public class FMClassify extends BaseFragment {
+    @Bind(R.id.rv_c_classify)
+    RecyclerView rvCClassify;
+    @Bind(R.id.rv_c_goods)
+    RecyclerView rvCGoods;
+
     private View view;
+
+    private LinearLayoutManager mLayoutManager, mLayoutManager1;
+    private GridLayoutManager llmv;
+    private ClassifyAdapter classifyAdapter;
+    private GoodsAdapter goodsAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_classify, null);
+        ButterKnife.bind(this, view);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager1 = new LinearLayoutManager(getActivity());
+        rvCGoods.setLayoutManager(mLayoutManager1);
+
+        classifyAdapter = new ClassifyAdapter(getActivity());
+        rvCClassify.setLayoutManager(mLayoutManager);
+        rvCClassify.setAdapter(classifyAdapter);
+
+        goodsAdapter = new GoodsAdapter(getActivity());
+        llmv = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
+        rvCGoods.setLayoutManager(llmv);
+
+        rvCGoods.setAdapter(goodsAdapter);
+
+
+        initData();
+
         return view;
+    }
+
+    /*组建初始化*/
+    public void initData(){
+        classifyAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                classifyAdapter.changeSelected(position);
+            }
+        });
+
     }
 
     @Override
@@ -32,5 +81,11 @@ public class FMClassify extends BaseFragment {
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }
