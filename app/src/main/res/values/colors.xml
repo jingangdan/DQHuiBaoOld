@@ -7,8 +7,20 @@
     <!-- 控件点击背景 -->
     <color name="rel_back">#E1E1E1</color>
     <color name="rel_transparent">#fff</color>
+    <color name="mycolor">#F15353</color>
 
-    <color name="mycolor">#F15252</color>
+    <!--主要背景-->
+    <color name="bg_main">#F4F4F4</color>
+
+    <!--line颜色-->
+    <color name="view_main">#DDDDDD</color>
+
+    <!--白色-->
+    <color name="bg_white">#FFFFFF</color>
+
+    <!--加入购物车-->
+    <color name="but_put_in">#FFAC2E</color>
+
 
     <!--F15252  8B8B8B-->
     <color name="lightGray">#e0e0e0</color>

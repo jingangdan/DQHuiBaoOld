@@ -1,4 +1,4 @@
-package com.dq.huibao.test;
+package com.dq.huibao.lrecyclerview;
 
 import android.content.Context;
 import android.util.AttributeSet;

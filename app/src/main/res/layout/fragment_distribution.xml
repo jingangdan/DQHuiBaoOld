@@ -2,12 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:background="#F4F4F4"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="分销中心"
-        android:textSize="32dp"/>
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!--头像、名称-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F15353"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.dq.huibao.view.RoundImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    style="@style/text_white"
+                    android:layout_marginTop="5dp"
+                    android:text="用户名称" />
+
+                <TextView
+                    style="@style/text_white"
+                    android:layout_marginTop="5dp"
+                    android:text="加入时间" />
+
+
+            </LinearLayout>
+
+            <include layout="@layout/include_db_menu" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

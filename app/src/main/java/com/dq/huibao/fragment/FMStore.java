@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseFragment;
-import com.dq.huibao.test.DataAdapter;
-import com.dq.huibao.test.ItemModel;
-import com.dq.huibao.test.SampleHeader;
+import com.dq.huibao.lrecyclerview.DataAdapter;
+import com.dq.huibao.lrecyclerview.ItemModel;
+import com.dq.huibao.lrecyclerview.SampleHeader;
 import com.github.jdsjlzx.ItemDecoration.GridItemDecoration;
 import com.github.jdsjlzx.ItemDecoration.SpacesItemDecoration;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
@@ -172,7 +172,7 @@ public class FMStore extends BaseFragment {
 
                     //模拟组装10个数据
                     ArrayList<ItemModel> newList = new ArrayList<>();
-                    for (int i = 0; i < 15; i++) {
+                    for (int i = 0; i < 16; i++) {
                         if (newList.size() + currentSize >= TOTAL_COUNTER) {
                             break;
                         }

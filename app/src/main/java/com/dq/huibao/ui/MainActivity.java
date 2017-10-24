@@ -7,12 +7,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dq.huibao.R;
 import com.dq.huibao.fragment.FMClassify;
@@ -314,4 +316,38 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
+
+
+    //双击的时间间隔
+    private long millis = 0;
+
+    /**
+     * 监听返回键 双击退出程序
+     *
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //
+            boolean is;
+            //双击退出
+            if (System.currentTimeMillis() - millis < 1000) {
+
+                //FMHomePage.mLocationClient.stop();
+                return super.onKeyDown(keyCode, event);
+            } else {
+                Toast.makeText(this, "再次点击退出程序", Toast.LENGTH_SHORT).show();
+                millis = System.currentTimeMillis();
+                return false;
+            }
+
+        }
+        return false;
+    }
+
+
+
 }

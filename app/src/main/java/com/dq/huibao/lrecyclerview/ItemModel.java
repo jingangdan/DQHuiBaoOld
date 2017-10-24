@@ -1,4 +1,4 @@
-package com.dq.huibao.test;
+package com.dq.huibao.lrecyclerview;
 
 
 public class ItemModel extends Entity {

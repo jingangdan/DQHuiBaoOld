@@ -1,6 +1,7 @@
 package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,6 +20,7 @@ import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
+import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -50,6 +52,8 @@ public class FMHomePage extends BaseFragment {
     RecyclerView rvHotClassify3;
     @Bind(R.id.rv_hot_classify4)
     RecyclerView rvHotClassify4;
+    @Bind(R.id.iv_hp_adware)
+    ImageView ivHpAdware;
 
     private View view;
 
@@ -65,7 +69,7 @@ public class FMHomePage extends BaseFragment {
     private HotClassifyAdapter hotClassifyAdapter;
     private HotClassifyAdapter1 hotClassifyAdapter1;
 
-    private LinearLayoutManager mLayoutManager, mLayoutManager1, mLayoutManager2,mLayoutManager3, mLayoutManager4;
+    private LinearLayoutManager mLayoutManager, mLayoutManager1, mLayoutManager2, mLayoutManager3, mLayoutManager4;
     private GridLayoutManager llmv, llmv1, llmv2, llmv3, llmv4;
 
     @Nullable
@@ -244,13 +248,20 @@ public class FMHomePage extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.iv_hp_sreach, R.id.rv_hot_classify})
+    @OnClick({R.id.iv_hp_sreach, R.id.rv_hot_classify, R.id.iv_hp_adware})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_hp_sreach:
                 break;
             case R.id.rv_hot_classify:
                 break;
+
+            case R.id.iv_hp_adware:
+                Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
+                startActivity(intent);
+
+                break;
         }
     }
+
 }

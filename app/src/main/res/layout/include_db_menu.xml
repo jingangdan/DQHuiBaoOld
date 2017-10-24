@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F4F4F4"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_marginTop="10dp"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_adware"
+                android:text="0.00" />
+
+            <TextView
+                style="@style/text_main"
+                android:layout_marginTop="5dp"
+                android:text="累计佣金"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_adware"
+                android:text="0.00" />
+
+            <TextView
+                style="@style/text_main"
+                android:layout_marginTop="5dp"
+                android:text="可提现佣金"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:background="#F15353"
+                android:text="提现"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_marginBottom="10dp"
+        android:background="#DDDDDD" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#DDDDDD" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="订单总计"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <View
+            android:visibility="invisible"
+            android:layout_width="0.8dp"
+            android:layout_height="fill_parent"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mc_pay"/>
+
+            <TextView
+                style="@style/text_adware"
+                android:layout_margin="5dp"
+                android:text="分销佣金"/>
+
+            <TextView
+                style="@style/text_main"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"></LinearLayout>
+
+
+</LinearLayout>
