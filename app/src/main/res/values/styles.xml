@@ -44,6 +44,7 @@
         <item name="android:gravity">center</item>
 
     </style>
+
     <style name="text_white">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -58,6 +59,12 @@
         <item name="android:windowExitAnimation">@anim/pop_down_out</item>
     </style>
 
-
+    <!--商品详情下半部分-->
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
 
 </resources>

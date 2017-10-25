@@ -1,5 +1,6 @@
 package com.dq.huibao.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.dq.huibao.R;
 import com.dq.huibao.adapter.ClassifyAdapter;
 import com.dq.huibao.adapter.GoodsAdapter;
 import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.ui.GoodsListActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,6 +38,9 @@ public class FMClassify extends BaseFragment {
     private ClassifyAdapter classifyAdapter;
     private GoodsAdapter goodsAdapter;
 
+    /*跳转页面*/
+    private Intent intent;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,6 +60,14 @@ public class FMClassify extends BaseFragment {
         rvCGoods.setLayoutManager(llmv);
 
         rvCGoods.setAdapter(goodsAdapter);
+
+        goodsAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                intent = new Intent(getActivity(), GoodsListActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         initData();

@@ -12,18 +12,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dq.huibao.R;
-import com.dq.huibao.details.BabyPopWindow;
-import com.dq.huibao.details.ShowBigPictrue;
+import com.dq.huibao.view.goodsdetails.BabyPopWindow;
 import com.dq.huibao.view.HackyViewPager;
+import com.dq.huibao.view.goodsdetails_foot.GradationScrollView;
+import com.dq.huibao.view.goodsdetails_foot.ScrollViewContainer;
 
 import java.util.ArrayList;
 
@@ -36,46 +40,66 @@ import butterknife.OnClick;
  * Description：商品详情
  * Created by jingang on 2017/10/24.
  */
-public class GoodsDetailsActivity extends Activity {
+public class GoodsDetailsActivity extends Activity implements GradationScrollView.ScrollViewListener{
+    /*显示图片控件*/
     @Bind(R.id.iv_baby)
     HackyViewPager ivBaby;
 
-    NfcAdapter nfcAdapter;
+    /*我要分销*/
     @Bind(R.id.iv_baby_collection)
     ImageView iv_baby_collection;
+
+    /*加入购物车*/
     @Bind(R.id.but_gd_put_in)
     Button but_gd_put_in;
     //ImageView putIn;
+
+    /*立即购买*/
     @Bind(R.id.but_gd_bug_new)
     Button but_gd_bug_new;
     //ImageView buyNow;
+
+    /*选择数量和颜色时背景变暗*/
     @Bind(R.id.all_choice_layout)
     LinearLayout all_choice_layout;
 
+
+    NfcAdapter nfcAdapter;
     private HackyViewPager viewPager;
     private ArrayList<View> allListView;
+
     private int[] resId = {R.mipmap.detail_show_1, R.mipmap.detail_show_2, R.mipmap.detail_show_3,
             R.mipmap.detail_show_4, R.mipmap.detail_show_5, R.mipmap.detail_show_6};
     /**
      * 弹出商品订单信息详情
      */
     private BabyPopWindow popWindow;
-    /**
-     * 用于设置背景暗淡
-     */
-    //private LinearLayout all_choice_layout = null;
+
     /**
      * 判断是否点击的立即购买按钮
      */
     boolean isClickBuy = false;
+
     /**
      * 是否添加收藏
      */
     private static boolean isCollection = false;
+
     /**
      * ViewPager当前显示页的下标
      */
     private int position = 0;
+
+
+    @Bind(R.id.sv_container)
+    ScrollViewContainer container;
+
+    @Bind(R.id.scrollview)
+    GradationScrollView scrollView;
+
+    private int width;
+    private int height;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,8 +110,69 @@ public class GoodsDetailsActivity extends Activity {
         getSaveCollection();
         initView();
         popWindow = new BabyPopWindow(this);
-        //popWindow.setOnItemClickListener(this);
+
+        container = new ScrollViewContainer(getApplicationContext());
+
+        //initImgDatas();
+
+        initListeners();
+
     }
+
+    public  int getScreenHeight(Context context) {
+        @SuppressLint("WrongConstant")
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
+    }
+
+    public static int getScreenWidth(Context context) {
+        @SuppressLint("WrongConstant")
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.widthPixels;
+    }
+
+    // TODO: 16/8/21 模拟图片假数据
+//    private void initImgDatas(){
+//        width = getScreenWidth(getApplicationContext());
+//        imgsUrl = new ArrayList<>();
+//        imgsUrl.add("https://img.alicdn.com/imgextra/i4/714288429/TB2dLhGaVXXXXbNXXXXXXXXXXXX-714288429.jpg");
+//        imgsUrl.add("https://img.alicdn.com/imgextra/i3/726966853/TB2vhJ6lXXXXXbJXXXXXXXXXXXX_!!726966853.jpg");
+//        imgsUrl.add("https://img.alicdn.com/imgextra/i4/2081314055/TB2FoTQbVXXXXbuXpXXXXXXXXXX-2081314055.png");
+//        imgAdapter = new QuickAdapter<String>(this,R.layout.adapter_good_detail_imgs) {
+//            @Override
+//            protected void convert(BaseAdapterHelper helper, String item) {
+//                ImageView iv = helper.getView(R.id.iv_adapter_good_detail_img);
+//                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) iv.getLayoutParams();
+//                params.width = width;
+//                params.height = width/2;
+//                iv.setLayoutParams(params);
+//                MyImageLoader.getInstance().displayImageCen(getApplicationContext(),item,iv,width,width/2);
+//            }
+//        };
+//        imgAdapter.addAll(imgsUrl);
+//        nlvImgs.setAdapter(imgAdapter);
+//    }
+
+    private void initListeners() {
+
+        ViewTreeObserver vto = ivBaby.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout()  {
+                //llTitle.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                height = ivBaby.getHeight();
+
+                scrollView.setScrollViewListener(GoodsDetailsActivity.this);
+            }
+        });
+    }
+
 
     @SuppressLint({"NewApi", "WrongConstant"})
     private void initView() {
@@ -105,6 +190,7 @@ public class GoodsDetailsActivity extends Activity {
         }
     }
 
+    /*点击查看大图*/
     private void initViewPager() {
 
         if (allListView != null) {
@@ -121,7 +207,7 @@ public class GoodsDetailsActivity extends Activity {
                 @Override
                 public void onClick(View arg0) {
                     //挑战到查看大图界面
-                    Intent intent = new Intent(GoodsDetailsActivity.this, ShowBigPictrue.class);
+                    Intent intent = new Intent(GoodsDetailsActivity.this, ShowBigPictrueActivity.class);
                     intent.putExtra("position", position);
                     startActivity(intent);
                 }
@@ -182,6 +268,11 @@ public class GoodsDetailsActivity extends Activity {
                 popWindow.showAsDropDown(view);
                 break;
         }
+    }
+
+    @Override
+    public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
+
     }
 
     private class ViewPagerAdapter extends PagerAdapter {

@@ -1,4 +1,4 @@
-package com.dq.huibao.lrecyclerview;
+package com.dq.huibao.view.lrecyclerview;
 
 import android.content.Context;
 

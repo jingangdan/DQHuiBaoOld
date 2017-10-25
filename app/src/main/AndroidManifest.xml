@@ -24,7 +24,9 @@
 
         <activity android:name="com.dq.huibao.ui.GoodsDetailsActivity"/>
 
-        <activity android:name="com.dq.huibao.details.ShowBigPictrue"/>
+        <activity android:name="com.dq.huibao.ui.ShowBigPictrueActivity"/>
+
+        <activity android:name="com.dq.huibao.ui.GoodsListActivity"/>
 
 
     </application>

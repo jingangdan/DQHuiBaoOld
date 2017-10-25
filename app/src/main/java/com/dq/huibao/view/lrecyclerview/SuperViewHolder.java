@@ -1,4 +1,4 @@
-package com.dq.huibao.lrecyclerview;
+package com.dq.huibao.view.lrecyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;

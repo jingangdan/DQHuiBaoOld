@@ -1,4 +1,4 @@
-package com.dq.huibao.details;
+package com.dq.huibao.view.goodsdetails;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.dq.huibao.details;
+package com.dq.huibao.view.goodsdetails;
 
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.

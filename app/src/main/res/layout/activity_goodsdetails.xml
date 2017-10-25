@@ -4,6 +4,20 @@
     android:layout_height="match_parent"
     android:background="@color/bg_main">
 
+    <!--内容-->
+    <com.dq.huibao.view.goodsdetails_foot.ScrollViewContainer
+        android:id="@+id/sv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lin_gd_footer"
+        android:layout_below="@+id/rel_gd_header">
+
+        <include layout="@layout/include_gd_header" />
+
+        <include layout="@layout/include_gd_footer" />
+
+    </com.dq.huibao.view.goodsdetails_foot.ScrollViewContainer>
+
     <!--头部-->
     <RelativeLayout
         android:id="@+id/rel_gd_header"
@@ -58,18 +72,6 @@
             android:background="@color/view_main" />
 
     </RelativeLayout>
-
-    <!--内容-->
-    <LinearLayout
-        android:id="@+id/lin_gd_bady"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lin_gd_footer"
-        android:layout_below="@+id/rel_gd_header">
-
-        <include layout="@layout/include_gd_header" />
-
-    </LinearLayout>
 
     <!--底部-->
     <LinearLayout

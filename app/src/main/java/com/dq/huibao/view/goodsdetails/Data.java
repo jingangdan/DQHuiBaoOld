@@ -1,4 +1,4 @@
-package com.dq.huibao.details;
+package com.dq.huibao.view.goodsdetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;

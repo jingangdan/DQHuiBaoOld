@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseFragment;
-import com.dq.huibao.lrecyclerview.DataAdapter;
-import com.dq.huibao.lrecyclerview.ItemModel;
-import com.dq.huibao.lrecyclerview.SampleHeader;
+import com.dq.huibao.view.lrecyclerview.DataAdapter;
+import com.dq.huibao.view.lrecyclerview.ItemModel;
+import com.dq.huibao.view.lrecyclerview.SampleHeader;
 import com.github.jdsjlzx.ItemDecoration.GridItemDecoration;
 import com.github.jdsjlzx.ItemDecoration.SpacesItemDecoration;
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener;

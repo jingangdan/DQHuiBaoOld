@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.dq.huibao.details;
+package com.dq.huibao.view.goodsdetails;
 
 import android.annotation.TargetApi;
 import android.content.Context;
