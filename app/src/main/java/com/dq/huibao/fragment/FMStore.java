@@ -241,11 +241,6 @@ public class FMStore extends BaseFragment {
     }
 
     @Override
-    public void onClick(View view) {
-
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);

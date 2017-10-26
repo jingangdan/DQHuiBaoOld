@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +21,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Description：
@@ -32,7 +32,7 @@ public class FMShopcar extends BaseFragment implements
         ShoppingCartAdapter.CheckInterface,
         ShoppingCartAdapter.ModifyCountInterface {
 
-//    @Bind(R.id.tv_edit)
+    //    @Bind(R.id.tv_edit)
 //    TextView tv_edit;
     @Bind(R.id.list_shopping_cart)
     ListView list_shopping_cart;
@@ -44,6 +44,8 @@ public class FMShopcar extends BaseFragment implements
     TextView tv_show_price;
     @Bind(R.id.rl_bottom)
     RelativeLayout rl_bottom;
+    @Bind(R.id.rel_shopcar_header)
+    RelativeLayout relShopcarHeader;
     private View view;
 
     private TextView tv_all_check;
@@ -67,7 +69,7 @@ public class FMShopcar extends BaseFragment implements
         ButterKnife.bind(this, view);
 
         //tv_edit.setOnClickListener(this);
-        ck_all.setOnClickListener(this);
+        //ck_all.setOnClickListener(this);
         shoppingCartAdapter = new ShoppingCartAdapter(getActivity());
         shoppingCartAdapter.setCheckInterface(this);
         shoppingCartAdapter.setModifyCountInterface(this);
@@ -100,7 +102,7 @@ public class FMShopcar extends BaseFragment implements
 
     }
 
-    @Override
+    @OnClick(R.id.ck_all)
     public void onClick(View v) {
         switch (v.getId()) {
             //全选按钮
@@ -273,6 +275,7 @@ public class FMShopcar extends BaseFragment implements
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
 
 
 }

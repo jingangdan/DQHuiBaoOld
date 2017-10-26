@@ -40,18 +40,27 @@ import butterknife.OnClick;
  */
 
 public class FMHomePage extends BaseFragment {
+    /*搜索*/
     @Bind(R.id.iv_hp_sreach)
     ImageView ivHpSreach;
+
+    /**/
     @Bind(R.id.rv_hot_classify)
     RecyclerView rvHotClassify;
+
     @Bind(R.id.rv_hot_classify1)
     RecyclerView rvHotClassify1;
+
     @Bind(R.id.rv_hot_classify2)
     RecyclerView rvHotClassify2;
+
     @Bind(R.id.rv_hot_classify3)
     RecyclerView rvHotClassify3;
+
     @Bind(R.id.rv_hot_classify4)
     RecyclerView rvHotClassify4;
+
+    /*广告位1*/
     @Bind(R.id.iv_hp_adware)
     ImageView ivHpAdware;
 
@@ -252,6 +261,7 @@ public class FMHomePage extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_hp_sreach:
+
                 break;
             case R.id.rv_hot_classify:
                 break;

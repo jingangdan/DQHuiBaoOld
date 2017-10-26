@@ -14,7 +14,7 @@ import com.dq.huibao.base.BaseFragment;
  * Created by jingang on 2017/10/20.
  */
 
-public class FMDistribution extends BaseFragment{
+public class FMDistribution extends BaseFragment {
     private View view;
 
     @Nullable
@@ -29,8 +29,4 @@ public class FMDistribution extends BaseFragment{
 
     }
 
-    @Override
-    public void onClick(View view) {
-
-    }
 }

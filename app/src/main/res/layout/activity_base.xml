@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    android:background="#a2cb34"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="#a2cb34">
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
     <ImageView
         android:id="@+id/title_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_back" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/title_name"
+        style="@style/text_main"
         android:layout_gravity="center_horizontal"
-        android:text="@string/app_name"/>
+        android:text="@string/app_name" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/title_rightTv"
+        style="@style/text_main"
         android:layout_gravity="right"
         android:text="@string/app_name"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </android.support.v7.widget.Toolbar>

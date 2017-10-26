@@ -25,6 +25,7 @@
                 android:padding="10dp">
 
                 <com.dq.huibao.view.RoundImageView
+                    android:id="@+id/riv_memcen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/ic_launcher" />

@@ -1,5 +1,6 @@
 package com.dq.huibao.base;
 
+import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Toast;
@@ -9,7 +10,7 @@ import android.widget.Toast;
  * fragment 基类
  */
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener{
+public abstract class BaseFragment extends Fragment{
 
     protected boolean isVisible;
     private Toast mToast;
@@ -43,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
      * @param text The message you wanna show.
      * @return Toast
      */
+    @SuppressLint("WrongConstant")
     protected Toast toast(Object text) {
         if (mToast == null) {
             mToast = Toast.makeText(getActivity(), text.toString(), Toast.LENGTH_SHORT);
