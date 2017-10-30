@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_main">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/bg_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="德泉一店"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/view_main"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/bg_white">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_so_goods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/view_main"/>
+
+    <!--买家留言-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bg_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                style="@style/text_adware"
+                android:text="买家留言："/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:hint="给卖家留言"
+                android:textSize="12dp"
+                android:padding="5dp"
+                android:background="@color/bg_main"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_main"
+                android:text="共"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_main"
+                android:text="2"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_main"
+                android:text="件商品 合计："/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_red"
+                android:text="¥100.00"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <!---->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/bg_white">
+
+        <TextView
+            android:layout_alignParentLeft="true"
+            style="@style/text_adware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+运费"/>
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_main"
+            android:text="¥0.00"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/view_main"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/bg_white">
+
+        <TextView
+            android:layout_alignParentLeft="true"
+            style="@style/text_adware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="优惠券"/>
+
+        <TextView
+            android:layout_toLeftOf="@+id/iv_youhuiquan_tight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_red"
+            android:text="0"/>
+
+        <ImageView
+            android:id="@+id/iv_youhuiquan_tight"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_next"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/view_main"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/bg_white">
+
+        <TextView
+            android:layout_alignParentLeft="true"
+            style="@style/text_adware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="商品小计"/>
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_main"
+            android:text="¥0.00"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/view_main"/>
+
+</LinearLayout>

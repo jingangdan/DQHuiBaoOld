@@ -4,14 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dq.huibao.R;
+import com.dq.huibao.base.BaseActivity;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -30,20 +32,40 @@ import butterknife.OnClick;
  * Description：
  * Created by jingang on 2017/10/26.
  */
-
-public class LoginActivity extends AppCompatActivity {
-
-    /*标题*/
-    @Bind(R.id.include_img)
-    ImageView includeImg;
-    @Bind(R.id.include_title)
-    TextView includeTitle;
-
+public class LoginActivity extends BaseActivity {
     /*第三方登录*/
     @Bind(R.id.iv_weixin)
     ImageView ivWeixin;
     @Bind(R.id.iv_qq)
     ImageView ivQq;
+
+    /*输入账号*/
+    @Bind(R.id.et_login_phone)
+    EditText etLoginPhone;
+
+    /*清除账号*/
+    @Bind(R.id.iv_phone_clear)
+    ImageView ivPhoneClear;
+
+    /*输入密码*/
+    @Bind(R.id.et_login_pwd)
+    EditText etLoginPwd;
+
+    /*清除密码*/
+    @Bind(R.id.iv_pwd_clear)
+    ImageView ivPwdClear;
+
+    /*立即注册*/
+    @Bind(R.id.tv_login_regist)
+    TextView tvLoginRegist;
+
+    /*忘记密码*/
+    @Bind(R.id.tv_forget_pwd)
+    TextView tvForgetPwd;
+
+    /*登录*/
+    @Bind(R.id.but_login)
+    Button butLogin;
 
 
     private static final String TAG = "MainActivity";
@@ -53,28 +75,55 @@ public class LoginActivity extends AppCompatActivity {
     private BaseUiListener mIUiListener;
     private UserInfo mUserInfo;
 
+    /*接受页面传值*/
+    private Intent intent;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        includeTitle.setText("登录");
+    }
 
+    @SuppressLint("WrongConstant")
+    @Override
+    protected void initWidght() {
+        super.initWidght();
+        setTitleName("会员登录");
         mTencent = Tencent.createInstance(APP_ID, getApplicationContext());
 
     }
 
     @SuppressLint("WrongConstant")
-    @OnClick({R.id.iv_weixin, R.id.iv_qq, R.id.include_img})
+    @OnClick({R.id.iv_weixin, R.id.iv_qq,R.id.iv_phone_clear, R.id.iv_pwd_clear, R.id.tv_login_regist, R.id.tv_forget_pwd, R.id.but_login})
+    @Override
     public void onClick(View view) {
+        super.onClick(view);
         switch (view.getId()) {
-            case R.id.include_img:
-                finish();
+            case R.id.iv_phone_clear:
+
                 break;
+            case R.id.iv_pwd_clear:
+
+                break;
+            case R.id.tv_login_regist:
+                //立即注册
+                intent = new Intent(LoginActivity.this, RegistActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_forget_pwd:
+                //忘记密码
+                intent = new Intent(LoginActivity.this, RegistActivity.class);
+                startActivity(intent);
+
+                break;
+            case R.id.but_login:
+
+                break;
+
             case R.id.iv_weixin:
                 Toast.makeText(LoginActivity.this, "微信登录", Toast.LENGTH_SHORT).show();
-
                 break;
             case R.id.iv_qq:
 
@@ -88,7 +137,6 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
     /**
      * 自定义监听器实现IUiListener接口后，需要实现的3个方法

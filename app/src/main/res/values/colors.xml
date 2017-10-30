@@ -9,6 +9,13 @@
     <color name="rel_transparent">#fff</color>
     <color name="mycolor">#F15353</color>
 
+    <!--text字体颜色样式1-->
+    <color name="tv_color001">#F15353</color>
+
+    <!--text字体颜色样式2-->
+    <color name="tv_color002">#333333</color>
+
+
     <!--主要背景-->
     <color name="bg_main">#F4F4F4</color>
 
@@ -20,7 +27,6 @@
 
     <!--加入购物车-->
     <color name="but_put_in">#FFAC2E</color>
-
 
     <!--F15252  8B8B8B-->
     <color name="lightGray">#e0e0e0</color>

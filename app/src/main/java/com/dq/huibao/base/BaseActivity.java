@@ -1,36 +1,87 @@
+
 package com.dq.huibao.base;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Description：
- * Created by jingang on 2017/10/26.
- */
-public abstract class BaseActivity extends AppCompatActivity {
+import com.dq.huibao.R;
+
+/**/
+public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private LinearLayout parentLinearLayout;//把父类activity和子类activity的view都add到这里
+
+    private TextView titleName;
+
+    /*返回*/
+    private ImageView titleBack;
+
     /*Toast*/
     private Toast mToast;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //定制流程
+        initContentView(R.layout.activity_base);
+
         setActivityState(this);
-        initView(savedInstanceState);
-        initData();
+
+        initWidght();
     }
 
-    protected abstract void initData();
+    protected void initWidght() {
+    }
 
-    protected abstract void initView(Bundle savedInstanceState);
+    /**
+     * 初始化contentview
+     */
+    @SuppressLint("WrongConstant")
+    private void initContentView(int layoutResID) {
+        ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
+        viewGroup.removeAllViews();
+        parentLinearLayout = new LinearLayout(this);
+        parentLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        viewGroup.addView(parentLinearLayout);
+        LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
 
+        titleName = (TextView) findViewById(R.id.tv_base_title);
+        titleBack = (ImageView) findViewById(R.id.iv_base_back);
+        titleBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void setContentView(int layoutResID) {
+        LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        parentLinearLayout.addView(view);
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+
+        parentLinearLayout.addView(view, params);
+
+    }
     /**
      * 设置屏幕只能竖屏
      * @param activity
@@ -41,12 +92,38 @@ public abstract class BaseActivity extends AppCompatActivity {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
+
     /**
-     * 检测网络是否连接
+     * m
+     * 设置title
+     *
+     * @param title ：title
      */
-//    public boolean isNetConnect(){
-//        return NetUtil.isNetConnect(this); // NetUtil 是我自己封装的类
-//    }
+    protected void setTitleName(String title) {
+        titleName.setText(title);
+    }
+
+    protected  void setTitleRes(){
+
+    }
+
+    /**
+     * <strong>AlertDialog with one button.</strong><br>
+     * The difference between the method "alert" and "toast" is
+     * that "alert" would get focus automatically, and won't
+     * disappear until you click the button.
+     *
+     * @param message The message you wanna show.
+     * @return AlertDialog
+     */
+    protected android.support.v7.app.AlertDialog alert(Object message) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setMessage(message.toString());
+        builder.setPositiveButton("确定", null);
+        android.support.v7.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        return alertDialog;
+    }
 
     /**
      * As "Toast.makeText(context, text, duration).show()"
@@ -65,22 +142,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mToast;
     }
 
-    /**
-     * <strong>AlertDialog with one button.</strong><br>
-     * The difference between the method "alert" and "toast" is
-     * that "alert" would get focus automatically, and won't
-     * disappear until you click the button.
-     *
-     * @param message The message you wanna show.
-     * @return AlertDialog
-     */
-    protected AlertDialog alert(Object message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message.toString());
-        builder.setPositiveButton("确定", null);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        return alertDialog;
+    @Override
+    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.iv_base_back:
+//                this.finish();
+//                break;
+//        }
     }
-
 }

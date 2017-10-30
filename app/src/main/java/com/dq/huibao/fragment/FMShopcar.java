@@ -1,5 +1,6 @@
 package com.dq.huibao.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.SparseArray;
@@ -15,6 +16,7 @@ import com.dq.huibao.R;
 import com.dq.huibao.adapter.ShoppingCartAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.ShoppingCartBean;
+import com.dq.huibao.ui.SubmitOrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,9 @@ import butterknife.OnClick;
 public class FMShopcar extends BaseFragment implements
         ShoppingCartAdapter.CheckInterface,
         ShoppingCartAdapter.ModifyCountInterface {
+
+    @Bind(R.id.tv_base_title)
+    TextView tvBaseTitle;
 
     //    @Bind(R.id.tv_edit)
 //    TextView tv_edit;
@@ -62,11 +67,16 @@ public class FMShopcar extends BaseFragment implements
      */
     private SparseArray<Boolean> mSelectState = new SparseArray<Boolean>();
 
+    /*接收页面传值*/
+    private Intent intent;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_shopcar, null);
         ButterKnife.bind(this, view);
+
+        tvBaseTitle.setText("购物车");
 
         //tv_edit.setOnClickListener(this);
         //ck_all.setOnClickListener(this);
@@ -102,7 +112,7 @@ public class FMShopcar extends BaseFragment implements
 
     }
 
-    @OnClick(R.id.ck_all)
+    @OnClick({R.id.ck_all, R.id.tv_settlement})
     public void onClick(View v) {
         switch (v.getId()) {
             //全选按钮
@@ -121,6 +131,12 @@ public class FMShopcar extends BaseFragment implements
                     }
                 }
                 statistics();
+                break;
+
+            case R.id.tv_settlement:
+                intent = new Intent(getActivity(), SubmitOrderActivity.class);
+                startActivity(intent);
+
                 break;
 //            case R.id.tv_edit:
 //                flag = !flag;
@@ -275,7 +291,6 @@ public class FMShopcar extends BaseFragment implements
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 
 
 }

@@ -81,6 +81,9 @@ public class FMHomePage extends BaseFragment {
     private LinearLayoutManager mLayoutManager, mLayoutManager1, mLayoutManager2, mLayoutManager3, mLayoutManager4;
     private GridLayoutManager llmv, llmv1, llmv2, llmv3, llmv4;
 
+    /*接收页面传值*/
+    private Intent intent;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -208,6 +211,9 @@ public class FMHomePage extends BaseFragment {
                     if (cycleViewPager.isCycle()) {
 
                         Toast.makeText(getActivity(), position + "", Toast.LENGTH_LONG).show();
+
+                        //startActivity(new Intent(getActivity(), TestActivity.class));
+
                         //toast("positon = "+position);
                         //此处position是从1开始 故需要 - 1 操作
 //                        if (isNetworkUtils()) {

@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseFragment;
@@ -35,6 +36,10 @@ import butterknife.ButterKnife;
  * Created by jingang on 2017/10/20.
  */
 public class FMStore extends BaseFragment {
+
+    @Bind(R.id.tv_base_title)
+    TextView tvBaseTitle;
+
     @Bind(R.id.list)
     LRecyclerView mRecyclerView = null;
     private View view;
@@ -68,6 +73,7 @@ public class FMStore extends BaseFragment {
         view = inflater.inflate(R.layout.fragment_store, null);
 
         ButterKnife.bind(this, view);
+        tvBaseTitle.setText("我的小店");
 
         //setLayoutManager must before setAdapter
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);

@@ -122,7 +122,7 @@
                 android:text="分销佣金"/>
 
             <TextView
-                style="@style/text_main"
+                style="@style/text_red"
                 android:text="0.00"/>
 
         </LinearLayout>
@@ -148,11 +148,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="分销订单"/>
 
             <TextView
-                style="@style/text_main"
-                android:text="0.00"/>
+                style="@style/text_red"
+                android:text="0"/>
 
         </LinearLayout>
 
@@ -177,11 +177,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="佣金明细"/>
 
             <TextView
                 style="@style/text_main"
-                android:text="0.00"/>
+                android:text="佣金明细"/>
 
         </LinearLayout>
 
@@ -215,11 +215,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="我的团队"/>
 
             <TextView
-                style="@style/text_main"
-                android:text="0.00"/>
+                style="@style/text_red"
+                android:text="0"/>
 
         </LinearLayout>
 
@@ -244,11 +244,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="我的客户"/>
 
             <TextView
-                style="@style/text_main"
-                android:text="0.00"/>
+                style="@style/text_red"
+                android:text="0"/>
 
         </LinearLayout>
 
@@ -273,11 +273,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="二维码"/>
 
             <TextView
                 style="@style/text_main"
-                android:text="0.00"/>
+                android:text="推广二维码"/>
 
         </LinearLayout>
 
@@ -311,11 +311,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="小店设置"/>
 
             <TextView
                 style="@style/text_main"
-                android:text="0.00"/>
+                android:text="设置我的小店"/>
 
         </LinearLayout>
 
@@ -340,11 +340,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="自选商品"/>
 
             <TextView
                 style="@style/text_main"
-                android:text="0.00"/>
+                android:text="选择我喜欢的商品"/>
 
         </LinearLayout>
 
@@ -369,11 +369,11 @@
             <TextView
                 style="@style/text_adware"
                 android:layout_margin="5dp"
-                android:text="分销佣金"/>
+                android:text="悦读"/>
 
             <TextView
                 style="@style/text_main"
-                android:text="0.00"/>
+                android:text="文章列表标题"/>
 
         </LinearLayout>
 
@@ -410,7 +410,7 @@
                 android:text="订单总计"/>
 
             <TextView
-                style="@style/text_main"
+                style="@style/text_red"
                 android:text="0.00"/>
 
         </LinearLayout>

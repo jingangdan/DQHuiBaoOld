@@ -5,8 +5,8 @@
 
 
     <!-- QQ登录授权所需权限 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <!--微信登录授权所需权限-->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -39,9 +39,7 @@
 
         <activity android:name="com.tencent.connect.common.AssistActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            />
-
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <!--主界面-->
         <activity android:name="com.dq.huibao.ui.MainActivity"
@@ -65,6 +63,12 @@
 
         <!--登录-->
         <activity android:name="com.dq.huibao.ui.LoginActivity"/>
+
+        <!--注册-->
+        <activity android:name="com.dq.huibao.ui.RegistActivity"/>
+
+        <!--提交订单-->
+        <activity android:name="com.dq.huibao.ui.SubmitOrderActivity"/>
 
 
     </application>

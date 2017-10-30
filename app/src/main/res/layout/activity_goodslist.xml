@@ -5,55 +5,24 @@
     android:background="@color/bg_main"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/iv_gl_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@mipmap/ic_back" />
-
-        <ImageView
-            android:id="@+id/iv_gl_sreach"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@mipmap/ic_sreach" />
-
-        <TextView
-            style="@style/text_adware"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="全部商品" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:background="@color/view_main" />
+    <include layout="@layout/include_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_white"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
-        <Button
+        <TextView
+            android:id="@+id/tv_sales_top"
             style="@style/text_adware"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:background="@null"
-            android:text="销量从高到底"
-            android:textColor="@color/mycolor"
+            android:padding="5dp"
+            android:text="销量从高到低"
+            android:textColor="@color/tv_color001"
             android:textSize="12dp" />
 
         <View
@@ -61,11 +30,13 @@
             android:layout_height="fill_parent"
             android:background="@color/view_main" />
 
-        <Button
+        <TextView
+            android:id="@+id/tv_price_low"
             style="@style/text_adware"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:background="@null"
+            android:padding="5dp"
             android:text="价格从低到高"
             android:textSize="12dp" />
 
@@ -74,12 +45,14 @@
             android:layout_height="fill_parent"
             android:background="@color/view_main" />
 
-        <Button
+        <TextView
+            android:id="@+id/tv_price_top"
             style="@style/text_adware"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:background="@null"
-            android:text="价格从高到底"
+            android:padding="5dp"
+            android:text="价格从高到低"
             android:textSize="12dp" />
 
         <View
@@ -87,12 +60,14 @@
             android:layout_height="fill_parent"
             android:background="@color/view_main" />
 
-        <Button
+        <TextView
+            android:id="@+id/tv_comment_top"
             style="@style/text_adware"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:background="@null"
-            android:text="评价从高到底"
+            android:padding="5dp"
+            android:text="评价从高到低"
             android:textSize="12dp" />
 
     </LinearLayout>

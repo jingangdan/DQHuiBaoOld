@@ -47,6 +47,7 @@
         <item name="android:padding">10dp</item>
     </style>
 
+    <!--字体主样式-->
     <style name="text_main">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -56,15 +57,17 @@
 
     </style>
 
+    <!--广告字体-->
     <style name="text_adware">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14dp</item>
-        <item name="android:textColor">#333333</item>
+        <item name="android:textColor">@color/tv_color002</item>
         <item name="android:gravity">center</item>
 
     </style>
 
+    <!--白色字体-->
     <style name="text_white">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -73,6 +76,17 @@
         <item name="android:gravity">center</item>
 
     </style>
+
+    <!--红色字体-->
+    <style name="text_red">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">#F15353</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
 
     <style name="popWindow_anim_style" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pop_up_in</item>
@@ -86,5 +100,16 @@
         <attr name="civ_border_overlay" format="boolean" />
         <attr name="civ_fill_color" format="color" />
     </declare-styleable>
+
+    <!--登录注册按钮-->
+    <style name="but_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:background">@drawable/buttonshape</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">16dp</item>
+
+    </style>
+
 
 </resources>
