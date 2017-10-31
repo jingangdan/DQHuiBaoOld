@@ -163,6 +163,7 @@
             android:text="消息提醒" />
 
         <Button
+            android:id="@+id/but_mc_address"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"

@@ -70,6 +70,12 @@
         <!--提交订单-->
         <activity android:name="com.dq.huibao.ui.SubmitOrderActivity"/>
 
+        <!--管理收货地址-->
+        <activity android:name="com.dq.huibao.ui.memcen.AddressListActivity"/>
+
+        <!--添加收货地址-->
+        <activity android:name="com.dq.huibao.ui.memcen.AddAddressActivity"/>
+
 
     </application>
 

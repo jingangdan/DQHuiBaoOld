@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.ui.LoginActivity;
+import com.dq.huibao.ui.memcen.AddressListActivity;
 import com.dq.huibao.view.RoundImageView;
 
 import butterknife.Bind;
@@ -22,6 +24,10 @@ import butterknife.OnClick;
  */
 
 public class FMMemCen extends BaseFragment {
+    /*收货地址*/
+    @Bind(R.id.but_mc_address)
+    Button butMcAddress;
+
     private View view;
 
     /*用户头像（圆形图片）*/
@@ -50,14 +56,23 @@ public class FMMemCen extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick(R.id.riv_memcen)
+    @OnClick({R.id.riv_memcen, R.id.but_mc_address})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.riv_memcen:
                 intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.but_mc_address:
+                //收货地址
+                intent = new Intent(getActivity(), AddressListActivity.class);
+                startActivity(intent);
+
+                break;
         }
     }
 
+    @OnClick(R.id.but_mc_address)
+    public void onClick() {
+    }
 }
