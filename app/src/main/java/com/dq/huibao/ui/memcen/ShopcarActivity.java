@@ -1,20 +1,19 @@
-package com.dq.huibao.fragment;
+package com.dq.huibao.ui.memcen;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.ShoppingCartAdapter;
-import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.ShoppingCartBean;
 import com.dq.huibao.ui.SubmitOrderActivity;
 
@@ -26,19 +25,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Description：购物车（fragment）
- * Created by jingang on 2017/10/18.
+ * Description：购物车（activity）
+ * Created by jingang on 2017/11/1.
  */
 
-public class FMShopcar extends BaseFragment implements
+public class ShopcarActivity extends BaseActivity implements
         ShoppingCartAdapter.CheckInterface,
         ShoppingCartAdapter.ModifyCountInterface {
 
-    @Bind(R.id.tv_base_title)
-    TextView tvBaseTitle;
-
-    //    @Bind(R.id.tv_edit)
-//    TextView tv_edit;
     @Bind(R.id.list_shopping_cart)
     ListView list_shopping_cart;
     @Bind(R.id.ck_all)
@@ -51,6 +45,8 @@ public class FMShopcar extends BaseFragment implements
     RelativeLayout rl_bottom;
     @Bind(R.id.rel_shopcar_header)
     RelativeLayout relShopcarHeader;
+    @Bind(R.id.iv_base_back)
+    ImageView ivBaseBack;
     private View view;
 
     private TextView tv_all_check;
@@ -70,17 +66,17 @@ public class FMShopcar extends BaseFragment implements
     /*接收页面传值*/
     private Intent intent;
 
-    @Nullable
+    @SuppressLint("WrongConstant")
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_shopcar, null);
-        ButterKnife.bind(this, view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_shopcar);
+        ButterKnife.bind(this);
 
-        tvBaseTitle.setText("购物车");
+        relShopcarHeader.setVisibility(View.GONE);
 
-        //tv_edit.setOnClickListener(this);
-        //ck_all.setOnClickListener(this);
-        shoppingCartAdapter = new ShoppingCartAdapter(getActivity());
+
+        shoppingCartAdapter = new ShoppingCartAdapter(this);
         shoppingCartAdapter.setCheckInterface(this);
         shoppingCartAdapter.setModifyCountInterface(this);
         list_shopping_cart.setAdapter(shoppingCartAdapter);
@@ -88,13 +84,12 @@ public class FMShopcar extends BaseFragment implements
 
         initData();
 
-
-        return view;
     }
 
     @Override
-    protected void lazyLoad() {
-
+    protected void initWidght() {
+        super.initWidght();
+        setTitleName("购物车");
     }
 
     protected void initData() {
@@ -134,47 +129,12 @@ public class FMShopcar extends BaseFragment implements
                 break;
 
             case R.id.tv_settlement:
-                intent = new Intent(getActivity(), SubmitOrderActivity.class);
+                intent = new Intent(this, SubmitOrderActivity.class);
                 startActivity(intent);
 
                 break;
-//            case R.id.tv_edit:
-//                flag = !flag;
-//                if (flag) {
-//                    tv_edit.setText("完成");
-//                    shoppingCartAdapter.isShow(false);
-//                } else {
-//                    tv_edit.setText("编辑");
-//                    shoppingCartAdapter.isShow(true);
-//                }
-//                break;
         }
     }
-
-
-    /**
-     * 全选 反选
-     *
-     * @param buttonView
-     * @param isChecked
-     */
-//    @Override
-//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//        if (shoppingCartBeanList.size() != 0) {
-//            if (isChecked) {
-//                for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-//                    shoppingCartBeanList.get(i).setChoosed(true);
-//                }
-//                shoppingCartAdapter.notifyDataSetChanged();
-//            } else {
-//                for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-//                    shoppingCartBeanList.get(i).setChoosed(false);
-//                }
-//                shoppingCartAdapter.notifyDataSetChanged();
-//            }
-//        }
-//        statistics();
-//    }
 
 
     /**
@@ -283,13 +243,6 @@ public class FMShopcar extends BaseFragment implements
         shoppingCartAdapter.notifyDataSetChanged();
         statistics();
 
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
 

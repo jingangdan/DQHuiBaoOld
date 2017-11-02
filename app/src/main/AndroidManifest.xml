@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dq.huibao">
 
-
-
     <!-- QQ登录授权所需权限 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -52,6 +50,9 @@
             </intent-filter>
         </activity>
 
+        <!--web网页-->
+        <activity android:name="com.dq.huibao.ui.homepage.WebActivity"/>
+
         <!--商品详情-->
         <activity android:name="com.dq.huibao.ui.GoodsDetailsActivity"/>
 
@@ -75,6 +76,21 @@
 
         <!--添加收货地址-->
         <activity android:name="com.dq.huibao.ui.memcen.AddAddressActivity"/>
+
+        <!--我的订单-->
+        <activity android:name="com.dq.huibao.ui.memcen.OrderActivity"/>
+
+        <!--购物车-->
+        <activity android:name="com.dq.huibao.ui.memcen.ShopcarActivity"/>
+
+        <!--我的收藏-->
+        <activity android:name="com.dq.huibao.ui.memcen.CollectActivity"/>
+
+        <!--我的足迹-->
+        <activity android:name="com.dq.huibao.ui.memcen.FootprintActivity"/>
+
+        <!--优惠券-->
+        <activity android:name="com.dq.huibao.ui.memcen.CouponsActivity"/>
 
 
     </application>

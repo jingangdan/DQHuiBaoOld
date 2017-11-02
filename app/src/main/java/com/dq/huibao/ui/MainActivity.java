@@ -24,6 +24,9 @@ import com.dq.huibao.fragment.FMMemCen;
 import com.dq.huibao.fragment.FMShopcar;
 import com.dq.huibao.fragment.FMStore;
 
+import org.xutils.BuildConfig;
+import org.xutils.x;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -100,6 +103,10 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        x.Ext.init(this.getApplication());
+        x.Ext.setDebug(BuildConfig.DEBUG);
+
 
         fm = getSupportFragmentManager();
         setTabSelection(0);
@@ -328,6 +335,7 @@ public class MainActivity extends FragmentActivity {
      * @param event
      * @return
      */
+    @SuppressLint("WrongConstant")
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

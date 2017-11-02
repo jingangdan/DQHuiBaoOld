@@ -17,16 +17,29 @@ import com.dq.huibao.R;
 import com.dq.huibao.adapter.HotClassifyAdapter;
 import com.dq.huibao.adapter.HotClassifyAdapter1;
 import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.bean.HomePage;
+import com.dq.huibao.bean.HomePageTest;
+import com.dq.huibao.bean.Root;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
 import com.dq.huibao.ui.GoodsDetailsActivity;
+import com.dq.huibao.ui.homepage.WebActivity;
+import com.dq.huibao.utils.GsonUtil;
+import com.dq.huibao.utils.HttpUtils;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +97,9 @@ public class FMHomePage extends BaseFragment {
     /*接收页面传值*/
     private Intent intent;
 
+    /*接口地址*/
+    private String PATH = "";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -113,18 +129,6 @@ public class FMHomePage extends BaseFragment {
 
         llmv = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
 
-//        llmv.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                String imgwidth = tese.getMsg().get(position).getImgwidth();
-//                if (imgwidth.equals("50")) {
-//                    return 1;
-//                } else if (imgwidth.equals("100")) {
-//                    return 2;
-//                }
-//                return 1;
-//            }
-//        });
         rvHotClassify.setLayoutManager(llmv);
 
         hotClassifyAdapter = new HotClassifyAdapter(getActivity());
@@ -157,6 +161,62 @@ public class FMHomePage extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * 获取首页数据
+     *
+     * @param i 店铺id
+     */
+    public void getHomePage(String i) {
+        PATH = HttpUtils.PATH + HttpUtils.API_HOMEPGE + "i=" + i;
+
+        System.out.println("首页数据" + PATH);
+
+        RequestParams params = new RequestParams(PATH);
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        //Root root = GsonUtil.gsonIntance().gsonToBean(result, Root.class);
+                        System.out.println("111");
+
+                        Gson gson = new Gson();
+                        Root homeNewsBean = gson.fromJson(result, Root.class);
+
+                        System.out.println("111111111111 = "+homeNewsBean.getMsg());
+
+//                        Gson gson = new Gson();
+//                        System.out.println("222");
+//
+//                        Type type = new TypeToken<Root>() {}.getType();
+//                        System.out.println("333");
+//                        Root jsonBean = gson.fromJson(result, type);
+
+//                        System.out.println("1111111111111111111 = "+jsonBean.getMsg());
+//
+//                        toast("11111111  = "+jsonBean.getResult());
+
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
+    }
+
     /*组件初始化*/
     public void initData() {
         cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
@@ -164,6 +224,8 @@ public class FMHomePage extends BaseFragment {
 
         configImageLoader();
         getLunbo();
+
+        getHomePage("1604");
 
     }
 
@@ -209,22 +271,8 @@ public class FMHomePage extends BaseFragment {
                 @Override
                 public void onImageClick(ADInfo info, int position, View imageView) {
                     if (cycleViewPager.isCycle()) {
-
-                        Toast.makeText(getActivity(), position + "", Toast.LENGTH_LONG).show();
-
-                        //startActivity(new Intent(getActivity(), TestActivity.class));
-
-                        //toast("positon = "+position);
-                        //此处position是从1开始 故需要 - 1 操作
-//                        if (isNetworkUtils()) {
-//                            intent = new Intent(getActivity(), JoinActivity.class);
-//                            intent.putExtra("title", advList.get(position - 1).getTitle());
-//                            intent.putExtra("url", "http://www.ybt9.com/" + advList.get(position - 1).getLinkurl());
-//                            startActivity(intent);
-//                        } else {
-//                            toast("无网络连接");
-//                        }
-
+                        intent = new Intent(getActivity(), WebActivity.class);
+                        startActivity(intent);
                     }
 
                 }

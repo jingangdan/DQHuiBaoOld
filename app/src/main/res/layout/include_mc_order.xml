@@ -12,6 +12,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rel_mc_orders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -27,7 +28,7 @@
             android:text="查看我的全部订单"
             android:layout_alignParentRight="true"
             android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/ic_back"
+            android:drawableRight="@mipmap/ic_next"
             android:textSize="12dp"/>
 
     </RelativeLayout>

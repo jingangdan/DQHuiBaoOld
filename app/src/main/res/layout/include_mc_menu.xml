@@ -36,6 +36,7 @@
                 android:text="我的资料" />
 
             <Button
+                android:id="@+id/but_mc_shopcar"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
@@ -43,6 +44,7 @@
                 android:text="购物车" />
 
             <Button
+                android:id="@+id/but_mc_collect"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
@@ -58,6 +60,7 @@
             android:padding="10dp">
 
             <Button
+                android:id="@+id/but_mc_footprint"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
@@ -65,6 +68,7 @@
                 android:text="我的足迹" />
 
             <Button
+                android:id="@+id/but_mc_coupons"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
@@ -72,6 +76,7 @@
                 android:text="优惠券" />
 
             <Button
+                android:id="@+id/but_mc_integral"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
