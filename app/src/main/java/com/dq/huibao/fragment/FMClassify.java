@@ -13,9 +13,19 @@ import android.view.ViewGroup;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.ClassifyAdapter;
-import com.dq.huibao.adapter.GoodsAdapter;
+import com.dq.huibao.adapter.ClassifyTwoAdapter;
 import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.bean.classify.Classify;
 import com.dq.huibao.ui.GoodsListActivity;
+import com.dq.huibao.utils.GsonUtil;
+import com.dq.huibao.utils.HttpUtils;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,10 +46,17 @@ public class FMClassify extends BaseFragment {
     private LinearLayoutManager mLayoutManager, mLayoutManager1;
     private GridLayoutManager llmv;
     private ClassifyAdapter classifyAdapter;
-    private GoodsAdapter goodsAdapter;
+    private ClassifyTwoAdapter classifyTwoAdapter;
+
+    private List<Classify.DataBean> classifyList = new ArrayList<>();
+    private List<Classify.DataBean.ChildrenBean> classifytwoList = new ArrayList<>();
 
     /*跳转页面*/
     private Intent intent;
+
+    /*接口地址*/
+    private String PATH = "";
+    private RequestParams params;
 
     @Nullable
     @Override
@@ -48,20 +65,39 @@ public class FMClassify extends BaseFragment {
         ButterKnife.bind(this, view);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager1 = new LinearLayoutManager(getActivity());
-        rvCGoods.setLayoutManager(mLayoutManager1);
-
-        classifyAdapter = new ClassifyAdapter(getActivity());
         rvCClassify.setLayoutManager(mLayoutManager);
-        rvCClassify.setAdapter(classifyAdapter);
 
-        goodsAdapter = new GoodsAdapter(getActivity());
         llmv = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         rvCGoods.setLayoutManager(llmv);
 
-        rvCGoods.setAdapter(goodsAdapter);
+        /*一级分类*/
+        classifyAdapter = new ClassifyAdapter(getActivity(), classifyList);
+        rvCClassify.setAdapter(classifyAdapter);
 
-        goodsAdapter.setOnItemClickListener(new OnItemClickListener() {
+        /*二级分类*/
+        classifyTwoAdapter = new ClassifyTwoAdapter(getActivity(), classifytwoList);
+        rvCGoods.setAdapter(classifyTwoAdapter);
+
+        classifyAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                classifytwoList.clear();
+
+                if (position == 0) {
+                    classifytwoList.addAll(classifyList.get(0).getChildren());
+                } else {
+                    classifytwoList.addAll(classifyList.get(position).getChildren());
+                }
+                classifyAdapter.changeSelected(position);
+
+                classifytwoList.addAll(classifyList.get(position).getChildren());
+
+                classifyTwoAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+        classifyTwoAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 intent = new Intent(getActivity(), GoodsListActivity.class);
@@ -69,22 +105,55 @@ public class FMClassify extends BaseFragment {
             }
         });
 
-
-        initData();
+        getClassify("1604");
 
         return view;
     }
 
-    /*组建初始化*/
-    public void initData(){
-        classifyAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                classifyAdapter.changeSelected(position);
-            }
-        });
+    /**
+     * 获取分类
+     *
+     * @param i
+     */
+    public void getClassify(String i) {
+        PATH = HttpUtils.PATH + HttpUtils.SHOP_CATEGRAY + "i=" + i;
+        params = new RequestParams(PATH);
+        System.out.println("分类 = " + PATH);
+
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("分类 = " + result);
+
+                        final Classify classify = GsonUtil.gsonIntance().gsonToBean(result, Classify.class);
+
+                        classifyList.addAll(classify.getData());
+                        classifytwoList.addAll(classify.getData().get(0).getChildren());
+
+                        classifyAdapter.notifyDataSetChanged();
+                        classifyTwoAdapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
 
     }
+
 
     @Override
     protected void lazyLoad() {

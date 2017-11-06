@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,13 +30,13 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        style="@style/text_main"
+                        android:id="@+id/edit_sreach"
                         android:layout_weight="1"
                         android:background="@null"
                         android:hint="输入关键字在店铺内搜索"
-                        android:padding="3dp"
-                        android:textSize="14dp" />
+                        android:padding="3dp" />
 
                     <ImageView
                         android:id="@+id/iv_hp_sreach"
@@ -82,7 +82,7 @@
                         style="@style/text_adware"
                         android:layout_margin="10dp"
                         android:text="秋季新装先到先得，万款产品等你嗨！购！" />
-                    
+
                 </LinearLayout>
 
                 <ImageView
@@ -97,14 +97,14 @@
             <include layout="@layout/include_hot_classify" />
 
             <!--每日推荐-->
-            <include layout="@layout/include_recommend"/>
+            <include layout="@layout/include_recommend" />
 
             <!--热销产品-->
-            <include layout="@layout/include_hot_selling"/>
+            <include layout="@layout/include_hot_selling" />
 
             <!--猜你喜欢-->
-            <include layout="@layout/include_youlike"/>
-            
+            <include layout="@layout/include_youlike" />
+
         </LinearLayout>
 
 

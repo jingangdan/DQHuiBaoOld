@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.bean.classify.Classify;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
+
+import java.util.List;
 
 /**
  * Description：分类名称适配器
@@ -25,20 +28,22 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.MyView
     private OnItemLongClickListener mOnItemLongClickListener;
     private int mSelect = 0;
 
+    private Context mContext;
+    private List<Classify.DataBean> classifyList;
+    //private List<Tese.MsgBean> msgBeen;
+
+    public ClassifyAdapter(Context mContext, List<Classify.DataBean> classifyList) {
+        this.mContext = mContext;
+        this.classifyList = classifyList;
+        //this.msgBeen = msgBeen;
+    }
+
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
     public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
         this.mOnItemLongClickListener = mOnItemLongClickListener;
-    }
-
-    private Context mContext;
-    //private List<Tese.MsgBean> msgBeen;
-
-    public ClassifyAdapter(Context mContext){
-        this.mContext = mContext;
-        //this.msgBeen = msgBeen;
     }
 
     /**
@@ -89,23 +94,23 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.MyView
         //点击改变背景
         if (mSelect == position) {
             holder.linearLayout.setBackgroundColor(Color.WHITE);
-            holder.name.setTextColor(Color.rgb(241,83,83));
+            holder.name.setTextColor(Color.rgb(241, 83, 83));
             holder.line.setVisibility(View.VISIBLE);
         } else {
             holder.linearLayout.setBackgroundColor(Color.rgb(239, 239, 239));
-            holder.name.setTextColor(Color.rgb(51,51,51));
+            holder.name.setTextColor(Color.rgb(51, 51, 51));
             holder.line.setVisibility(View.GONE);
         }
 
-        holder.name.setText("测试分类");
+        holder.name.setText(""+classifyList.get(position).getName());
 
-        //holder.name.set
+        //holder.name.setText("测试分类");
 
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return classifyList.size();
     }
 
     class MyViewHolder extends BaseRecyclerViewHolder {

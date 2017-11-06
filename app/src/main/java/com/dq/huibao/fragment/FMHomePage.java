@@ -11,24 +11,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.HotClassifyAdapter;
-import com.dq.huibao.adapter.HotClassifyAdapter1;
+import com.dq.huibao.adapter.HpCubeAdapter;
+import com.dq.huibao.adapter.HpGoodsAdapter;
+import com.dq.huibao.adapter.HpMenuAdapter;
 import com.dq.huibao.base.BaseFragment;
-import com.dq.huibao.bean.HomePage;
-import com.dq.huibao.bean.HomePageTest;
-import com.dq.huibao.bean.Root;
+import com.dq.huibao.bean.homepage.Banner;
+import com.dq.huibao.bean.homepage.Cube;
+import com.dq.huibao.bean.homepage.Goods;
+import com.dq.huibao.bean.homepage.Menu;
+import com.dq.huibao.bean.homepage.Notice;
+import com.dq.huibao.bean.homepage.Picture;
+import com.dq.huibao.bean.homepage.Root;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
-import com.dq.huibao.ui.GoodsDetailsActivity;
-import com.dq.huibao.ui.homepage.WebActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.dq.huibao.utils.ImageUtils;
+import com.dq.huibao.view.MarqueTextView;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,13 +46,11 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Description：首页
@@ -53,46 +58,15 @@ import butterknife.OnClick;
  */
 
 public class FMHomePage extends BaseFragment {
-    /*搜索*/
-    @Bind(R.id.iv_hp_sreach)
-    ImageView ivHpSreach;
-
-    /**/
-    @Bind(R.id.rv_hot_classify)
-    RecyclerView rvHotClassify;
-
-    @Bind(R.id.rv_hot_classify1)
-    RecyclerView rvHotClassify1;
-
-    @Bind(R.id.rv_hot_classify2)
-    RecyclerView rvHotClassify2;
-
-    @Bind(R.id.rv_hot_classify3)
-    RecyclerView rvHotClassify3;
-
-    @Bind(R.id.rv_hot_classify4)
-    RecyclerView rvHotClassify4;
-
-    /*广告位1*/
-    @Bind(R.id.iv_hp_adware)
-    ImageView ivHpAdware;
-
+    @Bind(R.id.lin_homepage)
+    LinearLayout linHomepage;
+    @Bind(R.id.sv_homepage)
+    ScrollView svHomepage;
     private View view;
 
     private List<ImageView> views = new ArrayList<ImageView>();
     private List<ADInfo> infos;
     private ADInfo info;
-    private CycleViewPager cycleViewPager;
-
-    private List<String> imgs = new ArrayList<>();
-
-    /*热门类别*/
-    private RecyclerView rv_hot_classify;
-    private HotClassifyAdapter hotClassifyAdapter;
-    private HotClassifyAdapter1 hotClassifyAdapter1;
-
-    private LinearLayoutManager mLayoutManager, mLayoutManager1, mLayoutManager2, mLayoutManager3, mLayoutManager4;
-    private GridLayoutManager llmv, llmv1, llmv2, llmv3, llmv4;
 
     /*接收页面传值*/
     private Intent intent;
@@ -100,65 +74,32 @@ public class FMHomePage extends BaseFragment {
     /*接口地址*/
     private String PATH = "";
 
+    RequestParams params = null;
+
+    /*根*/
+    private Root root;
+
+    private LinearLayout lin_search = null, lin_banner = null, lin_menu = null,
+            lin_notice = null, lin_picture = null, lin_cube = null, lin_goods = null;
+
+    /*动态添加控件下标*/
+    private int index_menu = 0, index_picture = 0, index_cube = 0,
+            index_goods = 0;
+
+    private CycleViewPager cycleViewPager;
+    private RecyclerView recyclerView, recyclerView1;
+    private MarqueTextView tv_notice;
+    private ImageView iv_picture;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_homepage, null);
-
-        imgs.add("http://www.dequanhuibao.com/attachment/images/1604/2017/10/Z5qSsusTTeXQSSt4EE5X558PElS57q.jpg");
-        imgs.add("http://www.dequanhuibao.com/attachment/images/1604/2017/10/Y9jUQZpZ3UEj9ZLc49DU9zp9eJceAM.jpg");
-        imgs.add("http://www.dequanhuibao.com/attachment/images/1604/2017/10/aXkzkxCRsRFcB5FBRr2RRKXRcbxD1R.jpg");
-        imgs.add("http://www.dequanhuibao.com/attachment/images/1604/2017/09/kUiQNP0RnWWiI0a064I6IPin4I0n1p.jpg");
-        imgs.add("http://www.dequanhuibao.com/attachment/images/1604/2017/09/sB0USHrEZmsIeb0p0PeMIShB3YbheH.jpg ");
-        imgs.add("http://www.dequanhuibao.com/attachment/images/1604/2017/10/H83azgc3VdkV48614eWQ6deVn4eW6C.jpg");
+        view = inflater.inflate(R.layout.fm_homepage_test, null);
 
         ButterKnife.bind(this, view);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager1 = new LinearLayoutManager(getActivity());
-        mLayoutManager2 = new LinearLayoutManager(getActivity());
-        mLayoutManager3 = new LinearLayoutManager(getActivity());
-        mLayoutManager4 = new LinearLayoutManager(getActivity());
-
-        rvHotClassify.setLayoutManager(mLayoutManager);
-        rvHotClassify1.setLayoutManager(mLayoutManager1);
-        rvHotClassify2.setLayoutManager(mLayoutManager2);
-
-        rvHotClassify3.setLayoutManager(mLayoutManager3);
-        rvHotClassify4.setLayoutManager(mLayoutManager4);
-
-        llmv = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-
-        rvHotClassify.setLayoutManager(llmv);
-
-        hotClassifyAdapter = new HotClassifyAdapter(getActivity());
-        rvHotClassify.setAdapter(hotClassifyAdapter);
-
-        /*测试一行四列*/
-        llmv2 = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
-        llmv1 = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
-        llmv3 = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-        llmv4 = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
-
-        rvHotClassify1.setLayoutManager(llmv1);
-        rvHotClassify2.setLayoutManager(llmv2);
-        rvHotClassify3.setLayoutManager(llmv3);
-        rvHotClassify4.setLayoutManager(llmv4);
-
-        hotClassifyAdapter1 = new HotClassifyAdapter1(getActivity());
-
-        rvHotClassify1.setAdapter(hotClassifyAdapter1);
-        rvHotClassify2.setAdapter(hotClassifyAdapter1);
-        rvHotClassify3.setAdapter(hotClassifyAdapter);
-        rvHotClassify4.setAdapter(hotClassifyAdapter1);
-
-        initData();
+        getHomePage("1604");
         return view;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     /**
@@ -167,35 +108,19 @@ public class FMHomePage extends BaseFragment {
      * @param i 店铺id
      */
     public void getHomePage(String i) {
-        PATH = HttpUtils.PATH + HttpUtils.API_HOMEPGE + "i=" + i;
+        PATH = HttpUtils.PATH + HttpUtils.HP_ROOT + "i=" + i;
 
         System.out.println("首页数据" + PATH);
 
-        RequestParams params = new RequestParams(PATH);
+        params = new RequestParams(PATH);
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        //Root root = GsonUtil.gsonIntance().gsonToBean(result, Root.class);
-                        System.out.println("111");
+                        System.out.println("首页数据 = " + result);
+                        root = GsonUtil.gsonIntance().gsonToBean(result, Root.class);
 
-                        Gson gson = new Gson();
-                        Root homeNewsBean = gson.fromJson(result, Root.class);
-
-                        System.out.println("111111111111 = "+homeNewsBean.getMsg());
-
-//                        Gson gson = new Gson();
-//                        System.out.println("222");
-//
-//                        Type type = new TypeToken<Root>() {}.getType();
-//                        System.out.println("333");
-//                        Root jsonBean = gson.fromJson(result, type);
-
-//                        System.out.println("1111111111111111111 = "+jsonBean.getMsg());
-//
-//                        toast("11111111  = "+jsonBean.getResult());
-
-
+                        setFor(root);
 
                     }
 
@@ -217,51 +142,599 @@ public class FMHomePage extends BaseFragment {
 
     }
 
-    /*组件初始化*/
-    public void initData() {
-        cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
+    /**
+     * @param root
+     */
+    public void setFor(Root root) {
+        for (int i = 0; i < root.getData().size(); i++) {
+            //System.out.println("" + root.getData().get(i).getTemp());
+            setTemp(root.getData().get(i).getId(), root.getData().get(i).getTemp());
+//            try {
+//                Thread.sleep(2 * 100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+        }
+    }
+
+    /**
+     * 根据temp获取各类别的数据
+     *
+     * @param temp
+     */
+    public void setTemp(String id, final String temp) {
+        switch (temp) {
+            case "search":
+                System.out.println("添加search");
+                lin_search = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_search, null);
+                linHomepage.addView(lin_search);
+                //getData("1604", id, "search");
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + " = " + result);
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+
+                break;
+
+            case "banner":
+                System.out.println("添加banner");
+
+                lin_banner = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_lunbotu, null);
+                linHomepage.addView(lin_banner);
+
+                cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
+                //getData("1604", id, "banner");
+
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + " = " + result);
+
+                                configImageLoader();
+                                Banner banner = GsonUtil.gsonIntance().gsonToBean(result, Banner.class);
+                                infos = new ArrayList<>();
+                                for (int i = 0; i < banner.getData().getData().size(); i++) {
+                                    info = new ADInfo();
+                                    info.setUrl(banner.getData().getData().get(i).getImgurl());
+                                    info.setContent(banner.getData().getData().get(i).getSysurl());
+                                    info.setImg("");
+                                    infos.add(info);
+                                }
+
+                                // 将最后一个ImageView添加进来
+                                views.add(ViewFactory.getImageView(getActivity(), infos.get(infos.size() - 1).getUrl()));
+                                for (int i = 0; i < infos.size(); i++) {
+                                    views.add(ViewFactory.getImageView(getActivity(), infos.get(i).getUrl()));
+                                }
+                                // 将第一个ImageView添加进来
+                                views.add(ViewFactory.getImageView(getActivity(), infos.get(0).getUrl()));
+
+                                // 设置循环，在调用setData方法前调用
+                                cycleViewPager.setCycle(true);
+
+                                // 在加载数据前设置是否循环
+                                cycleViewPager.setData(views, infos, mAdCycleViewListener);
+                                //设置轮播
+                                cycleViewPager.setWheel(true);
+
+                                // 设置轮播时间，默认5000ms
+                                cycleViewPager.setTime(3000);
+                                //设置圆点指示图标组居中显示，默认靠右
+                                cycleViewPager.setIndicatorCenter();
+
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
 
 
-        configImageLoader();
-        getLunbo();
+                break;
 
-        getHomePage("1604");
+            case "menu":
+                System.out.println("添加menu");
+                index_menu++;
+
+                final RecyclerView rv = new RecyclerView(getActivity());
+                rv.setId(index_menu);
+
+                linHomepage.addView(rv);
+
+
+                lin_menu = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_menu, null);
+                linHomepage.addView(lin_menu);
+
+                recyclerView = (RecyclerView) lin_menu.findViewById(R.id.rv_hp_menu);
+
+                //getData("1604", id, "menu");
+
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + " = " + result);
+
+                                final Menu menu = GsonUtil.gsonIntance().gsonToBean(result, Menu.class);
+
+                                HpMenuAdapter hpMenuAdapter = new HpMenuAdapter(getActivity(), menu.getData().getData());
+
+                                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                rv.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
+
+                                rv.setAdapter(hpMenuAdapter);
+
+                                hpMenuAdapter.setOnItemClickListener(new OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        toast("" + menu.getData().getData().get(position).getText());
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+
+                break;
+
+            case "notice":
+                System.out.println("添加notice");
+                lin_notice = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_notice, null);
+                linHomepage.addView(lin_notice);
+
+                tv_notice = (MarqueTextView) lin_notice.findViewById(R.id.tv_hp_notice);
+
+                //System.out.println("添加notice");
+                //getData("1604", id, "notice");
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + " = " + result);
+
+                                Notice notice = GsonUtil.gsonIntance().gsonToBean(result, Notice.class);
+
+                                tv_notice.setText("" + notice.getData().getParams().getNotice());
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+                break;
+
+
+            case "picture":
+                System.out.println("添加picture");
+                index_picture++;
+//                lin_picture = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_picture, null);
+//                linHomepage.addView(lin_picture);
+//
+//                iv_picture = (ImageView) lin_picture.findViewById(R.id.iv_hp_picture);
+
+                final ImageView iv = new ImageView(getActivity());
+                iv.setId(index_picture);
+
+                linHomepage.addView(iv);
+
+
+                //System.out.println("添加picture");
+                //getData("1604", id, "picture");
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + " = " + result);
+
+                                Picture picture = GsonUtil.gsonIntance().gsonToBean(result, Picture.class);
+
+                                ImageUtils.loadIntoUseFitWidth(getActivity(),
+                                        picture.getData().getData().get(0).getImgurl(),
+                                        R.mipmap.icon_empty,
+                                        R.mipmap.icon_error,
+                                        iv);
+
+//                                Glide.with(getActivity())
+//                                        .load(picture.getData().getData().get(0).getImgurl())
+//                                        .placeholder(R.mipmap.icon_empty)
+//                                        .error(R.mipmap.icon_error)
+//                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                                        .into(iv);
+
+                                //x.image().bind(iv, picture.getData().getData().get(0).getImgurl());
+
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+                break;
+
+            case "cube":
+                System.out.println("添加cube");
+//                lin_cube = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_cube, null);
+//                linHomepage.addView(lin_cube);
+//
+//                recyclerView1 = (RecyclerView) lin_cube.findViewById(R.id.rv_hp_cube);
+
+                final RecyclerView rv_cube = new RecyclerView(getActivity());
+                rv_cube.setId(index_cube);
+                linHomepage.addView(rv_cube);
+
+                //getData("1604", id, "cube");
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + " = " + result);
+                                final Cube cube = GsonUtil.gsonIntance().gsonToBean(result, Cube.class);
+
+                                HpCubeAdapter hpCubeAdapter = new HpCubeAdapter(getActivity(), cube.getData().getParams().getLayout());
+
+                                GridLayoutManager mManager;
+                                mManager = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
+                                mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                                    @Override
+                                    public int getSpanSize(int position) {
+                                        String imgwidth = cube.getData().getParams().getLayout().get(position).getCols();
+                                        if (imgwidth.equals("1")) {
+                                            return 1;
+                                        } else if (imgwidth.equals("2")) {
+                                            return 2;
+                                        }
+                                        return 1;
+                                    }
+                                });
+
+                                rv_cube.setLayoutManager(mManager);
+
+                                rv_cube.setAdapter(hpCubeAdapter);
+
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+                break;
+
+            case "goods":
+                System.out.println("添加goods");
+                index_goods++;
+
+                final RecyclerView rv_goods = new RecyclerView(getActivity());
+                rv_goods.setId(index_goods);
+                linHomepage.addView(rv_goods);
+
+                //getData("1604", id, "goods");
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + "  = " + result);
+
+                                final Goods goods = GsonUtil.gsonIntance().gsonToBean(result, Goods.class);
+
+                                HpGoodsAdapter hpGoodsAdapter = new HpGoodsAdapter(getActivity(), goods.getData().getData());
+
+                                GridLayoutManager mManager;
+
+                                mManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+                                mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                                    @Override
+                                    public int getSpanSize(int position) {
+                                        String imgwidth = goods.getData().getParams().getStyle();
+                                        if (imgwidth.equals("49.5%")) {
+                                            return 1;
+                                        } else if (imgwidth.equals("100%")) {
+                                            return 2;
+                                        }
+                                        return 1;
+                                    }
+                                });
+
+                                rv_goods.setLayoutManager(mManager);
+                                rv_goods.setAdapter(hpGoodsAdapter);
+
+
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+    /**
+     * 获取temp数据
+     *
+     * @param i
+     * @param id temp id
+     */
+    public void getData(String i, String id, final String temp) {
+        PATH = HttpUtils.PATH + HttpUtils.HP_ROOT +
+                "i=" + i + "&id=" + id;
+
+        params = new RequestParams(PATH);
+        System.out.println("temp = " + PATH);
+
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        setLayout(temp, result);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
 
     }
 
-    /*获取轮播图*/
-    public void getLunbo() {
-        infos = new ArrayList<>();
+    /**
+     * @param temp
+     * @param result
+     */
+    @SuppressLint("WrongConstant")
+    public void setLayout(String temp, String result) {
+        switch (temp) {
+            case "search":
+                System.out.println("添加search");
 
-        for (int i = 0; i < imgs.size(); i++) {
-            info = new ADInfo();
-            info.setUrl(imgs.get(i).toString());
-//            info.setContent("" + wxADV.getMsg().get(i).getTitle());
-//            info.setImg("http://www.ybt9.com/" + wxADV.getMsg().get(i).getLinkurl());
-            infos.add(info);
+                break;
+
+            case "banner":
+                System.out.println("添加banner");
+//                LinearLayout lin_banner = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_lunbotu, null);
+//                linHomepage.addView(lin_banner);
+//
+//                cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
+
+                configImageLoader();
+
+
+                Banner banner = GsonUtil.gsonIntance().gsonToBean(result, Banner.class);
+
+
+                infos = new ArrayList<>();
+                for (int i = 0; i < banner.getData().getData().size(); i++) {
+                    info = new ADInfo();
+                    info.setUrl(banner.getData().getData().get(i).getImgurl());
+                    info.setContent(banner.getData().getData().get(i).getSysurl());
+                    info.setImg("");
+                    infos.add(info);
+                }
+
+                // 将最后一个ImageView添加进来
+                views.add(ViewFactory.getImageView(getActivity(), infos.get(infos.size() - 1).getUrl()));
+                for (int i = 0; i < infos.size(); i++) {
+                    views.add(ViewFactory.getImageView(getActivity(), infos.get(i).getUrl()));
+                }
+                // 将第一个ImageView添加进来
+                views.add(ViewFactory.getImageView(getActivity(), infos.get(0).getUrl()));
+
+                // 设置循环，在调用setData方法前调用
+                cycleViewPager.setCycle(true);
+
+                // 在加载数据前设置是否循环
+                cycleViewPager.setData(views, infos, mAdCycleViewListener);
+                //设置轮播
+                cycleViewPager.setWheel(true);
+
+                // 设置轮播时间，默认5000ms
+                cycleViewPager.setTime(3000);
+                //设置圆点指示图标组居中显示，默认靠右
+                cycleViewPager.setIndicatorCenter();
+
+
+                break;
+
+            case "menu":
+                System.out.println("添加menu");
+//                LinearLayout lin_menu = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_menu, null);
+//                linHomepage.addView(lin_menu);
+//
+//                RecyclerView recyclerView = (RecyclerView) lin_menu.findViewById(R.id.rv_hp_menu);
+
+                Menu menu = GsonUtil.gsonIntance().gsonToBean(result, Menu.class);
+
+                HpMenuAdapter hpMenuAdapter = new HpMenuAdapter(getActivity(), menu.getData().getData());
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
+
+                recyclerView.setAdapter(hpMenuAdapter);
+
+
+                break;
+
+            case "notice":
+                System.out.println("添加notice");
+
+                Notice notice = GsonUtil.gsonIntance().gsonToBean(result, Notice.class);
+
+                tv_notice.setText("" + notice.getData().getParams().getNotice());
+
+
+                break;
+
+            case "picture":
+                System.out.println("添加picture");
+
+//                LinearLayout lin_picture = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_picture, null);
+//                linHomepage.addView(lin_picture);
+//
+//
+//                iv_picture = (ImageView) lin_picture.findViewById(R.id.iv_hp_picture);
+
+                Picture picture = GsonUtil.gsonIntance().gsonToBean(result, Picture.class);
+                //x.image().bind(iv_picture, "http://www.dequanhuibao.com/attachment/images/1604/2017/08/BiiJd063556743Nw07oz73dA6d74I7.jpg");
+                x.image().bind(iv_picture, picture.getData().getData().get(0).getImgurl());
+
+                break;
+
+            case "cube":
+                System.out.println("添加cube");
+
+                final Cube cube = GsonUtil.gsonIntance().gsonToBean(result, Cube.class);
+
+                HpCubeAdapter hpCubeAdapter = new HpCubeAdapter(getActivity(), cube.getData().getParams().getLayout());
+
+                GridLayoutManager mManager;
+                mManager = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
+                mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        for (int i = 0; i < cube.getData().getParams().getLayout().size(); i++) {
+                            String imgwidth = cube.getData().getParams().getLayout().get(i).getCols();
+                            System.out.println("啥啥啥 = " + imgwidth);
+                            if (imgwidth.equals("1")) {
+                                return 2;
+                            } else if (imgwidth.equals("2")) {
+                                return 4;
+                            }
+                        }
+//                        String imgwidth = tese.getMsg().get(position).getImgwidth();
+//                        if (imgwidth.equals("50")) {
+//                            return 1;
+//                        } else if (imgwidth.equals("100")) {
+//                            return 2;
+//                        }
+
+                        return 2;
+                    }
+                });
+
+                recyclerView1.setLayoutManager(mManager);
+
+                recyclerView1.setAdapter(hpCubeAdapter);
+
+                break;
+
+            case "goods":
+                System.out.println("添加goods");
+                break;
+
+            default:
+                break;
         }
-
-        // 将最后一个ImageView添加进来
-        views.add(ViewFactory.getImageView(getActivity(), infos.get(infos.size() - 1).getUrl()));
-        for (int i = 0; i < infos.size(); i++) {
-            views.add(ViewFactory.getImageView(getActivity(), infos.get(i).getUrl()));
-        }
-        // 将第一个ImageView添加进来
-        views.add(ViewFactory.getImageView(getActivity(), infos.get(0).getUrl()));
-
-        // 设置循环，在调用setData方法前调用
-        cycleViewPager.setCycle(true);
-
-        // 在加载数据前设置是否循环
-        cycleViewPager.setData(views, infos, mAdCycleViewListener);
-        //设置轮播
-        cycleViewPager.setWheel(true);
-
-        // 设置轮播时间，默认5000ms
-        cycleViewPager.setTime(3000);
-        //设置圆点指示图标组居中显示，默认靠右
-        cycleViewPager.setIndicatorCenter();
     }
+
 
     /*轮播图点击事件*/
     private CycleViewPager.ImageCycleViewListener mAdCycleViewListener =
@@ -271,8 +744,8 @@ public class FMHomePage extends BaseFragment {
                 @Override
                 public void onImageClick(ADInfo info, int position, View imageView) {
                     if (cycleViewPager.isCycle()) {
-                        intent = new Intent(getActivity(), WebActivity.class);
-                        startActivity(intent);
+                        //intent = new Intent(getActivity(), WebActivity.class);
+                        //startActivity(intent);
                     }
 
                 }
@@ -299,33 +772,9 @@ public class FMHomePage extends BaseFragment {
         ImageLoader.getInstance().init(config);
     }
 
-
     @Override
     protected void lazyLoad() {
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
-    @OnClick({R.id.iv_hp_sreach, R.id.rv_hot_classify, R.id.iv_hp_adware})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_hp_sreach:
-
-                break;
-            case R.id.rv_hot_classify:
-                break;
-
-            case R.id.iv_hp_adware:
-                Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
-                startActivity(intent);
-
-                break;
-        }
     }
 
 }
