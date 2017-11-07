@@ -5,7 +5,9 @@
     android:background="@color/bg_main"
     android:orientation="vertical">
 
-    <include layout="@layout/include_header" />
+    <include
+        layout="@layout/include_header"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,12 +84,134 @@
         android:layout_height="wrap_content"
         android:padding="5dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/lrv_goodslist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        </android.support.v7.widget.RecyclerView>
+        <ScrollView
+            android:id="@+id/gv_goodslist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lrv_goodslist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@null" />
+
+                    <Button
+                        android:id="@+id/but_gl_first"
+                        style="@style/text_main"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/kuang_style"
+                        android:text="首页" />
+
+                    <Button
+                        android:id="@+id/but_gl_on"
+                        style="@style/text_main"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/kuang_style"
+                        android:text="上一页" />
+
+                    <Button
+                        android:id="@+id/but_gl_next"
+                        style="@style/text_main"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/kuang_style"
+                        android:text="下一页" />
+
+                    <Button
+                        android:id="@+id/but_gl_last"
+                        style="@style/text_main"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/kuang_style"
+                        android:text="尾页" />
+
+                    <Button
+                        android:id="@+id/but_gl_jump"
+                        style="@style/text_main"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/kuang_style"
+                        android:text="跳到" />
+
+                    <EditText
+                        android:id="@+id/et_gl_page"
+                        style="@style/text_main"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/kuang_style"
+                        android:hint="1"
+                        android:inputType="number" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@null" />
+
+                    <!--<android.support.v7.widget.RecyclerView-->
+                    <!--android:id="@+id/rv_goodslist_page"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--</android.support.v7.widget.RecyclerView>-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="版权所有&#160;©德泉惠宝购物商城&#160;客服电话：15106390112（24小时在线）"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
 
     </LinearLayout>
 

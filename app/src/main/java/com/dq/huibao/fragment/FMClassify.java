@@ -56,6 +56,7 @@ public class FMClassify extends BaseFragment {
 
     /*接口地址*/
     private String PATH = "";
+    private String pcate = "", ccate = "", name = "";//一级分类id 二级分类id 分类名称
     private RequestParams params;
 
     @Nullable
@@ -88,6 +89,9 @@ public class FMClassify extends BaseFragment {
                 } else {
                     classifytwoList.addAll(classifyList.get(position).getChildren());
                 }
+
+                pcate = classifyList.get(position).getId();
+
                 classifyAdapter.changeSelected(position);
 
                 classifytwoList.addAll(classifyList.get(position).getChildren());
@@ -100,7 +104,12 @@ public class FMClassify extends BaseFragment {
         classifyTwoAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                ccate = classifytwoList.get(position).getId();
+                name = classifytwoList.get(position).getName();
                 intent = new Intent(getActivity(), GoodsListActivity.class);
+                intent.putExtra("pcate", pcate);
+                intent.putExtra("ccate", ccate);
+                intent.putExtra("name", name);
                 startActivity(intent);
             }
         });
@@ -130,6 +139,8 @@ public class FMClassify extends BaseFragment {
 
                         classifyList.addAll(classify.getData());
                         classifytwoList.addAll(classify.getData().get(0).getChildren());
+
+                        pcate = classifyList.get(0).getId();
 
                         classifyAdapter.notifyDataSetChanged();
                         classifyTwoAdapter.notifyDataSetChanged();

@@ -3,15 +3,15 @@
     package="com.dq.huibao">
 
     <!-- QQ登录授权所需权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!--微信登录授权所需权限-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
     <application
@@ -26,21 +26,25 @@
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="1106502346" /> <!-- 开放平台获取的APPID -->
             </intent-filter>
         </activity>
 
-        <activity android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!--主界面-->
-        <activity android:name="com.dq.huibao.ui.MainActivity"
+        <activity
+            android:name="com.dq.huibao.ui.MainActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
             <intent-filter>
@@ -51,46 +55,48 @@
         </activity>
 
         <!--web网页-->
-        <activity android:name="com.dq.huibao.ui.homepage.WebActivity"/>
+        <activity android:name="com.dq.huibao.ui.homepage.WebActivity" />
 
         <!--商品详情-->
-        <activity android:name="com.dq.huibao.ui.GoodsDetailsActivity"/>
+        <activity android:name="com.dq.huibao.ui.GoodsDetailsActivity" />
 
         <!--显示大图-->
-        <activity android:name="com.dq.huibao.ui.ShowBigPictrueActivity"/>
+        <activity android:name="com.dq.huibao.ui.ShowBigPictrueActivity" />
 
         <!--商品列表-->
-        <activity android:name="com.dq.huibao.ui.GoodsListActivity"/>
+        <activity
+            android:name="com.dq.huibao.ui.GoodsListActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
         <!--登录-->
-        <activity android:name="com.dq.huibao.ui.LoginActivity"/>
+        <activity android:name="com.dq.huibao.ui.LoginActivity" />
 
         <!--注册-->
-        <activity android:name="com.dq.huibao.ui.RegistActivity"/>
+        <activity android:name="com.dq.huibao.ui.RegistActivity" />
 
         <!--提交订单-->
-        <activity android:name="com.dq.huibao.ui.SubmitOrderActivity"/>
+        <activity android:name="com.dq.huibao.ui.SubmitOrderActivity" />
 
         <!--管理收货地址-->
-        <activity android:name="com.dq.huibao.ui.memcen.AddressListActivity"/>
+        <activity android:name="com.dq.huibao.ui.memcen.AddressListActivity" />
 
         <!--添加收货地址-->
-        <activity android:name="com.dq.huibao.ui.memcen.AddAddressActivity"/>
+        <activity android:name="com.dq.huibao.ui.memcen.AddAddressActivity" />
 
         <!--我的订单-->
-        <activity android:name="com.dq.huibao.ui.memcen.OrderActivity"/>
+        <activity android:name="com.dq.huibao.ui.memcen.OrderActivity" />
 
         <!--购物车-->
-        <activity android:name="com.dq.huibao.ui.memcen.ShopcarActivity"/>
+        <activity android:name="com.dq.huibao.ui.memcen.ShopcarActivity" />
 
         <!--我的收藏-->
-        <activity android:name="com.dq.huibao.ui.memcen.CollectActivity"/>
+        <activity android:name="com.dq.huibao.ui.memcen.CollectActivity" />
 
         <!--我的足迹-->
-        <activity android:name="com.dq.huibao.ui.memcen.FootprintActivity"/>
+        <activity android:name="com.dq.huibao.ui.memcen.FootprintActivity" />
 
         <!--优惠券-->
-        <activity android:name="com.dq.huibao.ui.memcen.CouponsActivity"/>
+        <activity android:name="com.dq.huibao.ui.memcen.CouponsActivity" />
 
 
     </application>

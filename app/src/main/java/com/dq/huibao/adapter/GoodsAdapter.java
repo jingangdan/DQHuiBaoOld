@@ -2,6 +2,7 @@ package com.dq.huibao.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,11 @@ import android.widget.TextView;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.bean.classify.GoodsList;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
+import com.dq.huibao.utils.ImageUtils;
+
+import java.util.List;
 
 /**
  * Description：分类商品适配器
@@ -25,6 +30,14 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
+    private Context mContext;
+    private List<GoodsList.DataBean.GoodsBean> goodsList;
+
+    public GoodsAdapter(Context mContext, List<GoodsList.DataBean.GoodsBean> goodsList) {
+        this.mContext = mContext;
+        this.goodsList = goodsList;
+    }
+
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
@@ -33,19 +46,11 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
         this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
 
-    private Context mContext;
-    //private List<Tese.MsgBean> msgBeen;
-
-    public GoodsAdapter(Context mContext){
-        this.mContext = mContext;
-        //this.msgBeen = msgBeen;
-    }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         MyViewHolder vh = new MyViewHolder(LayoutInflater.from(
-                mContext).inflate(R.layout.item_goods, parent,
+                mContext).inflate(R.layout.item_hp_goods, parent,
                 false));
         return vh;
     }
@@ -75,27 +80,40 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
             });
         }
 
-        holder.img.setImageResource(R.mipmap.ic_goods);
-        holder.name.setText("测试商品");
+        String img = goodsList.get(position).getImg();
 
-        //holder.name.set
+        ImageUtils.loadIntoUseFitWidth(mContext,
+                "http://www.dequanhuibao.com/attachment/"+img,
+                R.mipmap.icon_empty002,
+                R.mipmap.icon_error002,
+                holder.img);
+
+        holder.tv_name.setText("" + goodsList.get(position).getName());
+
+        holder.tv_pricenow.setText("¥" + goodsList.get(position).getCostprice());
+
+        holder.tv_priceold.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.tv_priceold.setText("¥" + goodsList.get(position).getMarketprice());
+
 
     }
 
     @Override
     public int getItemCount() {
-        return 30;
+        return goodsList.size();
     }
 
     class MyViewHolder extends BaseRecyclerViewHolder {
 
-        ImageView img;
-        TextView name;
+        private ImageView img;
+        private TextView tv_name, tv_pricenow, tv_priceold;
 
         public MyViewHolder(View view) {
             super(view);
-            img = (ImageView) view.findViewById(R.id.iv_item_goods_img);
-            name = (TextView) view.findViewById(R.id.tv_item_goods_name);
+            img = (ImageView) view.findViewById(R.id.iv_item_hp_img);
+            tv_name = (TextView) view.findViewById(R.id.tv_item_hp_name);
+            tv_pricenow = (TextView) view.findViewById(R.id.tv_item_hp_tv_pricenow);
+            tv_priceold = (TextView) view.findViewById(R.id.tv_item_hp_priceold);
         }
     }
 }

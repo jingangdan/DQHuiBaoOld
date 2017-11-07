@@ -31,6 +31,14 @@ public class HttpUtils {
      * 价格：marketprice  从高到低：desc  从低到高：asc
      * 评价：score 从高到低：asc
      */
-    public static final String  SHOP_GOODSLIST = "api=shop/Goods/goodslist&i=1604";
+    public static final String SHOP_GOODSLIST = "api=shop/Goods/goodslist&i=1604&";
+
+    /*
+    * 搜索
+    * 参数：
+    * i: shopid
+    * keywords:搜索关键字
+    * */
+    public static final String SHOP_SEARCH = "api=shop/Goods/search&i=1604";
 
 }
