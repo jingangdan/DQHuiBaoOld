@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
@@ -17,6 +18,7 @@ import com.dq.huibao.adapter.ClassifyTwoAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.classify.Classify;
 import com.dq.huibao.ui.GoodsListActivity;
+import com.dq.huibao.ui.KeywordsActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 
@@ -29,6 +31,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Description：分类
@@ -40,6 +43,8 @@ public class FMClassify extends BaseFragment {
     RecyclerView rvCClassify;
     @Bind(R.id.rv_c_goods)
     RecyclerView rvCGoods;
+    @Bind(R.id.tv_search)
+    TextView tvSearch;
 
     private View view;
 
@@ -94,7 +99,7 @@ public class FMClassify extends BaseFragment {
 
                 classifyAdapter.changeSelected(position);
 
-                classifytwoList.addAll(classifyList.get(position).getChildren());
+                //classifytwoList.addAll(classifyList.get(position).getChildren());
 
                 classifyTwoAdapter.notifyDataSetChanged();
 
@@ -107,9 +112,10 @@ public class FMClassify extends BaseFragment {
                 ccate = classifytwoList.get(position).getId();
                 name = classifytwoList.get(position).getName();
                 intent = new Intent(getActivity(), GoodsListActivity.class);
-                intent.putExtra("pcate", pcate);
-                intent.putExtra("ccate", ccate);
+                intent.putExtra("pcate", "&pcate="+pcate);
+                intent.putExtra("ccate", "&ccate="+ccate);
                 intent.putExtra("name", name);
+                intent.putExtra("keywords", "");
                 startActivity(intent);
             }
         });
@@ -176,4 +182,155 @@ public class FMClassify extends BaseFragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+    @OnClick({R.id.tv_search})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_search:
+                intent = new Intent(getActivity(), KeywordsActivity.class);
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+//    PopupWindow pop;
+//    View view_pop;
+//    LinearLayout ll_popup;
+//
+//    private AutoCompleteTextView autoCompleteTextView;
+//    private TextView tv_cancel;
+//    private ImageView iv_pop;
+//    private RecyclerView rv_pop;
+//
+//    private String UTF_search = "";
+//
+//    private KeywordsAdapter keywordsAdapter;
+//    private List<Keywords.DataBean.GoodsBean> keywordsList = new ArrayList<>();
+//
+//    /*
+//    * 搜索弹出框
+//    * */
+//    public void setDialog() {
+//        pop = new PopupWindow(getActivity());
+//        view_pop = getActivity().getLayoutInflater().inflate(R.layout.pop_search, null);
+//        view_pop.setAnimation(AnimationUtils.loadAnimation(
+//                getActivity(), R.anim.slide_bottom_to_top));
+//        ll_popup = (LinearLayout) view_pop.findViewById(R.id.lin_pop);
+//
+//        pop.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+//        pop.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+//        pop.setBackgroundDrawable(new BitmapDrawable());
+//        pop.setFocusable(true);
+//        pop.setOutsideTouchable(true);
+//        pop.setContentView(view_pop);
+//        pop.showAsDropDown(view_pop);
+//
+//        autoCompleteTextView = (AutoCompleteTextView) view_pop.findViewById(R.id.autoCompleteTextView);
+//        iv_pop = (ImageView) view_pop.findViewById(R.id.iv_pop_search);
+//        tv_cancel = (TextView) view_pop.findViewById(R.id.tv_pop_cancel);
+//
+//        rv_pop = (RecyclerView) view_pop.findViewById(R.id.rv_pop);
+//        rv_pop.setLayoutManager(new LinearLayoutManager(getActivity()));
+//
+//        keywordsAdapter = new KeywordsAdapter(getActivity(), keywordsList);
+//
+//        rv_pop.setAdapter(keywordsAdapter);
+//
+//        //取消
+//        tv_cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                pop.dismiss();
+//                ll_popup.clearAnimation();
+//            }
+//        });
+//
+//        /**
+//         * 当输入关键字变化时，动态更新建议列表
+//         */
+//        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+//
+//            @Override
+//            public void afterTextChanged(Editable arg0) {
+//
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence arg0, int arg1,
+//                                          int arg2, int arg3) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+//
+//                try {
+//                    UTF_search = URLEncoder.encode(autoCompleteTextView.getText().toString(), "UTF-8");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                getSearch(UTF_search);
+//
+//            }
+//        });
+//
+//        /**/
+//        keywordsAdapter.setmOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                toast("商品id = " + keywordsList.get(position).getGoodid());
+//            }
+//        });
+//
+//    }
+//
+//    /**
+//     * 获取搜索数据
+//     *
+//     * @param keywords
+//     */
+//    public void getSearch(String keywords) {
+//        PATH = HttpUtils.PATH + HttpUtils.SHOP_SEARCH + "keywords=" + keywords;
+//
+//        params = new RequestParams(PATH);
+//        System.out.println("搜索 = " + PATH);
+//        x.http().get(params,
+//                new Callback.CommonCallback<String>() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        System.out.println("搜索 = " + result);
+//
+//                        Keywords keywords = GsonUtil.gsonIntance().gsonToBean(result, Keywords.class);
+//
+//                        keywordsList.clear();
+//                        keywordsList.addAll(keywords.getData().getGoods());
+//
+//                        keywordsAdapter.notifyDataSetChanged();
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable ex, boolean isOnCallback) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(CancelledException cex) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFinished() {
+//
+//                    }
+//                });
+//
+//    }
+
+
 }

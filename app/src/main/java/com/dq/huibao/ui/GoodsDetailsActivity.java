@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -24,10 +25,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.dq.huibao.R;
-import com.dq.huibao.view.goodsdetails.BabyPopWindow;
+import com.dq.huibao.bean.classify.GoodsDetail;
+import com.dq.huibao.utils.GsonUtil;
+import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.view.HackyViewPager;
+import com.dq.huibao.view.goodsdetails.BabyPopWindow;
 import com.dq.huibao.view.goodsdetails_foot.GradationScrollView;
 import com.dq.huibao.view.goodsdetails_foot.ScrollViewContainer;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 
@@ -40,7 +48,13 @@ import butterknife.OnClick;
  * Description：商品详情
  * Created by jingang on 2017/10/24.
  */
-public class GoodsDetailsActivity extends Activity implements GradationScrollView.ScrollViewListener{
+public class GoodsDetailsActivity extends Activity implements GradationScrollView.ScrollViewListener {
+    private GoodsDetailsActivity TAG = GoodsDetailsActivity.this;
+
+    /*返回上层*/
+    @Bind(R.id.iv_gd_back)
+    ImageView ivGdBack;
+
     /*显示图片控件*/
     @Bind(R.id.iv_baby)
     HackyViewPager ivBaby;
@@ -65,6 +79,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
 
     NfcAdapter nfcAdapter;
+
     private HackyViewPager viewPager;
     private ArrayList<View> allListView;
 
@@ -100,12 +115,27 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     private int width;
     private int height;
 
+    /*接收页面传值*/
+    private Intent intent;
+    private String gid = "";
+
+    /*接口地址*/
+    private String PATH = "";
+    private RequestParams params;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goodsdetails);
         ButterKnife.bind(this);
+
+        intent = getIntent();
+        gid = intent.getStringExtra("gid");
+
+        System.out.println("55555 = " + gid);
+
+        getGoodsDetail(gid);
+
 
         getSaveCollection();
         initView();
@@ -119,7 +149,45 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     }
 
-    public  int getScreenHeight(Context context) {
+    /**
+     * 获取商品详情
+     *
+     * @param gid
+     */
+    public void getGoodsDetail(String gid) {
+        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODS_DETAIL + gid;
+        params = new RequestParams(PATH);
+
+        System.out.println("商品详情 = " + PATH);
+
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("商品详情 = " + result);
+                        GoodsDetail goodsDetail = GsonUtil.gsonIntance().gsonToBean(result, GoodsDetail.class);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+
+    public int getScreenHeight(Context context) {
         @SuppressLint("WrongConstant")
         WindowManager wm = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -164,7 +232,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         ViewTreeObserver vto = ivBaby.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void onGlobalLayout()  {
+            public void onGlobalLayout() {
                 //llTitle.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 height = ivBaby.getHeight();
 
@@ -238,9 +306,15 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     }
 
-    @OnClick({R.id.iv_baby, R.id.but_gd_put_in, R.id.but_gd_bug_new})
+    @OnClick({R.id.iv_baby, R.id.but_gd_put_in, R.id.but_gd_bug_new, R.id.iv_gd_back})
     public void onClick(View view) {
         switch (view.getId()) {
+
+            case R.id.iv_gd_back:
+                TAG.finish();
+                break;
+
+
 //            case R.id.iv_baby_collection:
 //                //收藏
 //                if (isCollection) {

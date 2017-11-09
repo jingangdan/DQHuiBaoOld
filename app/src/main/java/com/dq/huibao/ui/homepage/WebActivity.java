@@ -1,5 +1,6 @@
 package com.dq.huibao.ui.homepage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -16,9 +17,13 @@ import butterknife.ButterKnife;
  * Created by jingang on 2017/11/1.
  */
 
-public class WebActivity extends BaseActivity {
+public class WebActivity extends Activity {
     @Bind(R.id.webView)
     WebView webView;
+
+    /*接收页面传值*/
+    private Intent intent;
+    private String url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,10 @@ public class WebActivity extends BaseActivity {
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
 
-        webView.loadUrl("url");
+        intent = getIntent();
+        url = intent.getStringExtra("url");
+
+        webView.loadUrl(url);
 
         webView.setHorizontalScrollBarEnabled(false);//水平不显示
         webView.setVerticalScrollBarEnabled(false); //垂直不显示
@@ -35,9 +43,9 @@ public class WebActivity extends BaseActivity {
         settings.setJavaScriptEnabled(true);
     }
 
-    @Override
-    protected void initWidght() {
-        super.initWidght();
-        setTitleName("web网页");
-    }
+//    @Override
+//    protected void initWidght() {
+//        super.initWidght();
+//        setTitleName("web网页");
+//    }
 }

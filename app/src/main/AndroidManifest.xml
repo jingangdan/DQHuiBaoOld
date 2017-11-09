@@ -68,6 +68,8 @@
             android:name="com.dq.huibao.ui.GoodsListActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
+        <activity android:name="com.dq.huibao.ui.KeywordsActivity" />
+
         <!--登录-->
         <activity android:name="com.dq.huibao.ui.LoginActivity" />
 

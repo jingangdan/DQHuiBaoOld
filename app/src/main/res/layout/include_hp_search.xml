@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/edit_sreach"
+            android:id="@+id/et_hp_sreach"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"

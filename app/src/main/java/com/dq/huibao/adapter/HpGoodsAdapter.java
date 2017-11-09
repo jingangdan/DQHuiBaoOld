@@ -68,16 +68,9 @@ public class HpGoodsAdapter extends RecyclerView.Adapter<HpGoodsAdapter.MyViewHo
 
         ImageUtils.loadIntoUseFitWidth(mContext,
                 img,
-                R.mipmap.icon_empty,
-                R.mipmap.icon_error,
+                R.mipmap.icon_empty002,
+                R.mipmap.icon_error002,
                 holder.img);
-
-//        Glide.with(mContext)
-//                .load(img)
-//                .placeholder(R.mipmap.icon_empty)
-//                .error(R.mipmap.icon_error)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .into(holder.img);
 
         holder.tv_name.setText("" + goodsList.get(position).getName());
 

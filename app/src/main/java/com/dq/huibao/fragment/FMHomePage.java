@@ -10,12 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.HpCubeAdapter;
@@ -29,9 +28,13 @@ import com.dq.huibao.bean.homepage.Menu;
 import com.dq.huibao.bean.homepage.Notice;
 import com.dq.huibao.bean.homepage.Picture;
 import com.dq.huibao.bean.homepage.Root;
+import com.dq.huibao.bean.homepage.Search;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
+import com.dq.huibao.ui.GoodsDetailsActivity;
+import com.dq.huibao.ui.GoodsListActivity;
+import com.dq.huibao.ui.homepage.WebActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -46,6 +49,8 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +73,10 @@ public class FMHomePage extends BaseFragment {
     private List<ADInfo> infos;
     private ADInfo info;
 
+    private String urlstr = "";//跳转web地址
+
+    private List<Banner.DataBeanX.DataBean> bannerList = new ArrayList<>();
+
     /*接收页面传值*/
     private Intent intent;
 
@@ -80,16 +89,20 @@ public class FMHomePage extends BaseFragment {
     private Root root;
 
     private LinearLayout lin_search = null, lin_banner = null, lin_menu = null,
-            lin_notice = null, lin_picture = null, lin_cube = null, lin_goods = null;
+            lin_notice = null;
 
     /*动态添加控件下标*/
     private int index_menu = 0, index_picture = 0, index_cube = 0,
             index_goods = 0;
 
     private CycleViewPager cycleViewPager;
-    private RecyclerView recyclerView, recyclerView1;
+    private RecyclerView recyclerView;
     private MarqueTextView tv_notice;
-    private ImageView iv_picture;
+
+    /*搜索*/
+    private EditText et_search;
+    private ImageView iv_search;
+    private String UTF_keywords = "";
 
     @Nullable
     @Override
@@ -147,7 +160,6 @@ public class FMHomePage extends BaseFragment {
      */
     public void setFor(Root root) {
         for (int i = 0; i < root.getData().size(); i++) {
-            //System.out.println("" + root.getData().get(i).getTemp());
             setTemp(root.getData().get(i).getId(), root.getData().get(i).getTemp());
 //            try {
 //                Thread.sleep(2 * 100);
@@ -165,16 +177,42 @@ public class FMHomePage extends BaseFragment {
     public void setTemp(String id, final String temp) {
         switch (temp) {
             case "search":
-                System.out.println("添加search");
+                //System.out.println("添加search");
                 lin_search = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_search, null);
                 linHomepage.addView(lin_search);
-                //getData("1604", id, "search");
+
+                et_search = (EditText) lin_search.findViewById(R.id.et_hp_sreach);
+                iv_search = (ImageView) lin_search.findViewById(R.id.iv_hp_sreach);
+
+
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                System.out.println(temp + " = " + result);
+                                // System.out.println(temp + " = " + result);
+
+                                final Search search = GsonUtil.gsonIntance().gsonToBean(result, Search.class);
+
+                                iv_search.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        setIntent(search.getData().getParams().getSearchurl().isSelfurl(),
+                                                search.getData().getParams().getSearchurl().getDoX(),
+                                                search.getData().getParams().getSearchurl().getP(),
+                                                search.getData().getParams().getSearchurl().getUrlstr(),
+                                                search.getData().getParams().getSearchurl().getQuery());
+//                                        intent = new Intent(getActivity(), GoodsListActivity.class);
+//                                        intent.putExtra("pcate", "");
+//                                        intent.putExtra("ccate", "");
+//                                        intent.putExtra("name", "全部商品");
+//                                        intent.putExtra("keywords", et_search.getText().toString());
+
+                                        startActivity(intent);
+                                    }
+                                });
+
+
                             }
 
                             @Override
@@ -196,23 +234,25 @@ public class FMHomePage extends BaseFragment {
                 break;
 
             case "banner":
-                System.out.println("添加banner");
+                //System.out.println("添加banner");
 
                 lin_banner = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_lunbotu, null);
                 linHomepage.addView(lin_banner);
 
                 cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
-                //getData("1604", id, "banner");
 
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                System.out.println(temp + " = " + result);
+                                //System.out.println(temp + " = " + result);
 
                                 configImageLoader();
                                 Banner banner = GsonUtil.gsonIntance().gsonToBean(result, Banner.class);
+
+                                bannerList = banner.getData().getData();
+
                                 infos = new ArrayList<>();
                                 for (int i = 0; i < banner.getData().getData().size(); i++) {
                                     info = new ADInfo();
@@ -265,7 +305,7 @@ public class FMHomePage extends BaseFragment {
                 break;
 
             case "menu":
-                System.out.println("添加menu");
+                //System.out.println("添加menu");
                 index_menu++;
 
                 final RecyclerView rv = new RecyclerView(getActivity());
@@ -279,14 +319,12 @@ public class FMHomePage extends BaseFragment {
 
                 recyclerView = (RecyclerView) lin_menu.findViewById(R.id.rv_hp_menu);
 
-                //getData("1604", id, "menu");
-
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                System.out.println(temp + " = " + result);
+                                //System.out.println(temp + " = " + result);
 
                                 final Menu menu = GsonUtil.gsonIntance().gsonToBean(result, Menu.class);
 
@@ -300,7 +338,13 @@ public class FMHomePage extends BaseFragment {
                                 hpMenuAdapter.setOnItemClickListener(new OnItemClickListener() {
                                     @Override
                                     public void onItemClick(View view, int position) {
-                                        toast("" + menu.getData().getData().get(position).getText());
+                                        //toast("" + menu.getData().getData().get(position).getText());
+                                        setIntent(menu.getData().getData().get(position).getHrefurl().isSelfurl(),
+                                                menu.getData().getData().get(position).getHrefurl().getDoX(),
+                                                menu.getData().getData().get(position).getHrefurl().getP(),
+                                                menu.getData().getData().get(position).getHrefurl().getUrlstr(),
+                                                menu.getData().getData().get(position).getHrefurl().getQuery());
+
                                     }
                                 });
 
@@ -325,24 +369,33 @@ public class FMHomePage extends BaseFragment {
                 break;
 
             case "notice":
-                System.out.println("添加notice");
+                //System.out.println("添加notice");
                 lin_notice = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_notice, null);
                 linHomepage.addView(lin_notice);
 
                 tv_notice = (MarqueTextView) lin_notice.findViewById(R.id.tv_hp_notice);
 
-                //System.out.println("添加notice");
-                //getData("1604", id, "notice");
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                System.out.println(temp + " = " + result);
+                                //System.out.println(temp + " = " + result);
 
-                                Notice notice = GsonUtil.gsonIntance().gsonToBean(result, Notice.class);
+                                final Notice notice = GsonUtil.gsonIntance().gsonToBean(result, Notice.class);
 
                                 tv_notice.setText("" + notice.getData().getParams().getNotice());
+
+                                tv_notice.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        setIntent(notice.getData().getParams().getNoticehref().isSelfurl(),
+                                                notice.getData().getParams().getNoticehref().getDoX(),
+                                                notice.getData().getParams().getNoticehref().getP(),
+                                                notice.getData().getParams().getNoticehref().getUrlstr(),
+                                                notice.getData().getParams().getNoticehref().getQuery());
+                                    }
+                                });
                             }
 
                             @Override
@@ -364,29 +417,22 @@ public class FMHomePage extends BaseFragment {
 
 
             case "picture":
-                System.out.println("添加picture");
+                //System.out.println("添加picture");
                 index_picture++;
-//                lin_picture = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_picture, null);
-//                linHomepage.addView(lin_picture);
-//
-//                iv_picture = (ImageView) lin_picture.findViewById(R.id.iv_hp_picture);
 
                 final ImageView iv = new ImageView(getActivity());
                 iv.setId(index_picture);
 
                 linHomepage.addView(iv);
 
-
-                //System.out.println("添加picture");
-                //getData("1604", id, "picture");
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                System.out.println(temp + " = " + result);
+                                //System.out.println(temp + " = " + result);
 
-                                Picture picture = GsonUtil.gsonIntance().gsonToBean(result, Picture.class);
+                                final Picture picture = GsonUtil.gsonIntance().gsonToBean(result, Picture.class);
 
                                 ImageUtils.loadIntoUseFitWidth(getActivity(),
                                         picture.getData().getData().get(0).getImgurl(),
@@ -394,14 +440,16 @@ public class FMHomePage extends BaseFragment {
                                         R.mipmap.icon_error,
                                         iv);
 
-//                                Glide.with(getActivity())
-//                                        .load(picture.getData().getData().get(0).getImgurl())
-//                                        .placeholder(R.mipmap.icon_empty)
-//                                        .error(R.mipmap.icon_error)
-//                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                                        .into(iv);
-
-                                //x.image().bind(iv, picture.getData().getData().get(0).getImgurl());
+                                iv.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        setIntent(picture.getData().getData().get(0).getHrefurl().isSelfurl(),
+                                                picture.getData().getData().get(0).getHrefurl().getDoX(),
+                                                picture.getData().getData().get(0).getHrefurl().getP(),
+                                                picture.getData().getData().get(0).getHrefurl().getUrlstr(),
+                                                picture.getData().getData().get(0).getHrefurl().getQuery());
+                                    }
+                                });
 
                             }
 
@@ -423,11 +471,7 @@ public class FMHomePage extends BaseFragment {
                 break;
 
             case "cube":
-                System.out.println("添加cube");
-//                lin_cube = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_cube, null);
-//                linHomepage.addView(lin_cube);
-//
-//                recyclerView1 = (RecyclerView) lin_cube.findViewById(R.id.rv_hp_cube);
+                //System.out.println("添加cube");
 
                 final RecyclerView rv_cube = new RecyclerView(getActivity());
                 rv_cube.setId(index_cube);
@@ -439,7 +483,7 @@ public class FMHomePage extends BaseFragment {
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                System.out.println(temp + " = " + result);
+                                //System.out.println(temp + " = " + result);
                                 final Cube cube = GsonUtil.gsonIntance().gsonToBean(result, Cube.class);
 
                                 HpCubeAdapter hpCubeAdapter = new HpCubeAdapter(getActivity(), cube.getData().getParams().getLayout());
@@ -463,6 +507,17 @@ public class FMHomePage extends BaseFragment {
 
                                 rv_cube.setAdapter(hpCubeAdapter);
 
+                                hpCubeAdapter.setOnItemClickListener(new OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        setIntent(cube.getData().getParams().getLayout().get(position).getUrl().isSelfurl(),
+                                                cube.getData().getParams().getLayout().get(position).getUrl().getDoX(),
+                                                cube.getData().getParams().getLayout().get(position).getUrl().getP(),
+                                                cube.getData().getParams().getLayout().get(position).getUrl().getUrlstr(),
+                                                cube.getData().getParams().getLayout().get(position).getUrl().getQuery());
+                                    }
+                                });
+
                             }
 
                             @Override
@@ -483,20 +538,19 @@ public class FMHomePage extends BaseFragment {
                 break;
 
             case "goods":
-                System.out.println("添加goods");
+                //System.out.println("添加goods");
                 index_goods++;
 
                 final RecyclerView rv_goods = new RecyclerView(getActivity());
                 rv_goods.setId(index_goods);
                 linHomepage.addView(rv_goods);
 
-                //getData("1604", id, "goods");
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                System.out.println(temp + "  = " + result);
+                                //System.out.println(temp + "  = " + result);
 
                                 final Goods goods = GsonUtil.gsonIntance().gsonToBean(result, Goods.class);
 
@@ -521,6 +575,19 @@ public class FMHomePage extends BaseFragment {
                                 rv_goods.setLayoutManager(mManager);
                                 rv_goods.setAdapter(hpGoodsAdapter);
 
+                                hpGoodsAdapter.setOnItemClickListener(new OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+
+                                        setIntent(goods.getData().getData().get(position).getGoodhref().isSelfurl(),
+                                                goods.getData().getData().get(position).getGoodhref().getDoX(),
+                                                goods.getData().getData().get(position).getGoodhref().getP(),
+                                                goods.getData().getData().get(position).getGoodhref().getUrlstr(),
+                                                goods.getData().getData().get(position).getGoodhref().getQuery());
+
+                                    }
+                                });
+
 
                             }
 
@@ -548,193 +615,55 @@ public class FMHomePage extends BaseFragment {
     }
 
     /**
-     * 获取temp数据
+     * 根据不同条件 跳转不同界面
      *
-     * @param i
-     * @param id temp id
+     * @param isSelfurl
+     * @param doX
+     * @param pX
+     * @param urlstr
+     * @param query
      */
-    public void getData(String i, String id, final String temp) {
-        PATH = HttpUtils.PATH + HttpUtils.HP_ROOT +
-                "i=" + i + "&id=" + id;
+    public void setIntent(boolean isSelfurl, String doX, String pX, String urlstr, String query) {
+        /*根据selfurl 判断跳转情况 false：网页 ture：activity*/
+        if (isSelfurl == false) {
+            //跳转网页
+            intent = new Intent(getActivity(), WebActivity.class);
+            intent.putExtra("url", urlstr);
+            startActivity(intent);
+        } else {
+            //跳转页面
+            // toast("根据判断跳转页面");
 
-        params = new RequestParams(PATH);
-        System.out.println("temp = " + PATH);
+            /*根据do 判断跳转页面类型 shop  plugin*/
+            if (doX.equals("shop")) {
 
-        x.http().get(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        setLayout(temp, result);
+                /*根据 p 判断 list detail*/
+                if (pX.equals("list")) {
+                    //商品列表
+                    intent = new Intent(getActivity(), GoodsListActivity.class);
+                    intent.putExtra("pcate", query);
+                    intent.putExtra("ccate", "");
+                    intent.putExtra("name", "");
+                    intent.putExtra("keywords", "");
+                    startActivity(intent);
 
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-
-    }
-
-    /**
-     * @param temp
-     * @param result
-     */
-    @SuppressLint("WrongConstant")
-    public void setLayout(String temp, String result) {
-        switch (temp) {
-            case "search":
-                System.out.println("添加search");
-
-                break;
-
-            case "banner":
-                System.out.println("添加banner");
-//                LinearLayout lin_banner = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_lunbotu, null);
-//                linHomepage.addView(lin_banner);
-//
-//                cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
-
-                configImageLoader();
-
-
-                Banner banner = GsonUtil.gsonIntance().gsonToBean(result, Banner.class);
-
-
-                infos = new ArrayList<>();
-                for (int i = 0; i < banner.getData().getData().size(); i++) {
-                    info = new ADInfo();
-                    info.setUrl(banner.getData().getData().get(i).getImgurl());
-                    info.setContent(banner.getData().getData().get(i).getSysurl());
-                    info.setImg("");
-                    infos.add(info);
+                } else if (pX.equals("detail")) {
+                    //商品详情
+                    intent = new Intent(getActivity(), GoodsDetailsActivity.class);
+                    intent.putExtra("gid", query);
+                    startActivity(intent);
+                } else {
+                    toast("未知 pX = " + pX);
                 }
 
-                // 将最后一个ImageView添加进来
-                views.add(ViewFactory.getImageView(getActivity(), infos.get(infos.size() - 1).getUrl()));
-                for (int i = 0; i < infos.size(); i++) {
-                    views.add(ViewFactory.getImageView(getActivity(), infos.get(i).getUrl()));
-                }
-                // 将第一个ImageView添加进来
-                views.add(ViewFactory.getImageView(getActivity(), infos.get(0).getUrl()));
+            } else if (doX.equals("plugin")) {
+                toast("不知道");
+            } else {
+                toast("未知 doX = " + doX);
+            }
 
-                // 设置循环，在调用setData方法前调用
-                cycleViewPager.setCycle(true);
-
-                // 在加载数据前设置是否循环
-                cycleViewPager.setData(views, infos, mAdCycleViewListener);
-                //设置轮播
-                cycleViewPager.setWheel(true);
-
-                // 设置轮播时间，默认5000ms
-                cycleViewPager.setTime(3000);
-                //设置圆点指示图标组居中显示，默认靠右
-                cycleViewPager.setIndicatorCenter();
-
-
-                break;
-
-            case "menu":
-                System.out.println("添加menu");
-//                LinearLayout lin_menu = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_menu, null);
-//                linHomepage.addView(lin_menu);
-//
-//                RecyclerView recyclerView = (RecyclerView) lin_menu.findViewById(R.id.rv_hp_menu);
-
-                Menu menu = GsonUtil.gsonIntance().gsonToBean(result, Menu.class);
-
-                HpMenuAdapter hpMenuAdapter = new HpMenuAdapter(getActivity(), menu.getData().getData());
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
-
-                recyclerView.setAdapter(hpMenuAdapter);
-
-
-                break;
-
-            case "notice":
-                System.out.println("添加notice");
-
-                Notice notice = GsonUtil.gsonIntance().gsonToBean(result, Notice.class);
-
-                tv_notice.setText("" + notice.getData().getParams().getNotice());
-
-
-                break;
-
-            case "picture":
-                System.out.println("添加picture");
-
-//                LinearLayout lin_picture = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_picture, null);
-//                linHomepage.addView(lin_picture);
-//
-//
-//                iv_picture = (ImageView) lin_picture.findViewById(R.id.iv_hp_picture);
-
-                Picture picture = GsonUtil.gsonIntance().gsonToBean(result, Picture.class);
-                //x.image().bind(iv_picture, "http://www.dequanhuibao.com/attachment/images/1604/2017/08/BiiJd063556743Nw07oz73dA6d74I7.jpg");
-                x.image().bind(iv_picture, picture.getData().getData().get(0).getImgurl());
-
-                break;
-
-            case "cube":
-                System.out.println("添加cube");
-
-                final Cube cube = GsonUtil.gsonIntance().gsonToBean(result, Cube.class);
-
-                HpCubeAdapter hpCubeAdapter = new HpCubeAdapter(getActivity(), cube.getData().getParams().getLayout());
-
-                GridLayoutManager mManager;
-                mManager = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
-                mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        for (int i = 0; i < cube.getData().getParams().getLayout().size(); i++) {
-                            String imgwidth = cube.getData().getParams().getLayout().get(i).getCols();
-                            System.out.println("啥啥啥 = " + imgwidth);
-                            if (imgwidth.equals("1")) {
-                                return 2;
-                            } else if (imgwidth.equals("2")) {
-                                return 4;
-                            }
-                        }
-//                        String imgwidth = tese.getMsg().get(position).getImgwidth();
-//                        if (imgwidth.equals("50")) {
-//                            return 1;
-//                        } else if (imgwidth.equals("100")) {
-//                            return 2;
-//                        }
-
-                        return 2;
-                    }
-                });
-
-                recyclerView1.setLayoutManager(mManager);
-
-                recyclerView1.setAdapter(hpCubeAdapter);
-
-                break;
-
-            case "goods":
-                System.out.println("添加goods");
-                break;
-
-            default:
-                break;
         }
     }
-
 
     /*轮播图点击事件*/
     private CycleViewPager.ImageCycleViewListener mAdCycleViewListener =
@@ -743,9 +672,29 @@ public class FMHomePage extends BaseFragment {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onImageClick(ADInfo info, int position, View imageView) {
+                    int index = position - 1;
                     if (cycleViewPager.isCycle()) {
-                        //intent = new Intent(getActivity(), WebActivity.class);
-                        //startActivity(intent);
+
+                        System.out.println("lalala = " + bannerList.get(index).getHrefurl().isSelfurl());
+
+                        /*根据selfurl 判断跳转情况 false：网页 ture：activity*/
+                        if (bannerList.get(index).getHrefurl().isSelfurl() == false) {
+                            //跳转网页
+                            intent = new Intent(getActivity(), WebActivity.class);
+                            intent.putExtra("url", bannerList.get(index).getHrefurl().getUrlstr());
+                            startActivity(intent);
+                        } else {
+                            //跳转页面
+                            //toast("根据判断跳转页面");
+                            setIntent(bannerList.get(index).getHrefurl().isSelfurl(),
+                                    bannerList.get(index).getHrefurl().getDoX(),
+                                    bannerList.get(index).getHrefurl().getP(),
+                                    bannerList.get(index).getHrefurl().getUrlstr(),
+                                    bannerList.get(index).getHrefurl().getQuery());
+
+                        }
+
+
                     }
 
                 }

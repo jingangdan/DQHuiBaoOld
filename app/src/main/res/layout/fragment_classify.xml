@@ -2,35 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#fff">
+    android:background="#fff"
+    android:orientation="vertical">
 
     <!--搜索-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:padding="5dp">
 
         <ImageView
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_back"/>
+            android:padding="10dp" />
 
-        <EditText
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:hint="搜索：输入关键字"
+        <TextView
+            android:id="@+id/tv_search"
             style="@style/text_main"
-            android:background="@null"/>
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="搜索：输入关键字" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="#EEEEEE"/>
+        android:background="#EEEEEE" />
 
     <!--分类-->
     <LinearLayout
@@ -41,8 +41,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_c_classify"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="#EFEFEF">
 
         </android.support.v7.widget.RecyclerView>
@@ -50,8 +50,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_c_goods"
             android:layout_width="0dp"
-            android:layout_weight="4"
             android:layout_height="wrap_content"
+            android:layout_weight="4"
             android:background="#fff">
 
         </android.support.v7.widget.RecyclerView>
