@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel_gd_choose"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lin_gd_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:orientation="vertical">
+
+        <!--1-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/iv_pop_gd_thumb"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/detail_show_1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:id="@+id/tv_pop_gd_marketprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥49.00"
+                    android:textColor="#F15353"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_pop_gd_total"
+                    style="@style/text_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="3dp"
+                    android:text="库存" />
+
+                <TextView
+                    android:id="@+id/tv_pop_gd_specification"
+                    style="@style/text_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请选择规格" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_pop_gd_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:src="@mipmap/ic_clear001" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/view_main" />
+
+        <!--2-->
+        <LinearLayout
+            android:id="@+id/lin_pop_gd_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+        </LinearLayout>
+
+        <!--3-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:text="购买数量" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/lin_pop_gd_add"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/kuang_gary"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pop_reduce"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@mipmap/ic_sub" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_pop_gd_num"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/kuang_style"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="#000" />
+
+                <LinearLayout
+                    android:id="@+id/lin_pop_gd_sub"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/kuang_gary"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/pop_add"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@mipmap/ic_add" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/view_main" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_pop_gd_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#F15353"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="确定"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

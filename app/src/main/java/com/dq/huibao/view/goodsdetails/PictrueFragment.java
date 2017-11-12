@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.dq.huibao.R;
+import com.dq.huibao.utils.ImageUtils;
 
 
 /**
@@ -19,12 +20,17 @@ import com.dq.huibao.R;
 @SuppressLint("ValidFragment")
 public class PictrueFragment extends Fragment {
 
-	private int resId;
+	//private int resId;
+	private String imgUrl = "";
 
-	@SuppressLint("ValidFragment")
-	public PictrueFragment(int resId){
+//	@SuppressLint("ValidFragment")
+//	public PictrueFragment(int resId){
+//
+//		this.resId=resId;
+//	}
 
-		this.resId=resId;
+	public PictrueFragment(String imgUrl){
+		this.imgUrl = imgUrl;
 	}
 
 	@Override
@@ -38,7 +44,13 @@ public class PictrueFragment extends Fragment {
 
 	private void initView(View view){
 		ImageView imageView=(ImageView) view.findViewById(R.id.scale_pic_item);
-		imageView.setImageResource(resId);
+		//imageView.setImageResource(resId);
+
+		ImageUtils.loadIntoUseFitWidth(getActivity(),
+				imgUrl,
+				R.mipmap.icon_empty,
+				R.mipmap.icon_error,
+				imageView);
 
 	}
 

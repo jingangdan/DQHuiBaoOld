@@ -9,10 +9,11 @@ import java.util.List;
 
 public class GoodsDetail {
 
+
     /**
      * result : 1
      * msg : 成功
-     * data : {"goods":{"id":"95385","uniacid":"1604","pcate":"4474","ccate":"4476","type":"1","status":"1","displayorder":"0","title":"250克东北野生特产黑木耳 绿色健康无公害 营养丰富口感绝佳","thumb":"images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg","unit":"袋","description":"","content":"<p style=\"white-space: normal;\"><br/><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>友情提示：本商品分为【上门自提】和【快递配送】，购物时请仔细选择！！！！<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/u4zXKyoijoAVJ4dokaDXzOI80cZQ9A.png\" width=\"100%\" alt=\"images/1604/2017/08/u4zXKyoijoAVJ4dokaDXzOI80cZQ9A.png\"/><\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>选择【上门自提】表示来实体店自提货物，<strong>不发快递！不发快递！不发快递！不发快递！<\/strong>只需填写用户名和电话即可，无法自提请<strong>第一时间<\/strong>申请退款！！！！！<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>自提时间早8:30-17:30 自提地点：山东省临沂市南坊汶河路和天津路商务齐鲁园<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>如需发快递请选择【快递配送】并认真核对发货地址和电话，谢谢！<\/strong><\/span><\/p><p style=\"white-space: normal;\"><br/><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><em><strong>偏远地区补运费差价<\/strong><\/em><\/span><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><\/span><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg\" width=\"100%\" style=\"\"/><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg\" width=\"100%\" style=\"\"/><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg\" width=\"100%\" style=\"\"/><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg\" width=\"100%\" style=\"\"/><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><em><strong><br/><\/strong><\/em><\/span><br/><\/p><p style=\"white-space: normal;\"><span style=\"font-size: 36px;\"><strong>产自东北黑龙江的自然美味，远离污染，手工挑选，肉厚无根。<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><em><strong><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/F0Raw1xX18zO89gR5ZR9WAYWZc9889.jpg\" width=\"100%\" alt=\"images/1604/2017/08/F0Raw1xX18zO89gR5ZR9WAYWZc9889.jpg\"/><\/strong><\/em><\/span><\/p><p style=\"white-space: normal;\"><br/><\/p><p style=\"white-space: normal;\"><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/bIH2wiqhITOyaWmEqQHYQQY9I3wZwq.jpg\" width=\"100%\"/><\/p><p style=\"white-space: normal;\"><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/pMYfFkbyzGzzWfM5KKk1bkTBVGrwBK.jpg\" width=\"100%\"/><img src=\"http://www.dequanhuibao.com/web/images/1604/2017/08/Diwc9C1AvzHhLIgiYg6k14cJIWlz1v.jpg\" width=\"100%\" alt=\"images/1604/2017/08/Diwc9C1AvzHhLIgiYg6k14cJIWlz1v.jpg\"/><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/E4wt7w67bcC2wwWgw94GBb4TwCSig2.jpg\" width=\"100%\" alt=\"images/1604/2017/08/E4wt7w67bcC2wwWgw94GBb4TwCSig2.jpg\"/><\/p><p style=\"white-space: normal;\"><img src=\"http://www.dequanhuibao.com/web/images/1604/2017/08/tL0N08Chh99QzHiQacmq0I0sV0vZIZ.jpg\" width=\"100%\" alt=\"images/1604/2017/08/tL0N08Chh99QzHiQacmq0I0sV0vZIZ.jpg\"/><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/R4Ej11ln8BNJgjGbGLm1zEb88JzJn8.jpg\" width=\"100%\" alt=\"images/1604/2017/08/R4Ej11ln8BNJgjGbGLm1zEb88JzJn8.jpg\"/><\/p><p><br/><\/p>","goodssn":"","productsn":"","productprice":"40.00","marketprice":"22.90","costprice":"20.90","originalprice":"0.00","total":"648","totalcnf":"0","sales":"488","salesreal":"21","spec":"","createtime":"1505805768","weight":"250.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"0","dispatch":"0","thumb_url":"a:3:{i:0;s:54:\"images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg\";i:1;s:54:\"images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg\";i:2;s:54:\"images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg\";}","isnew":"0","ishot":"0","isdiscount":"0","isrecommand":"0","issendfree":"0","istime":"0","iscomment":"0","timestart":"1505805300","timeend":"1505805300","viewcount":"188","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"","taotaoid":"","taobaourl":"","updatetime":"0","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"2","storeids":"","noticeopenid":"","tcate":"0","noticetype":"0","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"4751","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"4503","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"0","diyformtype":"0","manydeduct":"0","dispatchtype":"0","dispatchid":"156","dispatchprice":"0.00","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"0.00","maxprice":"0.00","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"0","dispatchsend":"1","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":false},"saleset":{"enoughs2":[],"enoughs3":[]},"shop":[],"pics":["images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg","images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg","images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg","images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg"],"options":[],"specs":[],"params":[{"id":"179909","uniacid":"1604","goodsid":"95385","title":"品牌","value":"大地春","displayorder":"0"},{"id":"179910","uniacid":"1604","goodsid":"95385","title":"规格","value":"250克/袋","displayorder":"1"},{"id":"179911","uniacid":"1604","goodsid":"95385","title":"产地","value":"东北","displayorder":"2"},{"id":"179912","uniacid":"1604","goodsid":"95385","title":"干度","value":"90%","displayorder":"3"},{"id":"179913","uniacid":"1604","goodsid":"95385","title":"保质期","value":"18个月","displayorder":"4"},{"id":"179914","uniacid":"1604","goodsid":"95385","title":"适合人群","value":"男女老少皆宜","displayorder":"5"}],"params_num":"6","commission":false,"commission_text":"","level":{"discountway":"0"},"isfavorite":false,"comment":[],"commentcount":"0"}
+     * data : {"goods":{"id":"99120","uniacid":"1604","pcate":"4454","ccate":"4551","type":"1","status":"1","displayorder":"0","title":"无印良品皮裤女香味加绒修身PU哑光muji高腰皮裤显瘦打底裤黑女裤","thumb":"images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","unit":"件","description":"","content":"<p style=\"text-align:center;\">需要代发的联系客服<\/p><table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" style=\"border-collapse:separate;border-spacing:1.0px;width:748.0px;border-color:#000000;background-color:#000000;\"><tbody><tr class=\"firstRow\"><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" colspan=\"6\" style=\"text-align:left;\" width=\"643\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">尺码<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">裤长<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">腰围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">臀围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">大腿围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">脚口<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">单位（cm)<\/span> <\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"118\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">M<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">89<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">60-94<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">90-116<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">46-68<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">L<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">91<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">64-100<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">92-126<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">48-72<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">XL<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">93<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">68-110<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">96-136<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">50-76<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">11<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" colspan=\"7\" height=\"30\" style=\"text-align:right;\" width=\"748\"><span style=\"font-size:10.0pt;\">以上尺寸仅供参考，由于测量方法不一样，可有存在1-3cm的误差<\/span> <\/td><\/tr><\/tbody><\/table><p style=\"text-align:center;\"><span style=\"color:#ff0000;font-size:32.0px;text-align:center;\">MUJI无印良品原单正品香味皮裤可扫码不掉皮不裂皮<\/span> <\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>所有腰口采用德国进口机器织补，皮料采用国际进口卡西欧材质，<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>加入香料制作而成，高密度绒内里，皮绒一体，更加细腻亲肤，柔软性高，弹力好.&nbsp;<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>M适合80-110斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>L适合110-125斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>XL适合120-140斤<\/strong><\/span><\/p><p style=\"text-align: center;\"><span style=\"font-size:14.0pt;\"><strong><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/VOR1zYyyyP5N2S01YB5VyYPYvy1YbY.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/f831mZ14Y6546qWDq5m141Qq818Y83.jpg\" align=\"absmiddle\" size=\"750x200\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ZyR4Ziry5I6i3zpvR6P33IRZjiZP6R.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/Nvfb7w7v77W1X7wF3Y38Yfc8778BV1.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/lrIwEoeOw5PpCN0OuU2l9rwprm75bO.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/p77LA70Zz7cFJcnM0c3f7J27M55z0F.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/O0Tfj3q3sKM0v2VlMqX4K8mbk04F0z.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/o2WQ28Z4Fb4x8ef7FZZRbe22h7QI78.jpg\" align=\"absmiddle\" size=\"750x563\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ew99w383r8oosMORI1MI8xxM3w1sR8.jpg\" align=\"absmiddle\" size=\"750x750\"/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <\/strong><\/span><\/p>","goodssn":"","productsn":"","productprice":"200.00","marketprice":"35.90","costprice":"34.90","originalprice":"0.00","total":"7095","totalcnf":"0","sales":"237","salesreal":"0","spec":"","createtime":"1508893591","weight":"300.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"1","dispatch":"0","thumb_url":"a:4:{i:0;s:54:\"images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg\";i:1;s:54:\"images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg\";i:2;s:54:\"images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg\";i:3;s:54:\"images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg\";}","isnew":"0","ishot":"0","isdiscount":"0","isrecommand":"0","issendfree":"0","istime":"0","iscomment":"0","timestart":"1508893560","timeend":"1508893560","viewcount":"36","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"559465700815","taotaoid":"","taobaourl":"https://item.taobao.com/item.htm?spm=a230r.1.14.8.646fa64azqTqL4&id=559465700815&ns=1&abbucket=16#detail","updatetime":"1508893591","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"1","storeids":"","noticeopenid":"oV_rgw5wQoKvBGDUXxGqOCLJLw6g","tcate":"0","noticetype":"0,1,2","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"2291","diyformtype":"0","manydeduct":"0","dispatchtype":"1","dispatchid":"0","dispatchprice":"0.00","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"35.90","maxprice":"35.90","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"1","dispatchsend":"1","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":true},"saleset":{"enoughs2":[],"enoughs3":[]},"shop":[],"pics":["images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg","images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg","images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg","images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg"],"options":[{"id":"168093","title":"黑色+M 80-100","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98656"},{"id":"168094","title":"黑色+L 100-120","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98657"},{"id":"168095","title":"黑色+XL 120-140","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98658"}],"specs":[{"id":"25062","uniacid":"1604","goodsid":"99120","title":"尺寸","description":"","displaytype":"0","content":"a:3:{i:0;s:5:\"98656\";i:1;s:5:\"98657\";i:2;s:5:\"98658\";}","displayorder":"0","propId":"20509","items":[{"id":"98656","uniacid":"1604","specid":"25062","title":"M 80-100","thumb":"","show":"1","displayorder":"0","valueId":"28315","virtual":"0"},{"id":"98657","uniacid":"1604","specid":"25062","title":"L 100-120","thumb":"","show":"1","displayorder":"1","valueId":"28316","virtual":"0"},{"id":"98658","uniacid":"1604","specid":"25062","title":"XL 120-140","thumb":"","show":"1","displayorder":"2","valueId":"28317","virtual":"0"}]},{"id":"25063","uniacid":"1604","goodsid":"99120","title":"颜色分类","description":"","displaytype":"0","content":"a:1:{i:0;s:5:\"98661\";}","displayorder":"1","propId":"1627207","items":[{"id":"98661","uniacid":"1604","specid":"25063","title":"黑色","thumb":"","show":"1","displayorder":"0","valueId":"28341","virtual":"0"}]}],"params":[{"id":"225189","uniacid":"1604","goodsid":"99120","title":"成分含量","value":"81%(含)-90%(含)","displayorder":"0"},{"id":"225190","uniacid":"1604","goodsid":"99120","title":"裤长","value":"长裤","displayorder":"1"},{"id":"225191","uniacid":"1604","goodsid":"99120","title":"厚薄","value":"加绒","displayorder":"2"},{"id":"225192","uniacid":"1604","goodsid":"99120","title":"材质","value":"皮","displayorder":"3"},{"id":"225193","uniacid":"1604","goodsid":"99120","title":"颜色分类","value":"黑色","displayorder":"4"},{"id":"225194","uniacid":"1604","goodsid":"99120","title":"尺寸","value":"M,L,XL","displayorder":"5"},{"id":"225195","uniacid":"1604","goodsid":"99120","title":"上市年份季节","value":"2017年秋季","displayorder":"6"}],"params_num":"7","commission":false,"commission_text":"","level":{"discountway":"0"},"isfavorite":false,"comment":[],"commentcount":"0"}
      */
 
     private String result;
@@ -45,14 +46,14 @@ public class GoodsDetail {
 
     public static class DataBean {
         /**
-         * goods : {"id":"95385","uniacid":"1604","pcate":"4474","ccate":"4476","type":"1","status":"1","displayorder":"0","title":"250克东北野生特产黑木耳 绿色健康无公害 营养丰富口感绝佳","thumb":"images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg","unit":"袋","description":"","content":"<p style=\"white-space: normal;\"><br/><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>友情提示：本商品分为【上门自提】和【快递配送】，购物时请仔细选择！！！！<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/u4zXKyoijoAVJ4dokaDXzOI80cZQ9A.png\" width=\"100%\" alt=\"images/1604/2017/08/u4zXKyoijoAVJ4dokaDXzOI80cZQ9A.png\"/><\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>选择【上门自提】表示来实体店自提货物，<strong>不发快递！不发快递！不发快递！不发快递！<\/strong>只需填写用户名和电话即可，无法自提请<strong>第一时间<\/strong>申请退款！！！！！<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>自提时间早8:30-17:30 自提地点：山东省临沂市南坊汶河路和天津路商务齐鲁园<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"color: rgb(255, 0, 0);\"><strong>如需发快递请选择【快递配送】并认真核对发货地址和电话，谢谢！<\/strong><\/span><\/p><p style=\"white-space: normal;\"><br/><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><em><strong>偏远地区补运费差价<\/strong><\/em><\/span><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><\/span><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg\" width=\"100%\" style=\"\"/><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg\" width=\"100%\" style=\"\"/><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg\" width=\"100%\" style=\"\"/><\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg\" width=\"100%\" style=\"\"/><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><em><strong><br/><\/strong><\/em><\/span><br/><\/p><p style=\"white-space: normal;\"><span style=\"font-size: 36px;\"><strong>产自东北黑龙江的自然美味，远离污染，手工挑选，肉厚无根。<\/strong><\/span><\/p><p style=\"white-space: normal;\"><span style=\"text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;\"><em><strong><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/F0Raw1xX18zO89gR5ZR9WAYWZc9889.jpg\" width=\"100%\" alt=\"images/1604/2017/08/F0Raw1xX18zO89gR5ZR9WAYWZc9889.jpg\"/><\/strong><\/em><\/span><\/p><p style=\"white-space: normal;\"><br/><\/p><p style=\"white-space: normal;\"><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/bIH2wiqhITOyaWmEqQHYQQY9I3wZwq.jpg\" width=\"100%\"/><\/p><p style=\"white-space: normal;\"><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/pMYfFkbyzGzzWfM5KKk1bkTBVGrwBK.jpg\" width=\"100%\"/><img src=\"http://www.dequanhuibao.com/web/images/1604/2017/08/Diwc9C1AvzHhLIgiYg6k14cJIWlz1v.jpg\" width=\"100%\" alt=\"images/1604/2017/08/Diwc9C1AvzHhLIgiYg6k14cJIWlz1v.jpg\"/><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/E4wt7w67bcC2wwWgw94GBb4TwCSig2.jpg\" width=\"100%\" alt=\"images/1604/2017/08/E4wt7w67bcC2wwWgw94GBb4TwCSig2.jpg\"/><\/p><p style=\"white-space: normal;\"><img src=\"http://www.dequanhuibao.com/web/images/1604/2017/08/tL0N08Chh99QzHiQacmq0I0sV0vZIZ.jpg\" width=\"100%\" alt=\"images/1604/2017/08/tL0N08Chh99QzHiQacmq0I0sV0vZIZ.jpg\"/><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/08/R4Ej11ln8BNJgjGbGLm1zEb88JzJn8.jpg\" width=\"100%\" alt=\"images/1604/2017/08/R4Ej11ln8BNJgjGbGLm1zEb88JzJn8.jpg\"/><\/p><p><br/><\/p>","goodssn":"","productsn":"","productprice":"40.00","marketprice":"22.90","costprice":"20.90","originalprice":"0.00","total":"648","totalcnf":"0","sales":"488","salesreal":"21","spec":"","createtime":"1505805768","weight":"250.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"0","dispatch":"0","thumb_url":"a:3:{i:0;s:54:\"images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg\";i:1;s:54:\"images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg\";i:2;s:54:\"images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg\";}","isnew":"0","ishot":"0","isdiscount":"0","isrecommand":"0","issendfree":"0","istime":"0","iscomment":"0","timestart":"1505805300","timeend":"1505805300","viewcount":"188","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"","taotaoid":"","taobaourl":"","updatetime":"0","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"2","storeids":"","noticeopenid":"","tcate":"0","noticetype":"0","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"4751","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"4503","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"0","diyformtype":"0","manydeduct":"0","dispatchtype":"0","dispatchid":"156","dispatchprice":"0.00","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"0.00","maxprice":"0.00","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"0","dispatchsend":"1","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":false}
+         * goods : {"id":"99120","uniacid":"1604","pcate":"4454","ccate":"4551","type":"1","status":"1","displayorder":"0","title":"无印良品皮裤女香味加绒修身PU哑光muji高腰皮裤显瘦打底裤黑女裤","thumb":"images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","unit":"件","description":"","content":"<p style=\"text-align:center;\">需要代发的联系客服<\/p><table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" style=\"border-collapse:separate;border-spacing:1.0px;width:748.0px;border-color:#000000;background-color:#000000;\"><tbody><tr class=\"firstRow\"><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" colspan=\"6\" style=\"text-align:left;\" width=\"643\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">尺码<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">裤长<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">腰围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">臀围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">大腿围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">脚口<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">单位（cm)<\/span> <\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"118\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">M<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">89<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">60-94<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">90-116<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">46-68<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">L<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">91<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">64-100<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">92-126<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">48-72<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">XL<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">93<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">68-110<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">96-136<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">50-76<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">11<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" colspan=\"7\" height=\"30\" style=\"text-align:right;\" width=\"748\"><span style=\"font-size:10.0pt;\">以上尺寸仅供参考，由于测量方法不一样，可有存在1-3cm的误差<\/span> <\/td><\/tr><\/tbody><\/table><p style=\"text-align:center;\"><span style=\"color:#ff0000;font-size:32.0px;text-align:center;\">MUJI无印良品原单正品香味皮裤可扫码不掉皮不裂皮<\/span> <\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>所有腰口采用德国进口机器织补，皮料采用国际进口卡西欧材质，<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>加入香料制作而成，高密度绒内里，皮绒一体，更加细腻亲肤，柔软性高，弹力好.&nbsp;<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>M适合80-110斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>L适合110-125斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>XL适合120-140斤<\/strong><\/span><\/p><p style=\"text-align: center;\"><span style=\"font-size:14.0pt;\"><strong><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/VOR1zYyyyP5N2S01YB5VyYPYvy1YbY.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/f831mZ14Y6546qWDq5m141Qq818Y83.jpg\" align=\"absmiddle\" size=\"750x200\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ZyR4Ziry5I6i3zpvR6P33IRZjiZP6R.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/Nvfb7w7v77W1X7wF3Y38Yfc8778BV1.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/lrIwEoeOw5PpCN0OuU2l9rwprm75bO.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/p77LA70Zz7cFJcnM0c3f7J27M55z0F.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/O0Tfj3q3sKM0v2VlMqX4K8mbk04F0z.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/o2WQ28Z4Fb4x8ef7FZZRbe22h7QI78.jpg\" align=\"absmiddle\" size=\"750x563\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ew99w383r8oosMORI1MI8xxM3w1sR8.jpg\" align=\"absmiddle\" size=\"750x750\"/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <\/strong><\/span><\/p>","goodssn":"","productsn":"","productprice":"200.00","marketprice":"35.90","costprice":"34.90","originalprice":"0.00","total":"7095","totalcnf":"0","sales":"237","salesreal":"0","spec":"","createtime":"1508893591","weight":"300.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"1","dispatch":"0","thumb_url":"a:4:{i:0;s:54:\"images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg\";i:1;s:54:\"images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg\";i:2;s:54:\"images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg\";i:3;s:54:\"images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg\";}","isnew":"0","ishot":"0","isdiscount":"0","isrecommand":"0","issendfree":"0","istime":"0","iscomment":"0","timestart":"1508893560","timeend":"1508893560","viewcount":"36","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"559465700815","taotaoid":"","taobaourl":"https://item.taobao.com/item.htm?spm=a230r.1.14.8.646fa64azqTqL4&id=559465700815&ns=1&abbucket=16#detail","updatetime":"1508893591","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"1","storeids":"","noticeopenid":"oV_rgw5wQoKvBGDUXxGqOCLJLw6g","tcate":"0","noticetype":"0,1,2","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"2291","diyformtype":"0","manydeduct":"0","dispatchtype":"1","dispatchid":"0","dispatchprice":"0.00","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"35.90","maxprice":"35.90","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"1","dispatchsend":"1","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":true}
          * saleset : {"enoughs2":[],"enoughs3":[]}
          * shop : []
-         * pics : ["images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg","images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg","images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg","images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg"]
-         * options : []
-         * specs : []
-         * params : [{"id":"179909","uniacid":"1604","goodsid":"95385","title":"品牌","value":"大地春","displayorder":"0"},{"id":"179910","uniacid":"1604","goodsid":"95385","title":"规格","value":"250克/袋","displayorder":"1"},{"id":"179911","uniacid":"1604","goodsid":"95385","title":"产地","value":"东北","displayorder":"2"},{"id":"179912","uniacid":"1604","goodsid":"95385","title":"干度","value":"90%","displayorder":"3"},{"id":"179913","uniacid":"1604","goodsid":"95385","title":"保质期","value":"18个月","displayorder":"4"},{"id":"179914","uniacid":"1604","goodsid":"95385","title":"适合人群","value":"男女老少皆宜","displayorder":"5"}]
-         * params_num : 6
+         * pics : ["images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg","images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg","images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg","images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg"]
+         * options : [{"id":"168093","title":"黑色+M 80-100","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98656"},{"id":"168094","title":"黑色+L 100-120","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98657"},{"id":"168095","title":"黑色+XL 120-140","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98658"}]
+         * specs : [{"id":"25062","uniacid":"1604","goodsid":"99120","title":"尺寸","description":"","displaytype":"0","content":"a:3:{i:0;s:5:\"98656\";i:1;s:5:\"98657\";i:2;s:5:\"98658\";}","displayorder":"0","propId":"20509","items":[{"id":"98656","uniacid":"1604","specid":"25062","title":"M 80-100","thumb":"","show":"1","displayorder":"0","valueId":"28315","virtual":"0"},{"id":"98657","uniacid":"1604","specid":"25062","title":"L 100-120","thumb":"","show":"1","displayorder":"1","valueId":"28316","virtual":"0"},{"id":"98658","uniacid":"1604","specid":"25062","title":"XL 120-140","thumb":"","show":"1","displayorder":"2","valueId":"28317","virtual":"0"}]},{"id":"25063","uniacid":"1604","goodsid":"99120","title":"颜色分类","description":"","displaytype":"0","content":"a:1:{i:0;s:5:\"98661\";}","displayorder":"1","propId":"1627207","items":[{"id":"98661","uniacid":"1604","specid":"25063","title":"黑色","thumb":"","show":"1","displayorder":"0","valueId":"28341","virtual":"0"}]}]
+         * params : [{"id":"225189","uniacid":"1604","goodsid":"99120","title":"成分含量","value":"81%(含)-90%(含)","displayorder":"0"},{"id":"225190","uniacid":"1604","goodsid":"99120","title":"裤长","value":"长裤","displayorder":"1"},{"id":"225191","uniacid":"1604","goodsid":"99120","title":"厚薄","value":"加绒","displayorder":"2"},{"id":"225192","uniacid":"1604","goodsid":"99120","title":"材质","value":"皮","displayorder":"3"},{"id":"225193","uniacid":"1604","goodsid":"99120","title":"颜色分类","value":"黑色","displayorder":"4"},{"id":"225194","uniacid":"1604","goodsid":"99120","title":"尺寸","value":"M,L,XL","displayorder":"5"},{"id":"225195","uniacid":"1604","goodsid":"99120","title":"上市年份季节","value":"2017年秋季","displayorder":"6"}]
+         * params_num : 7
          * commission : false
          * commission_text :
          * level : {"discountway":"0"}
@@ -71,8 +72,8 @@ public class GoodsDetail {
         private String commentcount;
         private List<?> shop;
         private List<String> pics;
-        private List<?> options;
-        private List<?> specs;
+        private List<OptionsBean> options;
+        private List<SpecsBean> specs;
         private List<ParamsBean> params;
         private List<?> comment;
 
@@ -156,19 +157,19 @@ public class GoodsDetail {
             this.pics = pics;
         }
 
-        public List<?> getOptions() {
+        public List<OptionsBean> getOptions() {
             return options;
         }
 
-        public void setOptions(List<?> options) {
+        public void setOptions(List<OptionsBean> options) {
             this.options = options;
         }
 
-        public List<?> getSpecs() {
+        public List<SpecsBean> getSpecs() {
             return specs;
         }
 
-        public void setSpecs(List<?> specs) {
+        public void setSpecs(List<SpecsBean> specs) {
             this.specs = specs;
         }
 
@@ -190,37 +191,37 @@ public class GoodsDetail {
 
         public static class GoodsBean {
             /**
-             * id : 95385
+             * id : 99120
              * uniacid : 1604
-             * pcate : 4474
-             * ccate : 4476
+             * pcate : 4454
+             * ccate : 4551
              * type : 1
              * status : 1
              * displayorder : 0
-             * title : 250克东北野生特产黑木耳 绿色健康无公害 营养丰富口感绝佳
-             * thumb : images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg
-             * unit : 袋
+             * title : 无印良品皮裤女香味加绒修身PU哑光muji高腰皮裤显瘦打底裤黑女裤
+             * thumb : images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg
+             * unit : 件
              * description :
-             * content : <p style="white-space: normal;"><br/></p><p style="white-space: normal;"><span style="color: rgb(255, 0, 0);"><strong>友情提示：本商品分为【上门自提】和【快递配送】，购物时请仔细选择！！！！</strong></span></p><p style="white-space: normal;"><span style="color: rgb(255, 0, 0);"><strong><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/08/u4zXKyoijoAVJ4dokaDXzOI80cZQ9A.png" width="100%" alt="images/1604/2017/08/u4zXKyoijoAVJ4dokaDXzOI80cZQ9A.png"/></strong></span></p><p style="white-space: normal;"><span style="color: rgb(255, 0, 0);"><strong>选择【上门自提】表示来实体店自提货物，<strong>不发快递！不发快递！不发快递！不发快递！</strong>只需填写用户名和电话即可，无法自提请<strong>第一时间</strong>申请退款！！！！！</strong></span></p><p style="white-space: normal;"><span style="color: rgb(255, 0, 0);"><strong>自提时间早8:30-17:30 自提地点：山东省临沂市南坊汶河路和天津路商务齐鲁园</strong></span></p><p style="white-space: normal;"><span style="color: rgb(255, 0, 0);"><strong>如需发快递请选择【快递配送】并认真核对发货地址和电话，谢谢！</strong></span></p><p style="white-space: normal;"><br/></p><p style="white-space: normal;"><span style="text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;"><em><strong>偏远地区补运费差价</strong></em></span></p><p style="white-space: normal;"><span style="text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;"></span></p><p><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg" width="100%" style=""/></p><p><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg" width="100%" style=""/></p><p><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg" width="100%" style=""/></p><p><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/09/hMRgDg5I5V5VV6NSmMBgMS7bSgM3mm.jpg" width="100%" style=""/></p><p style="white-space: normal;"><span style="text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;"><em><strong><br/></strong></em></span><br/></p><p style="white-space: normal;"><span style="font-size: 36px;"><strong>产自东北黑龙江的自然美味，远离污染，手工挑选，肉厚无根。</strong></span></p><p style="white-space: normal;"><span style="text-decoration: underline; color: rgb(255, 0, 0); font-size: 36px;"><em><strong><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/08/F0Raw1xX18zO89gR5ZR9WAYWZc9889.jpg" width="100%" alt="images/1604/2017/08/F0Raw1xX18zO89gR5ZR9WAYWZc9889.jpg"/></strong></em></span></p><p style="white-space: normal;"><br/></p><p style="white-space: normal;"><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/08/bIH2wiqhITOyaWmEqQHYQQY9I3wZwq.jpg" width="100%"/></p><p style="white-space: normal;"><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/08/pMYfFkbyzGzzWfM5KKk1bkTBVGrwBK.jpg" width="100%"/><img src="http://www.dequanhuibao.com/web/images/1604/2017/08/Diwc9C1AvzHhLIgiYg6k14cJIWlz1v.jpg" width="100%" alt="images/1604/2017/08/Diwc9C1AvzHhLIgiYg6k14cJIWlz1v.jpg"/><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/08/E4wt7w67bcC2wwWgw94GBb4TwCSig2.jpg" width="100%" alt="images/1604/2017/08/E4wt7w67bcC2wwWgw94GBb4TwCSig2.jpg"/></p><p style="white-space: normal;"><img src="http://www.dequanhuibao.com/web/images/1604/2017/08/tL0N08Chh99QzHiQacmq0I0sV0vZIZ.jpg" width="100%" alt="images/1604/2017/08/tL0N08Chh99QzHiQacmq0I0sV0vZIZ.jpg"/><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/08/R4Ej11ln8BNJgjGbGLm1zEb88JzJn8.jpg" width="100%" alt="images/1604/2017/08/R4Ej11ln8BNJgjGbGLm1zEb88JzJn8.jpg"/></p><p><br/></p>
+             * content : <p style="text-align:center;">需要代发的联系客服</p><table border="0" cellpadding="0" cellspacing="1" style="border-collapse:separate;border-spacing:1.0px;width:748.0px;border-color:#000000;background-color:#000000;"><tbody><tr class="firstRow"><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105">&nbsp;</td><td bgcolor="#ffffff" colspan="6" style="text-align:left;" width="643">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">尺码</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">裤长</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">腰围</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">臀围</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">大腿围</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">脚口</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">单位（cm)</span> </td></tr><tr><td bgcolor="#ffffff" height="30" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="118">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">M</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">89</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">60-94</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">90-116</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">46-68</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">10</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">L</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">91</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">64-100</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">92-126</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">48-72</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">10</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">XL</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">93</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">68-110</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">96-136</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">50-76</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">11</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" colspan="7" height="30" style="text-align:right;" width="748"><span style="font-size:10.0pt;">以上尺寸仅供参考，由于测量方法不一样，可有存在1-3cm的误差</span> </td></tr></tbody></table><p style="text-align:center;"><span style="color:#ff0000;font-size:32.0px;text-align:center;">MUJI无印良品原单正品香味皮裤可扫码不掉皮不裂皮</span> </p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>所有腰口采用德国进口机器织补，皮料采用国际进口卡西欧材质，</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>加入香料制作而成，高密度绒内里，皮绒一体，更加细腻亲肤，柔软性高，弹力好.&nbsp;</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>M适合80-110斤</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>L适合110-125斤</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>XL适合120-140斤</strong></span></p><p style="text-align: center;"><span style="font-size:14.0pt;"><strong><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/VOR1zYyyyP5N2S01YB5VyYPYvy1YbY.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/f831mZ14Y6546qWDq5m141Qq818Y83.jpg" align="absmiddle" size="750x200"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ZyR4Ziry5I6i3zpvR6P33IRZjiZP6R.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/Nvfb7w7v77W1X7wF3Y38Yfc8778BV1.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/lrIwEoeOw5PpCN0OuU2l9rwprm75bO.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/p77LA70Zz7cFJcnM0c3f7J27M55z0F.jpg" align="absmiddle" size="750x1000"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/O0Tfj3q3sKM0v2VlMqX4K8mbk04F0z.jpg" align="absmiddle" size="750x1000"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/o2WQ28Z4Fb4x8ef7FZZRbe22h7QI78.jpg" align="absmiddle" size="750x563"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ew99w383r8oosMORI1MI8xxM3w1sR8.jpg" align="absmiddle" size="750x750"/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </strong></span></p>
              * goodssn :
              * productsn :
-             * productprice : 40.00
-             * marketprice : 22.90
-             * costprice : 20.90
+             * productprice : 200.00
+             * marketprice : 35.90
+             * costprice : 34.90
              * originalprice : 0.00
-             * total : 648
+             * total : 7095
              * totalcnf : 0
-             * sales : 488
-             * salesreal : 21
+             * sales : 237
+             * salesreal : 0
              * spec :
-             * createtime : 1505805768
-             * weight : 250.00
+             * createtime : 1508893591
+             * weight : 300.00
              * credit :
              * maxbuy : 0
              * usermaxbuy : 0
-             * hasoption : 0
+             * hasoption : 1
              * dispatch : 0
-             * thumb_url : a:3:{i:0;s:54:"images/1604/2017/09/pAz8qADo5H8AyE61s1GdxoEMOY1A8m.jpg";i:1;s:54:"images/1604/2017/09/tb530iI5uaDr3503B43y2rLGu6914b.jpg";i:2;s:54:"images/1604/2017/09/FdlN2ADihxkCLX3N2HXodddkcUH5Iu.jpg";}
+             * thumb_url : a:4:{i:0;s:54:"images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg";i:1;s:54:"images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg";i:2;s:54:"images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg";i:3;s:54:"images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg";}
              * isnew : 0
              * ishot : 0
              * isdiscount : 0
@@ -228,9 +229,9 @@ public class GoodsDetail {
              * issendfree : 0
              * istime : 0
              * iscomment : 0
-             * timestart : 1505805300
-             * timeend : 1505805300
-             * viewcount : 188
+             * timestart : 1508893560
+             * timeend : 1508893560
+             * viewcount : 36
              * deleted : 0
              * hascommission : 0
              * commission1_rate : 0.00
@@ -240,10 +241,10 @@ public class GoodsDetail {
              * commission3_rate : 0.00
              * commission3_pay : 0.00
              * score : 0.00
-             * taobaoid :
+             * taobaoid : 559465700815
              * taotaoid :
-             * taobaourl :
-             * updatetime : 0
+             * taobaourl : https://item.taobao.com/item.htm?spm=a230r.1.14.8.646fa64azqTqL4&id=559465700815&ns=1&abbucket=16#detail
+             * updatetime : 1508893591
              * share_title :
              * share_icon :
              * cash : 0
@@ -253,22 +254,22 @@ public class GoodsDetail {
              * buylevels :
              * showgroups :
              * buygroups :
-             * isverify : 2
+             * isverify : 1
              * storeids :
-             * noticeopenid :
+             * noticeopenid : oV_rgw5wQoKvBGDUXxGqOCLJLw6g
              * tcate : 0
-             * noticetype : 0
+             * noticetype : 0,1,2
              * needfollow : 0
              * followtip :
              * followurl :
              * deduct : 0.00
              * virtual : 0
-             * ccates : 4751
+             * ccates :
              * discounts : {"default":"","level381":"","level382":""}
              * discounts_ :
              * nocommission : 0
              * hidecommission : 0
-             * pcates : 4503
+             * pcates :
              * tcates :
              * artid : 0
              * detail_logo :
@@ -284,11 +285,11 @@ public class GoodsDetail {
              * edareas :
              * cates :
              * commission_level_id : 0
-             * supplier_uid : 0
+             * supplier_uid : 2291
              * diyformtype : 0
              * manydeduct : 0
-             * dispatchtype : 0
-             * dispatchid : 156
+             * dispatchtype : 1
+             * dispatchid : 0
              * dispatchprice : 0.00
              * diyformid : 0
              * diymode : 0
@@ -324,12 +325,12 @@ public class GoodsDetail {
              * catch_id :
              * catch_source :
              * catch_url :
-             * minprice : 0.00
-             * maxprice : 0.00
+             * minprice : 35.90
+             * maxprice : 35.90
              * isdeclaration : 0
              * virtual_declaration : 0.00
              * goods_balance : 0.00
-             * balance_with_store : 0
+             * balance_with_store : 1
              * dispatchsend : 1
              * discountsort :
              * has : 0
@@ -340,7 +341,7 @@ public class GoodsDetail {
              * levelbuy : 1
              * groupbuy : 1
              * timebuy : 0
-             * canaddcart : false
+             * canaddcart : true
              */
 
             private String id;
@@ -1741,13 +1742,311 @@ public class GoodsDetail {
             }
         }
 
+        public static class OptionsBean {
+            /**
+             * id : 168093
+             * title : 黑色+M 80-100
+             * thumb :
+             * marketprice : 35.90
+             * productprice : 200.00
+             * costprice : 34.90
+             * stock : 2365
+             * weight : 300.00
+             * specs : 98661_98656
+             */
+
+            private String id;
+            private String title;
+            private String thumb;
+            private String marketprice;
+            private String productprice;
+            private String costprice;
+            private String stock;
+            private String weight;
+            private String specs;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getThumb() {
+                return thumb;
+            }
+
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
+            }
+
+            public String getMarketprice() {
+                return marketprice;
+            }
+
+            public void setMarketprice(String marketprice) {
+                this.marketprice = marketprice;
+            }
+
+            public String getProductprice() {
+                return productprice;
+            }
+
+            public void setProductprice(String productprice) {
+                this.productprice = productprice;
+            }
+
+            public String getCostprice() {
+                return costprice;
+            }
+
+            public void setCostprice(String costprice) {
+                this.costprice = costprice;
+            }
+
+            public String getStock() {
+                return stock;
+            }
+
+            public void setStock(String stock) {
+                this.stock = stock;
+            }
+
+            public String getWeight() {
+                return weight;
+            }
+
+            public void setWeight(String weight) {
+                this.weight = weight;
+            }
+
+            public String getSpecs() {
+                return specs;
+            }
+
+            public void setSpecs(String specs) {
+                this.specs = specs;
+            }
+        }
+
+        public static class SpecsBean {
+            /**
+             * id : 25062
+             * uniacid : 1604
+             * goodsid : 99120
+             * title : 尺寸
+             * description :
+             * displaytype : 0
+             * content : a:3:{i:0;s:5:"98656";i:1;s:5:"98657";i:2;s:5:"98658";}
+             * displayorder : 0
+             * propId : 20509
+             * items : [{"id":"98656","uniacid":"1604","specid":"25062","title":"M 80-100","thumb":"","show":"1","displayorder":"0","valueId":"28315","virtual":"0"},{"id":"98657","uniacid":"1604","specid":"25062","title":"L 100-120","thumb":"","show":"1","displayorder":"1","valueId":"28316","virtual":"0"},{"id":"98658","uniacid":"1604","specid":"25062","title":"XL 120-140","thumb":"","show":"1","displayorder":"2","valueId":"28317","virtual":"0"}]
+             */
+
+            private String id;
+            private String uniacid;
+            private String goodsid;
+            private String title;
+            private String description;
+            private String displaytype;
+            private String content;
+            private String displayorder;
+            private String propId;
+            private List<ItemsBean> items;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getUniacid() {
+                return uniacid;
+            }
+
+            public void setUniacid(String uniacid) {
+                this.uniacid = uniacid;
+            }
+
+            public String getGoodsid() {
+                return goodsid;
+            }
+
+            public void setGoodsid(String goodsid) {
+                this.goodsid = goodsid;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+
+            public void setDescription(String description) {
+                this.description = description;
+            }
+
+            public String getDisplaytype() {
+                return displaytype;
+            }
+
+            public void setDisplaytype(String displaytype) {
+                this.displaytype = displaytype;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            public String getDisplayorder() {
+                return displayorder;
+            }
+
+            public void setDisplayorder(String displayorder) {
+                this.displayorder = displayorder;
+            }
+
+            public String getPropId() {
+                return propId;
+            }
+
+            public void setPropId(String propId) {
+                this.propId = propId;
+            }
+
+            public List<ItemsBean> getItems() {
+                return items;
+            }
+
+            public void setItems(List<ItemsBean> items) {
+                this.items = items;
+            }
+
+            public static class ItemsBean {
+                /**
+                 * id : 98656
+                 * uniacid : 1604
+                 * specid : 25062
+                 * title : M 80-100
+                 * thumb :
+                 * show : 1
+                 * displayorder : 0
+                 * valueId : 28315
+                 * virtual : 0
+                 */
+
+                private String id;
+                private String uniacid;
+                private String specid;
+                private String title;
+                private String thumb;
+                private String show;
+                private String displayorder;
+                private String valueId;
+                private String virtual;
+
+                public String getId() {
+                    return id;
+                }
+
+                public void setId(String id) {
+                    this.id = id;
+                }
+
+                public String getUniacid() {
+                    return uniacid;
+                }
+
+                public void setUniacid(String uniacid) {
+                    this.uniacid = uniacid;
+                }
+
+                public String getSpecid() {
+                    return specid;
+                }
+
+                public void setSpecid(String specid) {
+                    this.specid = specid;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getThumb() {
+                    return thumb;
+                }
+
+                public void setThumb(String thumb) {
+                    this.thumb = thumb;
+                }
+
+                public String getShow() {
+                    return show;
+                }
+
+                public void setShow(String show) {
+                    this.show = show;
+                }
+
+                public String getDisplayorder() {
+                    return displayorder;
+                }
+
+                public void setDisplayorder(String displayorder) {
+                    this.displayorder = displayorder;
+                }
+
+                public String getValueId() {
+                    return valueId;
+                }
+
+                public void setValueId(String valueId) {
+                    this.valueId = valueId;
+                }
+
+                public String getVirtual() {
+                    return virtual;
+                }
+
+                public void setVirtual(String virtual) {
+                    this.virtual = virtual;
+                }
+            }
+        }
+
         public static class ParamsBean {
             /**
-             * id : 179909
+             * id : 225189
              * uniacid : 1604
-             * goodsid : 95385
-             * title : 品牌
-             * value : 大地春
+             * goodsid : 99120
+             * title : 成分含量
+             * value : 81%(含)-90%(含)
              * displayorder : 0
              */
 
@@ -1805,47 +2104,6 @@ public class GoodsDetail {
             public void setDisplayorder(String displayorder) {
                 this.displayorder = displayorder;
             }
-
-            @Override
-            public String toString() {
-                return "ParamsBean{" +
-                        "id='" + id + '\'' +
-                        ", uniacid='" + uniacid + '\'' +
-                        ", goodsid='" + goodsid + '\'' +
-                        ", title='" + title + '\'' +
-                        ", value='" + value + '\'' +
-                        ", displayorder='" + displayorder + '\'' +
-                        '}';
-            }
         }
-
-        @Override
-        public String toString() {
-            return "DataBean{" +
-                    "goods=" + goods +
-                    ", saleset=" + saleset +
-                    ", params_num='" + params_num + '\'' +
-                    ", commission=" + commission +
-                    ", commission_text='" + commission_text + '\'' +
-                    ", level=" + level +
-                    ", isfavorite=" + isfavorite +
-                    ", commentcount='" + commentcount + '\'' +
-                    ", shop=" + shop +
-                    ", pics=" + pics +
-                    ", options=" + options +
-                    ", specs=" + specs +
-                    ", params=" + params +
-                    ", comment=" + comment +
-                    '}';
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "GoodsDetail{" +
-                "result='" + result + '\'' +
-                ", msg='" + msg + '\'' +
-                ", data=" + data +
-                '}';
     }
 }

@@ -133,6 +133,7 @@ public class GoodsListActivity extends Activity {
             @Override
             public void onItemClick(View view, int position) {
                 intent = new Intent(TAG, GoodsDetailsActivity.class);
+                intent.putExtra("gid", "&id="+goodsList.get(position).getGoodid());
                 startActivity(intent);
             }
         });

@@ -13,6 +13,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!--微信开放平台
+    appid：wxadb94b9d28fae856
+    token：A64638FFAA4TgGoy4yOcl8p4pBfagsy3
+    -->
+
 
     <application
         android:allowBackup="true"

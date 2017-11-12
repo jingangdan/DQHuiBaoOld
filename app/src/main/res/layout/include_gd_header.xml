@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:background="#F9F9F9"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="gone">
 
             <TextView
                 style="@style/text_adware"
@@ -56,11 +57,12 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_gd_name"
+                style="@style/text_adware"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:text="时尚女衣  流行女衣  连衣裙  半身裙  尽在惠宝商城"
-                android:textColor="#000000" />
+                android:gravity="left" />
 
             <View
                 android:layout_width="1dp"
@@ -68,6 +70,7 @@
                 android:background="#CCCCCC" />
 
             <LinearLayout
+                android:id="@+id/lin_gd_distribution"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -75,11 +78,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_baby_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@mipmap/ic_add" />
+                    android:src="@mipmap/ic_distribution" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -99,21 +101,18 @@
             android:padding="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tv_gd_marketprice"
+                style="@style/text_red"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:text="￥100.00"
-                android:textColor="#F15353"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tv_gd_total"
+                style="@style/text_main"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_weight="1"
-                android:text="库存：100  销量：100" />
+                android:layout_weight="1" />
 
         </RelativeLayout>
 
@@ -122,6 +121,7 @@
             android:layout_height="10dp" />
 
         <RelativeLayout
+            android:id="@+id/rel_gd_choose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
@@ -140,128 +140,128 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_next" />
 
 
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="10dp" />-->
 
         <!--宝贝评价-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/bg_white"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/bg_white"-->
+        <!--android:orientation="vertical">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商品评价" />
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="商品评价" />-->
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:padding="10dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@mipmap/ic_launcher" />
+        <!--<ImageView-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:orientation="vertical">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:orientation="vertical">-->
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="慧宝宝" />
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="慧宝宝" />-->
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true">
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true">-->
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/da_ren_list_star" />
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/da_ren_list_star" />-->
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/da_ren_list_star" />
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/da_ren_list_star" />-->
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/da_ren_list_star" />
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/da_ren_list_star" />-->
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/da_ren_list_star" />
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/da_ren_list_star" />-->
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@mipmap/da_ren_list_star" />
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@mipmap/da_ren_list_star" />-->
 
-                            </LinearLayout>
+        <!--</LinearLayout>-->
 
-                        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="3dp"
-                            android:paddingTop="3dp"
-                            android:text="2017年10月" />
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingBottom="3dp"-->
+        <!--android:paddingTop="3dp"-->
+        <!--android:text="2017年10月" />-->
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="第二次来找这个零食了，第一次吃就开始爱上了，还是跟原来一样的味道" />
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="第二次来找这个零食了，第一次吃就开始爱上了，还是跟原来一样的味道" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="颜色分类：原味" />
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="颜色分类：原味" />-->
 
-                    </LinearLayout>
+        <!--</LinearLayout>-->
 
-                </LinearLayout>
+        <!--</LinearLayout>-->
 
-                <TextView
-                    android:id="@+id/tv_talent_detail_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="查看全部评论" />
+        <!--<TextView-->
+        <!--android:id="@+id/tv_talent_detail_open"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:text="查看全部评论" />-->
 
-                <!--<com.hankkin.library.NoScrollListView-->
-                <!--android:id="@+id/nlv_"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content" />-->
-            </LinearLayout>
+        <!--&lt;!&ndash;<com.hankkin.library.NoScrollListView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/nlv_"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content" />&ndash;&gt;-->
+        <!--</LinearLayout>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <View
             android:layout_width="match_parent"
@@ -284,19 +284,23 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/tv_gd_allgoods"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/kuang_goods"
+                    android:background="@drawable/kuang_gary"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="查看全部商品" />
 
                 <TextView
+                    android:id="@+id/tv_gd_store"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/kuang_goods"
+                    android:background="@drawable/kuang_gary"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="进店逛逛" />

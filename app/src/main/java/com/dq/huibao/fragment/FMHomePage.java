@@ -184,7 +184,6 @@ public class FMHomePage extends BaseFragment {
                 et_search = (EditText) lin_search.findViewById(R.id.et_hp_sreach);
                 iv_search = (ImageView) lin_search.findViewById(R.id.iv_hp_sreach);
 
-
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {

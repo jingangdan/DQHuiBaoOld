@@ -6,6 +6,11 @@ package com.dq.huibao.utils;
  */
 
 public class HttpUtils {
+
+    /*请求头（主要用于图片请求）*/
+    public static final String HEADER = "http://www.dequanhuibao.com/attachment/";
+
+    /*总的请求头*/
     public static final String PATH = "http://www.dequanhuibao.com/addons/sz_yi/core/api/index.php?";
 
     /*

@@ -111,5 +111,10 @@
 
     </style>
 
+    <style name="pop_style">
+        <item name="android:windowEnterAnimation">@anim/pop_up_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_down_out</item>
+    </style>
+
 
 </resources>
