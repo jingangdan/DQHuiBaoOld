@@ -109,7 +109,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/lin_pop_gd_add"
+                    android:id="@+id/lin_pop_gd_sub"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="@drawable/kuang_gary"
@@ -134,7 +134,7 @@
                     android:textColor="#000" />
 
                 <LinearLayout
-                    android:id="@+id/lin_pop_gd_sub"
+                    android:id="@+id/lin_pop_gd_add"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="@drawable/kuang_gary"

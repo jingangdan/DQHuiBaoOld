@@ -1,6 +1,5 @@
-package com.dq.huibao.adapter;
+package com.dq.huibao.adapter.gd;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.classify.GoodsDetail;
+import com.dq.huibao.bean.goodsdetail.Items;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 
 import java.util.List;
@@ -23,11 +23,12 @@ import java.util.List;
 
 public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.MyViewHolder> {
     private Context mContext;
-    private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemList;
+    //private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemList;
+    private List<Items> itemList;
     private OnItemClickListener mOnItemClickListener;
     private int mSelect = -1;
 
-    public ChooseAdapter(Context mContext, List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemList) {
+    public ChooseAdapter(Context mContext, List<Items> itemList) {
         this.mContext = mContext;
         this.itemList = itemList;
     }

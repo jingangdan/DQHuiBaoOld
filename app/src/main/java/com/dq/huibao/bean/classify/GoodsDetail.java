@@ -13,7 +13,7 @@ public class GoodsDetail {
     /**
      * result : 1
      * msg : 成功
-     * data : {"goods":{"id":"99120","uniacid":"1604","pcate":"4454","ccate":"4551","type":"1","status":"1","displayorder":"0","title":"无印良品皮裤女香味加绒修身PU哑光muji高腰皮裤显瘦打底裤黑女裤","thumb":"images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","unit":"件","description":"","content":"<p style=\"text-align:center;\">需要代发的联系客服<\/p><table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" style=\"border-collapse:separate;border-spacing:1.0px;width:748.0px;border-color:#000000;background-color:#000000;\"><tbody><tr class=\"firstRow\"><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" colspan=\"6\" style=\"text-align:left;\" width=\"643\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">尺码<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">裤长<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">腰围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">臀围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">大腿围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">脚口<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">单位（cm)<\/span> <\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"118\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">M<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">89<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">60-94<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">90-116<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">46-68<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">L<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">91<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">64-100<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">92-126<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">48-72<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">XL<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">93<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">68-110<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">96-136<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">50-76<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">11<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" colspan=\"7\" height=\"30\" style=\"text-align:right;\" width=\"748\"><span style=\"font-size:10.0pt;\">以上尺寸仅供参考，由于测量方法不一样，可有存在1-3cm的误差<\/span> <\/td><\/tr><\/tbody><\/table><p style=\"text-align:center;\"><span style=\"color:#ff0000;font-size:32.0px;text-align:center;\">MUJI无印良品原单正品香味皮裤可扫码不掉皮不裂皮<\/span> <\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>所有腰口采用德国进口机器织补，皮料采用国际进口卡西欧材质，<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>加入香料制作而成，高密度绒内里，皮绒一体，更加细腻亲肤，柔软性高，弹力好.&nbsp;<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>M适合80-110斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>L适合110-125斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>XL适合120-140斤<\/strong><\/span><\/p><p style=\"text-align: center;\"><span style=\"font-size:14.0pt;\"><strong><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/VOR1zYyyyP5N2S01YB5VyYPYvy1YbY.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/f831mZ14Y6546qWDq5m141Qq818Y83.jpg\" align=\"absmiddle\" size=\"750x200\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ZyR4Ziry5I6i3zpvR6P33IRZjiZP6R.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/Nvfb7w7v77W1X7wF3Y38Yfc8778BV1.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/lrIwEoeOw5PpCN0OuU2l9rwprm75bO.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/p77LA70Zz7cFJcnM0c3f7J27M55z0F.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/O0Tfj3q3sKM0v2VlMqX4K8mbk04F0z.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/o2WQ28Z4Fb4x8ef7FZZRbe22h7QI78.jpg\" align=\"absmiddle\" size=\"750x563\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ew99w383r8oosMORI1MI8xxM3w1sR8.jpg\" align=\"absmiddle\" size=\"750x750\"/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <\/strong><\/span><\/p>","goodssn":"","productsn":"","productprice":"200.00","marketprice":"35.90","costprice":"34.90","originalprice":"0.00","total":"7095","totalcnf":"0","sales":"237","salesreal":"0","spec":"","createtime":"1508893591","weight":"300.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"1","dispatch":"0","thumb_url":"a:4:{i:0;s:54:\"images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg\";i:1;s:54:\"images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg\";i:2;s:54:\"images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg\";i:3;s:54:\"images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg\";}","isnew":"0","ishot":"0","isdiscount":"0","isrecommand":"0","issendfree":"0","istime":"0","iscomment":"0","timestart":"1508893560","timeend":"1508893560","viewcount":"36","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"559465700815","taotaoid":"","taobaourl":"https://item.taobao.com/item.htm?spm=a230r.1.14.8.646fa64azqTqL4&id=559465700815&ns=1&abbucket=16#detail","updatetime":"1508893591","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"1","storeids":"","noticeopenid":"oV_rgw5wQoKvBGDUXxGqOCLJLw6g","tcate":"0","noticetype":"0,1,2","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"2291","diyformtype":"0","manydeduct":"0","dispatchtype":"1","dispatchid":"0","dispatchprice":"0.00","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"35.90","maxprice":"35.90","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"1","dispatchsend":"1","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":true},"saleset":{"enoughs2":[],"enoughs3":[]},"shop":[],"pics":["images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg","images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg","images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg","images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg"],"options":[{"id":"168093","title":"黑色+M 80-100","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98656"},{"id":"168094","title":"黑色+L 100-120","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98657"},{"id":"168095","title":"黑色+XL 120-140","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98658"}],"specs":[{"id":"25062","uniacid":"1604","goodsid":"99120","title":"尺寸","description":"","displaytype":"0","content":"a:3:{i:0;s:5:\"98656\";i:1;s:5:\"98657\";i:2;s:5:\"98658\";}","displayorder":"0","propId":"20509","items":[{"id":"98656","uniacid":"1604","specid":"25062","title":"M 80-100","thumb":"","show":"1","displayorder":"0","valueId":"28315","virtual":"0"},{"id":"98657","uniacid":"1604","specid":"25062","title":"L 100-120","thumb":"","show":"1","displayorder":"1","valueId":"28316","virtual":"0"},{"id":"98658","uniacid":"1604","specid":"25062","title":"XL 120-140","thumb":"","show":"1","displayorder":"2","valueId":"28317","virtual":"0"}]},{"id":"25063","uniacid":"1604","goodsid":"99120","title":"颜色分类","description":"","displaytype":"0","content":"a:1:{i:0;s:5:\"98661\";}","displayorder":"1","propId":"1627207","items":[{"id":"98661","uniacid":"1604","specid":"25063","title":"黑色","thumb":"","show":"1","displayorder":"0","valueId":"28341","virtual":"0"}]}],"params":[{"id":"225189","uniacid":"1604","goodsid":"99120","title":"成分含量","value":"81%(含)-90%(含)","displayorder":"0"},{"id":"225190","uniacid":"1604","goodsid":"99120","title":"裤长","value":"长裤","displayorder":"1"},{"id":"225191","uniacid":"1604","goodsid":"99120","title":"厚薄","value":"加绒","displayorder":"2"},{"id":"225192","uniacid":"1604","goodsid":"99120","title":"材质","value":"皮","displayorder":"3"},{"id":"225193","uniacid":"1604","goodsid":"99120","title":"颜色分类","value":"黑色","displayorder":"4"},{"id":"225194","uniacid":"1604","goodsid":"99120","title":"尺寸","value":"M,L,XL","displayorder":"5"},{"id":"225195","uniacid":"1604","goodsid":"99120","title":"上市年份季节","value":"2017年秋季","displayorder":"6"}],"params_num":"7","commission":false,"commission_text":"","level":{"discountway":"0"},"isfavorite":false,"comment":[],"commentcount":"0"}
+     * data : {"goods":{"id":"98702","uniacid":"1604","pcate":"4474","ccate":"4475","type":"1","status":"1","displayorder":"0","title":"夏威夷果108g 坚果炒货干果仁干货零食","thumb":"images/1604/2017/10/JeQF22uNy3W62WHonI3wfoQ3UNyfhp.jpg","unit":"包","description":"","content":"<p><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/990/114/4260411099_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/121/736/4257637121_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/663/204/4260402366_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/564/201/4256102465_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/492/504/4260405294_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/487/226/4257622784_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/937/526/4257625739_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/337/990/4256099733_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/894/993/4260399498_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/427/826/4257628724_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/224/136/4257631422_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/337/693/4260396733_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/012/114/4260411210_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/662/736/4257637266_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><\/p><p><br/><\/p>","goodssn":"","productsn":"","productprice":"19.90","marketprice":"9.90","costprice":"9.00","originalprice":"0.00","total":"0","totalcnf":"0","sales":"47","salesreal":"0","spec":"","createtime":"1508750174","weight":"108.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"0","dispatch":"0","thumb_url":"a:2:{i:0;s:54:\"images/1604/2017/10/eN9YYZ9Dg79G9yXtD8N9Tt5N9s988N.jpg\";i:1;s:54:\"images/1604/2017/10/R2BVyvIjy1jNdYkvUbV1Uzyq1zyVdQ.jpg\";}","isnew":"1","ishot":"0","isdiscount":"0","isrecommand":"1","issendfree":"0","istime":"0","iscomment":"0","timestart":"1508750160","timeend":"1508750160","viewcount":"56","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"526136282474","taotaoid":"","taobaourl":"https://detail.tmall.com/item.htm?spm=a230r.1.14.265.5b182dd5EL3Mkg&id=526136282474&ns=1&abbucket=10","updatetime":"1508750174","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"1","storeids":"","noticeopenid":"","tcate":"0","noticetype":"0","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"0","diyformtype":"0","manydeduct":"0","dispatchtype":"1","dispatchid":"157","dispatchprice":"5.50","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"0.00","maxprice":"0.00","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"1","dispatchsend":"0","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":true},"saleset":{"enoughs2":[],"enoughs3":[]},"shop":[],"pics":["images/1604/2017/10/JeQF22uNy3W62WHonI3wfoQ3UNyfhp.jpg","images/1604/2017/10/eN9YYZ9Dg79G9yXtD8N9Tt5N9s988N.jpg","images/1604/2017/10/R2BVyvIjy1jNdYkvUbV1Uzyq1zyVdQ.jpg"],"options":[],"specs":[],"params":[{"id":"218850","uniacid":"1604","goodsid":"98702","title":"配料表","value":"夏威夷果、食用盐、白砂糖等","displayorder":"0"},{"id":"218851","uniacid":"1604","goodsid":"98702","title":"储藏方法","value":"阴凉干燥处","displayorder":"1"},{"id":"218853","uniacid":"1604","goodsid":"98702","title":"食品添加剂","value":"甜蜜素、安赛蜜、糖精钠","displayorder":"2"},{"id":"218854","uniacid":"1604","goodsid":"98702","title":"净含量","value":"108g","displayorder":"3"},{"id":"218855","uniacid":"1604","goodsid":"98702","title":"包装方式","value":"包装","displayorder":"4"},{"id":"218856","uniacid":"1604","goodsid":"98702","title":"包装种类","value":"袋装","displayorder":"5"},{"id":"218858","uniacid":"1604","goodsid":"98702","title":"系列","value":"夏威夷果108g","displayorder":"6"},{"id":"218860","uniacid":"1604","goodsid":"98702","title":"是否为有机食品","value":"否","displayorder":"7"},{"id":"218862","uniacid":"1604","goodsid":"98702","title":"是否含糖","value":"含糖","displayorder":"8"},{"id":"218863","uniacid":"1604","goodsid":"98702","title":"产地","value":"中国大陆","displayorder":"9"},{"id":"218866","uniacid":"1604","goodsid":"98702","title":"是否新货","value":"是","displayorder":"10"}],"params_num":"11","commission":false,"commission_text":"","level":{"discountway":"0"},"isfavorite":false,"comment":[],"commentcount":"0"}
      */
 
     private String result;
@@ -46,14 +46,14 @@ public class GoodsDetail {
 
     public static class DataBean {
         /**
-         * goods : {"id":"99120","uniacid":"1604","pcate":"4454","ccate":"4551","type":"1","status":"1","displayorder":"0","title":"无印良品皮裤女香味加绒修身PU哑光muji高腰皮裤显瘦打底裤黑女裤","thumb":"images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","unit":"件","description":"","content":"<p style=\"text-align:center;\">需要代发的联系客服<\/p><table border=\"0\" cellpadding=\"0\" cellspacing=\"1\" style=\"border-collapse:separate;border-spacing:1.0px;width:748.0px;border-color:#000000;background-color:#000000;\"><tbody><tr class=\"firstRow\"><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" colspan=\"6\" style=\"text-align:left;\" width=\"643\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">尺码<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">裤长<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">腰围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">臀围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">大腿围<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">脚口<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">单位（cm)<\/span> <\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"118\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><td bgcolor=\"#ffffff\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">M<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">89<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">60-94<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">90-116<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">46-68<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">L<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">91<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">64-100<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">92-126<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">48-72<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">10<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" height=\"30\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">XL<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">93<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">68-110<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">96-136<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"118\"><span style=\"font-size:10.0pt;\">50-76<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\"><span style=\"font-size:10.0pt;\">11<\/span> <\/td><td bgcolor=\"#ffffff\" style=\"text-align:center;\" width=\"105\">&nbsp;<\/td><\/tr><tr><td bgcolor=\"#ffffff\" colspan=\"7\" height=\"30\" style=\"text-align:right;\" width=\"748\"><span style=\"font-size:10.0pt;\">以上尺寸仅供参考，由于测量方法不一样，可有存在1-3cm的误差<\/span> <\/td><\/tr><\/tbody><\/table><p style=\"text-align:center;\"><span style=\"color:#ff0000;font-size:32.0px;text-align:center;\">MUJI无印良品原单正品香味皮裤可扫码不掉皮不裂皮<\/span> <\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>所有腰口采用德国进口机器织补，皮料采用国际进口卡西欧材质，<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>加入香料制作而成，高密度绒内里，皮绒一体，更加细腻亲肤，柔软性高，弹力好.&nbsp;<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>M适合80-110斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>L适合110-125斤<\/strong><\/span><\/p><p style=\"text-align:center;\"><span style=\"font-size:14.0pt;\"><strong>XL适合120-140斤<\/strong><\/span><\/p><p style=\"text-align: center;\"><span style=\"font-size:14.0pt;\"><strong><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/VOR1zYyyyP5N2S01YB5VyYPYvy1YbY.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/f831mZ14Y6546qWDq5m141Qq818Y83.jpg\" align=\"absmiddle\" size=\"750x200\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ZyR4Ziry5I6i3zpvR6P33IRZjiZP6R.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/Nvfb7w7v77W1X7wF3Y38Yfc8778BV1.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/lrIwEoeOw5PpCN0OuU2l9rwprm75bO.jpg\" align=\"absmiddle\" size=\"750x750\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/p77LA70Zz7cFJcnM0c3f7J27M55z0F.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/O0Tfj3q3sKM0v2VlMqX4K8mbk04F0z.jpg\" align=\"absmiddle\" size=\"750x1000\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/o2WQ28Z4Fb4x8ef7FZZRbe22h7QI78.jpg\" align=\"absmiddle\" size=\"750x563\"/><img style=\"max-width:750.0px;\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ew99w383r8oosMORI1MI8xxM3w1sR8.jpg\" align=\"absmiddle\" size=\"750x750\"/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <\/strong><\/span><\/p>","goodssn":"","productsn":"","productprice":"200.00","marketprice":"35.90","costprice":"34.90","originalprice":"0.00","total":"7095","totalcnf":"0","sales":"237","salesreal":"0","spec":"","createtime":"1508893591","weight":"300.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"1","dispatch":"0","thumb_url":"a:4:{i:0;s:54:\"images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg\";i:1;s:54:\"images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg\";i:2;s:54:\"images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg\";i:3;s:54:\"images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg\";}","isnew":"0","ishot":"0","isdiscount":"0","isrecommand":"0","issendfree":"0","istime":"0","iscomment":"0","timestart":"1508893560","timeend":"1508893560","viewcount":"36","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"559465700815","taotaoid":"","taobaourl":"https://item.taobao.com/item.htm?spm=a230r.1.14.8.646fa64azqTqL4&id=559465700815&ns=1&abbucket=16#detail","updatetime":"1508893591","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"1","storeids":"","noticeopenid":"oV_rgw5wQoKvBGDUXxGqOCLJLw6g","tcate":"0","noticetype":"0,1,2","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"2291","diyformtype":"0","manydeduct":"0","dispatchtype":"1","dispatchid":"0","dispatchprice":"0.00","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"35.90","maxprice":"35.90","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"1","dispatchsend":"1","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":true}
+         * goods : {"id":"98702","uniacid":"1604","pcate":"4474","ccate":"4475","type":"1","status":"1","displayorder":"0","title":"夏威夷果108g 坚果炒货干果仁干货零食","thumb":"images/1604/2017/10/JeQF22uNy3W62WHonI3wfoQ3UNyfhp.jpg","unit":"包","description":"","content":"<p><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/990/114/4260411099_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/121/736/4257637121_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/663/204/4260402366_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/564/201/4256102465_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/492/504/4260405294_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/487/226/4257622784_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/937/526/4257625739_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/337/990/4256099733_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/894/993/4260399498_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/427/826/4257628724_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/224/136/4257631422_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/337/693/4260396733_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/012/114/4260411210_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><br style=\"color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\"/><img alt=\"undefined\" src=\"https://cbu01.alicdn.com/img/ibank/2017/662/736/4257637266_98742791.jpg\" style=\"border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: \" hiragino=\"\" sans=\"\" font-size:=\"\" white-space:=\"\" background-color:=\"\" float:=\"\" zoom:=\"\"/><\/p><p><br/><\/p>","goodssn":"","productsn":"","productprice":"19.90","marketprice":"9.90","costprice":"9.00","originalprice":"0.00","total":"0","totalcnf":"0","sales":"47","salesreal":"0","spec":"","createtime":"1508750174","weight":"108.00","credit":"","maxbuy":"0","usermaxbuy":"0","hasoption":"0","dispatch":"0","thumb_url":"a:2:{i:0;s:54:\"images/1604/2017/10/eN9YYZ9Dg79G9yXtD8N9Tt5N9s988N.jpg\";i:1;s:54:\"images/1604/2017/10/R2BVyvIjy1jNdYkvUbV1Uzyq1zyVdQ.jpg\";}","isnew":"1","ishot":"0","isdiscount":"0","isrecommand":"1","issendfree":"0","istime":"0","iscomment":"0","timestart":"1508750160","timeend":"1508750160","viewcount":"56","deleted":"0","hascommission":"0","commission1_rate":"0.00","commission1_pay":"0.00","commission2_rate":"0.00","commission2_pay":"0.00","commission3_rate":"0.00","commission3_pay":"0.00","score":"0.00","taobaoid":"526136282474","taotaoid":"","taobaourl":"https://detail.tmall.com/item.htm?spm=a230r.1.14.265.5b182dd5EL3Mkg&id=526136282474&ns=1&abbucket=10","updatetime":"1508750174","share_title":"","share_icon":"","cash":"0","commission_thumb":"","isnodiscount":"0","showlevels":"","buylevels":"","showgroups":"","buygroups":"","isverify":"1","storeids":"","noticeopenid":"","tcate":"0","noticetype":"0","needfollow":"0","followtip":"","followurl":"","deduct":"0.00","virtual":"0","ccates":"","discounts":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","discounts_":"","nocommission":"0","hidecommission":"0","pcates":"","tcates":"","artid":"0","detail_logo":"","detail_shopname":"","detail_btntext1":"","detail_btnurl1":"","detail_btntext2":"","detail_btnurl2":"","detail_totaltitle":"","deduct2":"0.00","ednum":"0","edmoney":"0.00","edareas":"","cates":"","commission_level_id":"0","supplier_uid":"0","diyformtype":"0","manydeduct":"0","dispatchtype":"1","dispatchid":"157","dispatchprice":"5.50","diyformid":"0","diymode":"0","shorttitle":"","redprice":"","pcate1":"0","ccate1":"0","tcate1":"0","nobonus":"0","returns":"{\"default\":\"\",\"level381\":\"\",\"level382\":\"\"}","returns_":"","isverifysend":"0","isreturn":"0","isreturnqueue":"0","deposit":"0.00","print_id":"0","pcates2":"","ccates2":"","tcates2":"","discounttype":"0","discounts2":"{\"default\":\"\"}","returns2":"{\"default\":\"\"}","returntype":"0","discountway":"0","love_money":"0.00","isopenchannel":"0","yunbi_consumption":"0.000","yunbi_commission":"0.000","isyunbi":"0","yunbi_deduct":"0.00","isforceyunbi":"0","bonusmoney":"0.00","catch_id":"","catch_source":"","catch_url":"","minprice":"0.00","maxprice":"0.00","isdeclaration":"0","virtual_declaration":"0.00","goods_balance":"0.00","balance_with_store":"1","dispatchsend":"0","discountsort":"","has":"0","isforce":"1","canbuy":true,"timestate":"","userbuy":"1","levelbuy":"1","groupbuy":"1","timebuy":"0","canaddcart":true}
          * saleset : {"enoughs2":[],"enoughs3":[]}
          * shop : []
-         * pics : ["images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg","images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg","images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg","images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg","images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg"]
-         * options : [{"id":"168093","title":"黑色+M 80-100","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98656"},{"id":"168094","title":"黑色+L 100-120","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98657"},{"id":"168095","title":"黑色+XL 120-140","thumb":"","marketprice":"35.90","productprice":"200.00","costprice":"34.90","stock":"2365","weight":"300.00","specs":"98661_98658"}]
-         * specs : [{"id":"25062","uniacid":"1604","goodsid":"99120","title":"尺寸","description":"","displaytype":"0","content":"a:3:{i:0;s:5:\"98656\";i:1;s:5:\"98657\";i:2;s:5:\"98658\";}","displayorder":"0","propId":"20509","items":[{"id":"98656","uniacid":"1604","specid":"25062","title":"M 80-100","thumb":"","show":"1","displayorder":"0","valueId":"28315","virtual":"0"},{"id":"98657","uniacid":"1604","specid":"25062","title":"L 100-120","thumb":"","show":"1","displayorder":"1","valueId":"28316","virtual":"0"},{"id":"98658","uniacid":"1604","specid":"25062","title":"XL 120-140","thumb":"","show":"1","displayorder":"2","valueId":"28317","virtual":"0"}]},{"id":"25063","uniacid":"1604","goodsid":"99120","title":"颜色分类","description":"","displaytype":"0","content":"a:1:{i:0;s:5:\"98661\";}","displayorder":"1","propId":"1627207","items":[{"id":"98661","uniacid":"1604","specid":"25063","title":"黑色","thumb":"","show":"1","displayorder":"0","valueId":"28341","virtual":"0"}]}]
-         * params : [{"id":"225189","uniacid":"1604","goodsid":"99120","title":"成分含量","value":"81%(含)-90%(含)","displayorder":"0"},{"id":"225190","uniacid":"1604","goodsid":"99120","title":"裤长","value":"长裤","displayorder":"1"},{"id":"225191","uniacid":"1604","goodsid":"99120","title":"厚薄","value":"加绒","displayorder":"2"},{"id":"225192","uniacid":"1604","goodsid":"99120","title":"材质","value":"皮","displayorder":"3"},{"id":"225193","uniacid":"1604","goodsid":"99120","title":"颜色分类","value":"黑色","displayorder":"4"},{"id":"225194","uniacid":"1604","goodsid":"99120","title":"尺寸","value":"M,L,XL","displayorder":"5"},{"id":"225195","uniacid":"1604","goodsid":"99120","title":"上市年份季节","value":"2017年秋季","displayorder":"6"}]
-         * params_num : 7
+         * pics : ["images/1604/2017/10/JeQF22uNy3W62WHonI3wfoQ3UNyfhp.jpg","images/1604/2017/10/eN9YYZ9Dg79G9yXtD8N9Tt5N9s988N.jpg","images/1604/2017/10/R2BVyvIjy1jNdYkvUbV1Uzyq1zyVdQ.jpg"]
+         * options : []
+         * specs : []
+         * params : [{"id":"218850","uniacid":"1604","goodsid":"98702","title":"配料表","value":"夏威夷果、食用盐、白砂糖等","displayorder":"0"},{"id":"218851","uniacid":"1604","goodsid":"98702","title":"储藏方法","value":"阴凉干燥处","displayorder":"1"},{"id":"218853","uniacid":"1604","goodsid":"98702","title":"食品添加剂","value":"甜蜜素、安赛蜜、糖精钠","displayorder":"2"},{"id":"218854","uniacid":"1604","goodsid":"98702","title":"净含量","value":"108g","displayorder":"3"},{"id":"218855","uniacid":"1604","goodsid":"98702","title":"包装方式","value":"包装","displayorder":"4"},{"id":"218856","uniacid":"1604","goodsid":"98702","title":"包装种类","value":"袋装","displayorder":"5"},{"id":"218858","uniacid":"1604","goodsid":"98702","title":"系列","value":"夏威夷果108g","displayorder":"6"},{"id":"218860","uniacid":"1604","goodsid":"98702","title":"是否为有机食品","value":"否","displayorder":"7"},{"id":"218862","uniacid":"1604","goodsid":"98702","title":"是否含糖","value":"含糖","displayorder":"8"},{"id":"218863","uniacid":"1604","goodsid":"98702","title":"产地","value":"中国大陆","displayorder":"9"},{"id":"218866","uniacid":"1604","goodsid":"98702","title":"是否新货","value":"是","displayorder":"10"}]
+         * params_num : 11
          * commission : false
          * commission_text :
          * level : {"discountway":"0"}
@@ -72,8 +72,8 @@ public class GoodsDetail {
         private String commentcount;
         private List<?> shop;
         private List<String> pics;
-        private List<OptionsBean> options;
-        private List<SpecsBean> specs;
+        private List<?> options;
+        private List<?> specs;
         private List<ParamsBean> params;
         private List<?> comment;
 
@@ -157,19 +157,19 @@ public class GoodsDetail {
             this.pics = pics;
         }
 
-        public List<OptionsBean> getOptions() {
+        public List<?> getOptions() {
             return options;
         }
 
-        public void setOptions(List<OptionsBean> options) {
+        public void setOptions(List<?> options) {
             this.options = options;
         }
 
-        public List<SpecsBean> getSpecs() {
+        public List<?> getSpecs() {
             return specs;
         }
 
-        public void setSpecs(List<SpecsBean> specs) {
+        public void setSpecs(List<?> specs) {
             this.specs = specs;
         }
 
@@ -191,47 +191,47 @@ public class GoodsDetail {
 
         public static class GoodsBean {
             /**
-             * id : 99120
+             * id : 98702
              * uniacid : 1604
-             * pcate : 4454
-             * ccate : 4551
+             * pcate : 4474
+             * ccate : 4475
              * type : 1
              * status : 1
              * displayorder : 0
-             * title : 无印良品皮裤女香味加绒修身PU哑光muji高腰皮裤显瘦打底裤黑女裤
-             * thumb : images/1604/2017/10/F9UzRHxFM7PhFZuMFYzfCM7E99rc9X.jpg
-             * unit : 件
+             * title : 夏威夷果108g 坚果炒货干果仁干货零食
+             * thumb : images/1604/2017/10/JeQF22uNy3W62WHonI3wfoQ3UNyfhp.jpg
+             * unit : 包
              * description :
-             * content : <p style="text-align:center;">需要代发的联系客服</p><table border="0" cellpadding="0" cellspacing="1" style="border-collapse:separate;border-spacing:1.0px;width:748.0px;border-color:#000000;background-color:#000000;"><tbody><tr class="firstRow"><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105">&nbsp;</td><td bgcolor="#ffffff" colspan="6" style="text-align:left;" width="643">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">尺码</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">裤长</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">腰围</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">臀围</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">大腿围</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">脚口</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">单位（cm)</span> </td></tr><tr><td bgcolor="#ffffff" height="30" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="118">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td><td bgcolor="#ffffff" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">M</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">89</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">60-94</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">90-116</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">46-68</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">10</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">L</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">91</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">64-100</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">92-126</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">48-72</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">10</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" height="30" style="text-align:center;" width="105"><span style="font-size:10.0pt;">XL</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">93</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">68-110</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">96-136</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="118"><span style="font-size:10.0pt;">50-76</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105"><span style="font-size:10.0pt;">11</span> </td><td bgcolor="#ffffff" style="text-align:center;" width="105">&nbsp;</td></tr><tr><td bgcolor="#ffffff" colspan="7" height="30" style="text-align:right;" width="748"><span style="font-size:10.0pt;">以上尺寸仅供参考，由于测量方法不一样，可有存在1-3cm的误差</span> </td></tr></tbody></table><p style="text-align:center;"><span style="color:#ff0000;font-size:32.0px;text-align:center;">MUJI无印良品原单正品香味皮裤可扫码不掉皮不裂皮</span> </p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>所有腰口采用德国进口机器织补，皮料采用国际进口卡西欧材质，</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>加入香料制作而成，高密度绒内里，皮绒一体，更加细腻亲肤，柔软性高，弹力好.&nbsp;</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>M适合80-110斤</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>L适合110-125斤</strong></span></p><p style="text-align:center;"><span style="font-size:14.0pt;"><strong>XL适合120-140斤</strong></span></p><p style="text-align: center;"><span style="font-size:14.0pt;"><strong><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/VOR1zYyyyP5N2S01YB5VyYPYvy1YbY.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/f831mZ14Y6546qWDq5m141Qq818Y83.jpg" align="absmiddle" size="750x200"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ZyR4Ziry5I6i3zpvR6P33IRZjiZP6R.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/Nvfb7w7v77W1X7wF3Y38Yfc8778BV1.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/lrIwEoeOw5PpCN0OuU2l9rwprm75bO.jpg" align="absmiddle" size="750x750"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/p77LA70Zz7cFJcnM0c3f7J27M55z0F.jpg" align="absmiddle" size="750x1000"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/O0Tfj3q3sKM0v2VlMqX4K8mbk04F0z.jpg" align="absmiddle" size="750x1000"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/o2WQ28Z4Fb4x8ef7FZZRbe22h7QI78.jpg" align="absmiddle" size="750x563"/><img style="max-width:750.0px;" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/10/ew99w383r8oosMORI1MI8xxM3w1sR8.jpg" align="absmiddle" size="750x750"/><br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> </strong></span></p>
+             * content : <p><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/990/114/4260411099_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/121/736/4257637121_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/663/204/4260402366_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/564/201/4256102465_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/492/504/4260405294_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/487/226/4257622784_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/937/526/4257625739_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/337/990/4256099733_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/894/993/4260399498_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/427/826/4257628724_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/224/136/4257631422_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/337/693/4260396733_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/012/114/4260411210_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><br style="color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:=""/><img alt="undefined" src="https://cbu01.alicdn.com/img/ibank/2017/662/736/4257637266_98742791.jpg" style="border: none; visibility: visible; vertical-align: bottom; max-width: 790px; color: rgb(51, 51, 51); font-family: " hiragino="" sans="" font-size:="" white-space:="" background-color:="" float:="" zoom:=""/></p><p><br/></p>
              * goodssn :
              * productsn :
-             * productprice : 200.00
-             * marketprice : 35.90
-             * costprice : 34.90
+             * productprice : 19.90
+             * marketprice : 9.90
+             * costprice : 9.00
              * originalprice : 0.00
-             * total : 7095
+             * total : 0
              * totalcnf : 0
-             * sales : 237
+             * sales : 47
              * salesreal : 0
              * spec :
-             * createtime : 1508893591
-             * weight : 300.00
+             * createtime : 1508750174
+             * weight : 108.00
              * credit :
              * maxbuy : 0
              * usermaxbuy : 0
-             * hasoption : 1
+             * hasoption : 0
              * dispatch : 0
-             * thumb_url : a:4:{i:0;s:54:"images/1604/2017/10/p1zY4W59EooQ915G5sY3p9OpW1ySCY.jpg";i:1;s:54:"images/1604/2017/10/pB9zRN6irRfkirg6dRK6sInfcUf7Z3.jpg";i:2;s:54:"images/1604/2017/10/xmaapCzF9jWJ6wYIZC2MAcLu6aXu6u.jpg";i:3;s:54:"images/1604/2017/10/c5mfhLzJFDvH4VvHFxHr6hrJ8jM5mz.jpg";}
-             * isnew : 0
+             * thumb_url : a:2:{i:0;s:54:"images/1604/2017/10/eN9YYZ9Dg79G9yXtD8N9Tt5N9s988N.jpg";i:1;s:54:"images/1604/2017/10/R2BVyvIjy1jNdYkvUbV1Uzyq1zyVdQ.jpg";}
+             * isnew : 1
              * ishot : 0
              * isdiscount : 0
-             * isrecommand : 0
+             * isrecommand : 1
              * issendfree : 0
              * istime : 0
              * iscomment : 0
-             * timestart : 1508893560
-             * timeend : 1508893560
-             * viewcount : 36
+             * timestart : 1508750160
+             * timeend : 1508750160
+             * viewcount : 56
              * deleted : 0
              * hascommission : 0
              * commission1_rate : 0.00
@@ -241,10 +241,10 @@ public class GoodsDetail {
              * commission3_rate : 0.00
              * commission3_pay : 0.00
              * score : 0.00
-             * taobaoid : 559465700815
+             * taobaoid : 526136282474
              * taotaoid :
-             * taobaourl : https://item.taobao.com/item.htm?spm=a230r.1.14.8.646fa64azqTqL4&id=559465700815&ns=1&abbucket=16#detail
-             * updatetime : 1508893591
+             * taobaourl : https://detail.tmall.com/item.htm?spm=a230r.1.14.265.5b182dd5EL3Mkg&id=526136282474&ns=1&abbucket=10
+             * updatetime : 1508750174
              * share_title :
              * share_icon :
              * cash : 0
@@ -256,9 +256,9 @@ public class GoodsDetail {
              * buygroups :
              * isverify : 1
              * storeids :
-             * noticeopenid : oV_rgw5wQoKvBGDUXxGqOCLJLw6g
+             * noticeopenid :
              * tcate : 0
-             * noticetype : 0,1,2
+             * noticetype : 0
              * needfollow : 0
              * followtip :
              * followurl :
@@ -285,12 +285,12 @@ public class GoodsDetail {
              * edareas :
              * cates :
              * commission_level_id : 0
-             * supplier_uid : 2291
+             * supplier_uid : 0
              * diyformtype : 0
              * manydeduct : 0
              * dispatchtype : 1
-             * dispatchid : 0
-             * dispatchprice : 0.00
+             * dispatchid : 157
+             * dispatchprice : 5.50
              * diyformid : 0
              * diymode : 0
              * shorttitle :
@@ -325,13 +325,13 @@ public class GoodsDetail {
              * catch_id :
              * catch_source :
              * catch_url :
-             * minprice : 35.90
-             * maxprice : 35.90
+             * minprice : 0.00
+             * maxprice : 0.00
              * isdeclaration : 0
              * virtual_declaration : 0.00
              * goods_balance : 0.00
              * balance_with_store : 1
-             * dispatchsend : 1
+             * dispatchsend : 0
              * discountsort :
              * has : 0
              * isforce : 1
@@ -1742,311 +1742,13 @@ public class GoodsDetail {
             }
         }
 
-        public static class OptionsBean {
-            /**
-             * id : 168093
-             * title : 黑色+M 80-100
-             * thumb :
-             * marketprice : 35.90
-             * productprice : 200.00
-             * costprice : 34.90
-             * stock : 2365
-             * weight : 300.00
-             * specs : 98661_98656
-             */
-
-            private String id;
-            private String title;
-            private String thumb;
-            private String marketprice;
-            private String productprice;
-            private String costprice;
-            private String stock;
-            private String weight;
-            private String specs;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
-            public String getThumb() {
-                return thumb;
-            }
-
-            public void setThumb(String thumb) {
-                this.thumb = thumb;
-            }
-
-            public String getMarketprice() {
-                return marketprice;
-            }
-
-            public void setMarketprice(String marketprice) {
-                this.marketprice = marketprice;
-            }
-
-            public String getProductprice() {
-                return productprice;
-            }
-
-            public void setProductprice(String productprice) {
-                this.productprice = productprice;
-            }
-
-            public String getCostprice() {
-                return costprice;
-            }
-
-            public void setCostprice(String costprice) {
-                this.costprice = costprice;
-            }
-
-            public String getStock() {
-                return stock;
-            }
-
-            public void setStock(String stock) {
-                this.stock = stock;
-            }
-
-            public String getWeight() {
-                return weight;
-            }
-
-            public void setWeight(String weight) {
-                this.weight = weight;
-            }
-
-            public String getSpecs() {
-                return specs;
-            }
-
-            public void setSpecs(String specs) {
-                this.specs = specs;
-            }
-        }
-
-        public static class SpecsBean {
-            /**
-             * id : 25062
-             * uniacid : 1604
-             * goodsid : 99120
-             * title : 尺寸
-             * description :
-             * displaytype : 0
-             * content : a:3:{i:0;s:5:"98656";i:1;s:5:"98657";i:2;s:5:"98658";}
-             * displayorder : 0
-             * propId : 20509
-             * items : [{"id":"98656","uniacid":"1604","specid":"25062","title":"M 80-100","thumb":"","show":"1","displayorder":"0","valueId":"28315","virtual":"0"},{"id":"98657","uniacid":"1604","specid":"25062","title":"L 100-120","thumb":"","show":"1","displayorder":"1","valueId":"28316","virtual":"0"},{"id":"98658","uniacid":"1604","specid":"25062","title":"XL 120-140","thumb":"","show":"1","displayorder":"2","valueId":"28317","virtual":"0"}]
-             */
-
-            private String id;
-            private String uniacid;
-            private String goodsid;
-            private String title;
-            private String description;
-            private String displaytype;
-            private String content;
-            private String displayorder;
-            private String propId;
-            private List<ItemsBean> items;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getUniacid() {
-                return uniacid;
-            }
-
-            public void setUniacid(String uniacid) {
-                this.uniacid = uniacid;
-            }
-
-            public String getGoodsid() {
-                return goodsid;
-            }
-
-            public void setGoodsid(String goodsid) {
-                this.goodsid = goodsid;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
-            public String getDescription() {
-                return description;
-            }
-
-            public void setDescription(String description) {
-                this.description = description;
-            }
-
-            public String getDisplaytype() {
-                return displaytype;
-            }
-
-            public void setDisplaytype(String displaytype) {
-                this.displaytype = displaytype;
-            }
-
-            public String getContent() {
-                return content;
-            }
-
-            public void setContent(String content) {
-                this.content = content;
-            }
-
-            public String getDisplayorder() {
-                return displayorder;
-            }
-
-            public void setDisplayorder(String displayorder) {
-                this.displayorder = displayorder;
-            }
-
-            public String getPropId() {
-                return propId;
-            }
-
-            public void setPropId(String propId) {
-                this.propId = propId;
-            }
-
-            public List<ItemsBean> getItems() {
-                return items;
-            }
-
-            public void setItems(List<ItemsBean> items) {
-                this.items = items;
-            }
-
-            public static class ItemsBean {
-                /**
-                 * id : 98656
-                 * uniacid : 1604
-                 * specid : 25062
-                 * title : M 80-100
-                 * thumb :
-                 * show : 1
-                 * displayorder : 0
-                 * valueId : 28315
-                 * virtual : 0
-                 */
-
-                private String id;
-                private String uniacid;
-                private String specid;
-                private String title;
-                private String thumb;
-                private String show;
-                private String displayorder;
-                private String valueId;
-                private String virtual;
-
-                public String getId() {
-                    return id;
-                }
-
-                public void setId(String id) {
-                    this.id = id;
-                }
-
-                public String getUniacid() {
-                    return uniacid;
-                }
-
-                public void setUniacid(String uniacid) {
-                    this.uniacid = uniacid;
-                }
-
-                public String getSpecid() {
-                    return specid;
-                }
-
-                public void setSpecid(String specid) {
-                    this.specid = specid;
-                }
-
-                public String getTitle() {
-                    return title;
-                }
-
-                public void setTitle(String title) {
-                    this.title = title;
-                }
-
-                public String getThumb() {
-                    return thumb;
-                }
-
-                public void setThumb(String thumb) {
-                    this.thumb = thumb;
-                }
-
-                public String getShow() {
-                    return show;
-                }
-
-                public void setShow(String show) {
-                    this.show = show;
-                }
-
-                public String getDisplayorder() {
-                    return displayorder;
-                }
-
-                public void setDisplayorder(String displayorder) {
-                    this.displayorder = displayorder;
-                }
-
-                public String getValueId() {
-                    return valueId;
-                }
-
-                public void setValueId(String valueId) {
-                    this.valueId = valueId;
-                }
-
-                public String getVirtual() {
-                    return virtual;
-                }
-
-                public void setVirtual(String virtual) {
-                    this.virtual = virtual;
-                }
-            }
-        }
-
         public static class ParamsBean {
             /**
-             * id : 225189
+             * id : 218850
              * uniacid : 1604
-             * goodsid : 99120
-             * title : 成分含量
-             * value : 81%(含)-90%(含)
+             * goodsid : 98702
+             * title : 配料表
+             * value : 夏威夷果、食用盐、白砂糖等
              * displayorder : 0
              */
 

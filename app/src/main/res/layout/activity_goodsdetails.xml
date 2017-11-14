@@ -94,6 +94,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/but_gd_collection"
             style="@style/text_main"
             android:layout_width="0dp"
             android:layout_height="fill_parent"

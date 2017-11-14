@@ -17,6 +17,10 @@ import com.dq.huibao.base.BaseActivity;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -124,6 +128,13 @@ public class LoginActivity extends BaseActivity {
 
             case R.id.iv_weixin:
                 Toast.makeText(LoginActivity.this, "微信登录", Toast.LENGTH_SHORT).show();
+
+                IWXAPI iwXapi = WXAPIFactory.createWXAPI(this, "WX_APP_ID", true);
+                iwXapi.registerApp("WX_APP_ID");
+                SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_demo";
+                iwXapi.sendReq(req);
                 break;
             case R.id.iv_qq:
 

@@ -81,9 +81,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
                     android:src="@mipmap/ic_distribution" />
 
                 <TextView
+                    style="@style/text_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="我要分销" />
@@ -128,6 +130,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_gd_specification"
                 style="@style/text_adware"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

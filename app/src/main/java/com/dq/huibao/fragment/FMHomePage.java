@@ -32,6 +32,7 @@ import com.dq.huibao.bean.homepage.Search;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
+import com.dq.huibao.ui.GoodsDetailTestActivity;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.ui.GoodsListActivity;
 import com.dq.huibao.ui.homepage.WebActivity;
@@ -156,6 +157,7 @@ public class FMHomePage extends BaseFragment {
     }
 
     /**
+     * 根据temp动态生成UI
      * @param root
      */
     public void setFor(Root root) {
@@ -196,16 +198,19 @@ public class FMHomePage extends BaseFragment {
                                 iv_search.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        setIntent(search.getData().getParams().getSearchurl().isSelfurl(),
-                                                search.getData().getParams().getSearchurl().getDoX(),
-                                                search.getData().getParams().getSearchurl().getP(),
-                                                search.getData().getParams().getSearchurl().getUrlstr(),
-                                                search.getData().getParams().getSearchurl().getQuery());
-//                                        intent = new Intent(getActivity(), GoodsListActivity.class);
-//                                        intent.putExtra("pcate", "");
-//                                        intent.putExtra("ccate", "");
-//                                        intent.putExtra("name", "全部商品");
-//                                        intent.putExtra("keywords", et_search.getText().toString());
+//                                        setIntent(search.getData().getParams().getSearchurl().isSelfurl(),
+//                                                search.getData().getParams().getSearchurl().getDoX(),
+//                                                search.getData().getParams().getSearchurl().getP(),
+//                                                search.getData().getParams().getSearchurl().getUrlstr(),
+//                                                search.getData().getParams().getSearchurl().getQuery());
+
+                                        intent = new Intent(getActivity(), GoodsListActivity.class);
+                                        intent.putExtra("pcate", "");
+                                        intent.putExtra("ccate", "");
+                                        intent.putExtra("name", "全部商品");
+                                        intent.putExtra("keywords", et_search.getText().toString());
+
+                                        et_search.setText("");
 
                                         startActivity(intent);
                                     }
@@ -651,6 +656,11 @@ public class FMHomePage extends BaseFragment {
                     intent = new Intent(getActivity(), GoodsDetailsActivity.class);
                     intent.putExtra("gid", query);
                     startActivity(intent);
+
+//                    intent = new Intent(getActivity(), GoodsDetailTestActivity.class);
+//                    intent.putExtra("gid", query);
+//                    startActivity(intent);
+
                 } else {
                     toast("未知 pX = " + pX);
                 }

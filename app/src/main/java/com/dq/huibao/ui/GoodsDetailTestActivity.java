@@ -7,16 +7,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,21 +39,20 @@ import android.widget.Toast;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.adapter.SimpleFragmentPagerAdapter;
 import com.dq.huibao.adapter.gd.ChooseAdapter;
 import com.dq.huibao.adapter.gd.ChooseTwoAdapter;
-import com.dq.huibao.adapter.gd.GdCommentAdapter;
-import com.dq.huibao.adapter.gd.GdParmasAdapter;
-import com.dq.huibao.bean.goodsdetail.Comment;
-import com.dq.huibao.bean.goodsdetail.GoodsDetail;
-import com.dq.huibao.bean.goodsdetail.Items;
-import com.dq.huibao.bean.goodsdetail.Params;
-import com.dq.huibao.bean.goodsdetail.Specs;
+import com.dq.huibao.bean.classify.GoodsDetail;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
 import com.dq.huibao.view.HackyViewPager;
+import com.dq.huibao.view.NoScrollViewPager;
 import com.dq.huibao.view.goodsdetails_foot.GradationScrollView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -64,15 +64,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//import com.dq.huibao.bean.classify.GoodsDetail;
-
 
 /**
  * Description：商品详情
  * Created by jingang on 2017/10/24.
  */
-public class GoodsDetailsActivity extends Activity implements GradationScrollView.ScrollViewListener {
-    private GoodsDetailsActivity TAG = GoodsDetailsActivity.this;
+public class GoodsDetailTestActivity extends Activity implements GradationScrollView.ScrollViewListener {
+    private GoodsDetailTestActivity TAG = GoodsDetailTestActivity.this;
 
     /*返回上层*/
     @Bind(R.id.iv_gd_back)
@@ -140,38 +138,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     WebView webView;
     private WebSettings webSettings;
 
-    /*图文详情 产品参数 用户评价 同店推荐*/
-    @Bind(R.id.tv_gd_content)
-    TextView tvGdContent;
-    @Bind(R.id.tv_gd_params)
-    TextView tvGdParams;
-    @Bind(R.id.tv_gd_comment)
-    TextView tvGdComment;
-    @Bind(R.id.tv_gd_recommend)
-    TextView tvGdRecommend;
-    @Bind(R.id.v_gd_content)
-    View vGdContent;
-    @Bind(R.id.v_gd_params)
-    View vGdParams;
-    @Bind(R.id.v_gd_comment)
-    View vGdComment;
-    @Bind(R.id.v_gd_recommend)
-    View vGdRecommend;
-    @Bind(R.id.lin_gd_content)
-    LinearLayout linGdContent;
-    @Bind(R.id.rv_gd_params)
-    RecyclerView rvGdParams;
-    @Bind(R.id.lin_gd_params)
-    LinearLayout linGdParams;
-    @Bind(R.id.rv_gd_comment)
-    RecyclerView rvGdComment;
-    @Bind(R.id.lin_gd_comment)
-    LinearLayout linGdComment;
-    @Bind(R.id.rv_gd_recommend)
-    RecyclerView rvGdRecommend;
-    @Bind(R.id.lin_gd_recommend)
-    LinearLayout linGdRecommend;
-
     NfcAdapter nfcAdapter;
 
     private HackyViewPager viewPager;
@@ -216,7 +182,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /**
      *
      */
-    //private GoodsDetail goodsDetail;
     private GoodsDetail goodsDetail;
 
     /*图片*/
@@ -224,26 +189,16 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     /*商品规格*/
     //private List<GoodsDetail.DataBean.SpecsBean> specsList = new ArrayList<>();
-    private List<Specs> specsList = new ArrayList<>();
 
     /*商品规格items*/
-    //private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemList = new ArrayList<>();
-    //private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemLists = new ArrayList<>();
-
-    private List<Items> itemList = new ArrayList<>();
-    private List<Items> itemLists = new ArrayList<>();
+//    private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemList = new ArrayList<>();
+//    private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemLists = new ArrayList<>();
 
     /*UI赋值*/
     private String title = "", marketprice = "", total = "", sales = "";
 
     /*图文详情*/
     private String content = "";
-    /*产品参数*/
-    private List<Params> paramsList = new ArrayList<>();
-    private GdParmasAdapter gdParmasAdapter;
-    /*用户评价*/
-    private List<Comment> commentList = new ArrayList<>();
-    private GdCommentAdapter gdCommentAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -262,16 +217,14 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     }
 
-    @SuppressLint({"WrongConstant", "ResourceAsColor"})
+    @SuppressLint("WrongConstant")
     @OnClick({R.id.iv_baby, R.id.rel_gd_choose,
             R.id.tv_gd_allgoods, R.id.tv_gd_store,
             R.id.but_gd_put_in, R.id.but_gd_bug_new, R.id.iv_gd_back,
-            R.id.but_gd_collection,
-            R.id.tv_gd_content, R.id.tv_gd_params, R.id.tv_gd_comment, R.id.tv_gd_recommend})
+            R.id.but_gd_collection})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_gd_back:
-                //返回上层
                 TAG.finish();
                 break;
 
@@ -282,9 +235,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
             case R.id.rel_gd_choose:
                 //选择商品规格和数量
-                //specsList = goodsDetail.getData().getSpecs();
                 setPopTest();
-
                 setBackgroundBlack(all_choice_layout, 0);
                 break;
 
@@ -319,7 +270,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
             case R.id.but_gd_put_in:
                 //添加购物车
-                //specsList = goodsDetail.getData().getSpecs();
                 setPopTest();
                 setBackgroundBlack(all_choice_layout, 0);
 //                isClickBuy = false;
@@ -331,54 +281,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 //                isClickBuy = true;
 //                setBackgroundBlack(all_choice_layout, 0);
 //                popWindow.showAsDropDown(view);
-                break;
-
-            case R.id.tv_gd_content:
-                //图文推荐
-                setTabChoose();
-                tvGdContent.setTextColor(Color.rgb(241, 83, 83));
-                vGdContent.setVisibility(View.VISIBLE);
-                linGdContent.setVisibility(View.VISIBLE);
-
-                getWebHTML(content);
-
-                break;
-
-            case R.id.tv_gd_params:
-                //产品参数
-                setTabChoose();
-                tvGdParams.setTextColor(Color.rgb(241, 83, 83));
-                vGdParams.setVisibility(View.VISIBLE);
-                linGdParams.setVisibility(View.VISIBLE);
-
-                paramsList = goodsDetail.getData().getParams();
-                gdParmasAdapter = new GdParmasAdapter(TAG, paramsList);
-                rvGdParams.setLayoutManager(new LinearLayoutManager(TAG));
-                rvGdParams.setAdapter(gdParmasAdapter);
-
-
-                break;
-
-            case R.id.tv_gd_comment:
-                //用户评价
-                setTabChoose();
-                tvGdComment.setTextColor(Color.rgb(241, 83, 83));
-                vGdComment.setVisibility(View.VISIBLE);
-                linGdComment.setVisibility(View.VISIBLE);
-
-                commentList = goodsDetail.getData().getComment();
-                gdCommentAdapter = new GdCommentAdapter(TAG, commentList);
-                rvGdComment.setLayoutManager(new LinearLayoutManager(TAG));
-                rvGdComment.setAdapter(gdCommentAdapter);
-
-                break;
-
-            case R.id.tv_gd_recommend:
-                //同店推荐
-                setTabChoose();
-                tvGdRecommend.setTextColor(Color.rgb(241, 83, 83));
-                vGdRecommend.setVisibility(View.VISIBLE);
-                linGdRecommend.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -401,28 +303,29 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                         System.out.println("商品详情 = " + result);
                         goodsDetail = GsonUtil.gsonIntance().gsonToBean(result, GoodsDetail.class);
 
-                        picsList = goodsDetail.getData().getPics();
+                        System.out.println("啊啊啊啊啊 = " + goodsDetail.getMsg());
 
-                        //System.out.println("啊啊啊啊啊啊啊啊啊啊 = " + goodsDetail.getData().getSpecs().toString());
-                        if (!goodsDetail.getData().getSpecs().toString().equals("[]")) {
-                            specsList = goodsDetail.getData().getSpecs();
-                        }
+
+//                        System.out.println("11111 = "+goodsDetail.getMsg());
 //
-                        // System.out.println("555555 = " + specsList.get(0).getTitle());
-
-                        title = goodsDetail.getData().getGoods().getTitle();
-                        marketprice = goodsDetail.getData().getGoods().getMarketprice();
-                        total = goodsDetail.getData().getGoods().getTotal();
-                        sales = goodsDetail.getData().getGoods().getSales();
-                        content = goodsDetail.getData().getGoods().getContent();
-
-                        tvGdTitle.setText("" + goodsDetail.getData().getGoods().getTitle());
-
-                        initView();
-
-                        initData();
-
-                        getWebHTML(content);
+//                        picsList = goodsDetail.getData().getPics();
+//                        //specsList = goodsDetail.getData().getSpecs();
+//
+//                        System.out.println("555555 = " + specsList.get(0).getTitle());
+//
+//                        title = goodsDetail.getData().getGoods().getTitle();
+//                        marketprice = goodsDetail.getData().getGoods().getMarketprice();
+//                        total = goodsDetail.getData().getGoods().getTotal();
+//                        sales = goodsDetail.getData().getGoods().getSales();
+//                        content = goodsDetail.getData().getGoods().getContent();
+//
+//                        tvGdTitle.setText("" + goodsDetail.getData().getGoods().getTitle());
+//
+//                        initView();
+//
+//                        initData();
+//
+//                        getWebHTML(content);
 
 
                     }
@@ -478,8 +381,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      */
     @SuppressLint("WrongConstant")
     public void setPopTest() {
-
-        //specsList = goodsDetail.getData().getSpecs();
         num = 1;
         view = View.inflate(this, R.layout.pop_gd_choose,
                 null);
@@ -596,9 +497,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         });
 
         /*根据数据结构动态生成UI*/
-        for (int i = 0; i < specsList.size(); i++) {
-            setChooseLayout(i, specsList.get(i).getDisplayorder());
-        }
+//        for (int i = 0; i < specsList.size(); i++) {
+//           //setChooseLayout(i, specsList.get(i).getDisplayorder());
+//        }
 
 
     }
@@ -622,27 +523,27 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
                 recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
 
-                itemList = specsList.get(i).getItems();
+//                itemList = specsList.get(i).getItems();
+//
+//                textView.setText("" + specsList.get(i).getTitle());
 
-                textView.setText("" + specsList.get(i).getTitle());
-
-                chooseTwoAdapter = new ChooseTwoAdapter(TAG, itemList);
-
-                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
-
-                recyclerView.setAdapter(chooseTwoAdapter);
-
-                chooseTwoAdapter.setmOnItemClickListener(new OnItemClickListener() {
-                    @SuppressLint("WrongConstant")
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        chooseTwoAdapter.changeSelected(position);
-                        //Toast.makeText(TAG, "000 = " + itemList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-
-                        specifications1 = itemList.get(position).getTitle();
-                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
-                    }
-                });
+//                chooseTwoAdapter = new ChooseTwoAdapter(TAG, itemList);
+//
+//                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
+//
+//                recyclerView.setAdapter(chooseTwoAdapter);
+//
+//                chooseTwoAdapter.setmOnItemClickListener(new OnItemClickListener() {
+//                    @SuppressLint("WrongConstant")
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        chooseTwoAdapter.changeSelected(position);
+//                        //Toast.makeText(TAG, "000 = " + itemList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+//
+//                        specifications1 = itemList.get(position).getTitle();
+//                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
+//                    }
+//                });
                 break;
 
             case "1":
@@ -652,36 +553,36 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
                 recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
 
-                itemLists = specsList.get(i).getItems();
+//                itemLists = specsList.get(i).getItems();
+//
+//                textView.setText("" + specsList.get(i).getTitle());
 
-                textView.setText("" + specsList.get(i).getTitle());
-
-                chooseAdapter = new ChooseAdapter(TAG, itemLists);
-
-                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
-
-                recyclerView.setAdapter(chooseAdapter);
-
-                chooseAdapter.setmOnItemClickListener(new OnItemClickListener() {
-                    @SuppressLint("WrongConstant")
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        //Toast.makeText(TAG, "111 = " + itemLists.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-
-                        chooseAdapter.changeSelected(position);
-
-                        ImageUtils.loadIntoUseFitWidth(TAG,
-                                HttpUtils.HEADER + itemLists.get(position).getThumb(),
-                                R.mipmap.icon_empty002,
-                                R.mipmap.icon_error002,
-                                iv_thumb);
-
-                        specifications2 = itemLists.get(position).getTitle();
-
-                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
-
-                    }
-                });
+//                chooseAdapter = new ChooseAdapter(TAG, itemLists);
+//
+//                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
+//
+//                recyclerView.setAdapter(chooseAdapter);
+//
+//                chooseAdapter.setmOnItemClickListener(new OnItemClickListener() {
+//                    @SuppressLint("WrongConstant")
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        //Toast.makeText(TAG, "111 = " + itemLists.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+//
+//                        chooseAdapter.changeSelected(position);
+//
+//                        ImageUtils.loadIntoUseFitWidth(TAG,
+//                                HttpUtils.HEADER + itemLists.get(position).getThumb(),
+//                                R.mipmap.icon_empty002,
+//                                R.mipmap.icon_error002,
+//                                iv_thumb);
+//
+//                        specifications2 = itemLists.get(position).getTitle();
+//
+//                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
+//
+//                    }
+//                });
                 break;
             default:
                 break;
@@ -727,33 +628,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         String html = "<html><header>" + css + "</header><body>" + html_bady + "</body></html>";
         webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
 
-    }
-
-
-    /**
-     *
-     */
-    @SuppressLint({"ResourceAsColor", "WrongConstant"})
-    public void setTabChoose() {
-        tvGdContent.setTextColor(Color.rgb(102, 102, 102));
-        tvGdParams.setTextColor(Color.rgb(102, 102, 102));
-        tvGdComment.setTextColor(Color.rgb(102, 102, 102));
-        tvGdRecommend.setTextColor(Color.rgb(102, 102, 102));
-
-//        tvGdContent.setTextColor(R.color.tv_color002);
-//        tvGdParams.setTextColor(R.color.tv_color002);
-//        tvGdComment.setTextColor(R.color.tv_color002);
-//        tvGdRecommend.setTextColor(R.color.tv_color002);
-
-        vGdContent.setVisibility(View.INVISIBLE);
-        vGdParams.setVisibility(View.INVISIBLE);
-        vGdComment.setVisibility(View.INVISIBLE);
-        vGdRecommend.setVisibility(View.INVISIBLE);
-
-        linGdContent.setVisibility(View.GONE);
-        linGdParams.setVisibility(View.GONE);
-        linGdComment.setVisibility(View.GONE);
-        linGdRecommend.setVisibility(View.GONE);
     }
 
     private void initListeners() {
