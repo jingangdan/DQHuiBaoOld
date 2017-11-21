@@ -1,1 +1,1 @@
-include ':app', ':xutils', ':LRecyclerview_library'
+include ':app', ':xutils', ':LRecyclerview_library', ':sharesdk'

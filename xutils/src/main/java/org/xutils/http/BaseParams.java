@@ -31,7 +31,7 @@ import java.util.Map;
  * 请求的基础参数
  * Created by wyouflf on 16/1/23.
  */
-/*package*/ abstract class BaseParams {
+/*package*/ public abstract class BaseParams {
 
     private String charset = "UTF-8";
     private HttpMethod method;

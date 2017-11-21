@@ -119,7 +119,10 @@ public class KeywordsActivity extends Activity {
             @Override
             public void onItemClick(View view, int position) {
                 //toast("商品id = " + keywordsList.get(position).getGoodid());
+//                intent = new Intent(TAG, GoodsDetailsActivity.class);
+//                startActivity(intent);
                 intent = new Intent(TAG, GoodsDetailsActivity.class);
+                intent.putExtra("gid", "&id="+keywordsList.get(position).getGoodid());
                 startActivity(intent);
             }
         });

@@ -54,4 +54,28 @@ public class HttpUtils {
      */
     public static final String SHOP_GOODS_DETAIL = "api=shop/Goods/detail&i=1604";
 
+    /**
+     * 登录
+     * &openid=*******&stamp=1234567890&doc=*********
+     */
+    public static final String SHOP_GOODS_LOGIN = "api=shop/Member/login&i=1604&";
+
+    /*
+    * 个人信息
+    * 参数：
+    * uid
+    * */
+    public static final String SHOP_MEMBER_CENTER = "api=shop/Member/center&i=1604&";
+
+    /*
+    * 优惠券列表
+    * 参数：
+    * 登录验证
+    * used  默认空  1已使用，
+    * past  默认空 1已过期
+    * page 页码
+    * */
+    public static final String ShOP_MEMBER_COUPON = "api=shop/Member/coupon&i=1604&";
+
+
 }

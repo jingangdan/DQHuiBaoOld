@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.goodsdetail.Comment;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
@@ -42,11 +43,17 @@ public class GdCommentAdapter extends RecyclerView.Adapter<GdCommentAdapter.MyVi
         holder.tv_createtime.setText("" + commentList.get(position).getCreatetime());
         holder.tv_content.setText("" + commentList.get(position).getContent());
 
-        ImageUtils.loadIntoUseFitWidth(mContext,
-                commentList.get(position).getHeadimgurl(),
-                R.mipmap.icon_empty002,
-                R.mipmap.icon_error002,
-                holder.iv_headimgurl);
+        Glide.with(mContext)
+                .load(commentList.get(position).getHeadimgurl())
+                .placeholder(R.mipmap.icon_empty002)
+                .error(R.mipmap.icon_error002)
+                .into(holder.iv_headimgurl);
+
+//        ImageUtils.loadIntoUseFitWidth(mContext,
+//                commentList.get(position).getHeadimgurl(),
+//                R.mipmap.icon_empty002,
+//                R.mipmap.icon_error002,
+//                holder.iv_headimgurl);
 
     }
 

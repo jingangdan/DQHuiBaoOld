@@ -12,16 +12,15 @@
 
         <com.dq.huibao.view.MarqueTextView
             android:id="@+id/tv_hp_notice"
+            style="@style/text_adware"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:textSize="24sp" />
+            android:singleLine="true" />
 
     </LinearLayout>
 

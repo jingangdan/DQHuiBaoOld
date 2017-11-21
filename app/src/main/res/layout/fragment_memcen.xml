@@ -1,54 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical">
 
-    <ScrollView
-        android:scrollbars="none"
+    <LinearLayout
+        android:id="@+id/lin_percen_nologin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include layout="@layout/activity_nologin" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_percen_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:scrollbars="none">
 
-            <!--头像、名称-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F15353"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <com.dq.huibao.view.RoundImageView
-                    android:id="@+id/riv_memcen"
-                    android:layout_width="wrap_content"
+                <!--头像、名称-->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher" />
+                    android:background="#F15353"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-                <TextView
-                    style="@style/text_white"
-                    android:layout_marginTop="5dp"
-                    android:text="用户名称" />
+                    <!--<com.dq.huibao.view.RoundImageView-->
+                    <!--android:id="@+id/riv_memcen"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/ic_launcher" />-->
+
+                    <ImageView
+                        android:id="@+id/iv_memcen"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp" />
+
+                    <TextView
+                        android:id="@+id/tv_mc_nickname"
+                        style="@style/text_white"
+                        android:layout_marginTop="5dp"
+                        android:text="用户名称" />
+
+                    <TextView
+                        android:id="@+id/tv_mc_id"
+                        style="@style/text_white"
+                        android:layout_marginTop="5dp"
+                        android:text="id" />
+
+
+                </LinearLayout>
+
+                <!--我的账号-->
+                <include layout="@layout/include_mc_account" />
+
+                <!--我的订单-->
+                <include layout="@layout/include_mc_order" />
+
+                <!--菜单-->
+                <include layout="@layout/include_mc_menu" />
 
             </LinearLayout>
+        </ScrollView>
 
-            <!--我的账号-->
-            <include layout="@layout/include_mc_account"/>
+    </LinearLayout>
 
-            <!--我的订单-->
-            <include layout="@layout/include_mc_order"/>
-
-            <!--菜单-->
-            <include layout="@layout/include_mc_menu"/>
-
-
-        </LinearLayout>
-    </ScrollView>
-
-
-</LinearLayout>
+</FrameLayout>

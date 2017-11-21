@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dq.huibao">
 
     <!-- QQ登录授权所需权限 -->
@@ -7,26 +8,34 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!--微信登录授权所需权限-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <!--微信开放平台
-    appid：wxadb94b9d28fae856
+    appid：wxf00c62b2cd722747
     token：A64638FFAA4TgGoy4yOcl8p4pBfagsy3
     应用签名：f45f579977bd4e73f819e9567a0d9139
     -->
 
+    <!--微信公众号
+    appid:wxadb94b9d28fae856
+        525fae67a6c26d013f5e2b302aa5f8a0
+    -->
 
     <application
+        android:name="com.dq.huibao.application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:theme">
 
         <!-- 注册SDKActivity -->
         <activity
@@ -35,6 +44,7 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -49,7 +59,21 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+
+        <!---->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent1106502346" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -74,10 +98,11 @@
 
         <!--商品详情-->
         <activity android:name="com.dq.huibao.ui.GoodsDetailsActivity" />
-        <activity android:name="com.dq.huibao.ui.GoodsDetailTestActivity" />
 
         <!--显示大图-->
         <activity android:name="com.dq.huibao.ui.ShowBigPictrueActivity" />
+
+        <!--显示大图-->
 
         <!--商品列表-->
         <activity
@@ -118,11 +143,10 @@
         <activity android:name="com.dq.huibao.ui.memcen.CouponsActivity" />
 
 
-
         <!--增加图片清晰度-->
         <meta-data
             android:name="com.dq.huibao.utils.GlideConfiguration"
-            android:value="GlideModule"/>
+            android:value="GlideModule" />
 
     </application>
 

@@ -1,227 +1,284 @@
 package com.dq.huibao.ui;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseActivity;
-import com.tencent.connect.UserInfo;
-import com.tencent.connect.auth.QQToken;
-import com.tencent.connect.common.Constants;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
+import com.dq.huibao.bean.LoginBean;
+import com.dq.huibao.bean.wechat.WeChat;
+import com.dq.huibao.utils.GsonUtil;
+import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.MD5Util;
+import com.dq.huibao.utils.SPUserInfo;
+import com.mob.tools.utils.UIHandler;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
+
+import static android.R.attr.action;
+
 
 /**
- * Description：
+ * Description：会员登录
  * Created by jingang on 2017/10/26.
  */
-public class LoginActivity extends BaseActivity {
-    /*第三方登录*/
-    @Bind(R.id.iv_weixin)
-    ImageView ivWeixin;
-    @Bind(R.id.iv_qq)
-    ImageView ivQq;
+public class LoginActivity extends BaseActivity implements PlatformActionListener, Handler.Callback, View.OnClickListener {
 
-    /*输入账号*/
-    @Bind(R.id.et_login_phone)
-    EditText etLoginPhone;
+    private static final int MSG_ACTION_CCALLBACK = 0;
+    private ImageView ivWxLogin;
+    private ImageView ivQqLogin;
+    //private ImageView ivBlog;
+    private ProgressDialog progressDialog;
 
-    /*清除账号*/
-    @Bind(R.id.iv_phone_clear)
-    ImageView ivPhoneClear;
-
-    /*输入密码*/
-    @Bind(R.id.et_login_pwd)
-    EditText etLoginPwd;
-
-    /*清除密码*/
-    @Bind(R.id.iv_pwd_clear)
-    ImageView ivPwdClear;
-
-    /*立即注册*/
-    @Bind(R.id.tv_login_regist)
-    TextView tvLoginRegist;
-
-    /*忘记密码*/
-    @Bind(R.id.tv_forget_pwd)
-    TextView tvForgetPwd;
-
-    /*登录*/
-    @Bind(R.id.but_login)
-    Button butLogin;
-
-
-    private static final String TAG = "MainActivity";
-    private static final String APP_ID = "1106502346";//官方获取的APPID
-
-    private Tencent mTencent;
-    private BaseUiListener mIUiListener;
-    private UserInfo mUserInfo;
-
-    /*接受页面传值*/
+    /*页面传值*/
     private Intent intent;
 
+    /*接口地址*/
+    private String PATH = "";
+    private RequestParams params = null;
+
+    /*本地轻量型缓存*/
+    private SPUserInfo spUserInfo;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+
+        ShareSDK.initSDK(this);
+        spUserInfo = new SPUserInfo(getApplication());
+
+        initView();
+        initListener();
+        initData();
+    }
+
+
+    public void initView() {
+        ivWxLogin = (ImageView) findViewById(R.id.iv_weixin);
+        ivQqLogin = (ImageView) findViewById(R.id.iv_qq);
+        //ivBlog = (ImageView) findViewById(R.id.iv_blog);
+    }
+
+
+    public void initListener() {
+        ivWxLogin.setOnClickListener(this);
+        ivQqLogin.setOnClickListener(this);
+        //ivBlog.setOnClickListener(this);
+    }
+
+
+    public void initData() {
 
     }
 
-    @SuppressLint("WrongConstant")
-    @Override
-    protected void initWidght() {
-        super.initWidght();
-        setTitleName("会员登录");
-        mTencent = Tencent.createInstance(APP_ID, getApplicationContext());
-
-    }
-
-    @SuppressLint("WrongConstant")
-    @OnClick({R.id.iv_weixin, R.id.iv_qq,R.id.iv_phone_clear, R.id.iv_pwd_clear, R.id.tv_login_regist, R.id.tv_forget_pwd, R.id.but_login})
     @Override
     public void onClick(View view) {
-        super.onClick(view);
         switch (view.getId()) {
-            case R.id.iv_phone_clear:
-
-                break;
-            case R.id.iv_pwd_clear:
-
-                break;
-            case R.id.tv_login_regist:
-                //立即注册
-                intent = new Intent(LoginActivity.this, RegistActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_forget_pwd:
-                //忘记密码
-                intent = new Intent(LoginActivity.this, RegistActivity.class);
-                startActivity(intent);
-
-                break;
-            case R.id.but_login:
-
-                break;
-
             case R.id.iv_weixin:
-                Toast.makeText(LoginActivity.this, "微信登录", Toast.LENGTH_SHORT).show();
-
-                IWXAPI iwXapi = WXAPIFactory.createWXAPI(this, "WX_APP_ID", true);
-                iwXapi.registerApp("WX_APP_ID");
-                SendAuth.Req req = new SendAuth.Req();
-                req.scope = "snsapi_userinfo";
-                req.state = "wechat_sdk_demo";
-                iwXapi.sendReq(req);
+                Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+                wechat.setPlatformActionListener(this);
+                wechat.SSOSetting(false);
+                authorize(wechat, 1);
                 break;
             case R.id.iv_qq:
-
-                /**通过这句代码，SDK实现了QQ的登录，这个方法有三个参数，第一个参数是context上下文，第二个参数SCOPO 是一个String类型的字符串，表示一些权限
-                 官方文档中的说明：应用需要获得哪些API的权限，由“，”分隔。例如：SCOPE = “get_user_info,add_t”；所有权限用“all”
-                 第三个参数，是一个事件监听器，IUiListener接口的实例，这里用的是该接口的实现类 */
-                mIUiListener = new BaseUiListener();
-                //all表示获取所有权限
-                mTencent.login(LoginActivity.this, "all", mIUiListener);
-
+                Platform qq = ShareSDK.getPlatform(QQ.NAME);
+                qq.setPlatformActionListener(this);
+                qq.SSOSetting(false);
+                authorize(qq, 2);
+                break;
+//            case R.id.iv_blog:
+//                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
+//                sina.setPlatformActionListener(this);
+//                sina.SSOSetting(false);
+//                authorize(sina, 3);
+//                break;
+            default:
                 break;
         }
+
+    }
+
+    //授权
+    private void authorize(Platform plat, int type) {
+        switch (type) {
+            case 1:
+                showProgressDialog("开启微信");
+                break;
+            case 2:
+                showProgressDialog("开启QQ");
+                break;
+//            case 3:
+//                showProgressDialog(getString(R.string.opening_blog));
+//                break;
+        }
+        if (plat.isValid()) { //如果授权就删除授权资料
+            plat.removeAccount();
+        }
+        plat.showUser(null);//授权并获取用户信息
+    }
+
+    //登陆授权成功的回调
+    @Override
+    public void onComplete(Platform platform, int i, HashMap<String, Object> res) {
+        Message msg = new Message();
+        msg.what = MSG_ACTION_CCALLBACK;
+        msg.arg1 = 1;
+        msg.arg2 = action;
+        msg.obj = platform;
+        UIHandler.sendMessage(msg, this);   //发送消息
+
+    }
+
+    //登陆授权错误的回调
+    @Override
+    public void onError(Platform platform, int i, Throwable t) {
+        Message msg = new Message();
+        msg.what = MSG_ACTION_CCALLBACK;
+        msg.arg1 = 2;
+        msg.arg2 = action;
+        msg.obj = t;
+        UIHandler.sendMessage(msg, this);
+    }
+
+    //登陆授权取消的回调
+    @Override
+    public void onCancel(Platform platform, int i) {
+        Message msg = new Message();
+        msg.what = MSG_ACTION_CCALLBACK;
+        msg.arg1 = 3;
+        msg.arg2 = action;
+        msg.obj = platform;
+        UIHandler.sendMessage(msg, this);
+    }
+
+    //登陆发送的handle消息在这里处理
+    @SuppressLint("WrongConstant")
+    @Override
+    public boolean handleMessage(Message message) {
+        hideProgressDialog();
+        switch (message.arg1) {
+            case 1: { // 成功
+                Toast.makeText(LoginActivity.this, "授权登陆成功", Toast.LENGTH_SHORT).show();
+
+                //获取用户资料
+                Platform platform = (Platform) message.obj;
+                String userId = platform.getDb().getUserId();//获取用户账号
+                String userName = platform.getDb().getUserName();//获取用户名字
+                String userIcon = platform.getDb().getUserIcon();//获取用户头像
+                String userGender = platform.getDb().getUserGender(); //获取用户性别，m = 男, f = 女，如果微信没有设置性别,默认返回null
+                Toast.makeText(LoginActivity.this, "用户信息为--用户名：" + userName + "  性别：" + userGender, Toast.LENGTH_SHORT).show();
+
+                WeChat weChat = GsonUtil.gsonIntance().gsonToBean(platform.getDb().exportData(), WeChat.class);
+
+                System.out.println("用户头像 = " + userIcon);
+
+                System.out.println("用户头像 = " + weChat.getIcon());
+
+                postLoginTest(weChat.getUnionid());
+
+                //下面就可以利用获取的用户信息登录自己的服务器或者做自己想做的事啦!
+                //。。。
+
+            }
+            break;
+            case 2: { // 失败
+                Toast.makeText(LoginActivity.this, "授权登陆失败", Toast.LENGTH_SHORT).show();
+            }
+            break;
+            case 3: { // 取消
+                Toast.makeText(LoginActivity.this, "授权登陆取消", Toast.LENGTH_SHORT).show();
+            }
+            break;
+        }
+        return false;
+    }
+
+    //显示dialog
+    public void showProgressDialog(String message) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(true);
+        progressDialog.show();
+    }
+
+    //隐藏dialog
+    public void hideProgressDialog() {
+        if (progressDialog != null)
+            progressDialog.dismiss();
     }
 
     /**
-     * 自定义监听器实现IUiListener接口后，需要实现的3个方法
-     * onComplete完成 onError错误 onCancel取消
+     * 测试登录
+     *
+     * @param unionid
      */
-    private class BaseUiListener implements IUiListener {
+    public void postLoginTest(String unionid) {
 
-        @SuppressLint("WrongConstant")
-        @Override
-        public void onComplete(Object response) {
-            Toast.makeText(LoginActivity.this, "授权成功", Toast.LENGTH_SHORT).show();
-            Log.e(TAG, "response:" + response);
-            JSONObject obj = (JSONObject) response;
-            try {
-                String openID = obj.getString("openid");
-                String accessToken = obj.getString("access_token");
-                String expires = obj.getString("expires_in");
-                mTencent.setOpenId(openID);
-                mTencent.setAccessToken(accessToken, expires);
-                QQToken qqToken = mTencent.getQQToken();
-                mUserInfo = new UserInfo(getApplicationContext(), qqToken);
-                mUserInfo.getUserInfo(new IUiListener() {
+        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODS_LOGIN +
+                "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
+                MD5Util.getMD5String(HttpUtils.SHOP_GOODS_LOGIN + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom");
+
+        params = new RequestParams(PATH);
+        System.out.println("测试登录 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
                     @Override
-                    public void onComplete(Object response) {
-                        Log.e(TAG, "登录成功" + response.toString());
+                    public void onSuccess(String result) {
+                        System.out.println("测试登录 = " + result);
+                        LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(result, LoginBean.class);
+                        if (loginBean.getResult().equals("1")) {
+                            toast("登录成功");
+                            spUserInfo.saveLogin("1");//微信登录成功记录 1
+                            spUserInfo.saveLoginReturn(result);//登录成功记录返回信息
+
+                            intent = new Intent();
+                            intent.putExtra("uid", loginBean.getData().getId());
+                            setResult(2, intent);
+
+                            LoginActivity.this.finish();
+
+                        } else if (loginBean.getResult().equals("0")) {
+                            toast("登录失败");
+                        } else {
+                            toast("未知原因");
+                        }
+
                     }
 
                     @Override
-                    public void onError(UiError uiError) {
-                        Log.e(TAG, "登录失败" + uiError.toString());
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
                     }
 
                     @Override
-                    public void onCancel() {
-                        Log.e(TAG, "登录取消");
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
 
                     }
                 });
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @SuppressLint("WrongConstant")
-        @Override
-        public void onError(UiError uiError) {
-            Toast.makeText(LoginActivity.this, "授权失败", Toast.LENGTH_SHORT).show();
-
-        }
-
-        @SuppressLint("WrongConstant")
-        @Override
-        public void onCancel() {
-            Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
-
-        }
-
     }
-
-    /**
-     * 在调用Login的Activity或者Fragment中重写onActivityResult方法
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.REQUEST_LOGIN) {
-            Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
 
 }
 

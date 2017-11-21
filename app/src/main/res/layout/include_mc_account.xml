@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#fff">
+    android:background="#fff"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="#E3E3E3"/>
+        android:background="#E3E3E3" />
 
 
     <RelativeLayout
@@ -17,17 +17,17 @@
         android:padding="10dp">
 
         <TextView
-            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的账号"/>
+            android:layout_alignParentLeft="true"
+            android:text="我的账号" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="#E3E3E3"/>
+        android:background="#E3E3E3" />
 
 
     <LinearLayout
@@ -37,6 +37,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/lin_mc_credit1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,9 +46,9 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_mc_credit1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.00" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -59,9 +60,10 @@
         <View
             android:layout_width="0.8dp"
             android:layout_height="fill_parent"
-            android:background="#E3E3E3"/>
+            android:background="#E3E3E3" />
 
         <LinearLayout
+            android:id="@+id/lin_mc_credit2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -70,9 +72,9 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_mc_credit2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.00" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,9 +86,10 @@
         <View
             android:layout_width="0.8dp"
             android:layout_height="fill_parent"
-            android:background="#E3E3E3"/>
+            android:background="#E3E3E3" />
 
         <LinearLayout
+            android:id="@+id/lin_mc_couponcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -95,9 +98,9 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_mc_couponcount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,7 +114,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="#E3E3E3"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:background="#E3E3E3" />
 
 </LinearLayout>

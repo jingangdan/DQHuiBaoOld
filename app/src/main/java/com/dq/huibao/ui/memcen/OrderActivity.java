@@ -1,5 +1,6 @@
 package com.dq.huibao.ui.memcen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -38,11 +39,17 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
 
     private SimpleFragmentPagerAdapter sfpAdapter;
 
+    /*接收页面传值*/
+    private Intent intent;
+    private int page = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
+        intent = getIntent();
+        page = intent.getExtras().getInt("page");
 
         fragments.add(FMOrderAll.newInstance("FMOrderAll"));
         fragments.add(FMOrderNoPay.newInstance("FMOrderNoPay"));
@@ -53,6 +60,8 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
 
         sfpAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this, fragments, titles);
         vpMcOrder.setAdapter(sfpAdapter);
+
+        vpMcOrder.setCurrentItem(page);
 
 
         vpMcOrder.setOffscreenPageLimit(titles.length);

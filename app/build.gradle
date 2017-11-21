@@ -1,17 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
+
     defaultConfig {
         applicationId "com.dq.huibao"
         minSdkVersion 15
-            targetSdkVersion 25
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        manifestPlaceholders = [
+                qq_id: "XXXXXX"
+        ]
     }
-    buildTypes {    
+    buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -34,9 +41,10 @@ dependencies {
     compile project(':LRecyclerview_library')
     compile files('libs/universal-image-loader-1.8.6-with-sources.jar')
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile files('libs/open_sdk_r5886_lite.jar')
-    compile files('libs/libammsdk.jar')
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     compile 'com.contrarywind:Android-PickerView:3.2.5'
     compile files('libs/gson-2.3.1.jar')
+    compile files('libs/libammsdk.jar')
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
+    compile files('libs/open_sdk_r5886_lite.jar')
+    compile project(':sharesdk')
 }

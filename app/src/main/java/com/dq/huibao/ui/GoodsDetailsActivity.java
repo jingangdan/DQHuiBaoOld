@@ -12,20 +12,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -36,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.gd.ChooseAdapter;
@@ -47,6 +43,10 @@ import com.dq.huibao.bean.goodsdetail.GoodsDetail;
 import com.dq.huibao.bean.goodsdetail.Items;
 import com.dq.huibao.bean.goodsdetail.Params;
 import com.dq.huibao.bean.goodsdetail.Specs;
+import com.dq.huibao.lunbotu.ADInfo;
+import com.dq.huibao.lunbotu.CycleViewPager;
+import com.dq.huibao.lunbotu.ViewFactory;
+import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -63,9 +63,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-//import com.dq.huibao.bean.classify.GoodsDetail;
-
 
 /**
  * Description：商品详情
@@ -103,8 +100,11 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     TextView tvGdSpecification;
 
     /*显示图片控件*/
-    @Bind(R.id.iv_baby)
-    HackyViewPager ivBaby;
+//    @Bind(R.id.iv_baby)
+//    HackyViewPager ivBaby;
+
+    //@Bind(R.id.cycleviewpager)
+    CycleViewPager cycleViewPager;
 
     /*我要分销*/
     @Bind(R.id.lin_gd_distribution)
@@ -120,8 +120,22 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     Button but_gd_bug_new;
 
     /*收藏*/
-    @Bind(R.id.but_gd_collection)
-    Button butGdCollection;
+    @Bind(R.id.lin_gd_collection)
+    LinearLayout linGdCollection;
+    @Bind(R.id.iv_gd_collection)
+    ImageView ivGdCollection;
+    @Bind(R.id.tv_gd_collection)
+    TextView tvGdCollection;
+
+    /*客服*/
+    @Bind(R.id.lin_gd_serice)
+    LinearLayout linGdSerice;
+
+    /*购物车*/
+    @Bind(R.id.rel_gd_shopcar)
+    RelativeLayout relGdShopcar;
+    @Bind(R.id.tv_gd_shopcar_num)
+    TextView tvShopcarNum;
 
     /*选择数量和颜色时背景变暗*/
     @Bind(R.id.lin_all_choice)
@@ -177,8 +191,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     private HackyViewPager viewPager;
     private ArrayList<View> allListView;
 
-//    private int[] resId = {R.mipmap.detail_show_1, R.mipmap.detail_show_2, R.mipmap.detail_show_3,
-//            R.mipmap.detail_show_4, R.mipmap.detail_show_5, R.mipmap.detail_show_6};
     /**
      * 弹出商品订单信息详情
      */
@@ -202,8 +214,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     @Bind(R.id.scrollview)
     GradationScrollView scrollView;
 
-    private int width;
-    private int height;
 
     /*接收页面传值*/
     private Intent intent;
@@ -216,20 +226,15 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /**
      *
      */
-    //private GoodsDetail goodsDetail;
     private GoodsDetail goodsDetail;
 
     /*图片*/
     public static List<String> picsList = new ArrayList<>();
 
     /*商品规格*/
-    //private List<GoodsDetail.DataBean.SpecsBean> specsList = new ArrayList<>();
     private List<Specs> specsList = new ArrayList<>();
 
     /*商品规格items*/
-    //private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemList = new ArrayList<>();
-    //private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemLists = new ArrayList<>();
-
     private List<Items> itemList = new ArrayList<>();
     private List<Items> itemLists = new ArrayList<>();
 
@@ -258,15 +263,15 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
         getSaveCollection();
 
-        initListeners();
+        //initListeners();
 
     }
 
     @SuppressLint({"WrongConstant", "ResourceAsColor"})
-    @OnClick({R.id.iv_baby, R.id.rel_gd_choose,
+    @OnClick({R.id.rel_gd_choose,
             R.id.tv_gd_allgoods, R.id.tv_gd_store,
-            R.id.but_gd_put_in, R.id.but_gd_bug_new, R.id.iv_gd_back,
-            R.id.but_gd_collection,
+            R.id.but_gd_put_in, R.id.but_gd_bug_new, R.id.iv_gd_back, R.id.rel_gd_shopcar,
+            R.id.lin_gd_collection, R.id.lin_gd_distribution,
             R.id.tv_gd_content, R.id.tv_gd_params, R.id.tv_gd_comment, R.id.tv_gd_recommend})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -303,23 +308,31 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 //进店逛逛（进入我的小店）
                 Toast.makeText(TAG, "进入我的小店", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.but_gd_collection:
+            case R.id.lin_gd_collection:
                 //收藏
-//                if (isCollection) {
-//                    //提示是否取消收藏
-//                    cancelCollection();
-//                } else {
-//                    isCollection = true;
-//                    setSaveCollection();
-//                    //如果已经收藏，则显示收藏后的效果
-//                    butGdCollection.setIM.setImageResource(R.drawable.second_2_collection);
-//                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
-//                }
+                if (isCollection) {
+                    //提示是否取消收藏
+                    cancelCollection();
+                } else {
+                    isCollection = true;
+                    setSaveCollection();
+                    //如果已经收藏，则显示收藏后的效果
+                    ivGdCollection.setImageResource(R.mipmap.ic_collection002);
+                    tvGdCollection.setText("已收藏");
+                    //butGdCollection.setBackgroundResource(R.mipmap.ic_collection002);
+                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.rel_gd_shopcar:
+                //购物车
+                intent = new Intent(TAG, ShopcarActivity.class);
+                startActivity(intent);
+
                 break;
 
             case R.id.but_gd_put_in:
                 //添加购物车
-                //specsList = goodsDetail.getData().getSpecs();
                 setPopTest();
                 setBackgroundBlack(all_choice_layout, 0);
 //                isClickBuy = false;
@@ -331,6 +344,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 //                isClickBuy = true;
 //                setBackgroundBlack(all_choice_layout, 0);
 //                popWindow.showAsDropDown(view);
+                intent = new Intent(TAG, SubmitOrderActivity.class);
+                startActivity(intent);
+
                 break;
 
             case R.id.tv_gd_content:
@@ -418,11 +434,13 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
                         tvGdTitle.setText("" + goodsDetail.getData().getGoods().getTitle());
 
-                        initView();
+                        //initView();
 
                         initData();
 
                         getWebHTML(content);
+
+                        setLunbotu();
 
 
                     }
@@ -452,6 +470,66 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tvGdTotal.setText("库存：" + total + " 销量：" + sales);
     }
 
+    private List<ImageView> views = new ArrayList<ImageView>();
+    private List<ADInfo> infos;
+    private ADInfo info;
+
+    /**
+     *
+     */
+    public void setLunbotu() {
+        cycleViewPager = (CycleViewPager) getFragmentManager().findFragmentById(R.id.cycleviewpager);
+
+        infos = new ArrayList<>();
+        for (int i = 0; i < picsList.size(); i++) {
+            info = new ADInfo();
+            info.setUrl(HttpUtils.HEADER + picsList.get(i).toString());
+            info.setContent("");
+            info.setImg("");
+            infos.add(info);
+        }
+
+        // 将最后一个ImageView添加进来
+        views.add(ViewFactory.getImageView(TAG, infos.get(infos.size() - 1).getUrl()));
+        for (int i = 0; i < infos.size(); i++) {
+            views.add(ViewFactory.getImageView(TAG, infos.get(i).getUrl()));
+        }
+        // 将第一个ImageView添加进来
+        views.add(ViewFactory.getImageView(TAG, infos.get(0).getUrl()));
+
+        // 设置循环，在调用setData方法前调用
+        cycleViewPager.setCycle(true);
+
+        // 在加载数据前设置是否循环
+        cycleViewPager.setData(views, infos, mAdCycleViewListener);
+        //设置轮播
+        cycleViewPager.setWheel(true);
+
+        // 设置轮播时间，默认5000ms
+        cycleViewPager.setTime(3000);
+        //设置圆点指示图标组居中显示，默认靠右
+        cycleViewPager.setIndicatorCenter();
+    }
+
+    /*轮播图点击事件*/
+    private CycleViewPager.ImageCycleViewListener mAdCycleViewListener =
+            new CycleViewPager.ImageCycleViewListener() {
+
+                @SuppressLint("WrongConstant")
+                @Override
+                public void onImageClick(ADInfo info, int position, View imageView) {
+                    int index = position - 1;
+                    if (cycleViewPager.isCycle()) {
+                        intent = new Intent(TAG, ShowBigPictrueActivity.class);
+                        intent.putExtra("position", index);
+                        intent.putExtra("picslist", picsList.toString());
+                        startActivity(intent);
+
+                    }
+
+                }
+
+            };
 
     /*popupwindows*/
     private PopupWindow popWindow;
@@ -525,6 +603,12 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         iv_cancel = (ImageView) view.findViewById(R.id.iv_pop_gd_back);
         iv_thumb = (ImageView) view.findViewById(R.id.iv_pop_gd_thumb);
 
+        Glide.with(TAG)
+                .load(HttpUtils.HEADER + goodsDetail.getData().getPics().get(0))
+                .placeholder(R.mipmap.icon_empty002)
+                .error(R.mipmap.icon_error002)
+                .into(iv_thumb);
+
         /*价格 库存 规格 数量 确定*/
         tv_marketprice = (TextView) view.findViewById(R.id.tv_pop_gd_marketprice);
         tv_total = (TextView) view.findViewById(R.id.tv_pop_gd_total);
@@ -576,21 +660,24 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!specifications1.equals("")) {
-                    if (!specifications2.equals("")) {
-                        if (num != 0) {
-                            tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
-                            popWindow.dismiss();
-                        } else {
-                            Toast.makeText(TAG, "数量需大于0", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(TAG, "有规格未选", Toast.LENGTH_SHORT).show();
-                    }
 
-                } else {
-                    Toast.makeText(TAG, "有规格未选", Toast.LENGTH_SHORT).show();
-                }
+                tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
+                popWindow.dismiss();
+//                if (!specifications1.equals("")) {
+//                    if (!specifications2.equals("")) {
+//                        if (num != 0) {
+//                            tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
+//                            popWindow.dismiss();
+//                        } else {
+//                            Toast.makeText(TAG, "数量需大于0", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        Toast.makeText(TAG, "有规格未选", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                } else {
+//                    Toast.makeText(TAG, "有规格未选", Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });
@@ -602,7 +689,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
 
     }
-
 
     /**/
     private LinearLayout lin_choose;
@@ -696,42 +782,34 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      */
     @SuppressLint("WrongConstant")
     public void getWebHTML(String html_bady) {
-        //webView = (WebView) findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webSettings = webView.getSettings();
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setJavaScriptEnabled(false);
 
-        webView.getSettings().setBlockNetworkImage(false);
-        webView.getSettings().setSupportMultipleWindows(false);
-        webView.getSettings().setSupportZoom(true);
-        webView.getSettings().setBuiltInZoomControls(false);
-        webView.getSettings().setDefaultTextEncodingName("utf-8");
-        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webView.setWebChromeClient(new WebChromeClient());
-
-
 //        String head = "<head>" +
 //                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
 //                "<style>*{margin:0;padding:0;}img{max-width: 100%; width:auto; height:auto;}</style>" +
 //                "</head>";
-//        //return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
-//        String html = "<html>" + head + "<body>" + html_bady + "</body></html>";
-//
-//        webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
+        String head = "<head>" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
+                "</head>";
+        String html = "<html>" + head + "<body>" + html_bady + "</body></html>";
+
+        webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
 
         //拼接HTML
-        String css = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "</style>";
-        String html = "<html><header>" + css + "</header><body>" + html_bady + "</body></html>";
-        webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
+//        String css = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+//                "</style>";
+//        String html = "<html><header>" + css + "</header><body>" + html_bady + "</body></html>";
+//        webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
 
     }
 
-
     /**
-     *
+     * 设置文字样式
      */
     @SuppressLint({"ResourceAsColor", "WrongConstant"})
     public void setTabChoose() {
@@ -739,11 +817,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tvGdParams.setTextColor(Color.rgb(102, 102, 102));
         tvGdComment.setTextColor(Color.rgb(102, 102, 102));
         tvGdRecommend.setTextColor(Color.rgb(102, 102, 102));
-
-//        tvGdContent.setTextColor(R.color.tv_color002);
-//        tvGdParams.setTextColor(R.color.tv_color002);
-//        tvGdComment.setTextColor(R.color.tv_color002);
-//        tvGdRecommend.setTextColor(R.color.tv_color002);
 
         vGdContent.setVisibility(View.INVISIBLE);
         vGdParams.setVisibility(View.INVISIBLE);
@@ -756,19 +829,25 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         linGdRecommend.setVisibility(View.GONE);
     }
 
-    private void initListeners() {
+    public boolean isLogin() {
 
-        ViewTreeObserver vto = ivBaby.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                //llTitle.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                height = ivBaby.getHeight();
-
-                scrollView.setScrollViewListener(TAG);
-            }
-        });
+        return false;
     }
+
+
+//    private void initListeners() {
+//
+//        ViewTreeObserver vto = ivBaby.getViewTreeObserver();
+//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                //llTitle.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                //height = ivBaby.getHeight();
+//
+//                scrollView.setScrollViewListener(TAG);
+//            }
+//        });
+//    }
 
 
     @SuppressLint({"NewApi", "WrongConstant"})
@@ -778,7 +857,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         if (nfcAdapter == null) {
             //Toast.makeText(this, "该设备不支持NFC", Toast.LENGTH_SHORT).show();
         }
-        initViewPager();
+        //initViewPager();
 
         if (isCollection) {
             //如果已经收藏，则显示收藏后的效果
@@ -787,61 +866,61 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     }
 
     /*点击查看大图*/
-    private void initViewPager() {
-
-        if (allListView != null) {
-            allListView.clear();
-            allListView = null;
-        }
-        allListView = new ArrayList<View>();
-        for (int i = 0; i < picsList.size(); i++) {
-            View view = LayoutInflater.from(this).inflate(R.layout.pic_item, null);
-            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
-
-            //System.out.println("图片地址 = " + HttpUtils.HEADER + picsList.get(i).toString());
-
-            ImageUtils.loadIntoUseFitWidth(this,
-                    HttpUtils.HEADER + picsList.get(i).toString(),
-                    R.mipmap.icon_empty002,
-                    R.mipmap.icon_error002,
-                    imageView);
-
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    intent = new Intent(TAG, ShowBigPictrueActivity.class);
-                    intent.putExtra("position", position);
-                    intent.putExtra("picslist", picsList.toString());
-                    startActivity(intent);
-                }
-            });
-
-            allListView.add(view);
-
-        }
-
-        viewPager = (HackyViewPager) findViewById(R.id.iv_baby);
-        ViewPagerAdapter adapter = new ViewPagerAdapter();
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int arg0) {
-                position = arg0;
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-
-            }
-        });
-        viewPager.setAdapter(adapter);
-
-    }
+//    private void initViewPager() {
+//
+//        if (allListView != null) {
+//            allListView.clear();
+//            allListView = null;
+//        }
+//        allListView = new ArrayList<View>();
+//        for (int i = 0; i < picsList.size(); i++) {
+//            View view = LayoutInflater.from(this).inflate(R.layout.pic_item, null);
+//            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
+//
+//            //System.out.println("图片地址 = " + HttpUtils.HEADER + picsList.get(i).toString());
+//
+//            ImageUtils.loadIntoUseFitWidth(this,
+//                    HttpUtils.HEADER + picsList.get(i).toString(),
+//                    R.mipmap.icon_empty002,
+//                    R.mipmap.icon_error002,
+//                    imageView);
+//
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    intent = new Intent(TAG, ShowBigPictrueActivity.class);
+//                    intent.putExtra("position", position);
+//                    intent.putExtra("picslist", picsList.toString());
+//                    startActivity(intent);
+//                }
+//            });
+//
+//            allListView.add(view);
+//
+//        }
+//
+//        viewPager = (HackyViewPager) findViewById(R.id.iv_baby);
+//        ViewPagerAdapter adapter = new ViewPagerAdapter();
+//        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//
+//            @Override
+//            public void onPageSelected(int arg0) {
+//                position = arg0;
+//            }
+//
+//            @Override
+//            public void onPageScrolled(int arg0, float arg1, int arg2) {
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int arg0) {
+//
+//            }
+//        });
+//        viewPager.setAdapter(adapter);
+//
+//    }
 
     @Override
     public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
@@ -849,31 +928,31 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     }
 
     /*显示图片适配器*/
-    private class ViewPagerAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return allListView.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == (View) arg1;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View view = allListView.get(position);
-            container.addView(view);
-            return view;
-        }
-
-    }
+//    private class ViewPagerAdapter extends PagerAdapter {
+//
+//        @Override
+//        public int getCount() {
+//            return allListView.size();
+//        }
+//
+//        @Override
+//        public boolean isViewFromObject(View arg0, Object arg1) {
+//            return arg0 == (View) arg1;
+//        }
+//
+//        @Override
+//        public void destroyItem(ViewGroup container, int position, Object object) {
+//            container.removeView((View) object);
+//        }
+//
+//        @Override
+//        public Object instantiateItem(ViewGroup container, int position) {
+//            View view = allListView.get(position);
+//            container.addView(view);
+//            return view;
+//        }
+//
+//    }
 
     //点击弹窗的确认按钮的响应
     //@Override
@@ -935,7 +1014,10 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             public void onClick(DialogInterface arg0, int arg1) {
                 isCollection = false;
                 //如果取消收藏，则显示取消收藏后的效果
-                //iv_baby_collection.setImageResource(R.drawable.second_2);
+
+                ivGdCollection.setImageResource(R.mipmap.ic_collection001);
+                tvGdCollection.setText("收藏");
+                //butGdCollection.setBackgroundResource(R.mipmap.ic_collection001);
                 setSaveCollection();
             }
         });

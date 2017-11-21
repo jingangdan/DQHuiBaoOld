@@ -14,6 +14,7 @@ import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.homepage.Menu;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
+import com.dq.huibao.utils.ImageUtils;
 
 import org.xutils.x;
 
@@ -59,6 +60,12 @@ public class HpMenuAdapter extends RecyclerView.Adapter<HpMenuAdapter.MyViewHold
         }
 
         String img = menuList.get(position).getImgurl();
+
+//        ImageUtils.loadIntoUseFitWidth(mContext,
+//                img,
+//                R.mipmap.icon_empty002,
+//                R.mipmap.icon_error002,
+//                holder.img);
 
         Glide.with(mContext)
                 .load(img)

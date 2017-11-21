@@ -8,7 +8,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="#E3E3E3"/>
+        android:background="#E3E3E3" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,33 +22,35 @@
             android:padding="10dp">
 
             <Button
+                android:id="@+id/but_mc_menu0"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_menu001"
                 android:text="分销中心" />
 
             <Button
+                android:id="@+id/but_mc_menu1"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_menu002"
                 android:text="我的资料" />
 
             <Button
-                android:id="@+id/but_mc_shopcar"
+                android:id="@+id/but_mc_menu2"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_menu003"
                 android:text="购物车" />
 
             <Button
-                android:id="@+id/but_mc_collect"
+                android:id="@+id/but_mc_menu3"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_menu004"
                 android:text="我的收藏" />
 
         </LinearLayout>
@@ -60,34 +62,34 @@
             android:padding="10dp">
 
             <Button
-                android:id="@+id/but_mc_footprint"
+                android:id="@+id/but_mc_menu4"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_menu005"
                 android:text="我的足迹" />
 
             <Button
-                android:id="@+id/but_mc_coupons"
+                android:id="@+id/but_mc_menu5"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_menu006"
                 android:text="优惠券" />
 
             <Button
-                android:id="@+id/but_mc_integral"
+                android:id="@+id/but_mc_menu6"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_menu007"
                 android:text="积分商城" />
 
             <Button
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_mc_pay"
+                android:drawableTop="@mipmap/ic_order_status0"
                 android:text="待付款"
                 android:visibility="invisible" />
 
@@ -114,31 +116,35 @@
         android:padding="10dp">
 
         <Button
+            android:id="@+id/but_mc_menu7"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
+            android:drawableTop="@mipmap/ic_menu008"
             android:text="绑定手机" />
 
         <Button
+            android:id="@+id/but_mc_menu8"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
+            android:drawableTop="@mipmap/ic_menu009"
             android:text="供应商申请" />
 
         <Button
+            android:id="@+id/but_mc_menu9"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
+            android:drawableTop="@mipmap/ic_menu0010"
             android:text="悦读" />
 
         <Button
+            android:id="@+id/but_mc_menu10"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
+            android:drawableTop="@mipmap/ic_menu0011"
             android:text="充值记录" />
 
     </LinearLayout>
@@ -161,34 +167,35 @@
         android:padding="10dp">
 
         <Button
+            android:id="@+id/but_mc_menu11"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
+            android:drawableTop="@mipmap/ic_menu0012"
             android:text="消息提醒" />
 
         <Button
-            android:id="@+id/but_mc_address"
+            android:id="@+id/but_mc_menu12"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
+            android:drawableTop="@mipmap/ic_order_status2"
             android:text="收货地址
 " />
 
         <Button
+            android:id="@+id/but_mc_menu13"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
-            android:text="待付款"
-            android:visibility="invisible" />
+            android:drawableTop="@mipmap/ic_menu0013"
+            android:text="退出登录" />
 
         <Button
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@mipmap/ic_mc_pay"
+            android:drawableTop="@mipmap/ic_order_status0"
             android:text="待付款"
             android:visibility="invisible" />
 

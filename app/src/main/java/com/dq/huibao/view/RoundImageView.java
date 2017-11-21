@@ -81,8 +81,23 @@ public class RoundImageView extends ImageView {
         this.measure(0, 0);
         if (drawable.getClass() == NinePatchDrawable.class)
             return;
-        Bitmap b = ((BitmapDrawable) drawable).getBitmap();
-        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
+//        Bitmap b = ((BitmapDrawable) drawable).getBitmap();
+//        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
+
+        Bitmap APKicon;
+        if (drawable instanceof BitmapDrawable) {
+            APKicon = ((BitmapDrawable) drawable).getBitmap();
+        }
+        ///**/在此情况下您的解决方案会正确、 一个可以只是将其转换，但是如果不 （和这就是你的案子） 之一需要这样做：
+
+        else {
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+            APKicon = bitmap;
+        }
+
         if (defaultWidth == 0) {
             defaultWidth = getWidth();
 
@@ -123,7 +138,7 @@ public class RoundImageView extends ImageView {
             radius = (defaultWidth < defaultHeight ? defaultWidth
                     : defaultHeight) / 2;
         }
-        Bitmap roundBitmap = getCroppedRoundBitmap(bitmap, radius);
+        Bitmap roundBitmap = getCroppedRoundBitmap(APKicon, radius);
         canvas.drawBitmap(roundBitmap, defaultWidth / 2 - radius, defaultHeight
                 / 2 - radius, null);
     }
@@ -131,8 +146,7 @@ public class RoundImageView extends ImageView {
     /**
      * 获取裁剪后的圆形图片
      *
-     * @param radius
-     *            半径
+     * @param radius 半径
      */
     public Bitmap getCroppedRoundBitmap(Bitmap bmp, int radius) {
         Bitmap scaledSrcBmp;

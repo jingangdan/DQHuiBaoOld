@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.dq.huibao.R;
-import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.view.goodsdetails.PictrueFragment;
 import com.dq.huibao.view.HackyViewPager;
@@ -26,8 +25,6 @@ import java.util.List;
 public class ShowBigPictrueActivity extends FragmentActivity {
 
     private HackyViewPager viewPager;
-//    private int[] resId = {R.mipmap.detail_show_1, R.mipmap.detail_show_2, R.mipmap.detail_show_3,
-//            R.mipmap.detail_show_4, R.mipmap.detail_show_5, R.mipmap.detail_show_6};
     /**
      * 得到上一个界面点击图片的位置
      */
@@ -41,13 +38,13 @@ public class ShowBigPictrueActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_big_pictrue_a);
         intent = getIntent();
-
         position = intent.getIntExtra("position", 0);
         pics = intent.getStringExtra("picslist");
 
         picsList = GoodsDetailsActivity.picsList;
 
         initViewPager();
+
     }
 
     private void initViewPager() {
@@ -58,10 +55,10 @@ public class ShowBigPictrueActivity extends FragmentActivity {
         //跳转到第几个界面
         viewPager.setCurrentItem(position);
 
+
     }
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
-
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -70,7 +67,7 @@ public class ShowBigPictrueActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             //int show_resId = resId[position];
             String show_resId = HttpUtils.HEADER + picsList.get(position).toString();
-            System.out.println("88888 = " + show_resId);
+
             return new PictrueFragment(show_resId);
         }
 
@@ -79,8 +76,6 @@ public class ShowBigPictrueActivity extends FragmentActivity {
             return picsList.size();
             //return resId.length;
         }
-
-
     }
 
 }

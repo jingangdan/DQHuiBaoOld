@@ -3,6 +3,8 @@ package com.dq.huibao.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +34,6 @@ import com.dq.huibao.bean.homepage.Search;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
-import com.dq.huibao.ui.GoodsDetailTestActivity;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.ui.GoodsListActivity;
 import com.dq.huibao.ui.homepage.WebActivity;
@@ -40,6 +41,7 @@ import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
 import com.dq.huibao.view.MarqueTextView;
+import com.dq.huibao.view.PullToRefreshLayout;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -50,8 +52,6 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +63,11 @@ import butterknife.ButterKnife;
  * Created by jingang on 2017/10/16.
  */
 
-public class FMHomePage extends BaseFragment {
+public class FMHomePage extends BaseFragment{
     @Bind(R.id.lin_homepage)
     LinearLayout linHomepage;
-    @Bind(R.id.sv_homepage)
-    ScrollView svHomepage;
+    //    @Bind(R.id.sv_homepage)
+//    ScrollView svHomepage;
     private View view;
 
     private List<ImageView> views = new ArrayList<ImageView>();
@@ -105,16 +105,28 @@ public class FMHomePage extends BaseFragment {
     private ImageView iv_search;
     private String UTF_keywords = "";
 
+//    @Bind(R.id.pullToRefreshLayout)
+//    public PullToRefreshLayout pullToRefreshLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fm_homepage_test, null);
 
         ButterKnife.bind(this, view);
-
+        //init();
         getHomePage("1604");
+
+
         return view;
     }
+
+//    private void init() {
+//        pullToRefreshLayout.setOnFooterRefreshListener(this);
+//        pullToRefreshLayout.setOnHeaderRefreshListener(this);
+//        pullToRefreshLayout.setLastUpdated(new Date().toLocaleString());
+//
+//    }
 
     /**
      * 获取首页数据
@@ -158,6 +170,7 @@ public class FMHomePage extends BaseFragment {
 
     /**
      * 根据temp动态生成UI
+     *
      * @param root
      */
     public void setFor(Root root) {
@@ -388,7 +401,7 @@ public class FMHomePage extends BaseFragment {
 
                                 final Notice notice = GsonUtil.gsonIntance().gsonToBean(result, Notice.class);
 
-                                tv_notice.setText("" + notice.getData().getParams().getNotice());
+                                tv_notice.setText("" + notice.getData().getParams().getNotice() + "           " + notice.getData().getParams().getNotice());
 
                                 tv_notice.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -657,10 +670,6 @@ public class FMHomePage extends BaseFragment {
                     intent.putExtra("gid", query);
                     startActivity(intent);
 
-//                    intent = new Intent(getActivity(), GoodsDetailTestActivity.class);
-//                    intent.putExtra("gid", query);
-//                    startActivity(intent);
-
                 } else {
                     toast("未知 pX = " + pX);
                 }
@@ -684,7 +693,7 @@ public class FMHomePage extends BaseFragment {
                     int index = position - 1;
                     if (cycleViewPager.isCycle()) {
 
-                        System.out.println("lalala = " + bannerList.get(index).getHrefurl().isSelfurl());
+                        // System.out.println("lalala = " + bannerList.get(index).getHrefurl().isSelfurl());
 
                         /*根据selfurl 判断跳转情况 false：网页 ture：activity*/
                         if (bannerList.get(index).getHrefurl().isSelfurl() == false) {
@@ -735,4 +744,41 @@ public class FMHomePage extends BaseFragment {
 
     }
 
+//    @Override
+//    public void onHeaderRefresh(PullToRefreshLayout view) {
+//
+//        pullToRefreshLayout.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //刷新数据
+//                pullToRefreshLayout.onHeaderRefreshComplete("更新于:"
+//                        + Calendar.getInstance().getTime().toLocaleString());
+//                pullToRefreshLayout.onHeaderRefreshComplete();
+//
+//                //getHomePage("1604");
+//
+//            }
+//
+//        }, 1000);
+//
+//
+//    }
+//
+//    @Override
+//    public void onFooterRefresh(PullToRefreshLayout view) {
+//        pullToRefreshLayout.postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                //加载更多数据
+//                pullToRefreshLayout.onFooterRefreshComplete();
+//                //gridViewData.add(R.mipmap.ic_adai);
+//                //gridViewAdapter.setData(gridViewData);
+//                //getShopGoodss(str_latitude, str_longtitude, page);
+//                //getLoadingShopGood(latitude, longtitude, page);
+//
+//            }
+//
+//        }, 1000);
+//    }
 }

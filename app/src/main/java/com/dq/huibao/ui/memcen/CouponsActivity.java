@@ -9,6 +9,8 @@ import com.dq.huibao.R;
 import com.dq.huibao.adapter.SimpleFragmentPagerAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.fragment.memcen.FMCouponsNoUse;
+import com.dq.huibao.fragment.memcen.FMCouponsPast;
+import com.dq.huibao.fragment.memcen.FMCouponsUsed;
 import com.dq.huibao.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by jingang on 2017/11/1.
  */
 
-public class CouponsActivity extends BaseActivity implements ViewPager.OnPageChangeListener{
+public class CouponsActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     @Bind(R.id.tl_mc_coupons)
     TabLayout tlMcCoupons;
     @Bind(R.id.vp_mc_coupons)
@@ -40,8 +42,8 @@ public class CouponsActivity extends BaseActivity implements ViewPager.OnPageCha
         ButterKnife.bind(this);
 
         fragments.add(FMCouponsNoUse.newInstance("FMCouponsNoUse"));
-        fragments.add(FMCouponsNoUse.newInstance("FMCouponsNoUse"));
-        fragments.add(FMCouponsNoUse.newInstance("FMCouponsNoUse"));
+        fragments.add(FMCouponsUsed.newInstance("FMCouponsUsed"));
+        fragments.add(FMCouponsPast.newInstance("FMCouponsPast"));
 
         sfpAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this, fragments, titles);
         vpMcCoupons.setAdapter(sfpAdapter);
