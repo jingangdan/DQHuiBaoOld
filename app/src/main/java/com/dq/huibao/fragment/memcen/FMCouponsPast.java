@@ -1,14 +1,23 @@
 package com.dq.huibao.fragment.memcen;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.dq.huibao.R;
+import com.dq.huibao.adapter.memcen.CouponsAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.LoginBean;
+import com.dq.huibao.bean.memcen.Coupons;
+import com.dq.huibao.ui.memcen.CouponsListActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -18,30 +27,51 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Description：优惠券（已过期）
  * Created by jingang on 2017/11/1.
  */
 
 public class FMCouponsPast extends BaseFragment {
+    @Bind(R.id.lin_coupons_null)
+    LinearLayout linCouponsNull;
+    @Bind(R.id.but_tablayout)
+    Button butTablayout;
     private View view;
 
     /*接口地址*/
     private String PATH = "";
     private RequestParams params = null;
 
+    /*接收页面传值*/
+    private Intent intent;
+
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
     private String unionid = "";
 
+    @Bind(R.id.rv_order_all)
+    RecyclerView rvOrderAll;
+    private CouponsAdapter couponsAdapter;
+    private List<Coupons.DataBean.ListBean> couponsList = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fm_order_all, null);
+        view = inflater.inflate(R.layout.fm_tablayout, null);
+        ButterKnife.bind(this, view);
 
+        couponsAdapter = new CouponsAdapter(getActivity(), couponsList);
+        rvOrderAll.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvOrderAll.setAdapter(couponsAdapter);
         initData();
-
         return view;
     }
 
@@ -58,7 +88,11 @@ public class FMCouponsPast extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             System.out.println("in 3");
-            getCoupons(unionid, "", "1", 1);
+            if (!unionid.equals("")) {
+                getCoupons(unionid, "", "1", 1);
+            }
+
+
         } else {
             System.out.println("move 3");
 
@@ -73,8 +107,6 @@ public class FMCouponsPast extends BaseFragment {
             LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
             unionid = loginBean.getData().getUnionid();
             //getCoupons(unionid, "", "1", 1);
-
-
         } else {
             toast("登录状态出错，请重新登录");
         }
@@ -90,9 +122,9 @@ public class FMCouponsPast extends BaseFragment {
      *                used 和past 都为空  未使用
      */
     public void getCoupons(String unionid, String used, String past, int page) {
-        PATH = HttpUtils.PATH + HttpUtils.ShOP_MEMBER_COUPON +
+        PATH = HttpUtils.PATH + HttpUtils.SHOP_MEMBER_COUPON +
                 "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.ShOP_MEMBER_COUPON + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000)+ "&dequanhuibaocom")  +
+                MD5Util.getMD5String(HttpUtils.SHOP_MEMBER_COUPON + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
                 "&used=" + used + "&past=" + past + "&page=" + page;
 
         params = new RequestParams(PATH);
@@ -100,9 +132,23 @@ public class FMCouponsPast extends BaseFragment {
 
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
+                    @SuppressLint("WrongConstant")
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("优惠券 已过期= " + result);
+                        Coupons coupons = GsonUtil.gsonIntance().gsonToBean(result, Coupons.class);
+
+                        if (coupons.getData().getList().size() > 0) {
+                            linCouponsNull.setVisibility(View.GONE);
+                            couponsList.clear();
+                            couponsList.addAll(coupons.getData().getList());
+                            couponsAdapter.notifyDataSetChanged();
+
+                        } else {
+                            linCouponsNull.setVisibility(View.VISIBLE);
+
+                        }
+
 
                     }
 
@@ -127,5 +173,25 @@ public class FMCouponsPast extends BaseFragment {
     @Override
     protected void lazyLoad() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.but_tablayout)
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.but_tablayout:
+                //领取优惠券
+                intent = new Intent(getActivity(), CouponsListActivity.class);
+                startActivity(intent);
+
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -6,8 +6,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_hot_classify"/>
+        android:layout_height="wrap_content"/>
 
     <!--一行两列-->
     <android.support.v7.widget.RecyclerView
@@ -27,8 +26,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_adware001"/>
+        android:layout_height="wrap_content"/>
 
     <!--一行silie-->
     <android.support.v7.widget.RecyclerView
@@ -56,7 +54,6 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_adware002"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

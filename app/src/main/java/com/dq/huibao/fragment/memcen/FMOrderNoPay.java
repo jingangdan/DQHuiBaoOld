@@ -20,7 +20,7 @@ public class FMOrderNoPay extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fm_order_nopay, null);
+        view = inflater.inflate(R.layout.fm_tablayout, null);
         return view;
     }
 

@@ -14,23 +14,24 @@ import com.dq.huibao.base.BaseFragment;
  * Created by jingang on 2017/11/1.
  */
 
-public class FMOrderNoSend extends BaseFragment{
+public class FMOrderNoSend extends BaseFragment {
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fm_order_nosend, null);
+        view = inflater.inflate(R.layout.fm_tablayout, null);
         return view;
     }
 
-    public static FMOrderNoSend newInstance(String order){
+    public static FMOrderNoSend newInstance(String order) {
         Bundle bundle = new Bundle();
         bundle.putString("order", order);
         FMOrderNoSend fragment = new FMOrderNoSend();
         fragment.setArguments(bundle);
         return fragment;
     }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

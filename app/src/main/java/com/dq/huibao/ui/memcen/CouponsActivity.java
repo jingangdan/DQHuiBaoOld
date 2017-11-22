@@ -25,10 +25,10 @@ import butterknife.ButterKnife;
  */
 
 public class CouponsActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    @Bind(R.id.tl_mc_coupons)
-    TabLayout tlMcCoupons;
-    @Bind(R.id.vp_mc_coupons)
-    NoScrollViewPager vpMcCoupons;
+    @Bind(R.id.tabLayout)
+    TabLayout tabLayout;
+    @Bind(R.id.tb_noScrollViewPage)
+    NoScrollViewPager noScrollViewPager;
 
     private String[] titles = new String[]{"未使用", "已使用", "已过期"};
     private List<Fragment> fragments = new ArrayList<>();
@@ -38,7 +38,7 @@ public class CouponsActivity extends BaseActivity implements ViewPager.OnPageCha
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coupons);
+        setContentView(R.layout.tablayout);
         ButterKnife.bind(this);
 
         fragments.add(FMCouponsNoUse.newInstance("FMCouponsNoUse"));
@@ -46,13 +46,13 @@ public class CouponsActivity extends BaseActivity implements ViewPager.OnPageCha
         fragments.add(FMCouponsPast.newInstance("FMCouponsPast"));
 
         sfpAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this, fragments, titles);
-        vpMcCoupons.setAdapter(sfpAdapter);
+        noScrollViewPager.setAdapter(sfpAdapter);
 
 
-        vpMcCoupons.setOffscreenPageLimit(titles.length);
+        noScrollViewPager.setOffscreenPageLimit(titles.length);
 
-        vpMcCoupons.setOnPageChangeListener(this);
-        tlMcCoupons.setupWithViewPager(vpMcCoupons);
+        noScrollViewPager.setOnPageChangeListener(this);
+        tabLayout.setupWithViewPager(noScrollViewPager);
 
     }
 

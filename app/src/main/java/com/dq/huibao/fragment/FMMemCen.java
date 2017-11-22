@@ -72,7 +72,9 @@ public class FMMemCen extends BaseFragment {
     @Bind(R.id.iv_memcen)
     ImageView ivMemcen;
 
-    /*id 昵称 余额 积分 优惠券*/
+    /*会员等级 id 昵称 余额 积分 优惠券*/
+    @Bind(R.id.tv_mc_level)
+    TextView tvMcLevel;
     @Bind(R.id.tv_mc_id)
     TextView tvMcId;
     @Bind(R.id.tv_mc_nickname)
@@ -135,8 +137,8 @@ public class FMMemCen extends BaseFragment {
     /*更新UI*/
     private UserInfo userInfo;
     private UserInfo.DataBean.MemberBean memberBean;
-    /*头像 昵称 余额 积分*/
-    private String id, avatar, nickname, credit1, credit2, couponcount;
+    /*会员等级 头像 昵称 余额 积分*/
+    private String level, id, avatar, nickname, credit1, credit2, couponcount;
 
     @SuppressLint("WrongConstant")
     @Nullable
@@ -216,6 +218,7 @@ public class FMMemCen extends BaseFragment {
                 break;
             case R.id.but_mc_status3:
                 //待退款
+                setIntentOrder(5);
                 break;
 
             /*menu*/
@@ -349,13 +352,13 @@ public class FMMemCen extends BaseFragment {
                         userInfo = GsonUtil.gsonIntance().gsonToBean(result, UserInfo.class);
                         memberBean = userInfo.getData().getMember();
 
+                        level = memberBean.getLevel();
                         id = memberBean.getId();
                         avatar = memberBean.getAvatar();
                         nickname = memberBean.getNickname();
                         credit1 = memberBean.getCredit1();
                         credit2 = memberBean.getCredit2();
                         couponcount = userInfo.getData().getCounts().getCouponcount();
-
 
                         setUserInfo(userInfo.getData().getMember().getAvatar());
 
@@ -390,6 +393,21 @@ public class FMMemCen extends BaseFragment {
                 .bitmapTransform(new GlideCircleTransform(getActivity()))
                 .crossFade(1000)
                 .into(ivMemcen);
+        //会员等级
+        if (level.equals("0")) {
+            //普通会员
+            level = "普通会员";
+            tvMcLevel.setText("[会员ID：" + level + "]");
+        } else if (level.equals("381")) {
+            //一号会员
+            level = "一号会员";
+            tvMcLevel.setText("[会员ID：" + level + "]");
+        } else if (level.equals("382")) {
+            //总部茶话会
+            level = "总部茶话会";
+            tvMcLevel.setText("[会员ID：" + level + "]");
+        }
+
         tvMcId.setText("[会员ID：" + id + "]");
         tvMcNickname.setText("" + nickname);
         tvMcCredit1.setText("" + credit1);

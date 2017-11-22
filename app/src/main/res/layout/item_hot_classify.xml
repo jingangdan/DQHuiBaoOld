@@ -9,7 +9,6 @@
         android:id="@+id/iv_item_hot_classify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_hot"
         android:layout_weight="1"/>
 
     <LinearLayout

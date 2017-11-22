@@ -14,6 +14,7 @@ import com.dq.huibao.fragment.memcen.FMOrderNoCollect;
 import com.dq.huibao.fragment.memcen.FMOrderNoPay;
 import com.dq.huibao.fragment.memcen.FMOrderNoSend;
 import com.dq.huibao.fragment.memcen.FMorderOK;
+import com.dq.huibao.fragment.memcen.FMorderReFund;
 import com.dq.huibao.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ import butterknife.ButterKnife;
 
 public class OrderActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    @Bind(R.id.tl_mc_order)
-    TabLayout tlMcOrder;
-    @Bind(R.id.vp_mc_order)
-    NoScrollViewPager vpMcOrder;
+    @Bind(R.id.tabLayout)
+    TabLayout tabLayout;
+    @Bind(R.id.tb_noScrollViewPage)
+    NoScrollViewPager noScrollViewPager;
 
-    private String[] titles = new String[]{"全部", "待付款", "待发货", "待收货", "已完成"};
+    private String[] titles = new String[]{"全部", "待付款", "待发货", "待收货", "已完成", "待退款"};
     private List<Fragment> fragments = new ArrayList<>();
 
     private SimpleFragmentPagerAdapter sfpAdapter;
@@ -46,7 +47,7 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.tablayout);
         ButterKnife.bind(this);
         intent = getIntent();
         page = intent.getExtras().getInt("page");
@@ -57,17 +58,18 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
 
         fragments.add(FMOrderNoCollect.newInstance("FMOrderNoCollect"));
         fragments.add(FMorderOK.newInstance("FMorderOK"));
+        fragments.add(FMorderReFund.newInstance("FMorderReFund"));
 
         sfpAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this, fragments, titles);
-        vpMcOrder.setAdapter(sfpAdapter);
+        noScrollViewPager.setAdapter(sfpAdapter);
 
-        vpMcOrder.setCurrentItem(page);
+        noScrollViewPager.setCurrentItem(page);
 
 
-        vpMcOrder.setOffscreenPageLimit(titles.length);
+        noScrollViewPager.setOffscreenPageLimit(titles.length);
 
-        vpMcOrder.setOnPageChangeListener(this);
-        tlMcOrder.setupWithViewPager(vpMcOrder);
+        noScrollViewPager.setOnPageChangeListener(this);
+        tabLayout.setupWithViewPager(noScrollViewPager);
     }
 
     @Override

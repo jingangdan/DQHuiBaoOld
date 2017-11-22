@@ -75,7 +75,15 @@ public class HttpUtils {
     * past  默认空 1已过期
     * page 页码
     * */
-    public static final String ShOP_MEMBER_COUPON = "api=shop/Member/coupon&i=1604&";
+    public static final String SHOP_MEMBER_COUPON = "api=shop/Member/coupon&i=1604&";
+
+    /**
+     * 优惠券领取列表
+     * 参数 ：
+     * 登录验证
+     * page：页码
+     */
+    public static final String SHOP_COUPON_INDEX = "api=shop/Coupon/index&i=1604&";
 
 
 }
