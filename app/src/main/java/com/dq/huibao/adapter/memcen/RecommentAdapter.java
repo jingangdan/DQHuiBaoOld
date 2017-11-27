@@ -1,4 +1,4 @@
-package com.dq.huibao.adapter;
+package com.dq.huibao.adapter.memcen;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.bean.classify.GoodsList;
+import com.dq.huibao.bean.memcen.Recomment;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -22,19 +21,19 @@ import com.dq.huibao.utils.ImageUtils;
 import java.util.List;
 
 /**
- * Description：分类商品适配器
- * Created by jingang on 2017/10/22.
+ * Description：推荐商品适配器
+ * Created by jingang on 2017/11/24.
  */
 
-public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder> {
+public class RecommentAdapter extends RecyclerView.Adapter<RecommentAdapter.MyViewHolder> {
 
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
 
     private Context mContext;
-    private List<GoodsList.DataBean.GoodsBean> goodsList;
+    private List<Recomment.DataBean.GoodsBean> goodsList;
 
-    public GoodsAdapter(Context mContext, List<GoodsList.DataBean.GoodsBean> goodsList) {
+    public RecommentAdapter(Context mContext, List<Recomment.DataBean.GoodsBean> goodsList) {
         this.mContext = mContext;
         this.goodsList = goodsList;
     }
@@ -81,7 +80,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
             });
         }
 
-        String img = goodsList.get(position).getImg();
+        String img = goodsList.get(position).getThumb();
 
         ImageUtils.loadIntoUseFitWidth(mContext,
                 HttpUtils.HEADER + img,
@@ -89,7 +88,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
                 R.mipmap.icon_error002,
                 holder.img);
 
-        holder.tv_name.setText("" + goodsList.get(position).getName());
+        holder.tv_name.setText("" + goodsList.get(position).getTitle());
 
         holder.tv_pricenow.setText("¥" + goodsList.get(position).getCostprice());
 

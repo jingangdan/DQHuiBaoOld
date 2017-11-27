@@ -4,7 +4,6 @@ package com.dq.huibao.bean.goodsdetail;
  * Description：
  * Created by jingang on 2017/11/13.
  */
-
 public class Goods {
 
     private String id;
@@ -33,11 +32,11 @@ public class Goods {
     private String createtime;
     private String weight;
     private String credit;
+    private String minbuy;
     private String maxbuy;
     private String usermaxbuy;
     private String hasoption;
     private String dispatch;
-    //@JsonProperty("thumb_url")
     private String thumbUrl;
     private String isnew;
     private String ishot;
@@ -51,29 +50,20 @@ public class Goods {
     private String viewcount;
     private String deleted;
     private String hascommission;
-    //@JsonProperty("commission1_rate")
     private String commission1Rate;
-    //@JsonProperty("commission1_pay")
     private String commission1Pay;
-    //@JsonProperty("commission2_rate")
     private String commission2Rate;
-    //@JsonProperty("commission2_pay")
     private String commission2Pay;
-    //@JsonProperty("commission3_rate")
     private String commission3Rate;
-    //@JsonProperty("commission3_pay")
     private String commission3Pay;
     private String score;
     private String taobaoid;
     private String taotaoid;
     private String taobaourl;
     private String updatetime;
-    //@JsonProperty("share_title")
     private String shareTitle;
-    //@JsonProperty("share_icon")
     private String shareIcon;
     private String cash;
-    //@JsonProperty("commission_thumb")
     private String commissionThumb;
     private String isnodiscount;
     private String showlevels;
@@ -98,28 +88,19 @@ public class Goods {
     private String pcates;
     private String tcates;
     private String artid;
-    //@JsonProperty("detail_logo")
     private String detailLogo;
-    //@JsonProperty("detail_shopname")
     private String detailShopname;
-    //@JsonProperty("detail_btntext1")
     private String detailBtntext1;
-    //@JsonProperty("detail_btnurl1")
     private String detailBtnurl1;
-    //@JsonProperty("detail_btntext2")
     private String detailBtntext2;
-    //@JsonProperty("detail_btnurl2")
     private String detailBtnurl2;
-    //@JsonProperty("detail_totaltitle")
     private String detailTotaltitle;
     private String deduct2;
     private String ednum;
     private String edmoney;
     private String edareas;
     private String cates;
-    //@JsonProperty("commission_level_id")
     private String commissionLevelId;
-    //@JsonProperty("supplier_uid")
     private String supplierUid;
     private String diyformtype;
     private String manydeduct;
@@ -140,7 +121,6 @@ public class Goods {
     private String isreturn;
     private String isreturnqueue;
     private String deposit;
-    //@JsonProperty("print_id")
     private String printId;
     private String pcates2;
     private String ccates2;
@@ -150,32 +130,22 @@ public class Goods {
     private String returns2;
     private String returntype;
     private String discountway;
-    //@JsonProperty("love_money")
     private String loveMoney;
     private String isopenchannel;
-    //@JsonProperty("yunbi_consumption")
     private String yunbiConsumption;
-    //@JsonProperty("yunbi_commission")
     private String yunbiCommission;
     private String isyunbi;
-    //@JsonProperty("yunbi_deduct")
     private String yunbiDeduct;
     private String isforceyunbi;
     private String bonusmoney;
-    //@JsonProperty("catch_id")
     private String catchId;
-    //@JsonProperty("catch_source")
     private String catchSource;
-    //@JsonProperty("catch_url")
     private String catchUrl;
     private String minprice;
     private String maxprice;
     private String isdeclaration;
-    //@JsonProperty("virtual_declaration")
     private String virtualDeclaration;
-    //@JsonProperty("goods_balance")
     private String goodsBalance;
-    //@JsonProperty("balance_with_store")
     private String balanceWithStore;
     private String dispatchsend;
     private String discountsort;
@@ -368,6 +338,13 @@ public class Goods {
     }
     public String getCredit() {
         return credit;
+    }
+
+    public void setMinbuy(String minbuy) {
+        this.minbuy = minbuy;
+    }
+    public String getMinbuy() {
+        return minbuy;
     }
 
     public void setMaxbuy(String maxbuy) {
@@ -1245,4 +1222,161 @@ public class Goods {
         return canaddcart;
     }
 
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id='" + id + '\'' +
+                ", uniacid='" + uniacid + '\'' +
+                ", pcate='" + pcate + '\'' +
+                ", ccate='" + ccate + '\'' +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                ", displayorder='" + displayorder + '\'' +
+                ", title='" + title + '\'' +
+                ", thumb='" + thumb + '\'' +
+                ", unit='" + unit + '\'' +
+                ", description='" + description + '\'' +
+                ", content='" + content + '\'' +
+                ", goodssn='" + goodssn + '\'' +
+                ", productsn='" + productsn + '\'' +
+                ", productprice='" + productprice + '\'' +
+                ", marketprice='" + marketprice + '\'' +
+                ", costprice='" + costprice + '\'' +
+                ", originalprice='" + originalprice + '\'' +
+                ", total='" + total + '\'' +
+                ", totalcnf='" + totalcnf + '\'' +
+                ", sales='" + sales + '\'' +
+                ", salesreal='" + salesreal + '\'' +
+                ", spec='" + spec + '\'' +
+                ", createtime='" + createtime + '\'' +
+                ", weight='" + weight + '\'' +
+                ", credit='" + credit + '\'' +
+                ", minbuy='" + minbuy + '\'' +
+                ", maxbuy='" + maxbuy + '\'' +
+                ", usermaxbuy='" + usermaxbuy + '\'' +
+                ", hasoption='" + hasoption + '\'' +
+                ", dispatch='" + dispatch + '\'' +
+                ", thumbUrl='" + thumbUrl + '\'' +
+                ", isnew='" + isnew + '\'' +
+                ", ishot='" + ishot + '\'' +
+                ", isdiscount='" + isdiscount + '\'' +
+                ", isrecommand='" + isrecommand + '\'' +
+                ", issendfree='" + issendfree + '\'' +
+                ", istime='" + istime + '\'' +
+                ", iscomment='" + iscomment + '\'' +
+                ", timestart='" + timestart + '\'' +
+                ", timeend='" + timeend + '\'' +
+                ", viewcount='" + viewcount + '\'' +
+                ", deleted='" + deleted + '\'' +
+                ", hascommission='" + hascommission + '\'' +
+                ", commission1Rate='" + commission1Rate + '\'' +
+                ", commission1Pay='" + commission1Pay + '\'' +
+                ", commission2Rate='" + commission2Rate + '\'' +
+                ", commission2Pay='" + commission2Pay + '\'' +
+                ", commission3Rate='" + commission3Rate + '\'' +
+                ", commission3Pay='" + commission3Pay + '\'' +
+                ", score='" + score + '\'' +
+                ", taobaoid='" + taobaoid + '\'' +
+                ", taotaoid='" + taotaoid + '\'' +
+                ", taobaourl='" + taobaourl + '\'' +
+                ", updatetime='" + updatetime + '\'' +
+                ", shareTitle='" + shareTitle + '\'' +
+                ", shareIcon='" + shareIcon + '\'' +
+                ", cash='" + cash + '\'' +
+                ", commissionThumb='" + commissionThumb + '\'' +
+                ", isnodiscount='" + isnodiscount + '\'' +
+                ", showlevels='" + showlevels + '\'' +
+                ", buylevels='" + buylevels + '\'' +
+                ", showgroups='" + showgroups + '\'' +
+                ", buygroups='" + buygroups + '\'' +
+                ", isverify='" + isverify + '\'' +
+                ", storeids='" + storeids + '\'' +
+                ", noticeopenid='" + noticeopenid + '\'' +
+                ", tcate='" + tcate + '\'' +
+                ", noticetype='" + noticetype + '\'' +
+                ", needfollow='" + needfollow + '\'' +
+                ", followtip='" + followtip + '\'' +
+                ", followurl='" + followurl + '\'' +
+                ", deduct='" + deduct + '\'' +
+                ", virtual='" + virtual + '\'' +
+                ", ccates='" + ccates + '\'' +
+                ", discounts='" + discounts + '\'' +
+                ", discounts_='" + discounts_ + '\'' +
+                ", nocommission='" + nocommission + '\'' +
+                ", hidecommission='" + hidecommission + '\'' +
+                ", pcates='" + pcates + '\'' +
+                ", tcates='" + tcates + '\'' +
+                ", artid='" + artid + '\'' +
+                ", detailLogo='" + detailLogo + '\'' +
+                ", detailShopname='" + detailShopname + '\'' +
+                ", detailBtntext1='" + detailBtntext1 + '\'' +
+                ", detailBtnurl1='" + detailBtnurl1 + '\'' +
+                ", detailBtntext2='" + detailBtntext2 + '\'' +
+                ", detailBtnurl2='" + detailBtnurl2 + '\'' +
+                ", detailTotaltitle='" + detailTotaltitle + '\'' +
+                ", deduct2='" + deduct2 + '\'' +
+                ", ednum='" + ednum + '\'' +
+                ", edmoney='" + edmoney + '\'' +
+                ", edareas='" + edareas + '\'' +
+                ", cates='" + cates + '\'' +
+                ", commissionLevelId='" + commissionLevelId + '\'' +
+                ", supplierUid='" + supplierUid + '\'' +
+                ", diyformtype='" + diyformtype + '\'' +
+                ", manydeduct='" + manydeduct + '\'' +
+                ", dispatchtype='" + dispatchtype + '\'' +
+                ", dispatchid='" + dispatchid + '\'' +
+                ", dispatchprice='" + dispatchprice + '\'' +
+                ", diyformid='" + diyformid + '\'' +
+                ", diymode='" + diymode + '\'' +
+                ", shorttitle='" + shorttitle + '\'' +
+                ", redprice='" + redprice + '\'' +
+                ", pcate1='" + pcate1 + '\'' +
+                ", ccate1='" + ccate1 + '\'' +
+                ", tcate1='" + tcate1 + '\'' +
+                ", nobonus='" + nobonus + '\'' +
+                ", returns='" + returns + '\'' +
+                ", returns_='" + returns_ + '\'' +
+                ", isverifysend='" + isverifysend + '\'' +
+                ", isreturn='" + isreturn + '\'' +
+                ", isreturnqueue='" + isreturnqueue + '\'' +
+                ", deposit='" + deposit + '\'' +
+                ", printId='" + printId + '\'' +
+                ", pcates2='" + pcates2 + '\'' +
+                ", ccates2='" + ccates2 + '\'' +
+                ", tcates2='" + tcates2 + '\'' +
+                ", discounttype='" + discounttype + '\'' +
+                ", discounts2='" + discounts2 + '\'' +
+                ", returns2='" + returns2 + '\'' +
+                ", returntype='" + returntype + '\'' +
+                ", discountway='" + discountway + '\'' +
+                ", loveMoney='" + loveMoney + '\'' +
+                ", isopenchannel='" + isopenchannel + '\'' +
+                ", yunbiConsumption='" + yunbiConsumption + '\'' +
+                ", yunbiCommission='" + yunbiCommission + '\'' +
+                ", isyunbi='" + isyunbi + '\'' +
+                ", yunbiDeduct='" + yunbiDeduct + '\'' +
+                ", isforceyunbi='" + isforceyunbi + '\'' +
+                ", bonusmoney='" + bonusmoney + '\'' +
+                ", catchId='" + catchId + '\'' +
+                ", catchSource='" + catchSource + '\'' +
+                ", catchUrl='" + catchUrl + '\'' +
+                ", minprice='" + minprice + '\'' +
+                ", maxprice='" + maxprice + '\'' +
+                ", isdeclaration='" + isdeclaration + '\'' +
+                ", virtualDeclaration='" + virtualDeclaration + '\'' +
+                ", goodsBalance='" + goodsBalance + '\'' +
+                ", balanceWithStore='" + balanceWithStore + '\'' +
+                ", dispatchsend='" + dispatchsend + '\'' +
+                ", discountsort='" + discountsort + '\'' +
+                ", has='" + has + '\'' +
+                ", isforce='" + isforce + '\'' +
+                ", canbuy=" + canbuy +
+                ", timestate='" + timestate + '\'' +
+                ", userbuy='" + userbuy + '\'' +
+                ", levelbuy='" + levelbuy + '\'' +
+                ", groupbuy='" + groupbuy + '\'' +
+                ", timebuy='" + timebuy + '\'' +
+                ", canaddcart=" + canaddcart +
+                '}';
+    }
 }

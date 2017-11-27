@@ -15,11 +15,9 @@ public class Options {
     private String stock;
     private String weight;
     private String specs;
-
     public void setId(String id) {
         this.id = id;
     }
-
     public String getId() {
         return id;
     }
@@ -27,7 +25,6 @@ public class Options {
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getTitle() {
         return title;
     }
@@ -35,7 +32,6 @@ public class Options {
     public void setThumb(String thumb) {
         this.thumb = thumb;
     }
-
     public String getThumb() {
         return thumb;
     }
@@ -43,7 +39,6 @@ public class Options {
     public void setMarketprice(String marketprice) {
         this.marketprice = marketprice;
     }
-
     public String getMarketprice() {
         return marketprice;
     }
@@ -51,7 +46,6 @@ public class Options {
     public void setProductprice(String productprice) {
         this.productprice = productprice;
     }
-
     public String getProductprice() {
         return productprice;
     }
@@ -59,7 +53,6 @@ public class Options {
     public void setCostprice(String costprice) {
         this.costprice = costprice;
     }
-
     public String getCostprice() {
         return costprice;
     }
@@ -67,7 +60,6 @@ public class Options {
     public void setStock(String stock) {
         this.stock = stock;
     }
-
     public String getStock() {
         return stock;
     }
@@ -75,7 +67,6 @@ public class Options {
     public void setWeight(String weight) {
         this.weight = weight;
     }
-
     public String getWeight() {
         return weight;
     }
@@ -83,9 +74,22 @@ public class Options {
     public void setSpecs(String specs) {
         this.specs = specs;
     }
-
     public String getSpecs() {
         return specs;
     }
 
+    @Override
+    public String toString() {
+        return "Options{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", thumb='" + thumb + '\'' +
+                ", marketprice='" + marketprice + '\'' +
+                ", productprice='" + productprice + '\'' +
+                ", costprice='" + costprice + '\'' +
+                ", stock='" + stock + '\'' +
+                ", weight='" + weight + '\'' +
+                ", specs='" + specs + '\'' +
+                '}';
+    }
 }

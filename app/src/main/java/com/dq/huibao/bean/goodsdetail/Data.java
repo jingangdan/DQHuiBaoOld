@@ -11,15 +11,13 @@ public class Data {
 
     private Goods goods;
     private Saleset saleset;
-    private List<String> shop;
+    private Shop shop;
     private List<String> pics;
     private List<Options> options;
     private List<Specs> specs;
     private List<Params> params;
-    //@JsonProperty("params_num")
     private String paramsNum;
     private boolean commission;
-    //@JsonProperty("commission_text")
     private String commissionText;
     private Level level;
     private boolean isfavorite;
@@ -39,10 +37,10 @@ public class Data {
         return saleset;
     }
 
-    public void setShop(List<String> shop) {
+    public void setShop(Shop shop) {
         this.shop = shop;
     }
-    public List<String> getShop() {
+    public Shop getShop() {
         return shop;
     }
 
@@ -123,4 +121,23 @@ public class Data {
         return commentcount;
     }
 
+    @Override
+    public String toString() {
+        return "Data{" +
+                "goods=" + goods +
+                ", saleset=" + saleset +
+                ", shop=" + shop +
+                ", pics=" + pics +
+                ", options=" + options +
+                ", specs=" + specs +
+                ", params=" + params +
+                ", paramsNum='" + paramsNum + '\'' +
+                ", commission=" + commission +
+                ", commissionText='" + commissionText + '\'' +
+                ", level=" + level +
+                ", isfavorite=" + isfavorite +
+                ", comment=" + comment +
+                ", commentcount='" + commentcount + '\'' +
+                '}';
+    }
 }

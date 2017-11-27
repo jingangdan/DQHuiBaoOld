@@ -14,12 +14,13 @@ public class Items {
     private String thumb;
     private String show;
     private String displayorder;
-    //@JsonProperty("valueId")
     private String valueid;
     private String virtual;
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getId() {
         return id;
     }
@@ -27,6 +28,7 @@ public class Items {
     public void setUniacid(String uniacid) {
         this.uniacid = uniacid;
     }
+
     public String getUniacid() {
         return uniacid;
     }
@@ -34,6 +36,7 @@ public class Items {
     public void setSpecid(String specid) {
         this.specid = specid;
     }
+
     public String getSpecid() {
         return specid;
     }
@@ -41,6 +44,7 @@ public class Items {
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getTitle() {
         return title;
     }
@@ -48,6 +52,7 @@ public class Items {
     public void setThumb(String thumb) {
         this.thumb = thumb;
     }
+
     public String getThumb() {
         return thumb;
     }
@@ -55,6 +60,7 @@ public class Items {
     public void setShow(String show) {
         this.show = show;
     }
+
     public String getShow() {
         return show;
     }
@@ -62,6 +68,7 @@ public class Items {
     public void setDisplayorder(String displayorder) {
         this.displayorder = displayorder;
     }
+
     public String getDisplayorder() {
         return displayorder;
     }
@@ -69,6 +76,7 @@ public class Items {
     public void setValueid(String valueid) {
         this.valueid = valueid;
     }
+
     public String getValueid() {
         return valueid;
     }
@@ -76,8 +84,23 @@ public class Items {
     public void setVirtual(String virtual) {
         this.virtual = virtual;
     }
+
     public String getVirtual() {
         return virtual;
     }
 
+    @Override
+    public String toString() {
+        return "Items{" +
+                "id='" + id + '\'' +
+                ", uniacid='" + uniacid + '\'' +
+                ", specid='" + specid + '\'' +
+                ", title='" + title + '\'' +
+                ", thumb='" + thumb + '\'' +
+                ", show='" + show + '\'' +
+                ", displayorder='" + displayorder + '\'' +
+                ", valueid='" + valueid + '\'' +
+                ", virtual='" + virtual + '\'' +
+                '}';
+    }
 }

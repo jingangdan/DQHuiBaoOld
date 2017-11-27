@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.memcen.CouponsAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.memcen.Coupons;
+import com.dq.huibao.ui.memcen.CouponsDetailActivity;
 import com.dq.huibao.ui.memcen.CouponsListActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -71,6 +73,17 @@ public class FMCouponsPast extends BaseFragment {
         couponsAdapter = new CouponsAdapter(getActivity(), couponsList);
         rvOrderAll.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvOrderAll.setAdapter(couponsAdapter);
+
+        couponsAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                intent = new Intent(getActivity(), CouponsDetailActivity.class);
+                intent.putExtra("couponsid", couponsList.get(position).getCouponid());
+                intent.putExtra("index", "0");//0代表用户的优惠券
+                startActivity(intent);
+            }
+        });
+
         initData();
         return view;
     }

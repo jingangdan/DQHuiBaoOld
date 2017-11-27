@@ -55,4 +55,15 @@ public class Params {
         return displayorder;
     }
 
+    @Override
+    public String toString() {
+        return "Params{" +
+                "id='" + id + '\'' +
+                ", uniacid='" + uniacid + '\'' +
+                ", goodsid='" + goodsid + '\'' +
+                ", title='" + title + '\'' +
+                ", value='" + value + '\'' +
+                ", displayorder='" + displayorder + '\'' +
+                '}';
+    }
 }

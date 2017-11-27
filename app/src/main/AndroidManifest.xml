@@ -146,6 +146,19 @@
         <!--优惠券领取列表-->
         <activity android:name="com.dq.huibao.ui.memcen.CouponsListActivity" />
 
+        <!--优惠券详情-->
+        <activity android:name="com.dq.huibao.ui.memcen.CouponsDetailActivity" />
+
+        <!--个人资料-->
+        <activity
+            android:name="com.dq.huibao.ui.memcen.MemcenActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!--绑定手机-->
+        <activity
+            android:name="com.dq.huibao.ui.memcen.MobileActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
 
         <!--增加图片清晰度-->
         <meta-data

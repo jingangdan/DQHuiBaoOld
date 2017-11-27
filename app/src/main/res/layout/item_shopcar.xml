@@ -49,7 +49,7 @@
 
         <ImageView
             android:id="@+id/iv_show_pic"
-            android:layout_width="48dp"
+            android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="3dp"
@@ -57,7 +57,7 @@
             android:background="@mipmap/ic_goods" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_toRightOf="@id/iv_show_pic"
@@ -66,8 +66,11 @@
 
             <TextView
                 android:id="@+id/tv_commodity_name"
-                style="@style/text_main"
+                style="@style/text_adware"
                 android:layout_marginBottom="5dp"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:lines="2"
                 android:text="五颜六色的酒" />
 
             <TextView
@@ -79,7 +82,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="right"

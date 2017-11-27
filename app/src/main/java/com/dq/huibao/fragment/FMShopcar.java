@@ -1,27 +1,43 @@
 package com.dq.huibao.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.R;
+import com.dq.huibao.adapter.ShopCartAdapter;
 import com.dq.huibao.adapter.ShoppingCartAdapter;
 import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.bean.Cart;
+import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.ShoppingCartBean;
 import com.dq.huibao.ui.SubmitOrderActivity;
+import com.dq.huibao.utils.GsonUtil;
+import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.MD5Util;
+import com.dq.huibao.utils.SPUserInfo;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.BindInt;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -31,14 +47,18 @@ import butterknife.OnClick;
  */
 
 public class FMShopcar extends BaseFragment implements
-        ShoppingCartAdapter.CheckInterface,
-        ShoppingCartAdapter.ModifyCountInterface {
+        ShopCartAdapter.CheckInterface,
+        ShopCartAdapter.ModifyCountInterface {
+
+    /*登录状态*/
+    @Bind(R.id.lin_shopcart_nologin)
+    LinearLayout linShopcartNologin;
+    @Bind(R.id.rel_shopcart_login)
+    RelativeLayout relShopCartLogin;
 
     @Bind(R.id.tv_base_title)
     TextView tvBaseTitle;
 
-    //    @Bind(R.id.tv_edit)
-//    TextView tv_edit;
     @Bind(R.id.list_shopping_cart)
     ListView list_shopping_cart;
     @Bind(R.id.ck_all)
@@ -51,6 +71,7 @@ public class FMShopcar extends BaseFragment implements
     RelativeLayout rl_bottom;
     @Bind(R.id.rel_shopcar_header)
     RelativeLayout relShopcarHeader;
+
     private View view;
 
     private TextView tv_all_check;
@@ -70,26 +91,116 @@ public class FMShopcar extends BaseFragment implements
     /*接收页面传值*/
     private Intent intent;
 
+    /*接口地址*/
+    private String PATH = "";
+    private RequestParams params = null;
+
+    /*本地轻量型缓存*/
+    private SPUserInfo spUserInfo;
+    private String unionid = "";
+
+    /*UI显示*/
+    @Bind(R.id.rv_shopcart)
+    RecyclerView rvShopCart;
+    private ShopCartAdapter shopCartAdapter;
+    private List<Cart.DataBean.ListBean> cartList = new ArrayList<>();
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_shopcar, null);
         ButterKnife.bind(this, view);
 
-        tvBaseTitle.setText("购物车");
+        shopCartAdapter = new ShopCartAdapter(getActivity(), cartList);
+        rvShopCart.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvShopCart.setAdapter(shopCartAdapter);
+        shopCartAdapter.setCheckInterface(this);
+        shopCartAdapter.setModifyCountInterface(this);
 
-        //tv_edit.setOnClickListener(this);
-        //ck_all.setOnClickListener(this);
-        shoppingCartAdapter = new ShoppingCartAdapter(getActivity());
-        shoppingCartAdapter.setCheckInterface(this);
-        shoppingCartAdapter.setModifyCountInterface(this);
-        list_shopping_cart.setAdapter(shoppingCartAdapter);
-        shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
-
-        initData();
-
+        isLogin();
 
         return view;
+    }
+
+    /*
+   * 判断登录状态
+   *  */
+    @SuppressLint("WrongConstant")
+    public void isLogin() {
+        spUserInfo = new SPUserInfo(getActivity().getApplication());
+
+        if (spUserInfo.getLogin().equals("1")) {
+
+            if (!(spUserInfo.getLoginReturn().equals(""))) {
+                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
+                unionid = loginBean.getData().getUnionid();
+
+                getCart(unionid, "", "");
+
+                tvBaseTitle.setText("购物车");
+
+//                shoppingCartAdapter = new ShoppingCartAdapter(getActivity());
+//                shoppingCartAdapter.setCheckInterface(this);
+//                shoppingCartAdapter.setModifyCountInterface(this);
+//                list_shopping_cart.setAdapter(shoppingCartAdapter);
+//                shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
+//
+//                initData();
+
+            }
+
+            relShopCartLogin.setVisibility(View.VISIBLE);
+            linShopcartNologin.setVisibility(View.GONE);
+        } else {
+            relShopCartLogin.setVisibility(View.GONE);
+            linShopcartNologin.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 获取购物车
+     *
+     * @param unionid
+     * @param ischannelpick 不知道
+     * @param ischannelpay  不知道
+     */
+    public void getCart(String unionid, String ischannelpick, String ischannelpay) {
+        PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_CART + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
+                MD5Util.getMD5String(HttpUtils.SHOP_CART_CART + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
+                "&ischannelpick=" + ischannelpick + "&ischannelpay=" + ischannelpay;
+
+
+        params = new RequestParams(PATH);
+        System.out.println("购物车 = " + PATH);
+
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("购物车 = " + result);
+                        Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
+                        cartList.clear();
+                        cartList.addAll(cart.getData().getList());
+                        shopCartAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
     }
 
     @Override
@@ -97,6 +208,7 @@ public class FMShopcar extends BaseFragment implements
 
     }
 
+    /**/
     protected void initData() {
 
         for (int i = 0; i < 6; i++) {
@@ -117,17 +229,32 @@ public class FMShopcar extends BaseFragment implements
         switch (v.getId()) {
             //全选按钮
             case R.id.ck_all:
-                if (shoppingCartBeanList.size() != 0) {
+//                if (shoppingCartBeanList.size() != 0) {
+//                    if (ck_all.isChecked()) {
+//                        for (int i = 0; i < shoppingCartBeanList.size(); i++) {
+//                            shoppingCartBeanList.get(i).setChoosed(true);
+//                        }
+//                        shoppingCartAdapter.notifyDataSetChanged();
+//                    } else {
+//                        for (int i = 0; i < shoppingCartBeanList.size(); i++) {
+//                            shoppingCartBeanList.get(i).setChoosed(false);
+//                        }
+//                        shoppingCartAdapter.notifyDataSetChanged();
+//                    }
+//                }
+//                statistics();
+
+                if (cartList.size() != 0) {
                     if (ck_all.isChecked()) {
-                        for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            shoppingCartBeanList.get(i).setChoosed(true);
+                        for (int i = 0; i < cartList.size(); i++) {
+                            cartList.get(i).setChoosed(true);
                         }
-                        shoppingCartAdapter.notifyDataSetChanged();
+                        shopCartAdapter.notifyDataSetChanged();
                     } else {
-                        for (int i = 0; i < shoppingCartBeanList.size(); i++) {
-                            shoppingCartBeanList.get(i).setChoosed(false);
+                        for (int i = 0; i < cartList.size(); i++) {
+                            cartList.get(i).setChoosed(false);
                         }
-                        shoppingCartAdapter.notifyDataSetChanged();
+                        shopCartAdapter.notifyDataSetChanged();
                     }
                 }
                 statistics();
@@ -186,15 +313,26 @@ public class FMShopcar extends BaseFragment implements
     @Override
     public void checkGroup(int position, boolean isChecked) {
 
-        shoppingCartBeanList.get(position).setChoosed(isChecked);
+//        shoppingCartBeanList.get(position).setChoosed(isChecked);
+//
+//        if (isAllCheck())
+//            ck_all.setChecked(true);
+//        else
+//            ck_all.setChecked(false);
+//
+//        shoppingCartAdapter.notifyDataSetChanged();
+//        statistics();
+
+        cartList.get(position).setChoosed(isChecked);
 
         if (isAllCheck())
             ck_all.setChecked(true);
         else
             ck_all.setChecked(false);
 
-        shoppingCartAdapter.notifyDataSetChanged();
+        shopCartAdapter.notifyDataSetChanged();
         statistics();
+
     }
 
 
@@ -241,12 +379,20 @@ public class FMShopcar extends BaseFragment implements
      */
     @Override
     public void doIncrease(int position, View showCountView, boolean isChecked) {
-        ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
-        int currentCount = shoppingCartBean.getCount();
+//        ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
+//        int currentCount = shoppingCartBean.getCount();
+//        currentCount++;
+//        shoppingCartBean.setCount(currentCount);
+//        ((TextView) showCountView).setText(currentCount + "");
+//        shoppingCartAdapter.notifyDataSetChanged();
+//        statistics();
+
+        Cart.DataBean.ListBean listBean = cartList.get(position);
+        int currentCount = Integer.parseInt(listBean.getTotal());
         currentCount++;
-        shoppingCartBean.setCount(currentCount);
+        listBean.setTotal("" + currentCount);
         ((TextView) showCountView).setText(currentCount + "");
-        shoppingCartAdapter.notifyDataSetChanged();
+        shopCartAdapter.notifyDataSetChanged();
         statistics();
     }
 
@@ -259,15 +405,26 @@ public class FMShopcar extends BaseFragment implements
      */
     @Override
     public void doDecrease(int position, View showCountView, boolean isChecked) {
-        ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
-        int currentCount = shoppingCartBean.getCount();
+//        ShoppingCartBean shoppingCartBean = shoppingCartBeanList.get(position);
+//        int currentCount = shoppingCartBean.getCount();
+//        if (currentCount == 1) {
+//            return;
+//        }
+//        currentCount--;
+//        shoppingCartBean.setCount(currentCount);
+//        ((TextView) showCountView).setText(currentCount + "");
+//        shoppingCartAdapter.notifyDataSetChanged();
+//        statistics();
+
+        Cart.DataBean.ListBean listBean = cartList.get(position);
+        int currentCount = Integer.parseInt(listBean.getTotal());
         if (currentCount == 1) {
             return;
         }
         currentCount--;
-        shoppingCartBean.setCount(currentCount);
+        listBean.setTotal("" + currentCount);
         ((TextView) showCountView).setText(currentCount + "");
-        shoppingCartAdapter.notifyDataSetChanged();
+        shopCartAdapter.notifyDataSetChanged();
         statistics();
 
     }
@@ -279,9 +436,13 @@ public class FMShopcar extends BaseFragment implements
      */
     @Override
     public void childDelete(int position) {
-        shoppingCartBeanList.remove(position);
-        shoppingCartAdapter.notifyDataSetChanged();
-        statistics();
+//        shoppingCartBeanList.remove(position);
+//        shoppingCartAdapter.notifyDataSetChanged();
+//        statistics();
+
+//        shopCartAdapter.remove(position);
+//        shopCartAdapter.notifyDataSetChanged();
+//        statistics();
 
     }
 

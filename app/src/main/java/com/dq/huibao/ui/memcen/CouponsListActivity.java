@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.memcen.CouponsListAdapter;
 import com.dq.huibao.base.BaseActivity;
@@ -56,6 +58,16 @@ public class CouponsListActivity extends BaseActivity {
         couponsListAdapter = new CouponsListAdapter(this, couponsDataList);
         rvCouponslist.setLayoutManager(new LinearLayoutManager(this));
         rvCouponslist.setAdapter(couponsListAdapter);
+
+        couponsListAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                intent = new Intent(CouponsListActivity.this, CouponsDetailActivity.class);
+                intent.putExtra("couponsid", couponsDataList.get(position).getId());
+                intent.putExtra("index", "1");//0代表用户的优惠券
+                startActivity(intent);
+            }
+        });
 
         initData();
 

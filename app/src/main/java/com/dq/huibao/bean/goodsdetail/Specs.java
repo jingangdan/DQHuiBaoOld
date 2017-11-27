@@ -6,7 +6,6 @@ import java.util.List;
  * Description：
  * Created by jingang on 2017/11/13.
  */
-
 public class Specs {
 
     private String id;
@@ -17,7 +16,6 @@ public class Specs {
     private String displaytype;
     private String content;
     private String displayorder;
-    //@JsonProperty("propId")
     private String propid;
     private List<Items> items;
     public void setId(String id) {
@@ -90,4 +88,19 @@ public class Specs {
         return items;
     }
 
+    @Override
+    public String toString() {
+        return "Specs{" +
+                "id='" + id + '\'' +
+                ", uniacid='" + uniacid + '\'' +
+                ", goodsid='" + goodsid + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", displaytype='" + displaytype + '\'' +
+                ", content='" + content + '\'' +
+                ", displayorder='" + displayorder + '\'' +
+                ", propid='" + propid + '\'' +
+                ", items=" + items +
+                '}';
+    }
 }

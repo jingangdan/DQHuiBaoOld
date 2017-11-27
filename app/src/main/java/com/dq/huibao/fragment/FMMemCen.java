@@ -23,6 +23,7 @@ import com.dq.huibao.ui.memcen.AddressListActivity;
 import com.dq.huibao.ui.memcen.CollectActivity;
 import com.dq.huibao.ui.memcen.CouponsActivity;
 import com.dq.huibao.ui.memcen.FootprintActivity;
+import com.dq.huibao.ui.memcen.MemcenActivity;
 import com.dq.huibao.ui.memcen.OrderActivity;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.utils.GsonUtil;
@@ -71,6 +72,9 @@ public class FMMemCen extends BaseFragment {
     /*用户头像*/
     @Bind(R.id.iv_memcen)
     ImageView ivMemcen;
+
+    @Bind(R.id.iv_mc_refresh)
+    ImageView ivMcRefresh;
 
     /*会员等级 id 昵称 余额 积分 优惠券*/
     @Bind(R.id.tv_mc_level)
@@ -164,7 +168,8 @@ public class FMMemCen extends BaseFragment {
     }
 
     @OnClick({R.id.but_percen_login,
-            R.id.iv_memcen, R.id.lin_mc_credit1, R.id.lin_mc_credit2, R.id.lin_mc_couponcount,
+            R.id.iv_memcen, R.id.iv_mc_refresh,
+            R.id.lin_mc_credit1, R.id.lin_mc_credit2, R.id.lin_mc_couponcount,
             R.id.rel_mc_orders, R.id.but_mc_status0, R.id.but_mc_status1, R.id.but_mc_status2, R.id.but_mc_status3,
 
             R.id.but_mc_menu0, R.id.but_mc_menu1, R.id.but_mc_menu2,
@@ -182,9 +187,16 @@ public class FMMemCen extends BaseFragment {
                 startActivityForResult(intent, 1);
                 break;
 
+            case R.id.iv_mc_refresh:
+                //刷新
+                isLogin();
+                break;
+
             /*个人信息*/
             case R.id.iv_memcen:
                 //个人信息
+                intent = new Intent(getActivity(), MemcenActivity.class);
+                startActivity(intent);
                 break;
             case R.id.lin_mc_credit1:
                 //余额
@@ -196,7 +208,9 @@ public class FMMemCen extends BaseFragment {
                 break;
             case R.id.lin_mc_couponcount:
                 //优惠券
-                toast("优惠券");
+                //toast("优惠券");
+                intent = new Intent(getActivity(), CouponsActivity.class);
+                startActivity(intent);
                 break;
 
             /*我的订单*/
@@ -228,7 +242,9 @@ public class FMMemCen extends BaseFragment {
                 break;
             case R.id.but_mc_menu1:
                 //我的资料
-                toast("我的资料");
+                //toast("我的资料");
+                intent = new Intent(getActivity(), MemcenActivity.class);
+                startActivity(intent);
                 break;
             case R.id.but_mc_menu2:
                 //购物车

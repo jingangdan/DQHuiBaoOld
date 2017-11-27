@@ -76,7 +76,7 @@ public class AddAddressActivity extends BaseActivity {
         }).setTitleText("")
                 .setDividerColor(Color.GRAY)
                 .setTextColorCenter(Color.GRAY)
-                .setContentTextSize(13)
+                .setContentTextSize(14)
                 .setOutSideCancelable(false)
                 .build();
           /*pvOptions.setPicker(options1Items);//一级选择器

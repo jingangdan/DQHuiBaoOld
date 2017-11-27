@@ -6,7 +6,6 @@ package com.dq.huibao.bean.goodsdetail;
  */
 
 public class GoodsDetail {
-
     private String result;
     private String msg;
     private Data data;
@@ -35,4 +34,12 @@ public class GoodsDetail {
         return data;
     }
 
+    @Override
+    public String toString() {
+        return "GoodsDetail{" +
+                "result='" + result + '\'' +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

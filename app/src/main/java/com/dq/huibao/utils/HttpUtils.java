@@ -85,5 +85,56 @@ public class HttpUtils {
      */
     public static final String SHOP_COUPON_INDEX = "api=shop/Coupon/index&i=1604&";
 
+    /*
+    * 优惠券详情
+    * 参数：
+    * id=
+    * 登录验证
+    * */
+    public static final String SHOP_COUPON_DETAIL = "api=shop/Coupon/detail&i=1604&";
+
+    /*获取推荐商品*/
+    public static final String SHOP_GOODS_RECOMMENT = "api=shop/Goods/recommand&i=1604";
+
+    /*获取个人资料
+    * 参数：
+    *  登录验证
+    * */
+    public static final String SHOP_MEMBER_GETMEMBER = "api=shop/Member/getmember&i=1604&";
+
+    /**
+     * 修改个人资料
+     * 参数：
+     * 登录验证
+     * realname：真实姓名
+     * weixin：微信号
+     * membermobile：手机号
+     * alipay：支付宝账号
+     * alipayname：支付宝名称
+     * gender：性别
+     * province：省
+     * city：市
+     * birthyear：生日年
+     * birthmonth：生日月
+     * birthday：生日天
+     */
+    public static final String SHOP_MEMBER_SETMEMBER = "api=shop/Member/setmember&i=1604&";
+
+    /**
+     * 添加购物车(商品详情)
+     * 参数：
+     * 登录验证
+     * id:93767
+     * optionid:120834
+     * total:1
+     */
+    public static final String SHOP_CART_ADD = "api=shop/Cart/add&i=1604&";
+
+    /**
+     * 购物车列表
+     * 参数：
+     * 登录验证
+     */
+    public static final String SHOP_CART_CART = "api=shop/Cart/cart&i=1604&";
 
 }

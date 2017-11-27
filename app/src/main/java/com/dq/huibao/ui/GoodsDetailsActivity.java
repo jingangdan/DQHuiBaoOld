@@ -38,9 +38,11 @@ import com.dq.huibao.adapter.gd.ChooseAdapter;
 import com.dq.huibao.adapter.gd.ChooseTwoAdapter;
 import com.dq.huibao.adapter.gd.GdCommentAdapter;
 import com.dq.huibao.adapter.gd.GdParmasAdapter;
+import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.goodsdetail.Comment;
 import com.dq.huibao.bean.goodsdetail.GoodsDetail;
 import com.dq.huibao.bean.goodsdetail.Items;
+import com.dq.huibao.bean.goodsdetail.Options;
 import com.dq.huibao.bean.goodsdetail.Params;
 import com.dq.huibao.bean.goodsdetail.Specs;
 import com.dq.huibao.lunbotu.ADInfo;
@@ -50,6 +52,8 @@ import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
+import com.dq.huibao.utils.MD5Util;
+import com.dq.huibao.utils.SPUserInfo;
 import com.dq.huibao.view.HackyViewPager;
 import com.dq.huibao.view.goodsdetails_foot.GradationScrollView;
 
@@ -99,11 +103,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     @Bind(R.id.tv_gd_specification)
     TextView tvGdSpecification;
 
-    /*显示图片控件*/
-//    @Bind(R.id.iv_baby)
-//    HackyViewPager ivBaby;
-
-    //@Bind(R.id.cycleviewpager)
     CycleViewPager cycleViewPager;
 
     /*我要分销*/
@@ -113,7 +112,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /*加入购物车*/
     @Bind(R.id.but_gd_put_in)
     Button but_gd_put_in;
-    //ImageView putIn;
 
     /*立即购买*/
     @Bind(R.id.but_gd_bug_new)
@@ -192,11 +190,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     private ArrayList<View> allListView;
 
     /**
-     * 弹出商品订单信息详情
-     */
-    //private BabyPopWindow popWindow;
-
-    /**
      * 判断是否点击的立即购买按钮
      */
     boolean isClickBuy = false;
@@ -237,6 +230,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /*商品规格items*/
     private List<Items> itemList = new ArrayList<>();
     private List<Items> itemLists = new ArrayList<>();
+    private List<Options> optionsList = new ArrayList<>();
 
     /*UI赋值*/
     private String title = "", marketprice = "", total = "", sales = "";
@@ -250,11 +244,20 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     private List<Comment> commentList = new ArrayList<>();
     private GdCommentAdapter gdCommentAdapter;
 
+    /*规格id*/
+    private String specsItemId1 = "", specsItemId2 = "";
+
+    /*本地轻量型缓存*/
+    private SPUserInfo spUserInfo;
+    private String unionid = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goodsdetails);
         ButterKnife.bind(this);
+
+        //initDate();
 
         intent = getIntent();
         gid = intent.getStringExtra("gid");
@@ -263,7 +266,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
         getSaveCollection();
 
-        //initListeners();
+        initDate();
 
     }
 
@@ -288,7 +291,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             case R.id.rel_gd_choose:
                 //选择商品规格和数量
                 //specsList = goodsDetail.getData().getSpecs();
-                setPopTest();
+                setPopTest(0);
 
                 setBackgroundBlack(all_choice_layout, 0);
                 break;
@@ -333,7 +336,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
             case R.id.but_gd_put_in:
                 //添加购物车
-                setPopTest();
+                setPopTest(1);
                 setBackgroundBlack(all_choice_layout, 0);
 //                isClickBuy = false;
 //                setBackgroundBlack(all_choice_layout, 0);
@@ -344,8 +347,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 //                isClickBuy = true;
 //                setBackgroundBlack(all_choice_layout, 0);
 //                popWindow.showAsDropDown(view);
-                intent = new Intent(TAG, SubmitOrderActivity.class);
-                startActivity(intent);
+                setPopTest(2);
+                setBackgroundBlack(all_choice_layout, 0);
+
 
                 break;
 
@@ -399,6 +403,35 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         }
     }
 
+    /*
+    * 获取用户登录信息
+    * */
+    @SuppressLint("WrongConstant")
+    public void initDate() {
+        if (isLogin()) {
+            if (!(spUserInfo.getLoginReturn().equals(""))) {
+                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
+                unionid = loginBean.getData().getUnionid();
+
+            } else {
+                //toast("登录状态出错，请重新登录");
+                Toast.makeText(TAG, "登录状态出错，请重新登录", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    /*判断登录状态*/
+    public boolean isLogin() {
+        spUserInfo = new SPUserInfo(getApplication());
+        if (spUserInfo.getLogin().equals("1")) {
+            return true;
+        } else if (spUserInfo.getLogin().equals("")) {
+            return false;
+        }
+        return false;
+    }
+
     /**
      * 获取商品详情
      *
@@ -423,8 +456,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                         if (!goodsDetail.getData().getSpecs().toString().equals("[]")) {
                             specsList = goodsDetail.getData().getSpecs();
                         }
-//
-                        // System.out.println("555555 = " + specsList.get(0).getTitle());
+                        if (!goodsDetail.getData().getOptions().toString().equals("[]")) {
+                            optionsList = goodsDetail.getData().getOptions();
+                        }
 
                         title = goodsDetail.getData().getGoods().getTitle();
                         marketprice = goodsDetail.getData().getGoods().getMarketprice();
@@ -531,6 +565,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
             };
 
+
     /*popupwindows*/
     private PopupWindow popWindow;
     private View view;
@@ -555,9 +590,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      * 选择商品规格和数量
      */
     @SuppressLint("WrongConstant")
-    public void setPopTest() {
+    public void setPopTest(final int tag) {
 
-        //specsList = goodsDetail.getData().getSpecs();
         num = 1;
         view = View.inflate(this, R.layout.pop_gd_choose,
                 null);
@@ -660,9 +694,41 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String options_specs = "", options_title = "", options_id = "";
+                if (specsItemId2.equals("")) {
+                    options_specs = specsItemId1 + specsItemId2;
+                } else {
+                    options_specs = specsItemId1 + "_" + specsItemId2;
+                }
 
-                tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
-                popWindow.dismiss();
+                System.out.println("111 = " + specsItemId1);
+                System.out.println("222 = " + specsItemId2);
+                System.out.println("sss = " + options_specs);
+
+                for (int i = 0; i < optionsList.size(); i++) {
+                    if (options_specs.equals(optionsList.get(i).getSpecs())) {
+                        System.out.println(optionsList.get(i).getTitle());
+                        options_id = optionsList.get(i).getId();
+                        options_title = optionsList.get(i).getTitle();
+
+                    } else {
+                    }
+                }
+
+                if (tag == 0) {
+                    //tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
+                    tvGdSpecification.setText("已选" + options_title);
+                    popWindow.dismiss();
+                } else if (tag == 1) {
+                    //添加购物车
+                    setAddCart(unionid, gid, options_id, "" + num);
+
+                } else if (tag == 2) {
+                    intent = new Intent(TAG, SubmitOrderActivity.class);
+                    startActivity(intent);
+                }
+
+
 //                if (!specifications1.equals("")) {
 //                    if (!specifications2.equals("")) {
 //                        if (num != 0) {
@@ -727,6 +793,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
                         specifications1 = itemList.get(position).getTitle();
                         tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
+
+                        specsItemId1 = itemList.get(position).getId();
                     }
                 });
                 break;
@@ -752,7 +820,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                     @SuppressLint("WrongConstant")
                     @Override
                     public void onItemClick(View view, int position) {
-                        //Toast.makeText(TAG, "111 = " + itemLists.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
                         chooseAdapter.changeSelected(position);
 
@@ -766,6 +833,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
                         tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
 
+                        specsItemId2 = itemLists.get(position).getId();
+
                     }
                 });
                 break;
@@ -773,6 +842,50 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 break;
         }
 
+    }
+
+
+    /**
+     * 添加购物车
+     *
+     * @param unionid
+     * @param id       商品id
+     * @param optionid 规格id
+     * @param total    商品数量
+     */
+    public void setAddCart(String unionid, String id, String optionid, String total) {
+        PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_ADD +
+                "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
+                MD5Util.getMD5String(HttpUtils.SHOP_CART_ADD + "unionid=" + unionid +
+                        "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
+                "&id=" + id + "&optionid=" + optionid + "&total=" + total;
+
+        params = new RequestParams(PATH);
+
+        System.out.println("添加购物车（商品详情） = " + PATH);
+
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("添加购物车（商品详情） = " + result);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
     }
 
     /**
@@ -788,10 +901,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setJavaScriptEnabled(false);
 
-//        String head = "<head>" +
-//                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
-//                "<style>*{margin:0;padding:0;}img{max-width: 100%; width:auto; height:auto;}</style>" +
-//                "</head>";
         String head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
                 "<style>img{max-width: 100%; width:auto; height:auto;}</style>" +
@@ -799,12 +908,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         String html = "<html>" + head + "<body>" + html_bady + "</body></html>";
 
         webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
-
-        //拼接HTML
-//        String css = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-//                "</style>";
-//        String html = "<html><header>" + css + "</header><body>" + html_bady + "</body></html>";
-//        webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
 
     }
 
@@ -829,144 +932,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         linGdRecommend.setVisibility(View.GONE);
     }
 
-    public boolean isLogin() {
-
-        return false;
-    }
-
-
-//    private void initListeners() {
-//
-//        ViewTreeObserver vto = ivBaby.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                //llTitle.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//                //height = ivBaby.getHeight();
-//
-//                scrollView.setScrollViewListener(TAG);
-//            }
-//        });
-//    }
-
-
-    @SuppressLint({"NewApi", "WrongConstant"})
-    private void initView() {
-        // 获取默认的NFC控制器
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if (nfcAdapter == null) {
-            //Toast.makeText(this, "该设备不支持NFC", Toast.LENGTH_SHORT).show();
-        }
-        //initViewPager();
-
-        if (isCollection) {
-            //如果已经收藏，则显示收藏后的效果
-            //iv_baby_collection.setImageResource(R.drawable.second_2_collection);
-        }
-    }
-
-    /*点击查看大图*/
-//    private void initViewPager() {
-//
-//        if (allListView != null) {
-//            allListView.clear();
-//            allListView = null;
-//        }
-//        allListView = new ArrayList<View>();
-//        for (int i = 0; i < picsList.size(); i++) {
-//            View view = LayoutInflater.from(this).inflate(R.layout.pic_item, null);
-//            ImageView imageView = (ImageView) view.findViewById(R.id.pic_item);
-//
-//            //System.out.println("图片地址 = " + HttpUtils.HEADER + picsList.get(i).toString());
-//
-//            ImageUtils.loadIntoUseFitWidth(this,
-//                    HttpUtils.HEADER + picsList.get(i).toString(),
-//                    R.mipmap.icon_empty002,
-//                    R.mipmap.icon_error002,
-//                    imageView);
-//
-//            imageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    intent = new Intent(TAG, ShowBigPictrueActivity.class);
-//                    intent.putExtra("position", position);
-//                    intent.putExtra("picslist", picsList.toString());
-//                    startActivity(intent);
-//                }
-//            });
-//
-//            allListView.add(view);
-//
-//        }
-//
-//        viewPager = (HackyViewPager) findViewById(R.id.iv_baby);
-//        ViewPagerAdapter adapter = new ViewPagerAdapter();
-//        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//
-//            @Override
-//            public void onPageSelected(int arg0) {
-//                position = arg0;
-//            }
-//
-//            @Override
-//            public void onPageScrolled(int arg0, float arg1, int arg2) {
-//
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int arg0) {
-//
-//            }
-//        });
-//        viewPager.setAdapter(adapter);
-//
-//    }
-
     @Override
     public void onScrollChanged(GradationScrollView scrollView, int x, int y, int oldx, int oldy) {
 
-    }
-
-    /*显示图片适配器*/
-//    private class ViewPagerAdapter extends PagerAdapter {
-//
-//        @Override
-//        public int getCount() {
-//            return allListView.size();
-//        }
-//
-//        @Override
-//        public boolean isViewFromObject(View arg0, Object arg1) {
-//            return arg0 == (View) arg1;
-//        }
-//
-//        @Override
-//        public void destroyItem(ViewGroup container, int position, Object object) {
-//            container.removeView((View) object);
-//        }
-//
-//        @Override
-//        public Object instantiateItem(ViewGroup container, int position) {
-//            View view = allListView.get(position);
-//            container.addView(view);
-//            return view;
-//        }
-//
-//    }
-
-    //点击弹窗的确认按钮的响应
-    //@Override
-    @SuppressLint("WrongConstant")
-    public void onClickOKPop() {
-        setBackgroundBlack(all_choice_layout, 1);
-
-        if (isClickBuy) {
-            //如果之前是点击的立即购买，那么就跳转到立即购物界面
-//            Intent intent = new Intent(GoodsDetailsActivity.this, BuynowActivity.class);
-//            startActivity(intent);
-        } else {
-            Toast.makeText(this, "添加到购物车成功", Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**
