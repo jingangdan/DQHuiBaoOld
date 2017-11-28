@@ -137,4 +137,30 @@ public class HttpUtils {
      */
     public static final String SHOP_CART_CART = "api=shop/Cart/cart&i=1604&";
 
+    /*
+    * 购物车修改数量（添加 减少）
+    * 参数：
+    * id=
+    * goodsid=
+    * total=
+    * 登录验证
+    * */
+    public static final String SHOP_CART_UPDATENUM = "api=shop/Cart/updatenum&i=1604&";
+
+    /*
+    * 移至收藏夹
+    * 参数:
+    * ids=
+    * 登录验证
+    * */
+    public static final String SHOP_CART_TOFAVORITE = "api=shop/Cart/tofavorite&i=1604&";
+
+    /*
+    * 购车删除
+    * 参数：
+    * ids
+    * 登录验证
+    * */
+    public static final String SHOP_CART_REMOVE = "api=shop/Cart/remove&i=1604&";
+
 }

@@ -165,13 +165,13 @@ public class Cart {
             public boolean isCheck = false;
             public boolean isChoosed;
 
-            public boolean isCheck() {
-                return isCheck;
-            }
-
-            public void setCheck(boolean check) {
-                isCheck = check;
-            }
+//            public boolean isCheck() {
+//                return isCheck;
+//            }
+//
+//            public void setCheck(boolean check) {
+//                isCheck = check;
+//            }
 
             public boolean isChoosed() {
                 return isChoosed;

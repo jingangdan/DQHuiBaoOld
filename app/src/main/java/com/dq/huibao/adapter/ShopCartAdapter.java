@@ -3,18 +3,20 @@ package com.dq.huibao.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.Cart;
-import com.dq.huibao.bean.ShoppingCartBean;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -25,7 +27,6 @@ import java.util.List;
  * Description：
  * Created by jingang on 2017/11/27.
  */
-
 public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyViewHolder> {
     private Context mContext;
     private List<Cart.DataBean.ListBean> cartList;
@@ -90,8 +91,13 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
 
         holder.tv_commodity_name.setText(cartList.get(position).getTitle());
         holder.tv_price.setText("¥:" + cartList.get(position).getMarketprice());
-        // holder.ck_chose.setChecked(shoppingCartBean.isChoosed());
+        holder.tvProductPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.tvProductPrice.setText("¥:" + cartList.get(position).getProductprice());
+
+//        holder.ck_chose.setChecked(shoppingCartBean.isChoosed());
+        holder.ck_chose.setChecked(cartList.get(position).isChoosed());
         holder.tv_show_num.setText("" + cartList.get(position).getTotal());
+
 
         //单选框按钮
         holder.ck_chose.setOnClickListener(
@@ -105,18 +111,20 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
         );
 
         //增加按钮
-        holder.iv_add.setOnClickListener(new View.OnClickListener() {
+        holder.linAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCountInterface.doIncrease(position, holder.tv_show_num, holder.ck_chose.isChecked());//暴露增加接口
+                modifyCountInterface.doIncrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
+                        cartList.get(position).getId(), cartList.get(position).getGoodsid(), Integer.parseInt(cartList.get(position).getTotal()));//暴露增加接口
             }
         });
 
         //删减按钮
-        holder.iv_sub.setOnClickListener(new View.OnClickListener() {
+        holder.linSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modifyCountInterface.doDecrease(position, holder.tv_show_num, holder.ck_chose.isChecked());//暴露删减接口
+                modifyCountInterface.doDecrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
+                        cartList.get(position).getId(), cartList.get(position).getGoodsid(), Integer.parseInt(cartList.get(position).getTotal()));//暴露删减接口
             }
         });
 
@@ -147,20 +155,6 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
             }
         });
 
-        //判断是否在编辑状态下
-//        if (isShow) {
-//            holder.tv_commodity_name.setVisibility(View.VISIBLE);
-//            holder.tv_fabric.setVisibility(View.VISIBLE);
-//            holder.rl_edit.setVisibility(View.GONE);
-//            holder.tv_delete.setVisibility(View.GONE);
-//        } else {
-//            holder.tv_commodity_name.setVisibility(View.GONE);
-//            holder.tv_fabric.setVisibility(View.GONE);
-//            holder.rl_edit.setVisibility(View.VISIBLE);
-//            holder.tv_delete.setVisibility(View.VISIBLE);
-//        }
-
-
     }
 
     @Override
@@ -169,25 +163,27 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
     }
 
     public class MyViewHolder extends BaseRecyclerViewHolder {
-        ImageView iv_chose;
-        ImageView iv_show_pic, iv_sub, iv_add;
-        TextView tv_commodity_name, tv_price, tv_delete, tv_show_num;
+        ImageView iv_show_pic;
+        TextView tv_commodity_name, tv_price, tv_delete, tv_show_num, tvProductPrice;
         CheckBox ck_chose;
+
+        LinearLayout linSub, linAdd;
 
         public MyViewHolder(View view) {
             super(view);
             ck_chose = (CheckBox) itemView.findViewById(R.id.ck_chose);
             iv_show_pic = (ImageView) itemView.findViewById(R.id.iv_show_pic);
-            iv_sub = (ImageView) itemView.findViewById(R.id.iv_sub);
-            iv_add = (ImageView) itemView.findViewById(R.id.iv_add);
 
             tv_commodity_name = (TextView) itemView.findViewById(R.id.tv_commodity_name);
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
             tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);
             tv_show_num = (TextView) itemView.findViewById(R.id.tv_show_num);
+
+            tvProductPrice = (TextView) itemView.findViewById(R.id.tv_shopcart_productprice);
+            linSub = (LinearLayout) itemView.findViewById(R.id.lin_shopcart_sub);
+            linAdd = (LinearLayout) itemView.findViewById(R.id.lin_shopcart_add);
         }
     }
-
 
 
     /**
@@ -215,7 +211,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
          * @param showCountView 用于展示变化后数量的View
          * @param isChecked     子元素选中与否
          */
-        void doIncrease(int position, View showCountView, boolean isChecked);
+        void doIncrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total);
 
         /**
          * 删减操作
@@ -224,7 +220,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
          * @param showCountView 用于展示变化后数量的View
          * @param isChecked     子元素选中与否
          */
-        void doDecrease(int position, View showCountView, boolean isChecked);
+        void doDecrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total);
 
         /**
          * 删除子item

@@ -866,9 +866,12 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
         x.http().post(params,
                 new Callback.CommonCallback<String>() {
+                    @SuppressLint("WrongConstant")
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("添加购物车（商品详情） = " + result);
+                        Toast.makeText(TAG, "添加成功", Toast.LENGTH_SHORT).show();
+                        popWindow.dismiss();
                     }
 
                     @Override

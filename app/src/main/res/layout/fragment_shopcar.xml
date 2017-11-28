@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/rl_bottom"
+            android:layout_above="@+id/rel_shopcart_tofavorite"
             android:layout_below="@+id/rel_shopcar_header"
             android:layout_weight="1">
 
@@ -59,10 +59,43 @@
             android:scrollbars="none"
             android:visibility="gone" />
 
-        <View
+
+        <RelativeLayout
+            android:id="@+id/rel_shopcart_tofavorite"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E3E3E3" />
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rl_bottom"
+            android:background="@color/bg_white">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:background="#E3E3E3" />
+
+            <Button
+                android:id="@+id/but_shopcart_tofavorite"
+                style="@style/text_adware"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/kuang_style"
+                android:text="移至收藏夹" />
+
+
+            <Button
+                android:id="@+id/but_shopacrt_delete"
+                style="@style/text_adware"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
+                android:layout_toLeftOf="@+id/but_shopcart_tofavorite"
+                android:background="@drawable/kuang_style"
+                android:text="删除" />
+
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_bottom"
@@ -70,6 +103,12 @@
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:background="#fff">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:background="#E3E3E3" />
 
             <CheckBox
                 android:id="@+id/ck_all"
