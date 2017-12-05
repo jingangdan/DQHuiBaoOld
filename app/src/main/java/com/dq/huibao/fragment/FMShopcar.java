@@ -1,6 +1,8 @@
 package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -40,13 +42,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//import com.dq.huibao.bean.ShoppingCartBean;
-
 /**
  * Description：购物车（fragment）
  * Created by jingang on 2017/10/18.
  */
-
 public class FMShopcar extends BaseFragment implements
         ShopCartAdapter.CheckInterface,
         ShopCartAdapter.ModifyCountInterface {
@@ -86,7 +85,6 @@ public class FMShopcar extends BaseFragment implements
 
 
     private boolean flag = false;
-    //private List<ShoppingCartBean> shoppingCartBeanList = new ArrayList<>();
     private boolean mSelect;
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
@@ -111,7 +109,6 @@ public class FMShopcar extends BaseFragment implements
     RecyclerView rvShopCart;
     private ShopCartAdapter shopCartAdapter;
     private List<Cart.DataBean.ListBean> cartList = new ArrayList<>();
-
 
     @Nullable
     @Override
@@ -312,7 +309,7 @@ public class FMShopcar extends BaseFragment implements
      * @param unionid
      * @param ids
      */
-    public void setRemova(String unionid, String ids) {
+    public void setRemova(final String unionid, String ids) {
         PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_REMOVE +
                 "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
                 MD5Util.getMD5String(HttpUtils.SHOP_CART_REMOVE + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
@@ -325,6 +322,8 @@ public class FMShopcar extends BaseFragment implements
             @Override
             public void onSuccess(String result) {
                 System.out.println("删除 = " + result);
+
+                getCart(unionid, "", "");
             }
 
             @Override
@@ -413,7 +412,8 @@ public class FMShopcar extends BaseFragment implements
                 }
 
                 if (!ids.equals("")) {
-                    setRemova(unionid, ids);
+//                    setRemova(unionid, ids);
+                    setDialog(unionid, ids);
                 } else {
 
                 }
@@ -575,6 +575,34 @@ public class FMShopcar extends BaseFragment implements
     @Override
     public void childDelete(int position) {
 
+    }
+
+    /**
+     * 弹窗确定
+     *
+     * @param unionid
+     * @param ids
+     */
+    public void setDialog(final String unionid, final String ids) {
+        AlertDialog alert = new AlertDialog.Builder(getActivity()).create();
+        alert.setTitle("操作提示");
+        alert.setMessage("您确定要将这些商品从购物车中移除吗？");
+        alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+        alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
+                        setRemova(unionid, ids);
+                    }
+                });
+        alert.show();
     }
 
 

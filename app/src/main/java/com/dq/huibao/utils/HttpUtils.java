@@ -13,10 +13,13 @@ public class HttpUtils {
     /*总的请求头*/
     public static final String PATH = "http://www.dequanhuibao.com/addons/sz_yi/core/api/index.php?";
 
+//    public static final String PATH = "http://oneshop.mynatapp.cc/addons/sz_yi/core/api/index.php?";
+
     /*
     * 首页
     * 参数：
     * i = 1604
+    * id
     * */
     public static final String HP_ROOT = "api=shop/Goods/index&";
 

@@ -3,8 +3,6 @@ package com.dq.huibao.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
@@ -40,8 +37,8 @@ import com.dq.huibao.ui.homepage.WebActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
+import com.dq.huibao.utils.NetworkUtils;
 import com.dq.huibao.view.MarqueTextView;
-import com.dq.huibao.view.PullToRefreshLayout;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -63,7 +60,7 @@ import butterknife.ButterKnife;
  * Created by jingang on 2017/10/16.
  */
 
-public class FMHomePage extends BaseFragment{
+public class FMHomePage extends BaseFragment {
     @Bind(R.id.lin_homepage)
     LinearLayout linHomepage;
     //    @Bind(R.id.sv_homepage)
@@ -92,6 +89,11 @@ public class FMHomePage extends BaseFragment{
     private LinearLayout lin_search = null, lin_banner = null, lin_menu = null,
             lin_notice = null;
 
+    /*标题 店招 图片展播 优惠券组 图标组
+    列表导航 富文本 按钮组2 辅助线 辅助空白*/
+    private LinearLayout lin_title = null, lin_shop = null, lin_pictures = null, lin_coupon = null, lin_icongroup = null,
+            lin_listmenu = null, lin_richtext = null, lin_rmenu2 = null, lin_line = null, lin_blank = null;
+
     /*动态添加控件下标*/
     private int index_menu = 0, index_picture = 0, index_cube = 0,
             index_goods = 0;
@@ -115,7 +117,12 @@ public class FMHomePage extends BaseFragment{
 
         ButterKnife.bind(this, view);
         //init();
-        getHomePage("1604");
+
+        if (isNetworkUtils()) {
+            getHomePage("1604");
+        } else {
+            toast("无网络连接");
+        }
 
 
         return view;
@@ -136,9 +143,8 @@ public class FMHomePage extends BaseFragment{
     public void getHomePage(String i) {
         PATH = HttpUtils.PATH + HttpUtils.HP_ROOT + "i=" + i;
 
-        System.out.println("首页数据" + PATH);
-
         params = new RequestParams(PATH);
+        System.out.println("首页数据" + PATH);
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
                     @Override
@@ -191,6 +197,15 @@ public class FMHomePage extends BaseFragment{
      */
     public void setTemp(String id, final String temp) {
         switch (temp) {
+
+            /*标题*/
+            case "title":
+                lin_title = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_title, null);
+                linHomepage.addView(lin_title);
+
+                break;
+
+            /*搜索框*/
             case "search":
                 //System.out.println("添加search");
                 lin_search = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_search, null);
@@ -211,12 +226,6 @@ public class FMHomePage extends BaseFragment{
                                 iv_search.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-//                                        setIntent(search.getData().getParams().getSearchurl().isSelfurl(),
-//                                                search.getData().getParams().getSearchurl().getDoX(),
-//                                                search.getData().getParams().getSearchurl().getP(),
-//                                                search.getData().getParams().getSearchurl().getUrlstr(),
-//                                                search.getData().getParams().getSearchurl().getQuery());
-
                                         intent = new Intent(getActivity(), GoodsListActivity.class);
                                         intent.putExtra("pcate", "");
                                         intent.putExtra("ccate", "");
@@ -250,6 +259,25 @@ public class FMHomePage extends BaseFragment{
 
                 break;
 
+            /*店招*/
+            case "shop":
+                lin_shop = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_shop, null);
+                linHomepage.addView(lin_shop);
+                break;
+
+            /*图片展播*/
+            case "pictures":
+                lin_pictures = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_pictures, null);
+                linHomepage.addView(lin_pictures);
+                break;
+
+            /*优惠券组*/
+            case "coupon":
+                lin_coupon = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_coupon, null);
+                linHomepage.addView(lin_coupon);
+                break;
+
+            /*轮播*/
             case "banner":
                 //System.out.println("添加banner");
 
@@ -259,11 +287,12 @@ public class FMHomePage extends BaseFragment{
                 cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
 
                 params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                // params = new RequestParams("http://oneshop.mynatapp.cc/addons/sz_yi/core/api/index.php?api=shop/Goods/index&i=1604&id=" + id);
                 x.http().get(params,
                         new Callback.CommonCallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                //System.out.println(temp + " = " + result);
+                                // System.out.println(temp + " = " + result);
 
                                 configImageLoader();
                                 Banner banner = GsonUtil.gsonIntance().gsonToBean(result, Banner.class);
@@ -321,6 +350,13 @@ public class FMHomePage extends BaseFragment{
 
                 break;
 
+            /*图标组*/
+            case "icongroup":
+                lin_icongroup = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_icongroup, null);
+                linHomepage.addView(lin_icongroup);
+                break;
+
+            /*按钮组*/
             case "menu":
                 //System.out.println("添加menu");
                 index_menu++;
@@ -625,6 +661,37 @@ public class FMHomePage extends BaseFragment{
                         });
                 break;
 
+            /*列表导航*/
+            case "listmenu":
+                lin_listmenu = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_listmenu, null);
+                linHomepage.addView(lin_listmenu);
+                break;
+
+            /*富文本*/
+            case "richtext":
+                lin_richtext = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_richtext, null);
+                linHomepage.addView(lin_richtext);
+                break;
+
+            /*按钮组2*/
+            case "menu2":
+                lin_rmenu2 = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_menu2, null);
+                linHomepage.addView(lin_rmenu2);
+                break;
+
+            /*辅助线*/
+            case "line":
+                lin_line = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_line, null);
+                linHomepage.addView(lin_line);
+                break;
+
+            /*辅助空白*/
+            case "blank":
+                lin_blank = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_blank, null);
+                linHomepage.addView(lin_blank);
+                break;
+
+
             default:
                 break;
 
@@ -743,6 +810,23 @@ public class FMHomePage extends BaseFragment{
     protected void lazyLoad() {
 
     }
+
+
+    /**
+     * 判断联网状态
+     */
+    public boolean isNetworkUtils() {
+        if (NetworkUtils.isNotWorkAvilable(getActivity())) {
+            if (NetworkUtils.getCurrentNetType(getActivity()) != null) {
+                System.out.println("联网类型 = " + NetworkUtils.getCurrentNetType(getActivity()));
+                return true;
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
+
 
 //    @Override
 //    public void onHeaderRefresh(PullToRefreshLayout view) {

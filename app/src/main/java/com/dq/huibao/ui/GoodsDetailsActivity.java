@@ -257,8 +257,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         setContentView(R.layout.activity_goodsdetails);
         ButterKnife.bind(this);
 
-        //initDate();
-
         intent = getIntent();
         gid = intent.getStringExtra("gid");
 
@@ -452,7 +450,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
                         picsList = goodsDetail.getData().getPics();
 
-                        //System.out.println("啊啊啊啊啊啊啊啊啊啊 = " + goodsDetail.getData().getSpecs().toString());
                         if (!goodsDetail.getData().getSpecs().toString().equals("[]")) {
                             specsList = goodsDetail.getData().getSpecs();
                         }
@@ -509,7 +506,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     private ADInfo info;
 
     /**
-     *
+     * 设置轮播图
      */
     public void setLunbotu() {
         cycleViewPager = (CycleViewPager) getFragmentManager().findFragmentById(R.id.cycleviewpager);
@@ -701,49 +698,35 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                     options_specs = specsItemId1 + "_" + specsItemId2;
                 }
 
-                System.out.println("111 = " + specsItemId1);
-                System.out.println("222 = " + specsItemId2);
-                System.out.println("sss = " + options_specs);
+//                System.out.println("111 = " + specsItemId1);
+//                System.out.println("222 = " + specsItemId2);
+//                System.out.println("sss = " + options_specs);
 
                 for (int i = 0; i < optionsList.size(); i++) {
                     if (options_specs.equals(optionsList.get(i).getSpecs())) {
-                        System.out.println(optionsList.get(i).getTitle());
+//                        System.out.println(optionsList.get(i).getTitle());
                         options_id = optionsList.get(i).getId();
                         options_title = optionsList.get(i).getTitle();
 
                     } else {
+                        System.out.println("有规格木有选择");
                     }
                 }
 
                 if (tag == 0) {
                     //tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
-                    tvGdSpecification.setText("已选" + options_title);
+                    tvGdSpecification.setText("已选：" + options_title);
                     popWindow.dismiss();
                 } else if (tag == 1) {
                     //添加购物车
                     setAddCart(unionid, gid, options_id, "" + num);
 
+                    //判断规格选择情况
+
                 } else if (tag == 2) {
                     intent = new Intent(TAG, SubmitOrderActivity.class);
                     startActivity(intent);
                 }
-
-
-//                if (!specifications1.equals("")) {
-//                    if (!specifications2.equals("")) {
-//                        if (num != 0) {
-//                            tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
-//                            popWindow.dismiss();
-//                        } else {
-//                            Toast.makeText(TAG, "数量需大于0", Toast.LENGTH_SHORT).show();
-//                        }
-//                    } else {
-//                        Toast.makeText(TAG, "有规格未选", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                } else {
-//                    Toast.makeText(TAG, "有规格未选", Toast.LENGTH_SHORT).show();
-//                }
 
             }
         });
@@ -752,7 +735,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         for (int i = 0; i < specsList.size(); i++) {
             setChooseLayout(i, specsList.get(i).getDisplayorder());
         }
-
 
     }
 

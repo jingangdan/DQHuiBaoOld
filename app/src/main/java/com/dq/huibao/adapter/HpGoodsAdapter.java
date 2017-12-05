@@ -2,7 +2,6 @@ package com.dq.huibao.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.homepage.Goods;
@@ -59,17 +56,17 @@ public class HpGoodsAdapter extends RecyclerView.Adapter<HpGoodsAdapter.MyViewHo
 
         String img = goodsList.get(position).getImg();
 
-//        if (img.equals("")) {
-//            holder.img.setImageResource(R.mipmap.ic_launcher);
-//
-//        } else {
-//            x.image().bind(holder.img, img);
-//        }
+//        ImageUtils.loadIntoUseFitWidth(mContext,
+//                img,
+//                R.mipmap.icon_empty002,
+//                R.mipmap.icon_error002,
+//                holder.img);
 
-        ImageUtils.loadIntoUseFitWidth(mContext,
+        /*等比例显示图片*/
+        ImageUtils.loadIntoUseFitWidths(mContext,
                 img,
-                R.mipmap.icon_empty002,
-                R.mipmap.icon_error002,
+                R.mipmap.icon_empty,
+                R.mipmap.icon_error,
                 holder.img);
 
         holder.tv_name.setText("" + goodsList.get(position).getName());

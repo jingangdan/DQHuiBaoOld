@@ -44,7 +44,6 @@ import butterknife.OnClick;
  * Description：会员中心
  * Created by jingang on 2017/10/18.
  */
-
 public class FMMemCen extends BaseFragment {
     /*登录状态*/
     @Bind(R.id.lin_percen_login)
