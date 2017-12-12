@@ -15,7 +15,8 @@
             style="@style/text_adware"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="个人中心" />
+            android:text="个人中心"
+            android:textSize="16dp" />
 
     </LinearLayout>
 
@@ -25,9 +26,12 @@
         android:background="@color/view_main" />
 
     <!---->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -56,6 +60,6 @@
             android:layout_centerVertical="true"
             android:text="登录/注册" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

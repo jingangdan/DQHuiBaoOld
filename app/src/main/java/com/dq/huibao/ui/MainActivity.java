@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -98,11 +96,15 @@ public class MainActivity extends FragmentActivity {
     private FMStore fmStore;
     private FMDistribution fmDistribution;
 
+    public static MainActivity mainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mainActivity = this;
 
         x.Ext.init(this.getApplication());
         x.Ext.setDebug(BuildConfig.DEBUG);
@@ -324,6 +326,120 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    /*版本更新 依赖update_version*/
+
+//    public void getVersion(){
+//        //you can add your request params and request method
+//        //eg.
+//        //只有requsetUrl service 是必须值 其他参数都有默认值，可选
+//
+////        com.allenliu.versionchecklib.core.http.HttpHeaders headers=new com.allenliu.versionchecklib.core.http.HttpHeaders();
+////        headers.put("a","b");
+//        VersionParams.Builder builder = new VersionParams.Builder()
+////                .setHttpHeaders(headers)
+////                .setRequestMethod(requestMethod)
+////                .setRequestParams(httpParams)
+//                .setRequestUrl("http://www.baidu.com")
+////                .setDownloadAPKPath(getApplicationContext().getFilesDir()+"/")
+//                .setService(DemoService.class);
+//
+//        stopService(new Intent(this, DemoService.class));
+//        switch (view.getId()) {
+//            case R.id.sendbtn:
+//                String pauseTime = etPauseTime.getText().toString();
+//                String address = etAddress.getText().toString();
+//                try {
+//                    if (!pauseTime.isEmpty() && Long.valueOf(pauseTime) > 0) {
+//                        builder.setPauseRequestTime(Long.valueOf(pauseTime));
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                if (!address.isEmpty())
+//                    builder.setDownloadAPKPath(address);
+//                //更新界面选择
+//                switch (radioGroup.getCheckedRadioButtonId()) {
+//                    case R.id.btn1:
+//                        CustomVersionDialogActivity.customVersionDialogIndex = 3;
+//                        builder.setCustomDownloadActivityClass(VersionDialogActivity.class);
+//                        break;
+//                    case R.id.btn2:
+//                        CustomVersionDialogActivity.customVersionDialogIndex = 1;
+//                        builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
+//                        break;
+//                    case R.id.btn3:
+//                        CustomVersionDialogActivity.customVersionDialogIndex = 2;
+//                        builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
+//                        break;
+//                }
+//                //下载进度界面选择
+//                switch (radioGroup2.getCheckedRadioButtonId()) {
+//                    case R.id.btn21:
+//                        //同理
+//                        CustomVersionDialogActivity.isCustomDownloading = false;
+//                        builder.setCustomDownloadActivityClass(VersionDialogActivity.class);
+//                        break;
+//                    case R.id.btn22:
+//                        //可以看到 更改更新界面或者是更改下载界面都是重写VersionDialogActivity
+//                        CustomVersionDialogActivity.isCustomDownloading = true;
+//                        builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
+//                        break;
+//                }
+//                //强制更新
+//                if (forceUpdateCheckBox.isChecked()) {
+//                    CustomVersionDialogActivity.isForceUpdate = true;
+//                    builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
+//                } else {
+//                    //同理
+//                    CustomVersionDialogActivity.isForceUpdate = false;
+//                    builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
+//                }
+//                //静默下载
+//                if (silentDownloadCheckBox.isChecked()) {
+//                    builder.setSilentDownload(true);
+//                } else {
+//                    builder.setSilentDownload(false);
+//                }
+//                //强制重新下载
+//                if (forceDownloadCheckBox.isChecked()) {
+//                    builder.setForceRedownload(true);
+//                } else {
+//                    builder.setForceRedownload(false);
+//                }
+//                //是否仅使用下载功能
+//                if (onlyDownloadCheckBox.isChecked()) {
+//                    //如果仅使用下载功能，downloadUrl是必须的
+//                    builder.setOnlyDownload(true)
+//                            .setDownloadUrl("http://test-1251233192.coscd.myqcloud.com/1_1.apk")
+//                            .setTitle("检测到新版本")
+//                            .setUpdateMsg(getString(R.string.updatecontent));
+//                } else
+//                    builder.setOnlyDownload(false);
+//                //是否显示通知栏
+//                if (showNotificationCheckBox.isChecked()) {
+//                    builder.setShowNotification(true);
+//                } else
+//                    builder.setShowNotification(false);
+//                if (showDownloadingCheckBox.isChecked()) {
+//                    builder.setShowDownloadingDialog(true);
+//                } else
+//                    builder.setShowDownloadingDialog(false);
+//
+//                AllenChecker.startVersionCheck(this, builder.build());
+//                break;
+//
+//            case R.id.cancelBtn:
+//                AllenChecker.cancelMission();
+////                VersionParams.Builder builder2 = new VersionParams.Builder();
+////                builder2.setOnlyDownload(true)
+////                        .setDownloadUrl("http://test-1251233192.coscd.myqcloud.com/1_1.apk")
+////                        .setTitle("检测到新版本")
+////                        .setForceRedownload(true)
+////                        .setUpdateMsg(getString(R.string.updatecontent));
+////                AllenChecker.startVersionCheck(this, builder2.build());
+//                break;
+//    }
+
 
     //双击的时间间隔
     private long millis = 0;
@@ -355,7 +471,6 @@ public class MainActivity extends FragmentActivity {
         }
         return false;
     }
-
 
 
 }

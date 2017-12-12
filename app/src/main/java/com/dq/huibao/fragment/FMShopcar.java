@@ -56,6 +56,10 @@ public class FMShopcar extends BaseFragment implements
     @Bind(R.id.rel_shopcart_login)
     RelativeLayout relShopCartLogin;
 
+    /**/
+    @Bind(R.id.tv_nologin_title)
+    TextView tvNologinTitle;
+
     @Bind(R.id.tv_base_title)
     TextView tvBaseTitle;
 
@@ -115,6 +119,8 @@ public class FMShopcar extends BaseFragment implements
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_shopcar, null);
         ButterKnife.bind(this, view);
+
+        tvNologinTitle.setText("购物车");
 
         shopCartAdapter = new ShopCartAdapter(getActivity(), cartList);
         rvShopCart.setLayoutManager(new LinearLayoutManager(getActivity()));

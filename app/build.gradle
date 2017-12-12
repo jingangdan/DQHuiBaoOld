@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     useLibrary 'org.apache.http.legacy'
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
 
     defaultConfig {
         applicationId "com.dq.huibao"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -31,7 +31,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    //noinspection GradleCompatible
+    //compile 'com.android.support:appcompat-v7:25.3.1'
+    //noinspection GradleCompatible
+    compile 'com.android.support:appcompat-v7:27.0.0'
     //noinspection GradleCompatible
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
@@ -47,4 +50,17 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     compile files('libs/open_sdk_r5886_lite.jar')
     compile project(':sharesdk')
+    compile project(':update_version')
+}
+
+/*强制版本号统一*/
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.0.0'
+            }
+        }
+    }
 }

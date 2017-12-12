@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,6 +31,8 @@ import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
+import com.dq.huibao.utils.ScreenUtils;
+import com.dq.huibao.view.DoubleWaveView;
 import com.dq.huibao.view.GlideCircleTransform;
 
 import org.xutils.common.Callback;
@@ -54,6 +57,10 @@ public class FMMemCen extends BaseFragment {
     /*登录*/
     @Bind(R.id.but_percen_login)
     Button butLogin;
+
+    /**/
+    @Bind(R.id.tv_nologin_title)
+    TextView tvNologinTitle;
 
     private View view;
 
@@ -143,15 +150,38 @@ public class FMMemCen extends BaseFragment {
     /*会员等级 头像 昵称 余额 积分*/
     private String level, id, avatar, nickname, credit1, credit2, couponcount;
 
+    @Bind(R.id.rootView)
+    FrameLayout rootView;
+    private DoubleWaveView waveView, waveView2, waveView3;
+
     @SuppressLint("WrongConstant")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_memcen, null);
         ButterKnife.bind(this, view);
+        tvNologinTitle.setText("个人中心");
+
+        initWaveView();
 
         isLogin();
         return view;
+    }
+
+
+    private void initWaveView() {
+        waveView = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#30ffffff");
+        waveView2 = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#50ffffff");
+        waveView3 = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#70ffffff");
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
+        rootView.addView(waveView, params);
+        rootView.addView(waveView2, params);
+        rootView.addView(waveView3, params);
+
+        waveView.startAnimation(2000);
+        waveView2.startAnimation(2500);
+        waveView3.startAnimation(3000);
     }
 
     @Override
@@ -431,6 +461,14 @@ public class FMMemCen extends BaseFragment {
 
 
     }
+
+//    private void initWaveView() {
+//        rootView = (FrameLayout) findViewById(R.id.rootView);
+//        waveView = new DoubleWaveView(this, width, height);
+//        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+//        rootView.addView(waveView, params);
+//        waveView.startAnimation();
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

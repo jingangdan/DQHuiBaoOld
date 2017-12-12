@@ -84,6 +84,17 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <!--版本更新-->
+        <service
+            android:name="com.dq.huibao.update.UVService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name="com.dq.huibao.update.CustomVersionDialogActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/versionCheckLibvtransparentTheme" />
+
         <!--主界面-->
         <activity
             android:name="com.dq.huibao.ui.MainActivity"
@@ -160,7 +171,6 @@
         <activity
             android:name="com.dq.huibao.ui.memcen.MobileActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
-
 
         <!--增加图片清晰度-->
         <meta-data

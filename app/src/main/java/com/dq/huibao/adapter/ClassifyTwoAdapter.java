@@ -17,7 +17,7 @@ import com.dq.huibao.utils.ImageUtils;
 import java.util.List;
 
 /**
- * Description：
+ * Description：分类下商品列表
  * Created by jingang on 2017/11/6.
  */
 
@@ -56,7 +56,7 @@ public class ClassifyTwoAdapter extends RecyclerView.Adapter<ClassifyTwoAdapter.
         }
 
         ImageUtils.loadIntoUseFitWidth(mContext,
-                "http://www.dequanhuibao.com/attachment/"+childrenList.get(position).getThumb(),
+                "http://www.dequanhuibao.com/attachment/" + childrenList.get(position).getThumb(),
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.img);

@@ -1,1 +1,1 @@
-include ':app', ':xutils', ':LRecyclerview_library', ':sharesdk'
+include ':app', ':xutils', ':LRecyclerview_library', ':sharesdk', ':update_version'
