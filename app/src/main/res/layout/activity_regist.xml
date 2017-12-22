@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin_rg_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -25,7 +26,6 @@
             android:layout_weight="5"
             android:background="@null"
             android:hint="请输入手机号码"
-            android:inputType="textPassword"
             android:maxLength="16"
             android:padding="5dp"
             android:textSize="14dp" />
@@ -35,7 +35,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_clear001" />
+            android:src="@mipmap/ic_clear001"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -64,8 +65,8 @@
             android:layout_weight="3"
             android:background="@null"
             android:hint="请输入验证码"
-            android:inputType="textPassword"
-            android:maxLength="16"
+            android:inputType="number"
+            android:maxLength="6"
             android:padding="5dp"
             android:textSize="14dp" />
 
@@ -74,11 +75,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_clear001" />
+            android:src="@mipmap/ic_clear001"
+            android:visibility="invisible" />
 
         <Button
+            android:id="@+id/but_get_code"
+            style="@style/but_style"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="2"
             android:text="获取验证码"
             android:textSize="12dp" />
@@ -108,7 +112,7 @@
             android:id="@+id/et_regist_pwd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:background="@null"
             android:hint="请输入密码"
             android:inputType="textPassword"
@@ -121,7 +125,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_clear001" />
+            android:src="@mipmap/ic_clear001"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_rg_pwd_eye"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_look001" />
 
     </LinearLayout>
 
@@ -144,9 +156,10 @@
             android:src="@mipmap/ic_pwd" />
 
         <EditText
+            android:id="@+id/et_regist_pwd2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:background="@null"
             android:hint="请输入确认密码"
             android:inputType="textPassword"
@@ -155,10 +168,19 @@
             android:textSize="14dp" />
 
         <ImageView
+            android:id="@+id/iv_rg_pwd2_clear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_clear001" />
+            android:src="@mipmap/ic_clear001"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_rg_pwd2_eye"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_look001" />
 
     </LinearLayout>
 
@@ -181,21 +203,23 @@
             android:src="@mipmap/ic_pwd" />
 
         <EditText
+            android:id="@+id/et_rg_invitation_clear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:background="@null"
             android:hint="请输入邀请码(非必填)"
-            android:inputType="textPassword"
             android:maxLength="16"
             android:padding="5dp"
             android:textSize="14dp" />
 
         <ImageView
+            android:id="@+id/iv_rg_invitation_clear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_clear001" />
+            android:src="@mipmap/ic_clear001"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -211,5 +235,32 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:text="注册" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <CheckBox
+            android:id="@+id/cb_register"
+            style="@style/custom_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:checked="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我已阅读并同意" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《惠宝商城用户协议》"
+            android:textColor="#F15353" />
+
+    </LinearLayout>
 
 </LinearLayout>

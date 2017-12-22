@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
@@ -21,6 +22,7 @@ import com.dq.huibao.ui.GoodsListActivity;
 import com.dq.huibao.ui.KeywordsActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.ImageUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -45,6 +47,9 @@ public class FMClassify extends BaseFragment {
     RecyclerView rvCGoods;
     @Bind(R.id.tv_search)
     TextView tvSearch;
+
+    @Bind(R.id.iv_classify_advimg)
+    ImageView ivAdvImg;
 
     private View view;
 
@@ -97,6 +102,16 @@ public class FMClassify extends BaseFragment {
 
                 pcate = classifyList.get(position).getId();
 
+                if (!classifyList.get(position).getAdvimg().equals("")) {
+                    ImageUtils.loadIntoUseFitWidths(getActivity(),
+                            HttpUtils.HEADER + classifyList.get(position).getAdvimg(),
+                            R.mipmap.icon_empty002,
+                            R.mipmap.icon_error002,
+                            ivAdvImg);
+                } else {
+                    ivAdvImg.setImageResource(R.mipmap.ic_launcher);
+                }
+
                 classifyAdapter.changeSelected(position);
 
                 //classifytwoList.addAll(classifyList.get(position).getChildren());
@@ -112,8 +127,8 @@ public class FMClassify extends BaseFragment {
                 ccate = classifytwoList.get(position).getId();
                 name = classifytwoList.get(position).getName();
                 intent = new Intent(getActivity(), GoodsListActivity.class);
-                intent.putExtra("pcate", "&pcate="+pcate);
-                intent.putExtra("ccate", "&ccate="+ccate);
+                intent.putExtra("pcate", "&pcate=" + pcate);
+                intent.putExtra("ccate", "&ccate=" + ccate);
                 intent.putExtra("name", name);
                 intent.putExtra("keywords", "");
                 startActivity(intent);
@@ -145,6 +160,16 @@ public class FMClassify extends BaseFragment {
 
                         classifyList.addAll(classify.getData());
                         classifytwoList.addAll(classify.getData().get(0).getChildren());
+
+                        if (!classify.getData().get(0).getAdvimg().equals("")) {
+                            ImageUtils.loadIntoUseFitWidths(getActivity(),
+                                    HttpUtils.HEADER + classifyList.get(0).getAdvimg(),
+                                    R.mipmap.icon_empty002,
+                                    R.mipmap.icon_error002,
+                                    ivAdvImg);
+                        } else {
+                            ivAdvImg.setImageResource(R.mipmap.ic_launcher) ;
+                        }
 
                         pcate = classifyList.get(0).getId();
 

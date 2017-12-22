@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
@@ -28,6 +29,7 @@ import com.dq.huibao.bean.homepage.Notice;
 import com.dq.huibao.bean.homepage.Picture;
 import com.dq.huibao.bean.homepage.Root;
 import com.dq.huibao.bean.homepage.Search;
+import com.dq.huibao.bean.homepage.Title;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
@@ -95,7 +97,7 @@ public class FMHomePage extends BaseFragment {
             lin_listmenu = null, lin_richtext = null, lin_rmenu2 = null, lin_line = null, lin_blank = null;
 
     /*动态添加控件下标*/
-    private int index_menu = 0, index_picture = 0, index_cube = 0,
+    private int index_title = 0, index_menu = 0, index_picture = 0, index_cube = 0,
             index_goods = 0;
 
     private CycleViewPager cycleViewPager;
@@ -200,8 +202,44 @@ public class FMHomePage extends BaseFragment {
 
             /*标题*/
             case "title":
+                index_title++;
                 lin_title = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_title, null);
                 linHomepage.addView(lin_title);
+                final TextView textView = new TextView(getActivity());
+                textView.setId(index_title);
+                lin_title.addView(textView);
+                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
+                x.http().get(params,
+                        new Callback.CommonCallback<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                System.out.println(temp + " = " + result);
+
+                                Title title = GsonUtil.gsonIntance().gsonToBean(result, Title.class);
+
+                                System.out.println();
+
+                                textView.setText("" + title.getData().getParams().getTitle1());
+
+                                //final Search search = GsonUtil.gsonIntance().gsonToBean(result, Search.class);
+
+                            }
+
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+
+                            }
+
+                            @Override
+                            public void onFinished() {
+
+                            }
+                        });
 
                 break;
 

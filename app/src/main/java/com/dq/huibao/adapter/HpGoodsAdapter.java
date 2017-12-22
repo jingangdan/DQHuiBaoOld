@@ -65,8 +65,8 @@ public class HpGoodsAdapter extends RecyclerView.Adapter<HpGoodsAdapter.MyViewHo
         /*等比例显示图片*/
         ImageUtils.loadIntoUseFitWidths(mContext,
                 img,
-                R.mipmap.icon_empty,
-                R.mipmap.icon_error,
+                R.mipmap.icon_empty002,
+                R.mipmap.icon_error002,
                 holder.img);
 
         holder.tv_name.setText("" + goodsList.get(position).getName());

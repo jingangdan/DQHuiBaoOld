@@ -2,12 +2,22 @@ package com.dq.huibao.ui;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dq.huibao.R;
@@ -26,6 +36,9 @@ import org.xutils.x;
 
 import java.util.HashMap;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -42,9 +55,34 @@ import static android.R.attr.action;
 public class LoginActivity extends BaseActivity implements PlatformActionListener, Handler.Callback, View.OnClickListener {
 
     private static final int MSG_ACTION_CCALLBACK = 0;
-    private ImageView ivWxLogin;
-    private ImageView ivQqLogin;
+    @Bind(R.id.et_login_phone)
+    EditText etLoginPhone;
+    @Bind(R.id.iv_phone_clear)
+    ImageView ivPhoneClear;
+    @Bind(R.id.et_login_pwd)
+    EditText etLoginPwd;
+    @Bind(R.id.iv_pwd_clear)
+    ImageView ivPwdClear;
+    @Bind(R.id.tv_login_regist)
+    TextView tvLoginRegist;
+    @Bind(R.id.tv_forget_pwd)
+    TextView tvForgetPwd;
+    @Bind(R.id.but_login)
+    Button butLogin;
+    @Bind(R.id.iv_weixin)
+    ImageView ivWeixin;
+    @Bind(R.id.iv_qq)
+    ImageView ivQq;
+
+    @Bind(R.id.iv_pwd_eye)
+    ImageView ivPwdEye;
+    //    private ImageView ivWxLogin;
+//    private ImageView ivQqLogin;
     //private ImageView ivBlog;
+
+    @Bind(R.id.lin_login_main)
+    LinearLayout linLoginMain;
+
     private ProgressDialog progressDialog;
 
     /*页面传值*/
@@ -57,41 +95,78 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
 
+    private TextWatcher username_watcher;
+    private TextWatcher password_watcher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+        initWatcher();
+
 
         ShareSDK.initSDK(this);
         spUserInfo = new SPUserInfo(getApplication());
 
-        initView();
-        initListener();
-        initData();
+        etLoginPhone.addTextChangedListener(username_watcher);
+        etLoginPwd.addTextChangedListener(password_watcher);
+
+        linLoginMain.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                @SuppressLint("WrongConstant")
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(etLoginPhone.getWindowToken(), 0);
+                return true;
+            }
+        });
+        linLoginMain.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                @SuppressLint("WrongConstant")
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(etLoginPwd.getWindowToken(), 0);
+                return true;
+            }
+        });
+
     }
 
-
-    public void initView() {
-        ivWxLogin = (ImageView) findViewById(R.id.iv_weixin);
-        ivQqLogin = (ImageView) findViewById(R.id.iv_qq);
-        //ivBlog = (ImageView) findViewById(R.id.iv_blog);
-    }
-
-
-    public void initListener() {
-        ivWxLogin.setOnClickListener(this);
-        ivQqLogin.setOnClickListener(this);
-        //ivBlog.setOnClickListener(this);
-    }
-
-
-    public void initData() {
-
-    }
-
-    @Override
+    @OnClick({R.id.iv_phone_clear, R.id.iv_pwd_clear, R.id.iv_pwd_eye,
+            R.id.tv_login_regist, R.id.tv_forget_pwd, R.id.but_login,
+            R.id.iv_weixin, R.id.iv_qq})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_phone_clear:
+                //清除用户输入
+                etLoginPhone.setText("");
+                etLoginPwd.setText("");
+                break;
+            case R.id.iv_pwd_clear:
+                etLoginPwd.setText("");
+                break;
+
+            case R.id.iv_pwd_eye:
+                //密码是否可见
+                if (etLoginPwd.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+                    //ivPwdEys.setBackgroundResource(R.mipmap.ic_look001);
+                    etLoginPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+                } else {
+                    //ivPwdEys.setBackgroundResource(R.mipmap.ic_look001);
+                    etLoginPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                etLoginPwd.setSelection(etLoginPwd.getText().toString().length());
+
+                break;
+            case R.id.tv_login_regist:
+                intent = new Intent(LoginActivity.this, RegistActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_forget_pwd:
+                break;
+            case R.id.but_login:
+                break;
             case R.id.iv_weixin:
                 Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
                 wechat.setPlatformActionListener(this);
@@ -104,16 +179,50 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 qq.SSOSetting(false);
                 authorize(qq, 2);
                 break;
-//            case R.id.iv_blog:
-//                Platform sina = ShareSDK.getPlatform(SinaWeibo.NAME);
-//                sina.setPlatformActionListener(this);
-//                sina.SSOSetting(false);
-//                authorize(sina, 3);
-//                break;
+
             default:
                 break;
         }
+    }
 
+    /**
+     * 手机号，密码输入控件公用这一个watcher
+     */
+    private void initWatcher() {
+        username_watcher = new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @SuppressLint("WrongConstant")
+            public void afterTextChanged(Editable s) {
+                etLoginPwd.setText("");
+                if (s.toString().length() > 0) {
+                    ivPhoneClear.setVisibility(View.VISIBLE);
+                } else {
+                    ivPhoneClear.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
+
+        password_watcher = new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @SuppressLint("WrongConstant")
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() > 0) {
+                    ivPwdClear.setVisibility(View.VISIBLE);
+                } else {
+                    ivPwdClear.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
     }
 
     //授权

@@ -168,7 +168,6 @@ public class FMMemCen extends BaseFragment {
         return view;
     }
 
-
     private void initWaveView() {
         waveView = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#30ffffff");
         waveView2 = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#50ffffff");
@@ -224,8 +223,11 @@ public class FMMemCen extends BaseFragment {
             /*个人信息*/
             case R.id.iv_memcen:
                 //个人信息
-                intent = new Intent(getActivity(), MemcenActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getActivity(), MemcenActivity.class);
+//                startActivity(intent);
+
+                intent = new Intent(getActivity(), LoginActivity.class);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.lin_mc_credit1:
                 //余额

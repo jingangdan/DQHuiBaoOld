@@ -37,6 +37,10 @@
 
     </style>
 
+    <style name="custom_checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_selector</item>
+    </style>
+
     <!--主界面底部-->
     <style name="lin_footer_style">
         <item name="android:layout_width">match_parent</item>
