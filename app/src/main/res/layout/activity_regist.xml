@@ -26,6 +26,7 @@
             android:layout_weight="5"
             android:background="@null"
             android:hint="请输入手机号码"
+            android:inputType="number"
             android:maxLength="16"
             android:padding="5dp"
             android:textSize="14dp" />
@@ -187,14 +188,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="@color/view_main" />
+        android:background="@color/view_main"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="0dp"

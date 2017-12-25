@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.LoginBean;
+import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.wechat.WeChat;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -98,6 +99,8 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     private TextWatcher username_watcher;
     private TextWatcher password_watcher;
 
+    private String phone = "", pwd = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +140,8 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
             R.id.tv_login_regist, R.id.tv_forget_pwd, R.id.but_login,
             R.id.iv_weixin, R.id.iv_qq})
     public void onClick(View view) {
+        phone = etLoginPhone.getText().toString();
+        pwd = etLoginPwd.getText().toString();
         switch (view.getId()) {
             case R.id.iv_phone_clear:
                 //清除用户输入
@@ -164,8 +169,20 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 startActivity(intent);
                 break;
             case R.id.tv_forget_pwd:
+                intent = new Intent(LoginActivity.this, ForgetPwdActivity.class);
+                startActivity(intent);
                 break;
             case R.id.but_login:
+                if (!phone.equals("")) {
+                    if (!pwd.equals("")) {
+                        postLogin(phone, pwd);
+                    } else {
+                        toast("密码不可为空");
+                    }
+                } else {
+                    toast("手机号不可为空");
+                }
+
                 break;
             case R.id.iv_weixin:
                 Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
@@ -389,5 +406,59 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                 });
     }
 
+
+    /**
+     * 登录
+     *
+     * @param phone
+     * @param pwd
+     */
+    public void postLogin(String phone, String pwd) {
+        PATH = HttpUtils.PATHS + HttpUtils.ACCOUNT_LOGIN +
+                "phone=" + phone + "&pwd=" + pwd;
+
+        params = new RequestParams(PATH);
+        System.out.println("登录" + PATH);
+
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("登录" + result);
+                        Login login = GsonUtil.gsonIntance().gsonToBean(result, Login.class);
+                        if (login.getStatus() == 1) {
+                            //if (loginBean.getResult().equals("1")) {
+                            toast("登录成功");
+                            spUserInfo.saveLogin("1");//微信登录成功记录 1
+                            spUserInfo.saveLoginReturn(result);//登录成功记录返回信息
+
+                            intent = new Intent();
+                            intent.putExtra("uid", login.getData().getUid());
+                            setResult(2, intent);
+
+                            LoginActivity.this.finish();
+
+                        } else {
+                            toast("" + login.getData());
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
 }
 

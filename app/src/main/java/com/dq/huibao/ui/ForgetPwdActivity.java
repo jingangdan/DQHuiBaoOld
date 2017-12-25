@@ -37,7 +37,7 @@ import butterknife.OnClick;
  * Description：
  * Created by jingang on 2017/10/27.
  */
-public class RegistActivity extends BaseActivity {
+public class ForgetPwdActivity extends BaseActivity {
     @Bind(R.id.et_regist_phone)
     EditText etRegistPhone;
     @Bind(R.id.iv_rg_phone_clear)
@@ -90,6 +90,8 @@ public class RegistActivity extends BaseActivity {
         setContentView(R.layout.activity_regist);
         ButterKnife.bind(this);
 
+        butRegist.setText("确定找回");
+
         initWatcher();
 
         etRegistPhone.addTextChangedListener(tw_phone);
@@ -113,7 +115,7 @@ public class RegistActivity extends BaseActivity {
     @Override
     protected void initWidght() {
         super.initWidght();
-        setTitleName("会员注册");
+        setTitleName("找回密码");
         // toast("");
     }
 
@@ -182,7 +184,8 @@ public class RegistActivity extends BaseActivity {
                         if (!code.equals("")) {
                             if (!pwd.equals("")) {
                                 if (pwd2.equals(pwd)) {
-                                    postReg(phone, code, pwd);
+                                    //postReg(phone, code, pwd);
+                                    backPwd(phone, code, pwd);
                                 } else {
                                     toast("两次密码输入不一致");
                                 }
@@ -330,8 +333,8 @@ public class RegistActivity extends BaseActivity {
                     public void onSuccess(String result) {
                         System.out.println("验证手机号 = " + result);
                         Account account = GsonUtil.gsonIntance().gsonToBean(result, Account.class);
-                        if (account.getStatus() == 1) {
-                            getVerify(phone, VerifyType.REG);
+                        if (account.getStatus() == 0) {
+                            getVerify(phone, VerifyType.REPWD);
                         } else {
                             toast("" + account.getData());
                         }
@@ -398,6 +401,50 @@ public class RegistActivity extends BaseActivity {
     }
 
     /**
+     * 找回密码
+     *
+     * @param phone
+     * @param verify
+     * @param pwd
+     */
+    public void backPwd(String phone, String verify, String pwd) {
+        PATH = HttpUtils.PATHS + HttpUtils.ACCOUNT_BACKPWD +
+                "phone=" + phone + "&verify=" + verify + "&pwd=" + pwd;
+
+        params = new RequestParams(PATH);
+        System.out.println("找回密码 = " + PATH);
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("找回密码 = " + result);
+                        Account account = GsonUtil.gsonIntance().gsonToBean(result, Account.class);
+                        if (account.getStatus() == 1) {
+                            toast("" + account.getData());
+                            ForgetPwdActivity.this.finish();
+                        } else {
+                            toast("" + account.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
      * 注册
      *
      * @param phone
@@ -419,7 +466,7 @@ public class RegistActivity extends BaseActivity {
                         Account account = GsonUtil.gsonIntance().gsonToBean(result, Account.class);
                         if (account.getStatus() == 1) {
                             toast("" + account.getData());
-                            RegistActivity.this.finish();
+                            ForgetPwdActivity.this.finish();
                         } else {
                             toast("" + account.getData());
                         }
@@ -475,7 +522,7 @@ public class RegistActivity extends BaseActivity {
                             break;
                         }
 
-                        RegistActivity.this.runOnUiThread(new Runnable() {
+                        ForgetPwdActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 butGetCode.setText("获取验证码(" + i + ")");
@@ -495,7 +542,7 @@ public class RegistActivity extends BaseActivity {
                 tag = true;
 
                 if (this != null) {
-                    RegistActivity.this.runOnUiThread(new Runnable() {
+                    ForgetPwdActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             butGetCode.setText("获取验证码");

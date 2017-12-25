@@ -132,6 +132,9 @@
         <!--注册-->
         <activity android:name="com.dq.huibao.ui.RegistActivity" />
 
+        <!--找回密码-->
+        <activity android:name=".ui.ForgetPwdActivity" />
+
         <!--提交订单-->
         <activity android:name="com.dq.huibao.ui.SubmitOrderActivity" />
 

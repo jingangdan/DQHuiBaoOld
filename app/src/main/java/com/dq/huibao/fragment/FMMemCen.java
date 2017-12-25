@@ -1,6 +1,8 @@
 package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +21,8 @@ import com.dq.huibao.R;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.UserInfo;
+import com.dq.huibao.bean.account.Account;
+import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.ui.LoginActivity;
 import com.dq.huibao.ui.memcen.AddressListActivity;
 import com.dq.huibao.ui.memcen.CollectActivity;
@@ -70,9 +74,11 @@ public class FMMemCen extends BaseFragment {
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
     private String unionid = "";
+    private String phone = "", token = "";
 
     /*接口地址*/
     private String PATH = "";
+    private String MD5_PATH = "";
     private RequestParams params = null;
 
     /*用户头像*/
@@ -145,8 +151,8 @@ public class FMMemCen extends BaseFragment {
     Button butMcMenu13;
 
     /*更新UI*/
-    private UserInfo userInfo;
-    private UserInfo.DataBean.MemberBean memberBean;
+//    private UserInfo userInfo;
+//    private UserInfo.DataBean.MemberBean memberBean;
     /*会员等级 头像 昵称 余额 积分*/
     private String level, id, avatar, nickname, credit1, credit2, couponcount;
 
@@ -181,6 +187,24 @@ public class FMMemCen extends BaseFragment {
         waveView.startAnimation(2000);
         waveView2.startAnimation(2500);
         waveView3.startAnimation(3000);
+    }
+
+    public void initDate() {
+        spUserInfo = new SPUserInfo(getActivity().getApplication());
+
+        if (spUserInfo.getLogin().equals("1")) {
+
+            if (!(spUserInfo.getLoginReturn().equals(""))) {
+                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
+                phone = login.getData().getPhone();
+                token = login.getData().getToken();
+
+                //getCart(unionid, "", "");
+
+            }
+        } else {
+
+        }
     }
 
     @Override
@@ -330,9 +354,8 @@ public class FMMemCen extends BaseFragment {
                 break;
             case R.id.but_mc_menu13:
                 //退出登录
-                spUserInfo.saveLogin("");
-                spUserInfo.saveLoginReturn("");
-                isLogin();
+                dialog(phone, token);
+
                 break;
 
             default:
@@ -363,10 +386,12 @@ public class FMMemCen extends BaseFragment {
         if (spUserInfo.getLogin().equals("1")) {
 
             if (!(spUserInfo.getLoginReturn().equals(""))) {
-                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
-                unionid = loginBean.getData().getUnionid();
+                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
+                phone = login.getData().getPhone();
+                token = login.getData().getToken();
 
-                getUserInfo(unionid);
+                //getUserInfo(unionid);
+                getMember(phone, token);
             }
 
             linPercenLogin.setVisibility(View.VISIBLE);
@@ -375,6 +400,60 @@ public class FMMemCen extends BaseFragment {
             linPercenLogin.setVisibility(View.GONE);
             linPercenNoLogin.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * 获取个人信息
+     *
+     * @param phone
+     * @param token
+     */
+    public void getMember(String phone, String token) {
+        MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.MEM_MEMBER + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
+
+        params = new RequestParams(PATH);
+        System.out.println("个人信息 = " + PATH);
+        System.out.println(""+MD5_PATH);
+
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("个人信息 = " + result);
+                        Login login = GsonUtil.gsonIntance().gsonToBean(result, Login.class);
+
+                        level = login.getData().getRole_id();
+                        id = login.getData().getUid();
+                        avatar = login.getData().getHeadimgurl();
+                        nickname = login.getData().getNickname();
+                        credit1 = login.getData().getBalance();
+                        credit2 = login.getData().getScore();
+                        //couponcount = userInfo.getData().getCounts().getCouponcount();
+
+                        //setUserInfo(userInfo.getData().getMember().getAvatar());
+                        setUserInfo(avatar);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
     }
 
     /**
@@ -396,18 +475,18 @@ public class FMMemCen extends BaseFragment {
                     public void onSuccess(String result) {
                         System.out.println("个人信息 = " + result);
 
-                        userInfo = GsonUtil.gsonIntance().gsonToBean(result, UserInfo.class);
-                        memberBean = userInfo.getData().getMember();
-
-                        level = memberBean.getLevel();
-                        id = memberBean.getId();
-                        avatar = memberBean.getAvatar();
-                        nickname = memberBean.getNickname();
-                        credit1 = memberBean.getCredit1();
-                        credit2 = memberBean.getCredit2();
-                        couponcount = userInfo.getData().getCounts().getCouponcount();
-
-                        setUserInfo(userInfo.getData().getMember().getAvatar());
+//                        userInfo = GsonUtil.gsonIntance().gsonToBean(result, UserInfo.class);
+//                        memberBean = userInfo.getData().getMember();
+//
+//                        level = memberBean.getLevel();
+//                        id = memberBean.getId();
+//                        avatar = memberBean.getAvatar();
+//                        nickname = memberBean.getNickname();
+//                        credit1 = memberBean.getCredit1();
+//                        credit2 = memberBean.getCredit2();
+//                        couponcount = userInfo.getData().getCounts().getCouponcount();
+//
+//                        setUserInfo(userInfo.getData().getMember().getAvatar());
 
                     }
 
@@ -464,13 +543,76 @@ public class FMMemCen extends BaseFragment {
 
     }
 
-//    private void initWaveView() {
-//        rootView = (FrameLayout) findViewById(R.id.rootView);
-//        waveView = new DoubleWaveView(this, width, height);
-//        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-//        rootView.addView(waveView, params);
-//        waveView.startAnimation();
-//    }
+    /*弹出框*/
+    protected void dialog(final String phone, final String token) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("确认退出登录吗？");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                loginOut(phone, token);
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param phone
+     * @param token
+     */
+    public void loginOut(String phone, String token) {
+
+        PATH = HttpUtils.PATHS + HttpUtils.ACCOUNT_LOGINOUT +
+                "phone=" + phone + "&token=" + token + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&sign=" +
+                MD5Util.getMD5String("phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
+
+        params = new RequestParams(PATH);
+        System.out.println("退出登录 = " + PATH);
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("退出登录 = " + result);
+                        Account account = GsonUtil.gsonIntance().gsonToBean(result, Account.class);
+
+                        if (account.getStatus() == 1) {
+                            spUserInfo.saveLogin("");
+                            spUserInfo.saveLoginReturn("");
+                            isLogin();
+                        } else {
+                            toast("" + account.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

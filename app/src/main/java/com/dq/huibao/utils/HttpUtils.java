@@ -167,4 +167,114 @@ public class HttpUtils {
     public static final String SHOP_CART_REMOVE = "api=shop/Cart/remove&i=1604&";
 
 
+    /**
+     * 请求头
+     */
+    public static final String PATHS = "http://new.dequanhuibao.com/Api/";
+
+    /**
+     * 1.
+     * 验证手机号是否已经注册
+     * <p>
+     * 方式：get/post
+     * 参数：
+     * phone: 手机号
+     */
+    public static final String ACCOUNT_CHECKPHONE = "Account/checkphone?";
+
+
+    /**
+     * 2.
+     * 发送验证码
+     * 方式：post/get
+     * 参数：
+     * phone：手机号
+     * type：类型
+     * <p>
+     * type类型：
+     * 1 => '注册reg', wu
+     * 2 => '快速登录fastlogin', /
+     * 3 => '找回密码repwd', you
+     * 4 => '微信绑定手机号', /
+     * 5 => '更换手机号-旧', you
+     * 6 => '更换手机号-新', wu
+     * 7 => '修改密码' you
+     */
+    public static final String ACCOUNT_VERIFY = "Account/verify?";
+
+
+    /**
+     * 3.
+     * 注册
+     * 方式：post/get
+     * 参数：
+     * phone手机号
+     * verify验证码
+     * pwd密码
+     */
+    public static final String ACCOUNT_REG = "Account/reg?";
+
+    /**
+     * 4.
+     * 登录
+     * 方式：post/get
+     * 参数：
+     * phone手机号
+     * pwd密码
+     */
+    public static final String ACCOUNT_LOGIN = "Account/login?";
+
+    /**
+     * 5.
+     * 退出登录
+     * 方式：post/get
+     * 参数：
+     * phone手机号
+     * token 登录状态码
+     * timestamp 时间戳
+     * sign 签名
+     */
+    public static final String ACCOUNT_LOGINOUT = "Account/loginout?";
+
+    /**
+     * 6.
+     * 忘记密码找回
+     * 方式：post/get
+     * 参数：
+     * phone手机号
+     * verify验证码
+     * pwd密码
+     */
+    public static final String ACCOUNT_BACKPWD = "Account/backpwd?";
+
+    /**
+     * 7.
+     * 获取用户信息
+     * 方式：post/get
+     * 参数：
+     * phone手机号
+     * token 登录状态码
+     * timestamp 时间戳
+     * sign 签名
+     */
+    public static final String MEM_MEMBER = "Member/member?";
+
+    /**
+     * 8.
+     * 修改用户信息
+     * 方式：post/get
+     * 参数：
+     * phone手机号
+     * token 登录状态码
+     * sex性别
+     * region 地区列表id
+     * $_FILES['file']用户头像（这个不能同时上传的话跟我说，我给改）
+     * timestamp 时间戳
+     * sign签名
+     */
+    public static final String MEM_EDITINFO = "Member/editinfo?";
+
+    /*获取省市列表*/
+    public static final String COMMON_REGION = "Common/region";
+
 }
