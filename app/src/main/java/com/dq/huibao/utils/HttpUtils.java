@@ -173,6 +173,11 @@ public class HttpUtils {
     public static final String PATHS = "http://new.dequanhuibao.com/Api/";
 
     /**
+     * 图片头部
+     */
+    public static final String IMG_HEADER = "http://www.dequanhuibao.com";
+
+    /**
      * 1.
      * 验证手机号是否已经注册
      * <p>
@@ -274,7 +279,66 @@ public class HttpUtils {
      */
     public static final String MEM_EDITINFO = "Member/editinfo?";
 
-    /*获取省市列表*/
+    /**
+     * 9.
+     * 获取省市列表
+     */
     public static final String COMMON_REGION = "Common/region";
+
+    /**
+     * 10.
+     * 获取顶级分类
+     * 方式：post/get
+     */
+    public static final String GOODS_CATE = "Goods/cate";
+
+    /**
+     * 11.
+     * 获取子分类(二、三级)
+     * 方式：post/get
+     * 参数：id 上级分类
+     */
+    public static final String GOODS_CATECHILDREN = "Goods/catechildren?";
+
+    /**
+     * 12.
+     * 获取分类下商品
+     * 方式：post/get
+     * 参数：
+     * cate 分类
+     */
+    public static final String GOODS_CATEGOODS = "Goods/categoods?";
+
+    /**
+     * 13.
+     * 搜索商品
+     * 方式：post/get
+     * 参数：
+     * cate 分类
+     * custom 自定义分类
+     * key 关键字
+     * ishot 热销 0/1
+     * isrecommand 推荐 0/1
+     * isnew 新品 0/1
+     * isdiscount 促销 0/1
+     * issendfree 包邮 0/1
+     * istime 限时 0/1
+     * page 页数
+     * price 价格排序 asc/desc
+     * sales销量排序 asc/desc
+     * comment 评价排序 asc/desc
+     */
+    public static final String GOODS_SEARCH = "Goods/search?";
+
+    /**
+     * 14.
+     * 商品详情
+     * 方式：post/get
+     * 参数：
+     * id 商品id
+     * token （不用加密，没登陆就不传）
+     * phone（不用加密，没登陆就不传）
+     */
+    public static final String GOODS_DETAIL = "Goods/detail?";
 
 }

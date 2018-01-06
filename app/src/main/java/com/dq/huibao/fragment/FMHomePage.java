@@ -401,7 +401,6 @@ public class FMHomePage extends BaseFragment {
 
                 final RecyclerView rv = new RecyclerView(getActivity());
                 rv.setId(index_menu);
-
                 linHomepage.addView(rv);
 
 

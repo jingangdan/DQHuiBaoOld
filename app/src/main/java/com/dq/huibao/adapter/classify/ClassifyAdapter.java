@@ -1,4 +1,4 @@
-package com.dq.huibao.adapter;
+package com.dq.huibao.adapter.classify;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.bean.classify.Classify;
+import com.dq.huibao.bean.goods.Cate;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 
 import java.util.List;
@@ -29,13 +29,16 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.MyView
     private int mSelect = 0;
 
     private Context mContext;
-    private List<Classify.DataBean> classifyList;
-    //private List<Tese.MsgBean> msgBeen;
+    //private List<Classify.DataBean> classifyList;
+    private List<Cate.DataBean> classifyList;
 
-    public ClassifyAdapter(Context mContext, List<Classify.DataBean> classifyList) {
+    //    public ClassifyAdapter(Context mContext, List<Classify.DataBean> classifyList) {
+//        this.mContext = mContext;
+//        this.classifyList = classifyList;
+//    }
+    public ClassifyAdapter(Context mContext, List<Cate.DataBean> classifyList) {
         this.mContext = mContext;
         this.classifyList = classifyList;
-        //this.msgBeen = msgBeen;
     }
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
@@ -102,9 +105,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter<ClassifyAdapter.MyView
             holder.line.setVisibility(View.GONE);
         }
 
-        holder.name.setText(""+classifyList.get(position).getName());
-
-        //holder.name.setText("测试分类");
+        holder.name.setText("" + classifyList.get(position).getCatename());
 
     }
 

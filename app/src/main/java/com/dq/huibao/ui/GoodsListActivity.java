@@ -18,7 +18,8 @@ import android.widget.Toast;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.GoodsAdapter;
-import com.dq.huibao.bean.classify.GoodsList;
+//import com.dq.huibao.bean.classifytest.GoodsList;
+import com.dq.huibao.bean.goods.GoodsList;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 
@@ -81,12 +82,15 @@ public class GoodsListActivity extends Activity {
 
     private GoodsListActivity TAG = GoodsListActivity.this;
     private GoodsAdapter goodsAdapter;
-    private List<GoodsList.DataBean.GoodsBean> goodsList = new ArrayList<>();
+    //private List<GoodsList.DataBean.GoodsBean> goodsList = new ArrayList<>();
+    private List<GoodsList.DataBean> goodsLists = new ArrayList<>();
 
     /*接收页面传值*/
     private Intent intent;
     private String pcate = "", ccate = "", name = "", keywords = "";
     private String UTF_keywords = "";
+
+    private String cateId = "", cateName = "";
 
     /*接口地址*/
     private String PATH = "";
@@ -94,9 +98,8 @@ public class GoodsListActivity extends Activity {
     private int index = 1;//页数
     private int total = 0;//总页数
 
-//    PopupWindow pop;
-//    View view_pop;
-//    LinearLayout ll_popup;
+    /*价格排序 销量排序 评价排序*/
+    private String price = "", sales = "", comment = "";
 
     @SuppressLint("WrongConstant")
     @Override
@@ -107,10 +110,12 @@ public class GoodsListActivity extends Activity {
 
         /*接收页面传值*/
         intent = getIntent();
-        pcate = intent.getStringExtra("pcate");
-        ccate = intent.getStringExtra("ccate");
-        name = intent.getStringExtra("name");
+//        pcate = intent.getStringExtra("pcate");
+//        ccate = intent.getStringExtra("ccate");
+//        name = intent.getStringExtra("name");
         keywords = intent.getStringExtra("keywords");
+        cateId = intent.getStringExtra("cateid");
+        cateName = intent.getStringExtra("catename");
 
         try {
             UTF_keywords = URLEncoder.encode(keywords, "UTF-8");
@@ -122,21 +127,26 @@ public class GoodsListActivity extends Activity {
 
         lrvGoodslist.setLayoutManager(new GridLayoutManager(this, 2));
 
-        goodsAdapter = new GoodsAdapter(this, goodsList);
+        goodsAdapter = new GoodsAdapter(this, goodsLists);
         lrvGoodslist.setAdapter(goodsAdapter);
 
-        //getGoodsList(pcate, ccate, "sales", "desc", index, 20, UTF_keywords);
+        //getGoodsListTest(pcate, ccate, "sales", "desc", index, 20, UTF_keywords);
 
-        getGoodsListTest(pcate, ccate, "sales", "desc", index, 20, UTF_keywords);
+        getGoodsList(cateId, "", UTF_keywords,
+                "0", "0", "0",
+                "0", "0", "0",
+                index, price, "asc", comment);
 
         goodsAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 intent = new Intent(TAG, GoodsDetailsActivity.class);
-                intent.putExtra("gid", "&id="+goodsList.get(position).getGoodid());
+                intent.putExtra("gid", "&id=" + goodsLists.get(position).getId());
                 startActivity(intent);
             }
         });
+
+        includeTitle.setText("" + cateName);
 
     }
 
@@ -152,8 +162,6 @@ public class GoodsListActivity extends Activity {
                 TAG.finish();
                 break;
             case R.id.include_sreach:
-                //Toast.makeText(this, "搜索", Toast.LENGTH_LONG).show();
-                //setDialog();
                 intent = new Intent(TAG, KeywordsActivity.class);
                 startActivity(intent);
                 break;
@@ -161,15 +169,27 @@ public class GoodsListActivity extends Activity {
                 //销量从高到低
                 setTextColor();
                 tvSalesTop.setTextColor(textColor);
+                sales = "asc";
+                price = "";
+                comment = "";
 
-                //getGoodsList(pcate, ccate, "sales", "desc", index, 20, UTF_keywords);
+                getGoodsList(cateId, "", UTF_keywords,
+                        "0", "0", "0",
+                        "0", "0", "0",
+                        index, price, sales, comment);
                 break;
             case R.id.tv_price_low:
                 //价格从低到高
                 setTextColor();
                 tvPriceLow.setTextColor(textColor);
-//                getGoodsList(pcate, ccate, "marketprice", "asc", index, 20, UTF_keywords);
-                getGoodsListTest(pcate, ccate, "marketprice", "asc", index, 20, UTF_keywords);
+                //getGoodsListTest(pcate, ccate, "marketprice", "asc", index, 20, UTF_keywords);
+                sales = "";
+                price = "asc";
+                comment = "";
+                getGoodsList(cateId, "", UTF_keywords,
+                        "0", "0", "0",
+                        "0", "0", "0",
+                        index, price, sales, comment);
 
 
                 break;
@@ -178,31 +198,51 @@ public class GoodsListActivity extends Activity {
                 setTextColor();
                 tvPriceTop.setTextColor(textColor);
 
-//                getGoodsList(pcate, ccate, "marketprice", "desc", index, 20, UTF_keywords);
-                getGoodsListTest(pcate, ccate, "marketprice", "desc", index, 20, UTF_keywords);
+                sales = "desc";
+                price = "";
+                comment = "";
+
+                //getGoodsListTest(pcate, ccate, "marketprice", "desc", index, 20, UTF_keywords);
+                getGoodsList(cateId, "", UTF_keywords,
+                        "0", "0", "0",
+                        "0", "0", "0",
+                        index, price, sales, comment);
 
                 break;
             case R.id.tv_comment_top:
                 //评价从高到底
                 setTextColor();
                 tvCommentTop.setTextColor(textColor);
-//                getGoodsList(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-                getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                sales = "";
+                price = "";
+                comment = "asc";
+                getGoodsList(cateId, "", UTF_keywords,
+                        "0", "0", "0",
+                        "0", "0", "0",
+                        index, price, sales, comment);
                 break;
 
             case R.id.but_gl_first:
                 //首页
                 index = 1;
-//                getGoodsList(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-                getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+
+                getGoodsList(cateId, "", UTF_keywords,
+                        "0", "0", "0",
+                        "0", "0", "0",
+                        index, price, sales, comment);
 
                 break;
             case R.id.but_gl_on:
                 //上一页
                 if (index > 1) {
                     index--;
-//                    getGoodsList(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-                    getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                    //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                    getGoodsList(cateId, "", UTF_keywords,
+                            "0", "0", "0",
+                            "0", "0", "0",
+                            index, price, sales, comment);
                 } else {
                     Toast.makeText(TAG, "已经是首页了", Toast.LENGTH_SHORT).show();
                     //toast("已经是首页了");
@@ -212,8 +252,11 @@ public class GoodsListActivity extends Activity {
                 //下一页
                 if (index < total) {
                     index++;
-//                    getGoodsList(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-                    getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                    //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                    getGoodsList(cateId, "", UTF_keywords,
+                            "0", "0", "0",
+                            "0", "0", "0",
+                            index, price, sales, comment);
 
                 } else {
                     Toast.makeText(TAG, "已经是尾页了", Toast.LENGTH_SHORT).show();
@@ -223,16 +266,22 @@ public class GoodsListActivity extends Activity {
             case R.id.but_gl_last:
                 //尾页
                 index = total;
-//                getGoodsList(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-                getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                getGoodsList(cateId, "", UTF_keywords,
+                        "0", "0", "0",
+                        "0", "0", "0",
+                        index, price, sales, comment);
                 break;
             case R.id.but_gl_jump:
                 //跳到指定页
                 if (!etGlPage.getText().toString().equals("")) {
                     if (Integer.parseInt(etGlPage.getText().toString()) > 0 && Integer.parseInt(etGlPage.getText().toString()) <= total) {
                         index = Integer.parseInt(etGlPage.getText().toString());
-//                        getGoodsList(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-                        getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                        //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
+                        getGoodsList(cateId, "", UTF_keywords,
+                                "0", "0", "0",
+                                "0", "0", "0",
+                                index, price, sales, comment);
                     }
 
                 } else {
@@ -266,66 +315,82 @@ public class GoodsListActivity extends Activity {
      * @param pagesize
      * @param keyword
      */
-    public void getGoodsListTest(String pcate, String ccate, String order, String by, int page, int pagesize, String keyword) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODSLIST +
-                pcate + ccate + "&order=" + order + "&by=" + by + "&page=" + page + "&pagesize=" + pagesize + "&keywords=" + keyword;
-        params = new RequestParams(PATH);
-
-        System.out.println("商品列表 = " + PATH);
-
-        x.http().get(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("商品列表 = " + result);
-                        gvGoodslist.scrollTo(0, 0);
-
-                        GoodsList goodsLists = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
-
-                        total = Integer.parseInt(goodsLists.getData().getAllpage());
-
-                        goodsList.clear();
-
-                        goodsList.addAll(goodsLists.getData().getGoods());
-
-                        goodsAdapter.notifyDataSetChanged();
-
-                        etGlPage.setText("" + index);
-
-                        includeTitle.setText("" + goodsLists.getData().getCurrent_category().getName());
-
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-    }
+//    public void getGoodsListTest(String pcate, String ccate, String order, String by, int page, int pagesize, String keyword) {
+//        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODSLIST +
+//                pcate + ccate + "&order=" + order + "&by=" + by + "&page=" + page + "&pagesize=" + pagesize + "&keywords=" + keyword;
+//        params = new RequestParams(PATH);
+//
+//        System.out.println("商品列表 = " + PATH);
+//
+//        x.http().get(params,
+//                new Callback.CommonCallback<String>() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        System.out.println("商品列表 = " + result);
+//                        gvGoodslist.scrollTo(0, 0);
+//
+//                        GoodsList goodsLists = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
+//
+//                        total = Integer.parseInt(goodsLists.getData().getAllpage());
+//
+//                        goodsList.clear();
+//
+//                        goodsList.addAll(goodsLists.getData().getGoods());
+//
+//                        goodsAdapter.notifyDataSetChanged();
+//
+//                        etGlPage.setText("" + index);
+//
+//                        includeTitle.setText("" + goodsLists.getData().getCurrent_category().getName());
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable ex, boolean isOnCallback) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(CancelledException cex) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFinished() {
+//
+//                    }
+//                });
+//    }
 
     /**
-     * 商品列表
+     * 获取商品列表（暂时用搜索滴）
      *
-     * @param pcate 一级分类id
-     * @param ccate 二级分类id
-     * @param order
-     * @param by
+     * @param cateid      分类id
+     * @param custom      自定义分类（暂时不用）
+     * @param key         关键词
+     * @param ishot       热销 0/1
+     * @param isrecommand 推荐 0/1
+     * @param isnew       新品 0/1
+     * @param isdiscount  促销 0/1
+     * @param issendfree  包邮 0/1
+     * @param istime      限时0/1
+     * @param page
+     * @param price       价格排序 asc/desc
+     * @param sales       销量排序 asc/desc
+     * @param comment     评价排序 asc/desc
      */
-    public void getGoodsList(String pcate, String ccate, String order, String by, int page, int pagesize, String keyword) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODSLIST +
-                "&pcate=" + pcate + "&ccate=" + ccate + "&order="
-                + order + "&by=" + by + "&page=" + page + "&pagesize=" + pagesize
-                + "&keywords=" + keyword;
+    public void getGoodsList(String cateid, String custom, String key,
+                             String ishot, String isrecommand, String isnew,
+                             String isdiscount, String issendfree, String istime,
+                             int page, String price, String sales,
+                             String comment) {
+        PATH = HttpUtils.PATHS + HttpUtils.GOODS_SEARCH +
+                "cate=" + cateid + "&custom=" + custom + "&key=" + key +
+                "&ishot=" + ishot + "&isrecomand=" + isrecommand + "&isnew=" + isnew +
+                "&isdiscount=" + isdiscount + "&issendfree=" + issendfree + "&istime=" + istime +
+                "&page=" + page + "&price=" + price + "&sales=" + sales +
+                "&comment=" + comment;
+
         params = new RequestParams(PATH);
 
         System.out.println("商品列表 = " + PATH);
@@ -337,17 +402,24 @@ public class GoodsListActivity extends Activity {
                         System.out.println("商品列表 = " + result);
                         gvGoodslist.scrollTo(0, 0);
 
-                        GoodsList goodsLists = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
+                        GoodsList goodsList = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
 
-                        total = Integer.parseInt(goodsLists.getData().getAllpage());
+                        goodsLists.clear();
 
-                        goodsList.clear();
-
-                        goodsList.addAll(goodsLists.getData().getGoods());
-
+                        goodsLists.addAll(goodsList.getData());
                         goodsAdapter.notifyDataSetChanged();
 
-                        etGlPage.setText("" + index);
+//                        GoodsList goodsLists = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
+//
+//                        total = Integer.parseInt(goodsLists.getData().getAllpage());
+//
+//                        goodsList.clear();
+//
+//                        goodsList.addAll(goodsLists.getData().getGoods());
+//
+//                        goodsAdapter.notifyDataSetChanged();
+//
+//                        etGlPage.setText("" + index);
 
                     }
 

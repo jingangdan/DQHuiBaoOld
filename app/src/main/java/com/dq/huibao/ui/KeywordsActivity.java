@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.KeywordsAdapter;
-import com.dq.huibao.bean.classify.Keywords;
+import com.dq.huibao.bean.classifytest.Keywords;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 

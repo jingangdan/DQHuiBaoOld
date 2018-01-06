@@ -1,4 +1,4 @@
-package com.dq.huibao.bean.classify;
+package com.dq.huibao.bean.classifytest;
 
 import java.util.List;
 

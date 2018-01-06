@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.bean.classify.GoodsList;
+//import com.dq.huibao.bean.classifytest.GoodsList;
+import com.dq.huibao.bean.goods.GoodsList;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -32,9 +32,14 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
     private OnItemLongClickListener mOnItemLongClickListener;
 
     private Context mContext;
-    private List<GoodsList.DataBean.GoodsBean> goodsList;
+    //private List<GoodsList.DataBean.GoodsBean> goodsList;
+    private List<GoodsList.DataBean> goodsList;
 
-    public GoodsAdapter(Context mContext, List<GoodsList.DataBean.GoodsBean> goodsList) {
+    //    public GoodsAdapter(Context mContext, List<GoodsList.DataBean.GoodsBean> goodsList) {
+//        this.mContext = mContext;
+//        this.goodsList = goodsList;
+//    }
+    public GoodsAdapter(Context mContext, List<GoodsList.DataBean> goodsList) {
         this.mContext = mContext;
         this.goodsList = goodsList;
     }
@@ -81,7 +86,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
             });
         }
 
-        String img = goodsList.get(position).getImg();
+        String img = goodsList.get(position).getThumb();
 
         ImageUtils.loadIntoUseFitWidth(mContext,
                 HttpUtils.HEADER + img,
@@ -89,9 +94,9 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
                 R.mipmap.icon_error002,
                 holder.img);
 
-        holder.tv_name.setText("" + goodsList.get(position).getName());
+        holder.tv_name.setText("" + goodsList.get(position).getGoodsname());
 
-        holder.tv_pricenow.setText("¥" + goodsList.get(position).getCostprice());
+        holder.tv_pricenow.setText("¥" + goodsList.get(position).getProductprice());
 
         holder.tv_priceold.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         holder.tv_priceold.setText("¥" + goodsList.get(position).getMarketprice());

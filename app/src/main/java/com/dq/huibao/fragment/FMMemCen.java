@@ -538,7 +538,7 @@ public class FMMemCen extends BaseFragment {
         tvMcNickname.setText("" + nickname);
         tvMcCredit1.setText("" + credit1);
         tvMcCredit2.setText("" + credit2);
-        tvMcCouponcount.setText("" + couponcount);
+        //tvMcCouponcount.setText("" + couponcount);
 
 
     }

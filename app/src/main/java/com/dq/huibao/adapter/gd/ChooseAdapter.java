@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.bean.classify.GoodsDetail;
 import com.dq.huibao.bean.goodsdetail.Items;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 
