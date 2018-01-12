@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.dq.huibao.R;
 import com.dq.huibao.fragment.FMClassify;
 import com.dq.huibao.fragment.FMDistribution;
+//import com.dq.huibao.fragment.FMHomePageOld;
 import com.dq.huibao.fragment.FMHomePage;
 import com.dq.huibao.fragment.FMMemCen;
 import com.dq.huibao.fragment.FMShopcar;
@@ -88,6 +89,7 @@ public class MainActivity extends FragmentActivity {
     LinearLayout linDistribution;
 
     /*Fragment*/
+    //private FMHomePageOld fmHomePage;
     private FMHomePage fmHomePage;
     private FMClassify fmClassify;
     private FMShopcar fmShopcar;
@@ -460,7 +462,7 @@ public class MainActivity extends FragmentActivity {
             //双击退出
             if (System.currentTimeMillis() - millis < 1000) {
 
-                //FMHomePage.mLocationClient.stop();
+                //FMHomePageOld.mLocationClient.stop();
                 return super.onKeyDown(keyCode, event);
             } else {
                 Toast.makeText(this, "再次点击退出程序", Toast.LENGTH_SHORT).show();

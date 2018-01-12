@@ -14,9 +14,6 @@ import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.homepage.Menu;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.ImageUtils;
-
-import org.xutils.x;
 
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class HpMenuAdapter extends RecyclerView.Adapter<HpMenuAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder vh = new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_goods, parent, false));
+        MyViewHolder vh = new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_menu, parent, false));
 
         return vh;
     }

@@ -61,8 +61,6 @@ public class ClassifyThreeAdapter extends RecyclerView.Adapter<ClassifyThreeAdap
                 R.mipmap.icon_error002,
                 holder.img);
 
-        System.out.println("111 = " + HttpUtils.IMG_HEADER + childrenBeanList.get(position).getThumb());
-
         holder.tv_neme.setText("" + childrenBeanList.get(position).getCatename());
 
 

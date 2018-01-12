@@ -66,7 +66,7 @@ public class ShowBigPictrueActivity extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
             //int show_resId = resId[position];
-            String show_resId = HttpUtils.HEADER + picsList.get(position).toString();
+            String show_resId = HttpUtils.IMG_HEADER + picsList.get(position).toString();
 
             return new PictrueFragment(show_resId);
         }

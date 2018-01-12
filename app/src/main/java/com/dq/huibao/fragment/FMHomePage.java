@@ -1,11 +1,12 @@
 package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,34 +14,26 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.HpCubeAdapter;
-import com.dq.huibao.adapter.HpGoodsAdapter;
-import com.dq.huibao.adapter.HpMenuAdapter;
+import com.dq.huibao.adapter.index.AppimglistAdapter;
+import com.dq.huibao.adapter.index.GoodsListAdapter;
+import com.dq.huibao.adapter.index.MenuAdapter;
 import com.dq.huibao.base.BaseFragment;
-import com.dq.huibao.bean.homepage.Banner;
-import com.dq.huibao.bean.homepage.Cube;
-import com.dq.huibao.bean.homepage.Goods;
-import com.dq.huibao.bean.homepage.Menu;
-import com.dq.huibao.bean.homepage.Notice;
-import com.dq.huibao.bean.homepage.Picture;
-import com.dq.huibao.bean.homepage.Root;
-import com.dq.huibao.bean.homepage.Search;
-import com.dq.huibao.bean.homepage.Title;
+import com.dq.huibao.bean.index.Index;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.ui.GoodsListActivity;
+import com.dq.huibao.ui.KeywordsActivity;
 import com.dq.huibao.ui.homepage.WebActivity;
+import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
 import com.dq.huibao.utils.NetworkUtils;
-import com.dq.huibao.view.MarqueTextView;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -56,105 +49,159 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
- * Description：首页
- * Created by jingang on 2017/10/16.
+ * 首页
+ * Created by jingang on 2018/1/10.
  */
 
 public class FMHomePage extends BaseFragment {
-    @Bind(R.id.lin_homepage)
-    LinearLayout linHomepage;
-    //    @Bind(R.id.sv_homepage)
-//    ScrollView svHomepage;
-    private View view;
+    @Bind(R.id.rv_hp_menu)
+    RecyclerView rvHpMenu;
+    @Bind(R.id.rv_hp_appimglist)
+    RecyclerView rvHpAppimglist;
+    @Bind(R.id.rv_hp_glist)
+    RecyclerView rvHpGlist;
+    @Bind(R.id.lin_hp_search)
+    LinearLayout linHpSearch;
+    @Bind(R.id.edit_sreach)
+    EditText editSearch;
 
+    private View view;
+    /*接口地址*/
+    private String PATH = "";
+    private RequestParams params = null;
+
+    /*解析数据结构
+    * 搜索 banner menu 图片广告 热门商品列表*/
+    private Index index;
+    private List<Index.DataBean.BannerBean> bannerList = new ArrayList<>();
+    private List<Index.DataBean.MenuBean> menuList = new ArrayList<>();
+    private List<Index.DataBean.AppimglistBean> appimgList = new ArrayList<>();
+    private List<Index.DataBean.GlistBean> gList = new ArrayList<>();
+
+    private MenuAdapter menuAdapter;
+    private AppimglistAdapter appimglistAdapter;
+    GridLayoutManager mManager;
+    private GAdapter gAdapter;
+
+    /*轮播图*/
+    private CycleViewPager cycleViewPager;
     private List<ImageView> views = new ArrayList<ImageView>();
     private List<ADInfo> infos;
     private ADInfo info;
 
-    private String urlstr = "";//跳转web地址
-
-    private List<Banner.DataBeanX.DataBean> bannerList = new ArrayList<>();
-
-    /*接收页面传值*/
     private Intent intent;
-
-    /*接口地址*/
-    private String PATH = "";
-
-    RequestParams params = null;
-
-    /*根*/
-    private Root root;
-
-    private LinearLayout lin_search = null, lin_banner = null, lin_menu = null,
-            lin_notice = null;
-
-    /*标题 店招 图片展播 优惠券组 图标组
-    列表导航 富文本 按钮组2 辅助线 辅助空白*/
-    private LinearLayout lin_title = null, lin_shop = null, lin_pictures = null, lin_coupon = null, lin_icongroup = null,
-            lin_listmenu = null, lin_richtext = null, lin_rmenu2 = null, lin_line = null, lin_blank = null;
-
-    /*动态添加控件下标*/
-    private int index_title = 0, index_menu = 0, index_picture = 0, index_cube = 0,
-            index_goods = 0;
-
-    private CycleViewPager cycleViewPager;
-    private RecyclerView recyclerView;
-    private MarqueTextView tv_notice;
-
-    /*搜索*/
-    private EditText et_search;
-    private ImageView iv_search;
-    private String UTF_keywords = "";
-
-//    @Bind(R.id.pullToRefreshLayout)
-//    public PullToRefreshLayout pullToRefreshLayout;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fm_homepage_test, null);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_homepage, null);
         ButterKnife.bind(this, view);
-        //init();
 
         if (isNetworkUtils()) {
-            getHomePage("1604");
+            getIndex();
         } else {
-            toast("无网络连接");
+
         }
 
+        rvHpMenu.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
+        menuAdapter = new MenuAdapter(getActivity(), menuList);
+        rvHpMenu.setAdapter(menuAdapter);
+        menuAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                setIntent(menuList.get(position).getType(),
+                        menuList.get(position).getTitle(),
+                        menuList.get(position).getContent());
+            }
+        });
+
+        appimglistAdapter = new AppimglistAdapter(getActivity(), appimgList);
+        mManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+        mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                String imgwidth = appimgList.get(position).getWidth();
+                if (imgwidth.equals("50")) {
+                    return 1;
+                } else if (imgwidth.equals("100")) {
+                    return 2;
+                }
+                return 1;
+            }
+        });
+        rvHpAppimglist.setLayoutManager(mManager);
+        rvHpAppimglist.setAdapter(appimglistAdapter);
+        appimglistAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                setIntent(appimgList.get(position).getType(),
+                        appimgList.get(position).getTitle(),
+                        appimgList.get(position).getContent());
+            }
+        });
+
+
+        rvHpGlist.setLayoutManager(new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false));
+        gAdapter = new GAdapter(getActivity(), gList);
+        rvHpGlist.setAdapter(gAdapter);
 
         return view;
     }
 
-//    private void init() {
-//        pullToRefreshLayout.setOnFooterRefreshListener(this);
-//        pullToRefreshLayout.setOnHeaderRefreshListener(this);
-//        pullToRefreshLayout.setLastUpdated(new Date().toLocaleString());
-//
-//    }
+    @Override
+    protected void lazyLoad() {
+
+    }
 
     /**
-     * 获取首页数据
-     *
-     * @param i 店铺id
+     * 获取首页信息
+     * <p>
+     * -url链接
+     * article文章
+     * cate分类
+     * goods商品
+     * custom自定义分类
+     * articlecate文章分类
+     * search  搜索
+     * url # 不做操作
      */
-    public void getHomePage(String i) {
-        PATH = HttpUtils.PATH + HttpUtils.HP_ROOT + "i=" + i;
-
+    public void getIndex() {
+        PATH = HttpUtils.PATHS + HttpUtils.INDEXT_INDEX;
         params = new RequestParams(PATH);
-        System.out.println("首页数据" + PATH);
+        System.out.println("首页 = " + PATH);
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println("首页数据 = " + result);
-                        root = GsonUtil.gsonIntance().gsonToBean(result, Root.class);
+                        System.out.println("首页 = " + result);
+                        index = GsonUtil.gsonIntance().gsonToBean(result, Index.class);
 
-                        setFor(root);
+                        if (!index.getData().getBanner().toString().equals("[]")) {
+                            bannerList = index.getData().getBanner();
+                            //轮播图 banner
+                            configImageLoader();
+
+                            setLunbotu();
+
+                        }
+                        if (!index.getData().getMenu().toString().equals("[]")) {
+                            //按钮 menu
+                            menuList.addAll(index.getData().getMenu());
+                            menuAdapter.notifyDataSetChanged();
+                        }
+                        if (!index.getData().getAppimglist().toString().equals("[]")) {
+                            //图片组
+                            appimgList.addAll(index.getData().getAppimglist());
+                            appimglistAdapter.notifyDataSetChanged();
+                        }
+                        if (!index.getData().getGlist().toString().equals("[]")) {
+                            //gList = index.getData().getGlist();
+                            gList.addAll(index.getData().getGlist());
+                            gAdapter.notifyDataSetChanged();
+                        }
 
                     }
 
@@ -173,618 +220,43 @@ public class FMHomePage extends BaseFragment {
 
                     }
                 });
-
     }
 
     /**
-     * 根据temp动态生成UI
-     *
-     * @param root
+     * 设置轮播图
      */
-    public void setFor(Root root) {
-        for (int i = 0; i < root.getData().size(); i++) {
-            setTemp(root.getData().get(i).getId(), root.getData().get(i).getTemp());
-//            try {
-//                Thread.sleep(2 * 100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+    public void setLunbotu() {
+        cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
+
+        infos = new ArrayList<>();
+        for (int i = 0; i < bannerList.size(); i++) {
+            info = new ADInfo();
+            info.setUrl(HttpUtils.NEW_HEADER + bannerList.get(i).getThumb().toString());
+            info.setContent("");
+            info.setImg("");
+            infos.add(info);
         }
-    }
 
-    /**
-     * 根据temp获取各类别的数据
-     *
-     * @param temp
-     */
-    public void setTemp(String id, final String temp) {
-        switch (temp) {
-
-            /*标题*/
-            case "title":
-                index_title++;
-                lin_title = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_title, null);
-                linHomepage.addView(lin_title);
-                final TextView textView = new TextView(getActivity());
-                textView.setId(index_title);
-                lin_title.addView(textView);
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                System.out.println(temp + " = " + result);
-
-                                Title title = GsonUtil.gsonIntance().gsonToBean(result, Title.class);
-
-                                System.out.println();
-
-                                textView.setText("" + title.getData().getParams().getTitle1());
-
-                                //final Search search = GsonUtil.gsonIntance().gsonToBean(result, Search.class);
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-
-                break;
-
-            /*搜索框*/
-            case "search":
-                //System.out.println("添加search");
-                lin_search = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_search, null);
-                linHomepage.addView(lin_search);
-
-                et_search = (EditText) lin_search.findViewById(R.id.et_hp_sreach);
-                iv_search = (ImageView) lin_search.findViewById(R.id.iv_hp_sreach);
-
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                // System.out.println(temp + " = " + result);
-
-                                final Search search = GsonUtil.gsonIntance().gsonToBean(result, Search.class);
-
-                                iv_search.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        intent = new Intent(getActivity(), GoodsListActivity.class);
-                                        intent.putExtra("pcate", "");
-                                        intent.putExtra("ccate", "");
-                                        intent.putExtra("name", "全部商品");
-                                        intent.putExtra("keywords", et_search.getText().toString());
-
-                                        et_search.setText("");
-
-                                        startActivity(intent);
-                                    }
-                                });
-
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-
-                break;
-
-            /*店招*/
-            case "shop":
-                lin_shop = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_shop, null);
-                linHomepage.addView(lin_shop);
-                break;
-
-            /*图片展播*/
-            case "pictures":
-                lin_pictures = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_pictures, null);
-                linHomepage.addView(lin_pictures);
-                break;
-
-            /*优惠券组*/
-            case "coupon":
-                lin_coupon = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_coupon, null);
-                linHomepage.addView(lin_coupon);
-                break;
-
-            /*轮播*/
-            case "banner":
-                //System.out.println("添加banner");
-
-                lin_banner = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_lunbotu, null);
-                linHomepage.addView(lin_banner);
-
-                cycleViewPager = (CycleViewPager) getActivity().getFragmentManager().findFragmentById(R.id.fragment_cycle_viewpager_content);
-
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                // params = new RequestParams("http://oneshop.mynatapp.cc/addons/sz_yi/core/api/index.php?api=shop/Goods/index&i=1604&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                // System.out.println(temp + " = " + result);
-
-                                configImageLoader();
-                                Banner banner = GsonUtil.gsonIntance().gsonToBean(result, Banner.class);
-
-                                bannerList = banner.getData().getData();
-
-                                infos = new ArrayList<>();
-                                for (int i = 0; i < banner.getData().getData().size(); i++) {
-                                    info = new ADInfo();
-                                    info.setUrl(banner.getData().getData().get(i).getImgurl());
-                                    info.setContent(banner.getData().getData().get(i).getSysurl());
-                                    info.setImg("");
-                                    infos.add(info);
-                                }
-
-                                // 将最后一个ImageView添加进来
-                                views.add(ViewFactory.getImageView(getActivity(), infos.get(infos.size() - 1).getUrl()));
-                                for (int i = 0; i < infos.size(); i++) {
-                                    views.add(ViewFactory.getImageView(getActivity(), infos.get(i).getUrl()));
-                                }
-                                // 将第一个ImageView添加进来
-                                views.add(ViewFactory.getImageView(getActivity(), infos.get(0).getUrl()));
-
-                                // 设置循环，在调用setData方法前调用
-                                cycleViewPager.setCycle(true);
-
-                                // 在加载数据前设置是否循环
-                                cycleViewPager.setData(views, infos, mAdCycleViewListener);
-                                //设置轮播
-                                cycleViewPager.setWheel(true);
-
-                                // 设置轮播时间，默认5000ms
-                                cycleViewPager.setTime(3000);
-                                //设置圆点指示图标组居中显示，默认靠右
-                                cycleViewPager.setIndicatorCenter();
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-
-
-                break;
-
-            /*图标组*/
-            case "icongroup":
-                lin_icongroup = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_icongroup, null);
-                linHomepage.addView(lin_icongroup);
-                break;
-
-            /*按钮组*/
-            case "menu":
-                //System.out.println("添加menu");
-                index_menu++;
-
-                final RecyclerView rv = new RecyclerView(getActivity());
-                rv.setId(index_menu);
-                linHomepage.addView(rv);
-
-
-                lin_menu = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_menu, null);
-                linHomepage.addView(lin_menu);
-
-                recyclerView = (RecyclerView) lin_menu.findViewById(R.id.rv_hp_menu);
-
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                //System.out.println(temp + " = " + result);
-
-                                final Menu menu = GsonUtil.gsonIntance().gsonToBean(result, Menu.class);
-
-                                HpMenuAdapter hpMenuAdapter = new HpMenuAdapter(getActivity(), menu.getData().getData());
-
-                                rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                rv.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
-
-                                rv.setAdapter(hpMenuAdapter);
-
-                                hpMenuAdapter.setOnItemClickListener(new OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, int position) {
-                                        //toast("" + menu.getData().getData().get(position).getText());
-                                        setIntent(menu.getData().getData().get(position).getHrefurl().isSelfurl(),
-                                                menu.getData().getData().get(position).getHrefurl().getDoX(),
-                                                menu.getData().getData().get(position).getHrefurl().getP(),
-                                                menu.getData().getData().get(position).getHrefurl().getUrlstr(),
-                                                menu.getData().getData().get(position).getHrefurl().getQuery());
-
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-
-                break;
-
-            case "notice":
-                //System.out.println("添加notice");
-                lin_notice = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_notice, null);
-                linHomepage.addView(lin_notice);
-
-                tv_notice = (MarqueTextView) lin_notice.findViewById(R.id.tv_hp_notice);
-
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                //System.out.println(temp + " = " + result);
-
-                                final Notice notice = GsonUtil.gsonIntance().gsonToBean(result, Notice.class);
-
-                                tv_notice.setText("" + notice.getData().getParams().getNotice() + "           " + notice.getData().getParams().getNotice());
-
-                                tv_notice.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        setIntent(notice.getData().getParams().getNoticehref().isSelfurl(),
-                                                notice.getData().getParams().getNoticehref().getDoX(),
-                                                notice.getData().getParams().getNoticehref().getP(),
-                                                notice.getData().getParams().getNoticehref().getUrlstr(),
-                                                notice.getData().getParams().getNoticehref().getQuery());
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-                break;
-
-
-            case "picture":
-                //System.out.println("添加picture");
-                index_picture++;
-
-                final ImageView iv = new ImageView(getActivity());
-                iv.setId(index_picture);
-
-                linHomepage.addView(iv);
-
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                //System.out.println(temp + " = " + result);
-
-                                final Picture picture = GsonUtil.gsonIntance().gsonToBean(result, Picture.class);
-
-                                ImageUtils.loadIntoUseFitWidth(getActivity(),
-                                        picture.getData().getData().get(0).getImgurl(),
-                                        R.mipmap.icon_empty,
-                                        R.mipmap.icon_error,
-                                        iv);
-
-                                iv.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        setIntent(picture.getData().getData().get(0).getHrefurl().isSelfurl(),
-                                                picture.getData().getData().get(0).getHrefurl().getDoX(),
-                                                picture.getData().getData().get(0).getHrefurl().getP(),
-                                                picture.getData().getData().get(0).getHrefurl().getUrlstr(),
-                                                picture.getData().getData().get(0).getHrefurl().getQuery());
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-                break;
-
-            case "cube":
-                //System.out.println("添加cube");
-
-                final RecyclerView rv_cube = new RecyclerView(getActivity());
-                rv_cube.setId(index_cube);
-                linHomepage.addView(rv_cube);
-
-                //getData("1604", id, "cube");
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                //System.out.println(temp + " = " + result);
-                                final Cube cube = GsonUtil.gsonIntance().gsonToBean(result, Cube.class);
-
-                                HpCubeAdapter hpCubeAdapter = new HpCubeAdapter(getActivity(), cube.getData().getParams().getLayout());
-
-                                GridLayoutManager mManager;
-                                mManager = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
-                                mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                                    @Override
-                                    public int getSpanSize(int position) {
-                                        String imgwidth = cube.getData().getParams().getLayout().get(position).getCols();
-                                        if (imgwidth.equals("1")) {
-                                            return 1;
-                                        } else if (imgwidth.equals("2")) {
-                                            return 2;
-                                        }
-                                        return 1;
-                                    }
-                                });
-
-                                rv_cube.setLayoutManager(mManager);
-
-                                rv_cube.setAdapter(hpCubeAdapter);
-
-                                hpCubeAdapter.setOnItemClickListener(new OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, int position) {
-                                        setIntent(cube.getData().getParams().getLayout().get(position).getUrl().isSelfurl(),
-                                                cube.getData().getParams().getLayout().get(position).getUrl().getDoX(),
-                                                cube.getData().getParams().getLayout().get(position).getUrl().getP(),
-                                                cube.getData().getParams().getLayout().get(position).getUrl().getUrlstr(),
-                                                cube.getData().getParams().getLayout().get(position).getUrl().getQuery());
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-                break;
-
-            case "goods":
-                //System.out.println("添加goods");
-                index_goods++;
-
-                final RecyclerView rv_goods = new RecyclerView(getActivity());
-                rv_goods.setId(index_goods);
-                linHomepage.addView(rv_goods);
-
-                params = new RequestParams(HttpUtils.PATH + HttpUtils.HP_ROOT + "i=1604" + "&id=" + id);
-                x.http().get(params,
-                        new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                //System.out.println(temp + "  = " + result);
-
-                                final Goods goods = GsonUtil.gsonIntance().gsonToBean(result, Goods.class);
-
-                                HpGoodsAdapter hpGoodsAdapter = new HpGoodsAdapter(getActivity(), goods.getData().getData());
-
-                                GridLayoutManager mManager;
-
-                                mManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-                                mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                                    @Override
-                                    public int getSpanSize(int position) {
-                                        String imgwidth = goods.getData().getParams().getStyle();
-                                        if (imgwidth.equals("49.5%")) {
-                                            return 1;
-                                        } else if (imgwidth.equals("100%")) {
-                                            return 2;
-                                        }
-                                        return 1;
-                                    }
-                                });
-
-                                rv_goods.setLayoutManager(mManager);
-                                rv_goods.setAdapter(hpGoodsAdapter);
-
-                                hpGoodsAdapter.setOnItemClickListener(new OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(View view, int position) {
-
-                                        setIntent(goods.getData().getData().get(position).getGoodhref().isSelfurl(),
-                                                goods.getData().getData().get(position).getGoodhref().getDoX(),
-                                                goods.getData().getData().get(position).getGoodhref().getP(),
-                                                goods.getData().getData().get(position).getGoodhref().getUrlstr(),
-                                                goods.getData().getData().get(position).getGoodhref().getQuery());
-
-                                    }
-                                });
-
-
-                            }
-
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(CancelledException cex) {
-
-                            }
-
-                            @Override
-                            public void onFinished() {
-
-                            }
-                        });
-                break;
-
-            /*列表导航*/
-            case "listmenu":
-                lin_listmenu = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_listmenu, null);
-                linHomepage.addView(lin_listmenu);
-                break;
-
-            /*富文本*/
-            case "richtext":
-                lin_richtext = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_richtext, null);
-                linHomepage.addView(lin_richtext);
-                break;
-
-            /*按钮组2*/
-            case "menu2":
-                lin_rmenu2 = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_menu2, null);
-                linHomepage.addView(lin_rmenu2);
-                break;
-
-            /*辅助线*/
-            case "line":
-                lin_line = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_line, null);
-                linHomepage.addView(lin_line);
-                break;
-
-            /*辅助空白*/
-            case "blank":
-                lin_blank = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.include_hp_blank, null);
-                linHomepage.addView(lin_blank);
-                break;
-
-
-            default:
-                break;
-
+        // 将最后一个ImageView添加进来
+        views.add(ViewFactory.getImageView(getActivity(), infos.get(infos.size() - 1).getUrl()));
+        for (int i = 0; i < infos.size(); i++) {
+            views.add(ViewFactory.getImageView(getActivity(), infos.get(i).getUrl()));
         }
-    }
+        // 将第一个ImageView添加进来
+        views.add(ViewFactory.getImageView(getActivity(), infos.get(0).getUrl()));
 
-    /**
-     * 根据不同条件 跳转不同界面
-     *
-     * @param isSelfurl
-     * @param doX
-     * @param pX
-     * @param urlstr
-     * @param query
-     */
-    public void setIntent(boolean isSelfurl, String doX, String pX, String urlstr, String query) {
-        /*根据selfurl 判断跳转情况 false：网页 ture：activity*/
-        if (isSelfurl == false) {
-            //跳转网页
-            intent = new Intent(getActivity(), WebActivity.class);
-            intent.putExtra("url", urlstr);
-            startActivity(intent);
-        } else {
-            //跳转页面
-            // toast("根据判断跳转页面");
+        // 设置循环，在调用setData方法前调用
+        cycleViewPager.setCycle(true);
 
-            /*根据do 判断跳转页面类型 shop  plugin*/
-            if (doX.equals("shop")) {
+        // 在加载数据前设置是否循环
+        cycleViewPager.setData(views, infos, mAdCycleViewListener);
+        //设置轮播
+        cycleViewPager.setWheel(true);
 
-                /*根据 p 判断 list detail*/
-                if (pX.equals("list")) {
-                    //商品列表
-                    intent = new Intent(getActivity(), GoodsListActivity.class);
-                    intent.putExtra("pcate", query);
-                    intent.putExtra("ccate", "");
-                    intent.putExtra("name", "");
-                    intent.putExtra("keywords", "");
-                    startActivity(intent);
-
-                } else if (pX.equals("detail")) {
-                    //商品详情
-                    intent = new Intent(getActivity(), GoodsDetailsActivity.class);
-                    intent.putExtra("gid", query);
-                    startActivity(intent);
-
-                } else {
-                    toast("未知 pX = " + pX);
-                }
-
-            } else if (doX.equals("plugin")) {
-                toast("不知道");
-            } else {
-                toast("未知 doX = " + doX);
-            }
-
-        }
+        // 设置轮播时间，默认5000ms
+        cycleViewPager.setTime(3000);
+        //设置圆点指示图标组居中显示，默认靠右
+        cycleViewPager.setIndicatorCenter();
     }
 
     /*轮播图点击事件*/
@@ -796,32 +268,79 @@ public class FMHomePage extends BaseFragment {
                 public void onImageClick(ADInfo info, int position, View imageView) {
                     int index = position - 1;
                     if (cycleViewPager.isCycle()) {
+                        setIntent(bannerList.get(position - 1).getType(),
+                                bannerList.get(position - 1).getTitle(),
+                                bannerList.get(position - 1).getContent());
 
-                        // System.out.println("lalala = " + bannerList.get(index).getHrefurl().isSelfurl());
-
-                        /*根据selfurl 判断跳转情况 false：网页 ture：activity*/
-                        if (bannerList.get(index).getHrefurl().isSelfurl() == false) {
-                            //跳转网页
-                            intent = new Intent(getActivity(), WebActivity.class);
-                            intent.putExtra("url", bannerList.get(index).getHrefurl().getUrlstr());
-                            startActivity(intent);
-                        } else {
-                            //跳转页面
-                            //toast("根据判断跳转页面");
-                            setIntent(bannerList.get(index).getHrefurl().isSelfurl(),
-                                    bannerList.get(index).getHrefurl().getDoX(),
-                                    bannerList.get(index).getHrefurl().getP(),
-                                    bannerList.get(index).getHrefurl().getUrlstr(),
-                                    bannerList.get(index).getHrefurl().getQuery());
-
-                        }
-
+//                        intent = new Intent(TAG, ShowBigPictrueActivity.class);
+//                        intent.putExtra("position", index);
+//                        intent.putExtra("picslist", picsList.toString());
+//                        startActivity(intent);
 
                     }
 
                 }
 
             };
+
+    /**
+     * 根据不同情况 跳转不同界面
+     *
+     * @param type
+     * @param content
+     */
+    public void setIntent(String type, String title, String content) {
+        switch (type) {
+            case "url":
+                //链接 web
+                intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra("url", content);
+                startActivity(intent);
+                break;
+            case "article":
+                //文章
+                break;
+            case "cate":
+                //分类（商品列表）
+                intent = new Intent(getActivity(), GoodsListActivity.class);
+                intent.putExtra("content", "cate=" + content);
+                intent.putExtra("catename", title);
+                intent.putExtra("keywords", "");
+                startActivity(intent);
+                break;
+            case "goods":
+                //商品详情
+                intent = new Intent(getActivity(), GoodsDetailsActivity.class);
+                intent.putExtra("gid", content);
+                startActivity(intent);
+                break;
+            case "custom":
+                //自定义分类
+                intent = new Intent(getActivity(), GoodsListActivity.class);
+                intent.putExtra("content", "cate=" + content);
+                intent.putExtra("catename", title);
+                intent.putExtra("keywords", "");
+                startActivity(intent);
+                break;
+            case "articlecate":
+                //文章分类
+                break;
+            case "search":
+                //搜索
+                intent = new Intent(getActivity(), GoodsListActivity.class);
+                intent.putExtra("content", content);
+                intent.putExtra("catename", title);
+                intent.putExtra("keywords", "");
+                startActivity(intent);
+                break;
+            case "#":
+                //不做操作
+                break;
+
+            default:
+                break;
+        }
+    }
 
     /**
      * 配置ImageLoder
@@ -843,11 +362,6 @@ public class FMHomePage extends BaseFragment {
         ImageLoader.getInstance().init(config);
     }
 
-    @Override
-    protected void lazyLoad() {
-
-    }
-
 
     /**
      * 判断联网状态
@@ -864,42 +378,104 @@ public class FMHomePage extends BaseFragment {
         return false;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 
-//    @Override
-//    public void onHeaderRefresh(PullToRefreshLayout view) {
-//
-//        pullToRefreshLayout.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                //刷新数据
-//                pullToRefreshLayout.onHeaderRefreshComplete("更新于:"
-//                        + Calendar.getInstance().getTime().toLocaleString());
-//                pullToRefreshLayout.onHeaderRefreshComplete();
-//
-//                //getHomePage("1604");
-//
-//            }
-//
-//        }, 1000);
-//
-//
-//    }
-//
-//    @Override
-//    public void onFooterRefresh(PullToRefreshLayout view) {
-//        pullToRefreshLayout.postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                //加载更多数据
-//                pullToRefreshLayout.onFooterRefreshComplete();
-//                //gridViewData.add(R.mipmap.ic_adai);
-//                //gridViewAdapter.setData(gridViewData);
-//                //getShopGoodss(str_latitude, str_longtitude, page);
-//                //getLoadingShopGood(latitude, longtitude, page);
-//
-//            }
-//
-//        }, 1000);
-//    }
+    @OnClick({R.id.lin_hp_search, R.id.edit_sreach})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.lin_hp_search:
+                intent = new Intent(getActivity(), KeywordsActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.edit_sreach:
+                intent = new Intent(getActivity(), KeywordsActivity.class);
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     *
+     */
+    public class GAdapter extends RecyclerView.Adapter<GAdapter.MyViewHolder> {
+        private Context mContext;
+        private List<Index.DataBean.GlistBean> glistBeanList;
+        private OnItemClickListener onItemClickListener;
+
+        public GAdapter(Context mContext, List<Index.DataBean.GlistBean> glistBeanList) {
+            this.mContext = mContext;
+            this.glistBeanList = glistBeanList;
+        }
+
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            MyViewHolder vh = new MyViewHolder(
+                    LayoutInflater.from(mContext).inflate(R.layout.item_glist, viewGroup, false)
+            );
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(final MyViewHolder holder, final int i) {
+            if (onItemClickListener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = holder.getLayoutPosition(); // 1
+                        onItemClickListener.onItemClick(holder.itemView, position); // 2
+                    }
+                });
+
+            }
+            ImageUtils.loadIntoUseFitWidth(mContext,
+                    HttpUtils.NEW_HEADER + glistBeanList.get(i).getThumb(),
+                    R.mipmap.icon_empty001,
+                    R.mipmap.icon_error001,
+                    holder.img);
+
+
+            holder.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
+            final GoodsListAdapter goodsListAdapter = new GoodsListAdapter(mContext, glistBeanList.get(i).getGoodslist());
+            holder.recyclerView.setAdapter(goodsListAdapter);
+
+            goodsListAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    intent = new Intent(mContext, GoodsDetailsActivity.class);
+                    intent.putExtra("gid", glistBeanList.get(i).getGoodslist().get(position).getId());
+                    startActivity(intent);
+                }
+            });
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return glistBeanList.size();
+        }
+
+        public class MyViewHolder extends BaseRecyclerViewHolder {
+            private ImageView img;
+            private RecyclerView recyclerView;
+
+            public MyViewHolder(View view) {
+                super(view);
+                img = (ImageView) view.findViewById(R.id.iv_hp_glist);
+                recyclerView = (RecyclerView) view.findViewById(R.id.rv_hp_glist);
+            }
+        }
+    }
 }

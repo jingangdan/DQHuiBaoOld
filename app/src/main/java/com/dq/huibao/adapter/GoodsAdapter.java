@@ -33,13 +33,13 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
 
     private Context mContext;
     //private List<GoodsList.DataBean.GoodsBean> goodsList;
-    private List<GoodsList.DataBean> goodsList;
+    private List<GoodsList.DataBean.ListBean> goodsList;
 
     //    public GoodsAdapter(Context mContext, List<GoodsList.DataBean.GoodsBean> goodsList) {
 //        this.mContext = mContext;
 //        this.goodsList = goodsList;
 //    }
-    public GoodsAdapter(Context mContext, List<GoodsList.DataBean> goodsList) {
+    public GoodsAdapter(Context mContext, List<GoodsList.DataBean.ListBean> goodsList) {
         this.mContext = mContext;
         this.goodsList = goodsList;
     }
@@ -89,7 +89,7 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
         String img = goodsList.get(position).getThumb();
 
         ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.HEADER + img,
+                HttpUtils.IMG_HEADER + img,
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.img);

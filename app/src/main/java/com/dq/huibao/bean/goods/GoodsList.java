@@ -9,13 +9,14 @@ import java.util.List;
 
 public class GoodsList {
 
+
     /**
      * status : 1
-     * data : [{"id":"2419","goodsname":"绿叶爱生活竹纤维男式船袜","thumb":"images/sz_yi/1604/2017/12/rhhyggQffu6Hq6WXwGY9QF6QGgf6HX.jpg","marketprice":"63.00","unit":"双","productprice":"63.00","ishot":"0","isrecommand":"0","isnew":"0","isdiscount":"0","issendfree":"0","istime":"0"},{"id":"2420","goodsname":"爱生活竹纤维男士短袜船袜女士船袜","thumb":"images/sz_yi/1604/2017/12/pzt9Cq281mNd8QzgdzyGdd5Z188yN8.jpg","marketprice":"70.00","unit":"双","productprice":"70.00","ishot":"0","isrecommand":"0","isnew":"0","isdiscount":"0","issendfree":"0","istime":"0"}]
+     * data : {"list":[{"id":"2419","goodsname":"绿叶爱生活竹纤维男式船袜","thumb":"/attachment/images/sz_yi/1604/2017/12/rhhyggQffu6Hq6WXwGY9QF6QGgf6HX.jpg","marketprice":"63.00","unit":"双","productprice":"63.00","ishot":"0","isrecommand":"0","isnew":"0","isdiscount":"0","issendfree":"0","istime":"0"},{"id":"2420","goodsname":"爱生活竹纤维男士短袜船袜女士船袜","thumb":"/attachment/images/sz_yi/1604/2017/12/pzt9Cq281mNd8QzgdzyGdd5Z188yN8.jpg","marketprice":"70.00","unit":"双","productprice":"70.00","ishot":"0","isrecommand":"0","isnew":"0","isdiscount":"0","issendfree":"0","istime":"0"}],"count":"1","page":1,"pagesize":20}
      */
 
     private int status;
-    private List<DataBean> data;
+    private DataBean data;
 
     public int getStatus() {
         return status;
@@ -25,154 +26,210 @@ public class GoodsList {
         this.status = status;
     }
 
-    public List<DataBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
     public static class DataBean {
         /**
-         * id : 2419
-         * goodsname : 绿叶爱生活竹纤维男式船袜
-         * thumb : images/sz_yi/1604/2017/12/rhhyggQffu6Hq6WXwGY9QF6QGgf6HX.jpg
-         * marketprice : 63.00
-         * unit : 双
-         * productprice : 63.00
-         * ishot : 0
-         * isrecommand : 0
-         * isnew : 0
-         * isdiscount : 0
-         * issendfree : 0
-         * istime : 0
+         * list : [{"id":"2419","goodsname":"绿叶爱生活竹纤维男式船袜","thumb":"/attachment/images/sz_yi/1604/2017/12/rhhyggQffu6Hq6WXwGY9QF6QGgf6HX.jpg","marketprice":"63.00","unit":"双","productprice":"63.00","ishot":"0","isrecommand":"0","isnew":"0","isdiscount":"0","issendfree":"0","istime":"0"},{"id":"2420","goodsname":"爱生活竹纤维男士短袜船袜女士船袜","thumb":"/attachment/images/sz_yi/1604/2017/12/pzt9Cq281mNd8QzgdzyGdd5Z188yN8.jpg","marketprice":"70.00","unit":"双","productprice":"70.00","ishot":"0","isrecommand":"0","isnew":"0","isdiscount":"0","issendfree":"0","istime":"0"}]
+         * count : 1
+         * page : 1
+         * pagesize : 20
          */
 
-        private String id;
-        private String goodsname;
-        private String thumb;
-        private String marketprice;
-        private String unit;
-        private String productprice;
-        private String ishot;
-        private String isrecommand;
-        private String isnew;
-        private String isdiscount;
-        private String issendfree;
-        private String istime;
+        private String count;
+        private int page;
+        private int pagesize;
+        private List<ListBean> list;
 
-        public String getId() {
-            return id;
+        public String getCount() {
+            return count;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setCount(String count) {
+            this.count = count;
         }
 
-        public String getGoodsname() {
-            return goodsname;
+        public int getPage() {
+            return page;
         }
 
-        public void setGoodsname(String goodsname) {
-            this.goodsname = goodsname;
+        public void setPage(int page) {
+            this.page = page;
         }
 
-        public String getThumb() {
-            return thumb;
+        public int getPagesize() {
+            return pagesize;
         }
 
-        public void setThumb(String thumb) {
-            this.thumb = thumb;
+        public void setPagesize(int pagesize) {
+            this.pagesize = pagesize;
         }
 
-        public String getMarketprice() {
-            return marketprice;
+        public List<ListBean> getList() {
+            return list;
         }
 
-        public void setMarketprice(String marketprice) {
-            this.marketprice = marketprice;
+        public void setList(List<ListBean> list) {
+            this.list = list;
         }
 
-        public String getUnit() {
-            return unit;
-        }
+        public static class ListBean {
+            /**
+             * id : 2419
+             * goodsname : 绿叶爱生活竹纤维男式船袜
+             * thumb : /attachment/images/sz_yi/1604/2017/12/rhhyggQffu6Hq6WXwGY9QF6QGgf6HX.jpg
+             * marketprice : 63.00
+             * unit : 双
+             * productprice : 63.00
+             * ishot : 0
+             * isrecommand : 0
+             * isnew : 0
+             * isdiscount : 0
+             * issendfree : 0
+             * istime : 0
+             */
 
-        public void setUnit(String unit) {
-            this.unit = unit;
-        }
+            private String id;
+            private String goodsname;
+            private String thumb;
+            private String marketprice;
+            private String unit;
+            private String productprice;
+            private String ishot;
+            private String isrecommand;
+            private String isnew;
+            private String isdiscount;
+            private String issendfree;
+            private String istime;
 
-        public String getProductprice() {
-            return productprice;
-        }
+            public String getId() {
+                return id;
+            }
 
-        public void setProductprice(String productprice) {
-            this.productprice = productprice;
-        }
+            public void setId(String id) {
+                this.id = id;
+            }
 
-        public String getIshot() {
-            return ishot;
-        }
+            public String getGoodsname() {
+                return goodsname;
+            }
 
-        public void setIshot(String ishot) {
-            this.ishot = ishot;
-        }
+            public void setGoodsname(String goodsname) {
+                this.goodsname = goodsname;
+            }
 
-        public String getIsrecommand() {
-            return isrecommand;
-        }
+            public String getThumb() {
+                return thumb;
+            }
 
-        public void setIsrecommand(String isrecommand) {
-            this.isrecommand = isrecommand;
-        }
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
+            }
 
-        public String getIsnew() {
-            return isnew;
-        }
+            public String getMarketprice() {
+                return marketprice;
+            }
 
-        public void setIsnew(String isnew) {
-            this.isnew = isnew;
-        }
+            public void setMarketprice(String marketprice) {
+                this.marketprice = marketprice;
+            }
 
-        public String getIsdiscount() {
-            return isdiscount;
-        }
+            public String getUnit() {
+                return unit;
+            }
 
-        public void setIsdiscount(String isdiscount) {
-            this.isdiscount = isdiscount;
-        }
+            public void setUnit(String unit) {
+                this.unit = unit;
+            }
 
-        public String getIssendfree() {
-            return issendfree;
-        }
+            public String getProductprice() {
+                return productprice;
+            }
 
-        public void setIssendfree(String issendfree) {
-            this.issendfree = issendfree;
-        }
+            public void setProductprice(String productprice) {
+                this.productprice = productprice;
+            }
 
-        public String getIstime() {
-            return istime;
-        }
+            public String getIshot() {
+                return ishot;
+            }
 
-        public void setIstime(String istime) {
-            this.istime = istime;
+            public void setIshot(String ishot) {
+                this.ishot = ishot;
+            }
+
+            public String getIsrecommand() {
+                return isrecommand;
+            }
+
+            public void setIsrecommand(String isrecommand) {
+                this.isrecommand = isrecommand;
+            }
+
+            public String getIsnew() {
+                return isnew;
+            }
+
+            public void setIsnew(String isnew) {
+                this.isnew = isnew;
+            }
+
+            public String getIsdiscount() {
+                return isdiscount;
+            }
+
+            public void setIsdiscount(String isdiscount) {
+                this.isdiscount = isdiscount;
+            }
+
+            public String getIssendfree() {
+                return issendfree;
+            }
+
+            public void setIssendfree(String issendfree) {
+                this.issendfree = issendfree;
+            }
+
+            public String getIstime() {
+                return istime;
+            }
+
+            public void setIstime(String istime) {
+                this.istime = istime;
+            }
+
+            @Override
+            public String toString() {
+                return "ListBean{" +
+                        "id='" + id + '\'' +
+                        ", goodsname='" + goodsname + '\'' +
+                        ", thumb='" + thumb + '\'' +
+                        ", marketprice='" + marketprice + '\'' +
+                        ", unit='" + unit + '\'' +
+                        ", productprice='" + productprice + '\'' +
+                        ", ishot='" + ishot + '\'' +
+                        ", isrecommand='" + isrecommand + '\'' +
+                        ", isnew='" + isnew + '\'' +
+                        ", isdiscount='" + isdiscount + '\'' +
+                        ", issendfree='" + issendfree + '\'' +
+                        ", istime='" + istime + '\'' +
+                        '}';
+            }
         }
 
         @Override
         public String toString() {
             return "DataBean{" +
-                    "id='" + id + '\'' +
-                    ", goodsname='" + goodsname + '\'' +
-                    ", thumb='" + thumb + '\'' +
-                    ", marketprice='" + marketprice + '\'' +
-                    ", unit='" + unit + '\'' +
-                    ", productprice='" + productprice + '\'' +
-                    ", ishot='" + ishot + '\'' +
-                    ", isrecommand='" + isrecommand + '\'' +
-                    ", isnew='" + isnew + '\'' +
-                    ", isdiscount='" + isdiscount + '\'' +
-                    ", issendfree='" + issendfree + '\'' +
-                    ", istime='" + istime + '\'' +
+                    "count='" + count + '\'' +
+                    ", page=" + page +
+                    ", pagesize=" + pagesize +
+                    ", list=" + list +
                     '}';
         }
     }

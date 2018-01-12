@@ -16,6 +16,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -34,21 +35,25 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.adapter.AddressListAdapter;
 import com.dq.huibao.adapter.gd.ChooseAdapter;
 import com.dq.huibao.adapter.gd.ChooseTwoAdapter;
 import com.dq.huibao.adapter.gd.GdCommentAdapter;
 import com.dq.huibao.adapter.gd.GdParmasAdapter;
 import com.dq.huibao.bean.LoginBean;
-import com.dq.huibao.bean.goodsdetail.Comment;
-import com.dq.huibao.bean.goodsdetail.GoodsDetail;
-import com.dq.huibao.bean.goodsdetail.Items;
-import com.dq.huibao.bean.goodsdetail.Options;
-import com.dq.huibao.bean.goodsdetail.Params;
-import com.dq.huibao.bean.goodsdetail.Specs;
+import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.goods.GoodsDetail;
+//import com.dq.huibao.bean.goodsdetail.Comment;
+//import com.dq.huibao.bean.goodsdetail.GoodsDetail;
+//import com.dq.huibao.bean.goodsdetail.Items;
+//import com.dq.huibao.bean.goodsdetail.Options;
+//import com.dq.huibao.bean.goodsdetail.Params;
+//import com.dq.huibao.bean.goodsdetail.Specs;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
+import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -219,18 +224,18 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /**
      *
      */
-    private GoodsDetail goodsDetail;
+    //private GoodsDetail goodsDetail;
 
     /*图片*/
     public static List<String> picsList = new ArrayList<>();
 
     /*商品规格*/
-    private List<Specs> specsList = new ArrayList<>();
+    //private List<Specs> specsList = new ArrayList<>();
 
     /*商品规格items*/
-    private List<Items> itemList = new ArrayList<>();
-    private List<Items> itemLists = new ArrayList<>();
-    private List<Options> optionsList = new ArrayList<>();
+//    private List<Items> itemList = new ArrayList<>();
+//    private List<Items> itemLists = new ArrayList<>();
+    //private List<Options> optionsList = new ArrayList<>();
 
     /*UI赋值*/
     private String title = "", marketprice = "", total = "", sales = "";
@@ -238,18 +243,31 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /*图文详情*/
     private String content = "";
     /*产品参数*/
-    private List<Params> paramsList = new ArrayList<>();
+    //private List<Params> paramsList = new ArrayList<>();
     private GdParmasAdapter gdParmasAdapter;
     /*用户评价*/
-    private List<Comment> commentList = new ArrayList<>();
+    //private List<Comment> commentList = new ArrayList<>();
     private GdCommentAdapter gdCommentAdapter;
 
     /*规格id*/
-    private String specsItemId1 = "", specsItemId2 = "";
+    //private String specsItemId1 = "", specsItemId2 = "";
 
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
     private String unionid = "";
+    private String token = "", phone = "";
+
+    private GoodsDetail goodsDetail;
+    /*选择规格*/
+    private List<GoodsDetail.DataBean.SpecBean> specsList = new ArrayList<>();
+    /*上传规格*/
+    private List<GoodsDetail.DataBean.OptionBean> optionsList = new ArrayList<>();
+    /*规格item1*/
+    private List<GoodsDetail.DataBean.SpecBean.ItemsBean> itemList = new ArrayList<>();
+    /*规格item2*/
+    private List<GoodsDetail.DataBean.SpecBean.ItemsBean> itemLists = new ArrayList<>();
+    /*参数*/
+    private List<GoodsDetail.DataBean.ParamBean> paramsList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -260,7 +278,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         intent = getIntent();
         gid = intent.getStringExtra("gid");
 
-        getGoodsDetail(gid);
+        //getGoodsDetailOld(gid);
+
+        //getGoodsDetail(gid, token, phone);
 
         getSaveCollection();
 
@@ -369,7 +389,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 vGdParams.setVisibility(View.VISIBLE);
                 linGdParams.setVisibility(View.VISIBLE);
 
-                paramsList = goodsDetail.getData().getParams();
+                paramsList = goodsDetail.getData().getParam();
                 gdParmasAdapter = new GdParmasAdapter(TAG, paramsList);
                 rvGdParams.setLayoutManager(new LinearLayoutManager(TAG));
                 rvGdParams.setAdapter(gdParmasAdapter);
@@ -384,8 +404,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 vGdComment.setVisibility(View.VISIBLE);
                 linGdComment.setVisibility(View.VISIBLE);
 
-                commentList = goodsDetail.getData().getComment();
-                gdCommentAdapter = new GdCommentAdapter(TAG, commentList);
+                //commentList = goodsDetail.getData().getComment();
+                //gdCommentAdapter = new GdCommentAdapter(TAG, commentList);
                 rvGdComment.setLayoutManager(new LinearLayoutManager(TAG));
                 rvGdComment.setAdapter(gdCommentAdapter);
 
@@ -408,12 +428,19 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     public void initDate() {
         if (isLogin()) {
             if (!(spUserInfo.getLoginReturn().equals(""))) {
-                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
-                unionid = loginBean.getData().getUnionid();
+//                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
+//                unionid = loginBean.getData().getUnionid();
+
+                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
+                phone = login.getData().getPhone();
+                token = login.getData().getToken();
+                getGoodsDetail(gid, phone, token);
+
 
             } else {
                 //toast("登录状态出错，请重新登录");
-                Toast.makeText(TAG, "登录状态出错，请重新登录", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(TAG, "登录状态出错，请重新登录", Toast.LENGTH_SHORT).show();
+                getGoodsDetail(gid, phone, token);
             }
         }
 
@@ -433,9 +460,70 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /**
      * 获取商品详情
      *
+     * @param id
+     * @param token （不用加密，没登陆就不传）
+     * @param phone （不用加密，没登陆就不传）
+     */
+    public void getGoodsDetail(String id, String token, String phone) {
+        PATH = HttpUtils.PATHS + HttpUtils.GOODS_DETAIL +
+                "id=" + id + "&token=" + token + "&phone=" + phone;
+        params = new RequestParams(PATH);
+        System.out.println("商品详情 = " + PATH);
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("商品详情 = " + result);
+                        goodsDetail = GsonUtil.gsonIntance().gsonToBean(result, GoodsDetail.class);
+
+                        picsList = goodsDetail.getData().getThumb_url();
+
+                        if (!goodsDetail.getData().getSpec().toString().equals("[]")) {
+                            specsList = goodsDetail.getData().getSpec();
+                        }
+                        if (!goodsDetail.getData().getOption().toString().equals("[]")) {
+                            optionsList = goodsDetail.getData().getOption();
+                        }
+
+                        title = goodsDetail.getData().getGoodsname();
+                        marketprice = "" + goodsDetail.getData().getMarketprice();
+                        total = "" + goodsDetail.getData().getStock();
+                        sales = "" + goodsDetail.getData().getSales();
+                        content = goodsDetail.getData().getContent();
+
+                        tvGdTitle.setText("" + goodsDetail.getData().getGoodsname());
+
+                        setLunbotu();
+
+                        initData();
+
+                        getWebHTML(content);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
+     * 获取商品详情
+     *
      * @param gid
      */
-    public void getGoodsDetail(String gid) {
+    public void getGoodsDetailOld(String gid) {
         PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODS_DETAIL + gid;
         params = new RequestParams(PATH);
 
@@ -448,22 +536,22 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                         System.out.println("商品详情 = " + result);
                         goodsDetail = GsonUtil.gsonIntance().gsonToBean(result, GoodsDetail.class);
 
-                        picsList = goodsDetail.getData().getPics();
-
-                        if (!goodsDetail.getData().getSpecs().toString().equals("[]")) {
-                            specsList = goodsDetail.getData().getSpecs();
-                        }
-                        if (!goodsDetail.getData().getOptions().toString().equals("[]")) {
-                            optionsList = goodsDetail.getData().getOptions();
-                        }
-
-                        title = goodsDetail.getData().getGoods().getTitle();
-                        marketprice = goodsDetail.getData().getGoods().getMarketprice();
-                        total = goodsDetail.getData().getGoods().getTotal();
-                        sales = goodsDetail.getData().getGoods().getSales();
-                        content = goodsDetail.getData().getGoods().getContent();
-
-                        tvGdTitle.setText("" + goodsDetail.getData().getGoods().getTitle());
+//                        picsList = goodsDetail.getData().getPics();
+//
+//                        if (!goodsDetail.getData().getSpecs().toString().equals("[]")) {
+//                            specsList = goodsDetail.getData().getSpecs();
+//                        }
+//                        if (!goodsDetail.getData().getOptions().toString().equals("[]")) {
+//                            optionsList = goodsDetail.getData().getOptions();
+//                        }
+//
+//                        title = goodsDetail.getData().getGoods().getTitle();
+//                        marketprice = goodsDetail.getData().getGoods().getMarketprice();
+//                        total = goodsDetail.getData().getGoods().getTotal();
+//                        sales = goodsDetail.getData().getGoods().getSales();
+//                        content = goodsDetail.getData().getGoods().getContent();
+//
+//                        tvGdTitle.setText("" + goodsDetail.getData().getGoods().getTitle());
 
                         //initView();
 
@@ -514,7 +602,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         infos = new ArrayList<>();
         for (int i = 0; i < picsList.size(); i++) {
             info = new ADInfo();
-            info.setUrl(HttpUtils.HEADER + picsList.get(i).toString());
+            info.setUrl(HttpUtils.IMG_HEADER + picsList.get(i).toString());
             info.setContent("");
             info.setImg("");
             infos.add(info);
@@ -577,8 +665,10 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     private ChooseAdapter chooseAdapter;
     private ChooseTwoAdapter chooseTwoAdapter;
 
+    private SpecAdapter specAdapter;
+
     /*规格*/
-    private String specifications1 = "", specifications2 = "";
+//    private String specifications1 = "", specifications2 = "";
 
     /*数量*/
     private int num = 1;
@@ -634,8 +724,14 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         iv_cancel = (ImageView) view.findViewById(R.id.iv_pop_gd_back);
         iv_thumb = (ImageView) view.findViewById(R.id.iv_pop_gd_thumb);
 
+        recyclerView = view.findViewById(R.id.rv_goods_spec);
+        specAdapter = new SpecAdapter(this, specsList);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(specAdapter);
+
+
         Glide.with(TAG)
-                .load(HttpUtils.HEADER + goodsDetail.getData().getPics().get(0))
+                .load(HttpUtils.IMG_HEADER + goodsDetail.getData().getThumb())
                 .placeholder(R.mipmap.icon_empty002)
                 .error(R.mipmap.icon_error002)
                 .into(iv_thumb);
@@ -651,8 +747,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         linAdd = (LinearLayout) view.findViewById(R.id.lin_pop_gd_add);
         linSub = (LinearLayout) view.findViewById(R.id.lin_pop_gd_sub);
 
-        tv_marketprice.setText("￥" + goodsDetail.getData().getGoods().getMarketprice());
-        tv_total.setText("库存：" + goodsDetail.getData().getGoods().getTotal());
+        tv_marketprice.setText("￥" + goodsDetail.getData().getMarketprice());
+        tv_total.setText("库存：" + goodsDetail.getData().getStock());
 
         /*取消*/
         iv_cancel.setOnClickListener(new View.OnClickListener() {
@@ -691,39 +787,27 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String options_specs = "", options_title = "", options_id = "";
-                if (specsItemId2.equals("")) {
-                    options_specs = specsItemId1 + specsItemId2;
-                } else {
-                    options_specs = specsItemId1 + "_" + specsItemId2;
-                }
-
-//                System.out.println("111 = " + specsItemId1);
-//                System.out.println("222 = " + specsItemId2);
-//                System.out.println("sss = " + options_specs);
-
-                for (int i = 0; i < optionsList.size(); i++) {
-                    if (options_specs.equals(optionsList.get(i).getSpecs())) {
-//                        System.out.println(optionsList.get(i).getTitle());
-                        options_id = optionsList.get(i).getId();
-                        options_title = optionsList.get(i).getTitle();
-
-                    } else {
-                        System.out.println("有规格木有选择");
-                    }
-                }
+//                for (int i = 0; i < optionsList.size(); i++) {
+//                    if (options_specs.equals(optionsList.get(i).getSpecs())) {
+//                        options_id = optionsList.get(i).getId();
+//                        options_title = optionsList.get(i).getTitle();
+//
+//                    } else {
+//                        System.out.println("有规格木有选择");
+//                    }
+//                }
 
                 if (tag == 0) {
-                    //tvGdSpecification.setText("已选：" + specifications1 + "   " + specifications2 + "   数量：" + num);
-                    tvGdSpecification.setText("已选：" + options_title);
+                    //选择规格
+                    tvGdSpecification.setText("已选：" + string);
                     popWindow.dismiss();
                 } else if (tag == 1) {
                     //添加购物车
-                    setAddCart(unionid, gid, options_id, "" + num);
-
-                    //判断规格选择情况
+                    //setAddCart(unionid, gid, options_id, "" + num);
+                    cartAdd(phone, token, gid, optionid, num);
 
                 } else if (tag == 2) {
+                    //立即购买
                     intent = new Intent(TAG, SubmitOrderActivity.class);
                     startActivity(intent);
                 }
@@ -732,9 +816,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         });
 
         /*根据数据结构动态生成UI*/
-        for (int i = 0; i < specsList.size(); i++) {
-            setChooseLayout(i, specsList.get(i).getDisplayorder());
-        }
+//        for (int i = 0; i < specsList.size(); i++) {
+//            setChooseLayout(i, "0");
+//        }
 
     }
 
@@ -747,85 +831,124 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      * @param i
      * @param displayorder
      */
-    public void setChooseLayout(int i, String displayorder) {
-        switch (displayorder) {
-            case "0":
-                lin_choose = (LinearLayout) TAG.getLayoutInflater().inflate(R.layout.include_gd_choose, null);
-                linGdMain.addView(lin_choose);
+//    public void setChooseLayout(int i, String displayorder) {
+//        switch (displayorder) {
+//            case "0":
+//                lin_choose = (LinearLayout) TAG.getLayoutInflater().inflate(R.layout.include_gd_choose, null);
+//                linGdMain.addView(lin_choose);
+//
+//                textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
+//                recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
+//
+//                itemList = specsList.get(i).getItems();
+//
+//                textView.setText("" + specsList.get(i).getTitle());
+//
+//                chooseTwoAdapter = new ChooseTwoAdapter(TAG, itemList);
+//
+//                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
+//
+//                recyclerView.setAdapter(chooseTwoAdapter);
+//
+//                chooseTwoAdapter.setmOnItemClickListener(new OnItemClickListener() {
+//                    @SuppressLint("WrongConstant")
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        chooseTwoAdapter.changeSelected(position);
+//                        //Toast.makeText(TAG, "000 = " + itemList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+//
+//                        specifications1 = itemList.get(position).getTitle();
+//                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
+//
+//                        specsItemId1 = itemList.get(position).getId();
+//                    }
+//                });
+//                break;
+//
+//            case "1":
+//                lin_choose = (LinearLayout) TAG.getLayoutInflater().inflate(R.layout.include_gd_choose, null);
+//                linGdMain.addView(lin_choose);
+//
+//                textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
+//                recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
+//
+//                itemLists = specsList.get(i).getItems();
+//
+//                textView.setText("" + specsList.get(i).getTitle());
+//
+//                chooseAdapter = new ChooseAdapter(TAG, itemLists);
+//
+//                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
+//
+//                recyclerView.setAdapter(chooseAdapter);
+//
+//                chooseAdapter.setmOnItemClickListener(new OnItemClickListener() {
+//                    @SuppressLint("WrongConstant")
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//
+//                        chooseAdapter.changeSelected(position);
+//
+//                        ImageUtils.loadIntoUseFitWidth(TAG,
+//                                HttpUtils.IMG_HEADER + itemLists.get(position).getThumb(),
+//                                R.mipmap.icon_empty002,
+//                                R.mipmap.icon_error002,
+//                                iv_thumb);
+//
+//                        specifications2 = itemLists.get(position).getTitle();
+//
+//                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
+//
+//                        specsItemId2 = itemLists.get(position).getId();
+//
+//                    }
+//                });
+//                break;
+//            default:
+//                break;
+//        }
+//
+//    }
 
-                textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
-                recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
+    /**
+     * 添加购物车
+     *
+     * @param phone
+     * @param token
+     * @param gid
+     * @param optioned
+     * @param count
+     */
+    public void cartAdd(String phone, String token, String gid, String optioned, int count) {
+        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD +
+                "phone=" + phone + "&token=" + token + "&goodsid=" + gid
+                + "&optioned=" + optioned + "&count=" + count;
 
-                itemList = specsList.get(i).getItems();
-
-                textView.setText("" + specsList.get(i).getTitle());
-
-                chooseTwoAdapter = new ChooseTwoAdapter(TAG, itemList);
-
-                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
-
-                recyclerView.setAdapter(chooseTwoAdapter);
-
-                chooseTwoAdapter.setmOnItemClickListener(new OnItemClickListener() {
-                    @SuppressLint("WrongConstant")
+        params = new RequestParams(PATH);
+        System.out.println("添加购物车 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
                     @Override
-                    public void onItemClick(View view, int position) {
-                        chooseTwoAdapter.changeSelected(position);
-                        //Toast.makeText(TAG, "000 = " + itemList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                    public void onSuccess(String result) {
+                        System.out.println("添加购物车 = " + result);
+                    }
 
-                        specifications1 = itemList.get(position).getTitle();
-                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
 
-                        specsItemId1 = itemList.get(position).getId();
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
                     }
                 });
-                break;
-
-            case "1":
-                lin_choose = (LinearLayout) TAG.getLayoutInflater().inflate(R.layout.include_gd_choose, null);
-                linGdMain.addView(lin_choose);
-
-                textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
-                recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
-
-                itemLists = specsList.get(i).getItems();
-
-                textView.setText("" + specsList.get(i).getTitle());
-
-                chooseAdapter = new ChooseAdapter(TAG, itemLists);
-
-                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
-
-                recyclerView.setAdapter(chooseAdapter);
-
-                chooseAdapter.setmOnItemClickListener(new OnItemClickListener() {
-                    @SuppressLint("WrongConstant")
-                    @Override
-                    public void onItemClick(View view, int position) {
-
-                        chooseAdapter.changeSelected(position);
-
-                        ImageUtils.loadIntoUseFitWidth(TAG,
-                                HttpUtils.HEADER + itemLists.get(position).getThumb(),
-                                R.mipmap.icon_empty002,
-                                R.mipmap.icon_error002,
-                                iv_thumb);
-
-                        specifications2 = itemLists.get(position).getTitle();
-
-                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
-
-                        specsItemId2 = itemLists.get(position).getId();
-
-                    }
-                });
-                break;
-            default:
-                break;
-        }
-
     }
-
 
     /**
      * 添加购物车
@@ -992,5 +1115,104 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         webView.getSettings().setJavaScriptEnabled(false);
         webView.clearCache(true);
 
+    }
+
+
+    String[] strings;
+    String string = "";
+    String optionid = "";
+
+    public class SpecAdapter extends RecyclerView.Adapter<SpecAdapter.MyViewHolder> {
+        private Context mContext;
+        private List<GoodsDetail.DataBean.SpecBean> specBeanList;
+        private OnItemClickListener onItemClickListener;
+
+        public SpecAdapter(Context mContext, List<GoodsDetail.DataBean.SpecBean> specBeanList) {
+            this.mContext = mContext;
+            this.specBeanList = specBeanList;
+        }
+
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int i) {
+            MyViewHolder vh = new MyViewHolder(
+                    LayoutInflater.from(mContext).inflate(R.layout.item_spec, parent, false));
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(final MyViewHolder holder, final int i) {
+            if (onItemClickListener != null) {
+                //
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = holder.getLayoutPosition(); // 1
+                        onItemClickListener.onItemClick(holder.itemView, position); // 2
+                    }
+                });
+
+            }
+            holder.title.setText("" + specBeanList.get(i).getTitle());
+
+            final ChooseAdapter chooseAdapter = new ChooseAdapter(mContext, specBeanList.get(i).getItems());
+            holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1, GridLayoutManager.HORIZONTAL, false));
+            holder.recyclerView.setAdapter(chooseAdapter);
+
+            strings = new String[specBeanList.size()];
+
+            chooseAdapter.setmOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    chooseAdapter.changeSelected(position);
+
+//                        ImageUtils.loadIntoUseFitWidth(TAG,
+//                                HttpUtils.IMG_HEADER + specBeanList.get(position).get,
+//                                R.mipmap.icon_empty002,
+//                                R.mipmap.icon_error002,
+//                                iv_thumb);
+
+                    strings[i] = specBeanList.get(i).getItems().get(position).getId();
+
+                    for (int j = 0; j < strings.length; j++) {
+                        if (j == 0) {
+                            string = strings[j];
+                        } else {
+                            string = strings[j] + "_" + string;
+                        }
+                    }
+
+                    for (int k = 0; k < optionsList.size(); k++) {
+                        if (string.equals(optionsList.get(k).getSpecs())) {
+                            optionid = optionsList.get(k).getId();
+                            tv_specification.setText("已选：" + optionsList.get(k).getTitle());
+                        }
+                    }
+
+                }
+            });
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return specBeanList.size();
+        }
+
+        public class MyViewHolder extends BaseRecyclerViewHolder {
+            private TextView title;
+            private RecyclerView recyclerView;
+
+            public MyViewHolder(View view) {
+                super(view);
+                title = view.findViewById(R.id.tv_spec_title);
+                recyclerView = view.findViewById(R.id.rv_spec);
+
+            }
+        }
     }
 }

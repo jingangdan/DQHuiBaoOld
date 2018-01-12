@@ -177,6 +177,8 @@ public class HttpUtils {
      */
     public static final String IMG_HEADER = "http://www.dequanhuibao.com";
 
+    public static final String NEW_HEADER = "http://new.dequanhuibao.com/";
+
     /**
      * 1.
      * 验证手机号是否已经注册
@@ -340,5 +342,41 @@ public class HttpUtils {
      * phone（不用加密，没登陆就不传）
      */
     public static final String GOODS_DETAIL = "Goods/detail?";
+
+    /**
+     * 14.
+     * 首页
+     * 方式：get/post
+     * -url链接
+     * article文章
+     * cate分类
+     * goods商品
+     * custom自定义分类
+     * articlecate文章分类
+     * search  搜索
+     * url # 不做操作
+     */
+    public static final String INDEXT_INDEX = "Index/index";
+
+    /**
+     * 15.
+     * 添加购物车
+     * 方式：post/get
+     * 参数：
+     * goodsid 商品id
+     * optioned 规格id
+     * count	添加数量（正负）
+     * 用户登陆验证（phone,token）
+     */
+    public static final String CART_ADD = "Cart/add";
+
+    /**
+     * 16.
+     * 获取购物车
+     * 方式：post/get
+     * 参数：
+     * 用户登陆验证（phone,token）
+     */
+    public static final String CART_GET = "Cart/get";
 
 }

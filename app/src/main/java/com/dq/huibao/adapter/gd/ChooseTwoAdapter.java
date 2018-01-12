@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.bean.goodsdetail.Items;
+//import com.dq.huibao.bean.goodsdetail.Items;
+import com.dq.huibao.bean.goods.GoodsDetail;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 
 import java.util.List;
+
 
 /**
  * Description：
@@ -22,12 +24,16 @@ import java.util.List;
 
 public class ChooseTwoAdapter extends RecyclerView.Adapter<ChooseTwoAdapter.MyViewHolder> {
     private Context mContext;
-    //private List<GoodsDetail.DataBean.SpecsBean.ItemsBean> itemList;
-    private List<Items> itemList;
+    //private List<Items> itemList;
+    private List<GoodsDetail.DataBean.SpecBean.ItemsBean> itemList;
     private OnItemClickListener mOnItemClickListener;
     private int mSelect = -1;
 
-    public ChooseTwoAdapter(Context mContext, List<Items> itemList) {
+    //    public ChooseTwoAdapter(Context mContext, List<Items> itemList) {
+//        this.mContext = mContext;
+//        this.itemList = itemList;
+//    }
+    public ChooseTwoAdapter(Context mContext, List<GoodsDetail.DataBean.SpecBean.ItemsBean> itemList) {
         this.mContext = mContext;
         this.itemList = itemList;
     }

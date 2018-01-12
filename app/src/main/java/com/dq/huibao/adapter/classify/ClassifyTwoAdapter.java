@@ -78,7 +78,7 @@ public class ClassifyTwoAdapter extends RecyclerView.Adapter<ClassifyTwoAdapter.
             @Override
             public void onItemClick(View view, int i) {
                 Intent intent = new Intent(mContext, GoodsListActivity.class);
-                intent.putExtra("cateid", childrenList.get(position).getChildren().get(i).getId());
+                intent.putExtra("content", "cate="+childrenList.get(position).getChildren().get(i).getId());
                 intent.putExtra("catename", childrenList.get(position).getChildren().get(i).getCatename());
                 intent.putExtra("keywords", "");
                 mContext.startActivity(intent);

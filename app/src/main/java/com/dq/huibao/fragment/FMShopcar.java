@@ -25,6 +25,7 @@ import com.dq.huibao.adapter.ShoppingCartAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.Cart;
 import com.dq.huibao.bean.LoginBean;
+import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.ui.SubmitOrderActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -107,6 +108,7 @@ public class FMShopcar extends BaseFragment implements
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
     private String unionid = "";
+    private String phone = "", token = "";
 
     /*UI显示*/
     @Bind(R.id.rv_shopcart)
@@ -143,10 +145,14 @@ public class FMShopcar extends BaseFragment implements
         if (spUserInfo.getLogin().equals("1")) {
 
             if (!(spUserInfo.getLoginReturn().equals(""))) {
-                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
-                unionid = loginBean.getData().getUnionid();
-
-                getCart(unionid, "", "");
+//                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
+//                unionid = loginBean.getData().getUnionid();
+//
+//                getCart(unionid, "", "");
+                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
+                phone = login.getData().getPhone();
+                token = login.getData().getToken();
+                getCart(phone, token);
 
                 tvBaseTitle.setText("购物车");
 
@@ -158,6 +164,41 @@ public class FMShopcar extends BaseFragment implements
             relShopCartLogin.setVisibility(View.GONE);
             linShopcartNologin.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * 获取购物车
+     *
+     * @param phone
+     * @param token
+     */
+    public void getCart(String phone, String token) {
+        PATH = HttpUtils.PATHS + HttpUtils.CART_GET +
+                "phone=" + phone + "&token=" + token;
+        params = new RequestParams(PATH);
+        System.out.println("获取购物车 = " + PATH);
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("获取购物车 = " + result);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
     }
 
     /**
