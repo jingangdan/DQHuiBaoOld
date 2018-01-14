@@ -11,16 +11,17 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.ShopCartAdapter;
+import com.dq.huibao.adapter.cart.ShopTestAdapter;
 import com.dq.huibao.base.BaseActivity;
-import com.dq.huibao.bean.Cart;
-import com.dq.huibao.bean.LoginBean;
+import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.ui.SubmitOrderActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -32,7 +33,9 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,10 +45,10 @@ import butterknife.OnClick;
  * Description：购物车（activity）
  * Created by jingang on 2017/11/1.
  */
-
 public class ShopcarActivity extends BaseActivity implements
-        ShopCartAdapter.CheckInterface,
-        ShopCartAdapter.ModifyCountInterface {
+        ShopTestAdapter.CheckInterface,
+        ShopTestAdapter.ModifyCountInterface,
+        ShopTestAdapter.GroupEdtorListener {
 
     /*登录状态*/
     @Bind(R.id.lin_shopcart_nologin)
@@ -56,8 +59,6 @@ public class ShopcarActivity extends BaseActivity implements
     @Bind(R.id.tv_base_title)
     TextView tvBaseTitle;
 
-    @Bind(R.id.list_shopping_cart)
-    ListView list_shopping_cart;
     @Bind(R.id.ck_all)
     CheckBox ck_all;
     @Bind(R.id.tv_settlement)
@@ -94,17 +95,21 @@ public class ShopcarActivity extends BaseActivity implements
 
     /*接口地址*/
     private String PATH = "";
+    private String MD5_PATH = "";
     private RequestParams params = null;
 
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
     private String unionid = "";
+    private String phone = "", token = "";
 
     /*UI显示*/
-    @Bind(R.id.rv_shopcart)
-    RecyclerView rvShopCart;
-    private ShopCartAdapter shopCartAdapter;
-    private List<Cart.DataBean.ListBean> cartList = new ArrayList<>();
+    @Bind(R.id.exListView)
+    ExpandableListView exListView;
+
+    private List<Cart.DataBean> shopList = new ArrayList<>();
+    private Map<String, List<Cart.DataBean.GoodslistBean>> children = new HashMap<String, List<Cart.DataBean.GoodslistBean>>();// 子元素数据列表
+    private ShopTestAdapter shopTestAdapter;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -115,11 +120,11 @@ public class ShopcarActivity extends BaseActivity implements
 
         relShopcarHeader.setVisibility(View.GONE);
 
-        shopCartAdapter = new ShopCartAdapter(this, cartList);
-        rvShopCart.setLayoutManager(new LinearLayoutManager(this));
-        rvShopCart.setAdapter(shopCartAdapter);
-        shopCartAdapter.setCheckInterface(this);
-        shopCartAdapter.setModifyCountInterface(this);
+        shopTestAdapter = new ShopTestAdapter(shopList, children, this);
+        shopTestAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
+        shopTestAdapter.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
+        shopTestAdapter.setmListener(this);
+        exListView.setAdapter(shopTestAdapter);
 
         isLogin();
 
@@ -141,10 +146,12 @@ public class ShopcarActivity extends BaseActivity implements
         if (spUserInfo.getLogin().equals("1")) {
 
             if (!(spUserInfo.getLoginReturn().equals(""))) {
-                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
-                unionid = loginBean.getData().getUnionid();
+                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
+                phone = login.getData().getPhone();
+                token = login.getData().getToken();
 
-                getCart(unionid, "", "");
+                getCart(phone, token);
+
 
                 tvBaseTitle.setText("购物车");
 
@@ -157,92 +164,34 @@ public class ShopcarActivity extends BaseActivity implements
     /**
      * 获取购物车
      *
-     * @param unionid
-     * @param ischannelpick 不知道
-     * @param ischannelpay  不知道
+     * @param phone
+     * @param token
      */
-    public void getCart(String unionid, String ischannelpick, String ischannelpay) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_CART + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_CART_CART + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
-                "&ischannelpick=" + ischannelpick + "&ischannelpay=" + ischannelpay;
+    public void getCart(String phone, String token) {
+        MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
+        PATH = HttpUtils.PATHS + HttpUtils.CART_GET + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
         params = new RequestParams(PATH);
-        System.out.println("购物车 = " + PATH);
-
+        System.out.println("获取购物车 = " + PATH);
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println("购物车 = " + result);
+                        System.out.println("获取购物车 = " + result);
                         Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
-                        cartList.clear();
-                        cartList.addAll(cart.getData().getList());
-                        shopCartAdapter.notifyDataSetChanged();
-                    }
+                        shopList.clear();
+                        shopList.addAll(cart.getData());
+                        //shopAdapter.notifyDataSetChanged();
+                        for (int i = 0; i < shopList.size(); i++) {
+                            children.put(shopList.get(i).getShopid(), shopList.get(i).getGoodslist());
+                        }
+                        shopTestAdapter.notifyDataSetChanged();
 
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-
-    }
-
-    /**
-     * 购物车修改数量
-     *
-     * @param position
-     * @param showCountView
-     * @param isChecked
-     * @param unionid
-     * @param id
-     * @param goodsid
-     * @param total
-     */
-    public void setCartUpdateNum(final int position, final View showCountView, boolean isChecked,
-                                 String unionid, String id, String goodsid, int total, final int tag) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_UPDATENUM + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_CART_UPDATENUM + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
-                "&id=" + id + "&goodsid=" + goodsid + "&total=" + total;
-
-        params = new RequestParams(PATH);
-        System.out.println("购物车修改数量 = " + PATH);
-
-        x.http().post(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("购物车修改数量 = " + result);
-
-                        Cart.DataBean.ListBean listBean = cartList.get(position);
-                        int currentCount = Integer.parseInt(listBean.getTotal());
-
-                        if (tag == 0) {
-                            currentCount++;
-                            listBean.setTotal("" + currentCount);
-                            ((TextView) showCountView).setText(currentCount + "");
-                            shopCartAdapter.notifyDataSetChanged();
-                            statistics();
-                        } else if (tag == 1) {
-                            if (currentCount == 1) {
-                                return;
-                            }
-                            currentCount--;
-                            listBean.setTotal("" + currentCount);
-                            ((TextView) showCountView).setText(currentCount + "");
-                            shopCartAdapter.notifyDataSetChanged();
-                            statistics();
+                        for (int i = 0; i < shopTestAdapter.getGroupCount(); i++) {
+                            // 关键步骤3,初始化时，将ExpandableListView以展开的方式呈现
+                            exListView.expandGroup(i);
                         }
 
                     }
@@ -262,86 +211,51 @@ public class ShopcarActivity extends BaseActivity implements
 
                     }
                 });
-
     }
 
     /**
-     * 移至收藏夹
+     * 添加购物车（修改购物车数量）
      *
-     * @param unionid
-     * @param ids     id以","隔开
+     * @param phone
+     * @param token
+     * @param gid
+     * @param optionid
+     * @param count
      */
-    public void setToFavorite(String unionid, String ids) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_TOFAVORITE +
-                "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_CART_TOFAVORITE + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
-                "&ids=" + ids;
+    public void cartAdd(int groupPosition, int childPosition, View showCountView, boolean isChecked,
+                        String phone, String token, final String gid, String optionid, int count) {
+        MD5_PATH = "count=" + count + "&goodsid=" + gid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
+
 
         params = new RequestParams(PATH);
-        System.out.println("移至收藏夹 = " + PATH);
+        System.out.println("添加购物车 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @SuppressLint("WrongConstant")
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("添加购物车 = " + result);
 
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                System.out.println("移至收藏夹 = " + result);
-            }
+                    }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(CancelledException cex) {
+                    @Override
+                    public void onCancelled(CancelledException cex) {
 
-            }
+                    }
 
-            @Override
-            public void onFinished() {
+                    @Override
+                    public void onFinished() {
 
-            }
-        });
-    }
-
-    /**
-     * 删除
-     *
-     * @param unionid
-     * @param ids
-     */
-    public void setRemova(final String unionid, String ids) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_REMOVE +
-                "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_CART_REMOVE + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
-                "&ids=" + ids;
-
-        params = new RequestParams(PATH);
-        System.out.println("删除 = " + PATH);
-
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                System.out.println("删除 = " + result);
-
-                getCart(unionid, "", "");
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+                    }
+                });
     }
 
     String ids = "";
@@ -352,40 +266,26 @@ public class ShopcarActivity extends BaseActivity implements
 
             case R.id.ck_all:
                 //全选按钮
-                if (cartList.size() != 0) {
-                    if (ck_all.isChecked()) {
-                        for (int i = 0; i < cartList.size(); i++) {
-                            cartList.get(i).setChoosed(true);
-                        }
-                        shopCartAdapter.notifyDataSetChanged();
-                    } else {
-                        for (int i = 0; i < cartList.size(); i++) {
-                            cartList.get(i).setChoosed(false);
-                        }
-                        shopCartAdapter.notifyDataSetChanged();
-                    }
-                }
-                statistics();
+                doCheckAll();
                 break;
 
             case R.id.but_shopcart_tofavorite:
                 //移至收藏夹
 
-                if (cartList.size() != 0) {
-                    for (int i = 0; i < cartList.size(); i++) {
-                        cartList.get(i).isChoosed();
-                        if (cartList.get(i).isChoosed()) {
-                            if (ids.equals("")) {
-                                ids = cartList.get(i).getId();
-                            } else {
-                                ids = ids + "," + cartList.get(i).getId();
-                            }
-                        }
-                    }
-                }
+//                if (cartList.size() != 0) {
+//                    for (int i = 0; i < cartList.size(); i++) {
+//                        cartList.get(i).isChoosed();
+//                        if (cartList.get(i).isChoosed()) {
+//                            if (ids.equals("")) {
+//                                ids = cartList.get(i).getId();
+//                            } else {
+//                                ids = ids + "," + cartList.get(i).getId();
+//                            }
+//                        }
+//                    }
+//                }
 
                 if (!ids.equals("")) {
-                    setToFavorite(unionid, ids);
                 } else {
 
                 }
@@ -394,21 +294,20 @@ public class ShopcarActivity extends BaseActivity implements
             case R.id.but_shopacrt_delete:
                 //删除
                 ids = "";
-                if (cartList.size() != 0) {
-                    for (int i = 0; i < cartList.size(); i++) {
-                        cartList.get(i).isChoosed();
-                        if (cartList.get(i).isChoosed()) {
-                            if (ids.equals("")) {
-                                ids = cartList.get(i).getId();
-                            } else {
-                                ids = ids + "," + cartList.get(i).getId();
-                            }
-                        }
-                    }
-                }
+//                if (cartList.size() != 0) {
+//                    for (int i = 0; i < cartList.size(); i++) {
+//                        cartList.get(i).isChoosed();
+//                        if (cartList.get(i).isChoosed()) {
+//                            if (ids.equals("")) {
+//                                ids = cartList.get(i).getId();
+//                            } else {
+//                                ids = ids + "," + cartList.get(i).getId();
+//                            }
+//                        }
+//                    }
+//                }
 
                 if (!ids.equals("")) {
-                    //setRemova(unionid, ids);
                     setDialog(unionid, ids);
                 } else {
 
@@ -428,23 +327,115 @@ public class ShopcarActivity extends BaseActivity implements
     }
 
     /**
-     * 单选
+     * 组选框状态改变触发的事件
      *
      * @param position  组元素位置
      * @param isChecked 组元素选中与否
      */
     @Override
     public void checkGroup(int position, boolean isChecked) {
+        Cart.DataBean group = shopList.get(position);
+        List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+        for (int i = 0; i < childs.size(); i++) {
+            childs.get(i).setChoosed(isChecked);
+        }
+        if (isAllCheck())
+            ck_all.setChecked(true);
+        else
+            ck_all.setChecked(false);
+        shopTestAdapter.notifyDataSetChanged();
+        //calculate();
 
-        cartList.get(position).setChoosed(isChecked);
+    }
+
+    /**
+     * 子选框状态改变时触发的事件
+     *
+     * @param groupPosition 组元素位置
+     * @param childPosition 子元素位置
+     * @param isChecked     子元素选中与否
+     */
+    @Override
+    public void checkChild(int groupPosition, int childPosition, boolean isChecked) {
+        boolean allChildSameState = true;
+        // 判断改组下面的所有子元素是否是同一种状态
+        Cart.DataBean group = shopList.get(groupPosition);
+        List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+        for (int i = 0; i < childs.size(); i++) {
+            // 不全选中
+            if (childs.get(i).isChoosed() != isChecked) {
+                allChildSameState = false;
+                break;
+            }
+        }
+        //获取店铺选中商品的总金额
+        if (allChildSameState) {
+            group.setChoosed(isChecked);// 如果所有子元素状态相同，那么对应的组元素被设为这种统一状态
+        } else {
+            group.setChoosed(false);// 否则，组元素一律设置为未选中状态
+        }
 
         if (isAllCheck()) {
-            ck_all.setChecked(true);
+            ck_all.setChecked(true);// 全选
         } else {
-            ck_all.setChecked(false);
+            ck_all.setChecked(false);// 反选
         }
-        shopCartAdapter.notifyDataSetChanged();
-        statistics();
+        shopTestAdapter.notifyDataSetChanged();
+        //calculate();
+    }
+
+    /**
+     * 增加操作
+     *
+     * @param groupPosition 组元素位置
+     * @param childPosition 子元素位置
+     * @param showCountView 用于展示变化后数量的View
+     * @param isChecked     子元素选中与否
+     */
+    @Override
+    public void doIncrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
+//        cartAdd(groupPosition, childPosition, showCountView, isChecked,
+//                phone, token, );
+        Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopTestAdapter.getChild(groupPosition,
+                childPosition);
+        int currentCount = Integer.parseInt(product.getCount());
+        currentCount++;
+        product.setCount("" + currentCount);
+        ((TextView) showCountView).setText("" + currentCount);
+        shopTestAdapter.notifyDataSetChanged();
+
+        calculate();
+    }
+
+    /**
+     * 删减操作
+     *
+     * @param groupPosition 组元素位置
+     * @param childPosition 子元素位置
+     * @param showCountView 用于展示变化后数量的View
+     * @param isChecked     子元素选中与否
+     */
+    @Override
+    public void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
+        Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopTestAdapter.getChild(groupPosition,
+                childPosition);
+        int currentCount = Integer.parseInt(product.getCount());
+        if (currentCount == 1)
+            return;
+        currentCount--;
+        product.setCount("" + currentCount);
+        ((TextView) showCountView).setText(currentCount + "");
+        shopTestAdapter.notifyDataSetChanged();
+        calculate();
+    }
+
+    @Override
+    public void childDelete(int groupPosition, int childPosition) {
+
+    }
+
+    @Override
+    public void groupEdit(int groupPosition) {
 
     }
 
@@ -455,96 +446,11 @@ public class ShopcarActivity extends BaseActivity implements
      * @return
      */
     private boolean isAllCheck() {
-        for (Cart.DataBean.ListBean group : cartList) {
+        for (Cart.DataBean group : shopList) {
             if (!group.isChoosed())
                 return false;
         }
         return true;
-    }
-
-    /**
-     * 统计操作
-     * 1.先清空全局计数器<br>
-     * 2.遍历所有子元素，只要是被选中状态的，就进行相关的计算操作
-     * 3.给底部的textView进行数据填充
-     */
-    public void statistics() {
-
-        totalCount = 0;
-        totalPrice = 0.00;
-        for (int i = 0; i < cartList.size(); i++) {
-            Cart.DataBean.ListBean listBean = cartList.get(i);
-            if (listBean.isChoosed()) {
-                //totalCount++;
-                totalCount += Integer.parseInt(listBean.getTotal());
-                totalPrice += Double.parseDouble(listBean.getMarketprice()) * Integer.parseInt(listBean.getTotal());
-            }
-        }
-        tv_show_price.setText("合计:" + totalPrice);
-        tv_settlement.setText("结算(" + totalCount + ")");
-    }
-
-    /**
-     * 增加
-     *
-     * @param position      组元素位置
-     * @param showCountView 用于展示变化后数量的View
-     * @param isChecked     子元素选中与否
-     * @param id
-     * @param goodsid
-     * @param total
-     */
-    @Override
-    public void doIncrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total) {
-        total++;
-
-        setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 0);
-
-//        Cart.DataBean.ListBean listBean = cartList.get(position);
-//        int currentCount = Integer.parseInt(listBean.getTotal());
-//        currentCount++;
-//        listBean.setTotal("" + currentCount);
-//        ((TextView) showCountView).setText(currentCount + "");
-//        shopCartAdapter.notifyDataSetChanged();
-//        statistics();
-
-    }
-
-    /**
-     * 减少
-     *
-     * @param position      组元素位置
-     * @param showCountView 用于展示变化后数量的View
-     * @param isChecked     子元素选中与否
-     * @param id
-     * @param goodsid
-     * @param total
-     */
-    @Override
-    public void doDecrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total) {
-        total--;
-        setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 1);
-        //        Cart.DataBean.ListBean listBean = cartList.get(position);
-//        int currentCount = Integer.parseInt(listBean.getTotal());
-//        if (currentCount == 1) {
-//            return;
-//        }
-//        currentCount--;
-//        listBean.setTotal("" + currentCount);
-//        ((TextView) showCountView).setText(currentCount + "");
-//        shopCartAdapter.notifyDataSetChanged();
-//        statistics();
-
-    }
-
-    /**
-     * 删除
-     *
-     * @param position
-     */
-    @Override
-    public void childDelete(int position) {
-
     }
 
     /**
@@ -569,10 +475,58 @@ public class ShopcarActivity extends BaseActivity implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
-                        setRemova(unionid, ids);
+                        //setRemova(unionid, ids);
                     }
                 });
         alert.show();
     }
+
+    /**
+     * 全选与反选
+     */
+    private void doCheckAll() {
+        for (int i = 0; i < shopList.size(); i++) {
+            shopList.get(i).setChoosed(ck_all.isChecked());
+            Cart.DataBean group = shopList.get(i);
+            List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+            for (int j = 0; j < childs.size(); j++) {
+                childs.get(j).setChoosed(ck_all.isChecked());
+            }
+        }
+        shopTestAdapter.notifyDataSetChanged();
+        // calculate();
+    }
+
+    /**
+     * 统计操作<br>
+     * 1.先清空全局计数器<br>
+     * 2.遍历所有子元素，只要是被选中状态的，就进行相关的计算操作<br>
+     * 3.给底部的textView进行数据填充
+     */
+    private void calculate() {
+        totalCount = 0;
+        totalPrice = 0.00;
+        for (int i = 0; i < shopList.size(); i++) {
+            Cart.DataBean group = shopList.get(i);
+            List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+            for (int j = 0; j < childs.size(); j++) {
+                Cart.DataBean.GoodslistBean product = childs.get(j);
+                if (product.isChoosed()) {
+                    totalCount++;
+                    totalPrice += Double.parseDouble(product.getMarketprice()) * Integer.parseInt(product.getCount());
+                }
+            }
+        }
+
+        tv_show_price.setText("￥" + totalPrice);
+        //tvGoToPay.setText("去支付(" + totalCount + ")");
+        //计算购物车的金额为0时候清空购物车的视图
+        if (totalCount == 0) {
+            //setCartNum();
+        } else {
+            //title.setText("购物车" + "(" + totalCount + ")");
+        }
+    }
+
 
 }

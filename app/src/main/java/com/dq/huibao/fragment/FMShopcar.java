@@ -2,6 +2,7 @@ package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,14 +20,17 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dq.huibao.Interface.CheckInterface;
+import com.dq.huibao.Interface.ModifyCountInterface;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.ShopCartAdapter;
 import com.dq.huibao.adapter.ShoppingCartAdapter;
 import com.dq.huibao.base.BaseFragment;
-import com.dq.huibao.bean.Cart;
-import com.dq.huibao.bean.LoginBean;
+import com.dq.huibao.bean.CartOld;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.ui.SubmitOrderActivity;
+import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -48,8 +52,8 @@ import butterknife.OnClick;
  * Created by jingang on 2017/10/18.
  */
 public class FMShopcar extends BaseFragment implements
-        ShopCartAdapter.CheckInterface,
-        ShopCartAdapter.ModifyCountInterface {
+        CheckInterface,
+        ModifyCountInterface {
 
     /*登录状态*/
     @Bind(R.id.lin_shopcart_nologin)
@@ -64,8 +68,6 @@ public class FMShopcar extends BaseFragment implements
     @Bind(R.id.tv_base_title)
     TextView tvBaseTitle;
 
-    @Bind(R.id.list_shopping_cart)
-    ListView list_shopping_cart;
     @Bind(R.id.ck_all)
     CheckBox ck_all;
     @Bind(R.id.tv_settlement)
@@ -103,6 +105,7 @@ public class FMShopcar extends BaseFragment implements
 
     /*接口地址*/
     private String PATH = "";
+    private String MD5_PATH = "";
     private RequestParams params = null;
 
     /*本地轻量型缓存*/
@@ -111,10 +114,10 @@ public class FMShopcar extends BaseFragment implements
     private String phone = "", token = "";
 
     /*UI显示*/
-    @Bind(R.id.rv_shopcart)
-    RecyclerView rvShopCart;
+//    @Bind(R.id.rv_shopcart)
+//    RecyclerView rvShopCart;
     private ShopCartAdapter shopCartAdapter;
-    private List<Cart.DataBean.ListBean> cartList = new ArrayList<>();
+    private List<CartOld.DataBean.ListBean> cartList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -124,11 +127,11 @@ public class FMShopcar extends BaseFragment implements
 
         tvNologinTitle.setText("购物车");
 
-        shopCartAdapter = new ShopCartAdapter(getActivity(), cartList);
-        rvShopCart.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvShopCart.setAdapter(shopCartAdapter);
-        shopCartAdapter.setCheckInterface(this);
-        shopCartAdapter.setModifyCountInterface(this);
+//        shopCartAdapter = new ShopCartAdapter(getActivity(), cartList);
+//        rvShopCart.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        rvShopCart.setAdapter(shopCartAdapter);
+//        shopCartAdapter.setCheckInterface(this);
+//        shopCartAdapter.setModifyCountInterface(this);
 
         isLogin();
 
@@ -173,8 +176,13 @@ public class FMShopcar extends BaseFragment implements
      * @param token
      */
     public void getCart(String phone, String token) {
-        PATH = HttpUtils.PATHS + HttpUtils.CART_GET +
-                "phone=" + phone + "&token=" + token;
+        MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+//        PATH = HttpUtils.PATHS + HttpUtils.CART_GET +
+//                "phone=" + phone + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.CART_GET + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
+
         params = new RequestParams(PATH);
         System.out.println("获取购物车 = " + PATH);
         x.http().get(params,
@@ -222,7 +230,7 @@ public class FMShopcar extends BaseFragment implements
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("购物车 = " + result);
-                        Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
+                        CartOld cart = GsonUtil.gsonIntance().gsonToBean(result, CartOld.class);
                         cartList.clear();
                         cartList.addAll(cart.getData().getList());
                         shopCartAdapter.notifyDataSetChanged();
@@ -272,7 +280,7 @@ public class FMShopcar extends BaseFragment implements
                     public void onSuccess(String result) {
                         System.out.println("购物车修改数量 = " + result);
 
-                        Cart.DataBean.ListBean listBean = cartList.get(position);
+                        CartOld.DataBean.ListBean listBean = cartList.get(position);
                         int currentCount = Integer.parseInt(listBean.getTotal());
 
                         if (tag == 0) {
@@ -532,7 +540,7 @@ public class FMShopcar extends BaseFragment implements
      * @return
      */
     private boolean isAllCheck() {
-        for (Cart.DataBean.ListBean group : cartList) {
+        for (CartOld.DataBean.ListBean group : cartList) {
             if (!group.isChoosed())
                 return false;
         }
@@ -550,7 +558,7 @@ public class FMShopcar extends BaseFragment implements
         totalCount = 0;
         totalPrice = 0.00;
         for (int i = 0; i < cartList.size(); i++) {
-            Cart.DataBean.ListBean listBean = cartList.get(i);
+            CartOld.DataBean.ListBean listBean = cartList.get(i);
             if (listBean.isChoosed()) {
                 //totalCount++;
                 totalCount += Integer.parseInt(listBean.getTotal());
@@ -577,7 +585,7 @@ public class FMShopcar extends BaseFragment implements
 
         setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 0);
 
-//        Cart.DataBean.ListBean listBean = cartList.get(position);
+//        CartOld.DataBean.ListBean listBean = cartList.get(position);
 //        int currentCount = Integer.parseInt(listBean.getTotal());
 //        currentCount++;
 //        listBean.setTotal("" + currentCount);
@@ -601,7 +609,7 @@ public class FMShopcar extends BaseFragment implements
     public void doDecrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total) {
         total--;
         setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 1);
-        //        Cart.DataBean.ListBean listBean = cartList.get(position);
+        //        CartOld.DataBean.ListBean listBean = cartList.get(position);
 //        int currentCount = Integer.parseInt(listBean.getTotal());
 //        if (currentCount == 1) {
 //            return;
@@ -659,5 +667,51 @@ public class FMShopcar extends BaseFragment implements
         ButterKnife.unbind(this);
     }
 
+    /**
+     * 预留多商户（购物车）
+     */
+    public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> {
+        private Context mContext;
+        private List<Cart.DataBean> shopList;
+
+        public ShopAdapter(Context mContext, List<Cart.DataBean> shopList) {
+            this.mContext = mContext;
+            this.shopList = shopList;
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            MyViewHolder vh = new MyViewHolder(
+                    LayoutInflater.from(mContext).inflate(R.layout.item_classifytwo, viewGroup, false)
+            );
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int i) {
+            holder.shopname.setText("" + shopList.get(i).getShopname());
+
+            shopCartAdapter = new ShopCartAdapter(mContext, shopList.get(i).getGoodslist());
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            holder.recyclerView.setAdapter(shopCartAdapter);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return shopList.size();
+        }
+
+        public class MyViewHolder extends BaseRecyclerViewHolder {
+            private TextView shopname;
+            private RecyclerView recyclerView;
+
+            public MyViewHolder(View view) {
+                super(view);
+                shopname = (TextView) view.findViewById(R.id.tv_classifytwo_name);
+                recyclerView = (RecyclerView) view.findViewById(R.id.rv_classifytwo);
+            }
+        }
+    }
 
 }

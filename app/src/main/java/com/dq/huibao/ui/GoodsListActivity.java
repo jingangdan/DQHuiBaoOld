@@ -401,7 +401,7 @@ public class GoodsListActivity extends Activity {
     public void getGoodsList(String content, String keywords, int page) {
 
         PATH = HttpUtils.PATHS + HttpUtils.GOODS_SEARCH +
-                content + "&kaywords=" + keywords + "&page=" + page;
+                content + "&keywords=" + keywords + "&page=" + page;
 
         params = new RequestParams(PATH);
 

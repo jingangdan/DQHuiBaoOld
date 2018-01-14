@@ -42,6 +42,7 @@ import com.dq.huibao.adapter.gd.GdCommentAdapter;
 import com.dq.huibao.adapter.gd.GdParmasAdapter;
 import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.bean.goods.GoodsDetail;
 //import com.dq.huibao.bean.goodsdetail.Comment;
 //import com.dq.huibao.bean.goodsdetail.GoodsDetail;
@@ -219,6 +220,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     /*接口地址*/
     private String PATH = "";
+    private String MD5_PATH = "";
     private RequestParams params;
 
     /**
@@ -269,6 +271,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /*参数*/
     private List<GoodsDetail.DataBean.ParamBean> paramsList = new ArrayList<>();
 
+    /*购物车数据*/
+    private Cart cart;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -316,10 +321,14 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
             case R.id.tv_gd_allgoods:
                 //查看全部商品
+//                intent = new Intent(TAG, GoodsListActivity.class);
+//                intent.putExtra("pcate", "");
+//                intent.putExtra("ccate", "");
+//                intent.putExtra("name", "");
+//                intent.putExtra("keywords", "");
                 intent = new Intent(TAG, GoodsListActivity.class);
-                intent.putExtra("pcate", "");
-                intent.putExtra("ccate", "");
-                intent.putExtra("name", "");
+                intent.putExtra("content", "cate=");
+                intent.putExtra("catename", "所有商品");
                 intent.putExtra("keywords", "");
                 startActivity(intent);
 
@@ -434,13 +443,13 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
                 phone = login.getData().getPhone();
                 token = login.getData().getToken();
-                getGoodsDetail(gid, phone, token);
+                getGoodsDetail(gid, token, phone);
 
 
             } else {
                 //toast("登录状态出错，请重新登录");
                 //Toast.makeText(TAG, "登录状态出错，请重新登录", Toast.LENGTH_SHORT).show();
-                getGoodsDetail(gid, phone, token);
+                getGoodsDetail(gid, token, phone);
             }
         }
 
@@ -787,6 +796,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 //                for (int i = 0; i < optionsList.size(); i++) {
 //                    if (options_specs.equals(optionsList.get(i).getSpecs())) {
 //                        options_id = optionsList.get(i).getId();
@@ -799,7 +809,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
                 if (tag == 0) {
                     //选择规格
-                    tvGdSpecification.setText("已选：" + string);
+                    tvGdSpecification.setText("已选：" + string_name);
                     popWindow.dismiss();
                 } else if (tag == 1) {
                     //添加购物车
@@ -916,21 +926,48 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      * @param phone
      * @param token
      * @param gid
-     * @param optioned
+     * @param optionid
      * @param count
      */
-    public void cartAdd(String phone, String token, String gid, String optioned, int count) {
-        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD +
-                "phone=" + phone + "&token=" + token + "&goodsid=" + gid
-                + "&optioned=" + optioned + "&count=" + count;
+    public void cartAdd(String phone, String token, final String gid, String optionid, int count) {
+        // MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+//        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD +
+//                "phone=" + phone + "&token=" + token + "&goodsid=" + gid
+//                + "&optioned=" + optioned + "&count=" + count;
+
+        MD5_PATH = "count=" + count + "&goodsid=" + gid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
+
 
         params = new RequestParams(PATH);
         System.out.println("添加购物车 = " + PATH);
         x.http().post(params,
                 new Callback.CommonCallback<String>() {
+                    @SuppressLint("WrongConstant")
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("添加购物车 = " + result);
+                        cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
+                        if (cart.getData().size() > 0) {
+                            Toast.makeText(TAG, "添加成功", Toast.LENGTH_SHORT).show();
+
+                            for (int i = 0; i < cart.getData().size(); i++) {
+                                for (int j = 0; j < cart.getData().get(i).getGoodslist().size(); j++) {
+                                    if (gid.equals(cart.getData().get(i).getGoodslist().get(j).getGoodsid())) {
+                                        tvShopcarNum.setText("" + cart.getData().get(i).getGoodslist().get(j).getCount());
+                                    }
+                                }
+
+                            }
+                            popWindow.dismiss();
+
+                        } else {
+                            Toast.makeText(TAG, "添加失败", Toast.LENGTH_SHORT).show();
+                        }
+
+
                     }
 
                     @Override
@@ -1120,6 +1157,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     String[] strings;
     String string = "";
+    String string_name = "";
     String optionid = "";
 
     public class SpecAdapter extends RecyclerView.Adapter<SpecAdapter.MyViewHolder> {
@@ -1188,7 +1226,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                     for (int k = 0; k < optionsList.size(); k++) {
                         if (string.equals(optionsList.get(k).getSpecs())) {
                             optionid = optionsList.get(k).getId();
-                            tv_specification.setText("已选：" + optionsList.get(k).getTitle());
+                            string_name = optionsList.get(k).getTitle();
+                            tv_specification.setText("已选：" + string_name);
                         }
                     }
 

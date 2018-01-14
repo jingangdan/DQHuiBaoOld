@@ -567,9 +567,9 @@ public class MemcenActivity extends BaseActivity {
      */
     public void getRegion() {
         PATH = HttpUtils.PATHS + HttpUtils.COMMON_REGION;
-
         params = new RequestParams(PATH);
         System.out.println("省市列表 = " + PATH);
+
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
                     @Override

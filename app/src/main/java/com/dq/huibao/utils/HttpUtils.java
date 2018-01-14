@@ -131,14 +131,14 @@ public class HttpUtils {
      * optionid:120834
      * total:1
      */
-    public static final String SHOP_CART_ADD = "api=shop/Cart/add&i=1604&";
+    public static final String SHOP_CART_ADD = "api=shop/CartOld/add&i=1604&";
 
     /**
      * 购物车列表
      * 参数：
      * 登录验证
      */
-    public static final String SHOP_CART_CART = "api=shop/Cart/cart&i=1604&";
+    public static final String SHOP_CART_CART = "api=shop/CartOld/cart&i=1604&";
 
     /*
     * 购物车修改数量（添加 减少）
@@ -148,7 +148,7 @@ public class HttpUtils {
     * total=
     * 登录验证
     * */
-    public static final String SHOP_CART_UPDATENUM = "api=shop/Cart/updatenum&i=1604&";
+    public static final String SHOP_CART_UPDATENUM = "api=shop/CartOld/updatenum&i=1604&";
 
     /*
     * 移至收藏夹
@@ -156,7 +156,7 @@ public class HttpUtils {
     * ids=
     * 登录验证
     * */
-    public static final String SHOP_CART_TOFAVORITE = "api=shop/Cart/tofavorite&i=1604&";
+    public static final String SHOP_CART_TOFAVORITE = "api=shop/CartOld/tofavorite&i=1604&";
 
     /*
     * 购车删除
@@ -164,7 +164,7 @@ public class HttpUtils {
     * ids
     * 登录验证
     * */
-    public static final String SHOP_CART_REMOVE = "api=shop/Cart/remove&i=1604&";
+    public static final String SHOP_CART_REMOVE = "api=shop/CartOld/remove&i=1604&";
 
 
     /**
@@ -178,6 +178,8 @@ public class HttpUtils {
     public static final String IMG_HEADER = "http://www.dequanhuibao.com";
 
     public static final String NEW_HEADER = "http://new.dequanhuibao.com/";
+
+    public static final String KEY = "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k";
 
     /**
      * 1.
@@ -368,7 +370,7 @@ public class HttpUtils {
      * count	添加数量（正负）
      * 用户登陆验证（phone,token）
      */
-    public static final String CART_ADD = "Cart/add";
+    public static final String CART_ADD = "Cart/add?";
 
     /**
      * 16.
@@ -377,6 +379,61 @@ public class HttpUtils {
      * 参数：
      * 用户登陆验证（phone,token）
      */
-    public static final String CART_GET = "Cart/get";
+    public static final String CART_GET = "Cart/get?";
+
+    /**
+     * 获取配送费
+     * 方式：post/get
+     * 参数：
+     * cityid  市id
+     * goodsid 商品id
+     * optioned 规格
+     * num 数量
+     */
+    public static final String CONFIRM_DISPATCH = "Confirm/dispatch";
+
+    /**
+     * 添加收货地址
+     * 方式：post/get
+     * 参数：
+     * regionid 选择区域的id
+     * isdefault	是否设为默认
+     * addr 详细地址
+     * contact 联系人
+     * mobile 联系人电话
+     * 用户登陆验证（phone,token）
+     */
+    public static final String MEMBER_ADDADDR = "Member/addaddr";
+
+    /**
+     * 修改收货地址
+     * 方式：post/get
+     * 参数：
+     * id 要修改的收货地址id
+     * regionid 选择区域的id
+     * isdefault	是否设为默认
+     * addr 详细地址
+     * contact 联系人
+     * mobile 联系人电话
+     * 用户登陆验证（phone,token）
+     */
+    public static final String MEMBER_EDITADDR = "Member/editaddr";
+
+    /**
+     * 获取收货地址
+     * 方式：post/get
+     * 参数：
+     * 用户登陆验证（phone,token）
+     */
+    public static final String MEMBER_GETADDR = "Member/getaddr";
+
+    /**
+     * 删除收货地址
+     * 方式：post/get
+     * 参数：
+     * id 要删除的收货地址id
+     * 用户登陆验证（phone,token）
+     */
+    public static final String MEMBER_DELADDR = "Member/deladdr";
 
 }

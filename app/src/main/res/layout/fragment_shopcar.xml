@@ -36,29 +36,18 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/rel_shopcart_tofavorite"
             android:layout_below="@+id/rel_shopcar_header"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_shopcart"
+            <ExpandableListView
+                android:id="@+id/exListView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:childIndicator="@null"
+                android:groupIndicator="@null"></ExpandableListView>
 
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/list_shopping_cart"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@id/rel_shopcar_header"
-            android:layout_weight="1"
-            android:divider="#E3E3E3"
-            android:dividerHeight="0.8dp"
-            android:scrollbars="none"
-            android:visibility="gone" />
-
 
         <RelativeLayout
             android:id="@+id/rel_shopcart_tofavorite"

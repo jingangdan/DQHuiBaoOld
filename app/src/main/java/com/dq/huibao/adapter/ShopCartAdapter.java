@@ -3,20 +3,21 @@ package com.dq.huibao.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dq.huibao.Interface.CheckInterface;
+import com.dq.huibao.Interface.ModifyCountInterface;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.bean.Cart;
+//import com.dq.huibao.bean.CartOld;
+import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -29,15 +30,21 @@ import java.util.List;
  */
 public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyViewHolder> {
     private Context mContext;
-    private List<Cart.DataBean.ListBean> cartList;
+    //private List<CartOld.DataBean.ListBean> cartList;
+    private List<Cart.DataBean.GoodslistBean> goodsList;
     private OnItemClickListener onItemClickListener;
 
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
 
-    public ShopCartAdapter(Context mContext, List<Cart.DataBean.ListBean> cartList) {
+//    public ShopCartAdapter(Context mContext, List<CartOld.DataBean.ListBean> cartList) {
+//        this.mContext = mContext;
+//        this.cartList = cartList;
+//    }
+
+    public ShopCartAdapter(Context mContext, List<Cart.DataBean.GoodslistBean> goodsList) {
         this.mContext = mContext;
-        this.cartList = cartList;
+        this.goodsList = goodsList;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -82,21 +89,22 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
         }
 
         ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.HEADER + cartList.get(position).getThumb(),
+                HttpUtils.IMG_HEADER + goodsList.get(position).getGoods().getThumb(),
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.iv_show_pic);
 
-        final Cart.DataBean.ListBean listBean = cartList.get(position);
+        //final CartOld.DataBean.ListBean listBean = cartList.get(position);
+        final  Cart.DataBean.GoodslistBean listBean = goodsList.get(position);
 
-        holder.tv_commodity_name.setText(cartList.get(position).getTitle());
-        holder.tv_price.setText("¥:" + cartList.get(position).getMarketprice());
-        holder.tvProductPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.tvProductPrice.setText("¥:" + cartList.get(position).getProductprice());
+        holder.tv_commodity_name.setText(goodsList.get(position).getGoods().getGoodsname());
+        holder.tv_price.setText("¥:" + goodsList.get(position).getMarketprice());
+//        holder.tvProductPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//        holder.tvProductPrice.setText("¥:" + goodsList.get(position));
 
 //        holder.ck_chose.setChecked(shoppingCartBean.isChoosed());
-        holder.ck_chose.setChecked(cartList.get(position).isChoosed());
-        holder.tv_show_num.setText("" + cartList.get(position).getTotal());
+        holder.ck_chose.setChecked(goodsList.get(position).isChoosed());
+        holder.tv_show_num.setText("" + goodsList.get(position).getCount());
 
 
         //单选框按钮
@@ -115,7 +123,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
             @Override
             public void onClick(View v) {
                 modifyCountInterface.doIncrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
-                        cartList.get(position).getId(), cartList.get(position).getGoodsid(), Integer.parseInt(cartList.get(position).getTotal()));//暴露增加接口
+                        goodsList.get(position).getId(), goodsList.get(position).getGoodsid(), Integer.parseInt(goodsList.get(position).getCount()));//暴露增加接口
             }
         });
 
@@ -124,7 +132,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
             @Override
             public void onClick(View v) {
                 modifyCountInterface.doDecrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
-                        cartList.get(position).getId(), cartList.get(position).getGoodsid(), Integer.parseInt(cartList.get(position).getTotal()));//暴露删减接口
+                        goodsList.get(position).getId(), goodsList.get(position).getGoodsid(), Integer.parseInt(goodsList.get(position).getCount()));//暴露删减接口
             }
         });
 
@@ -159,7 +167,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return cartList.size();
+        return goodsList.size();
     }
 
     public class MyViewHolder extends BaseRecyclerViewHolder {
@@ -183,51 +191,6 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
             linSub = (LinearLayout) itemView.findViewById(R.id.lin_shopcart_sub);
             linAdd = (LinearLayout) itemView.findViewById(R.id.lin_shopcart_add);
         }
-    }
-
-
-    /**
-     * 复选框接口
-     */
-    public interface CheckInterface {
-        /**
-         * 组选框状态改变触发的事件
-         *
-         * @param position  元素位置
-         * @param isChecked 元素选中与否
-         */
-        void checkGroup(int position, boolean isChecked);
-    }
-
-
-    /**
-     * 改变数量的接口
-     */
-    public interface ModifyCountInterface {
-        /**
-         * 增加操作
-         *
-         * @param position      组元素位置
-         * @param showCountView 用于展示变化后数量的View
-         * @param isChecked     子元素选中与否
-         */
-        void doIncrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total);
-
-        /**
-         * 删减操作
-         *
-         * @param position      组元素位置
-         * @param showCountView 用于展示变化后数量的View
-         * @param isChecked     子元素选中与否
-         */
-        void doDecrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total);
-
-        /**
-         * 删除子item
-         *
-         * @param position
-         */
-        void childDelete(int position);
     }
 
 }

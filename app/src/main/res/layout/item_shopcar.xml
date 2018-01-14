@@ -14,7 +14,8 @@
         <TextView
             style="@style/text_main"
             android:layout_alignParentLeft="true"
-            android:text="惠宝商城" />
+            android:text="惠宝商城"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_delete"
@@ -76,19 +77,19 @@
             <TextView
                 android:id="@+id/tv_commodity_name"
                 style="@style/text_adware"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:gravity="left"
                 android:lines="2"
                 android:text="五颜六色的酒" />
 
             <TextView
+                android:id="@+id/tv_cart_option"
                 style="@style/text_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="颜色"
-                android:visibility="gone" />
+                android:text="颜色"/>
 
         </LinearLayout>
 

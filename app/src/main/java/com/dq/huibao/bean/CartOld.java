@@ -7,7 +7,7 @@ import java.util.List;
  * Created by jingang on 2017/11/27.
  */
 
-public class Cart {
+public class CartOld {
 
     /**
      * result : 1
@@ -342,7 +342,7 @@ public class Cart {
 
     @Override
     public String toString() {
-        return "Cart{" +
+        return "CartOld{" +
                 "result='" + result + '\'' +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +
