@@ -28,7 +28,7 @@ import java.util.List;
  * Description：
  * Created by jingang on 2017/11/27.
  */
-public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyViewHolder> {
+public class ShopCartAdapterOld extends RecyclerView.Adapter<ShopCartAdapterOld.MyViewHolder> {
     private Context mContext;
     //private List<CartOld.DataBean.ListBean> cartList;
     private List<Cart.DataBean.GoodslistBean> goodsList;
@@ -37,12 +37,12 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
 
-//    public ShopCartAdapter(Context mContext, List<CartOld.DataBean.ListBean> cartList) {
+//    public ShopCartAdapterOld(Context mContext, List<CartOld.DataBean.ListBean> cartList) {
 //        this.mContext = mContext;
 //        this.cartList = cartList;
 //    }
 
-    public ShopCartAdapter(Context mContext, List<Cart.DataBean.GoodslistBean> goodsList) {
+    public ShopCartAdapterOld(Context mContext, List<Cart.DataBean.GoodslistBean> goodsList) {
         this.mContext = mContext;
         this.goodsList = goodsList;
     }
@@ -95,7 +95,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
                 holder.iv_show_pic);
 
         //final CartOld.DataBean.ListBean listBean = cartList.get(position);
-        final  Cart.DataBean.GoodslistBean listBean = goodsList.get(position);
+        final Cart.DataBean.GoodslistBean listBean = goodsList.get(position);
 
         holder.tv_commodity_name.setText(goodsList.get(position).getGoods().getGoodsname());
         holder.tv_price.setText("¥:" + goodsList.get(position).getMarketprice());
@@ -119,22 +119,22 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
         );
 
         //增加按钮
-        holder.linAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modifyCountInterface.doIncrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
-                        goodsList.get(position).getId(), goodsList.get(position).getGoodsid(), Integer.parseInt(goodsList.get(position).getCount()));//暴露增加接口
-            }
-        });
+//        holder.linAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                modifyCountInterface.doIncrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
+//                        goodsList.get(position).getId(), goodsList.get(position).getGoodsid(), Integer.parseInt(goodsList.get(position).getCount()));//暴露增加接口
+//            }
+//        });
 
         //删减按钮
-        holder.linSub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modifyCountInterface.doDecrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
-                        goodsList.get(position).getId(), goodsList.get(position).getGoodsid(), Integer.parseInt(goodsList.get(position).getCount()));//暴露删减接口
-            }
-        });
+//        holder.linSub.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                modifyCountInterface.doDecrease(position, holder.tv_show_num, holder.ck_chose.isChecked(),
+//                        goodsList.get(position).getId(), goodsList.get(position).getGoodsid(), Integer.parseInt(goodsList.get(position).getCount()));//暴露删减接口
+//            }
+//        });
 
 
         //删除弹窗
@@ -155,7 +155,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<ShopCartAdapter.MyView
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
+//                                modifyCountInterface.childDelete(position);//删除 目前只是从item中移除
 
                             }
                         });

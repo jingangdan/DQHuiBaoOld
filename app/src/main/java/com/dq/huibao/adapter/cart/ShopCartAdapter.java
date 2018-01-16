@@ -25,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dq.huibao.Interface.CheckInterface;
+import com.dq.huibao.Interface.ModifyCountInterface;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.utils.HttpUtils;
@@ -39,7 +41,7 @@ import butterknife.ButterKnife;
 /**
  * 购物车数据适配器
  */
-public class ShopTestAdapter extends BaseExpandableListAdapter {
+public class ShopCartAdapter extends BaseExpandableListAdapter {
 
     private List<Cart.DataBean> groups;
     private Map<String, List<Cart.DataBean.GoodslistBean>> children;
@@ -47,15 +49,6 @@ public class ShopTestAdapter extends BaseExpandableListAdapter {
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
     public int flag = 0;
-    private GroupEdtorListener mListener;
-
-    public GroupEdtorListener getmListener() {
-        return mListener;
-    }
-
-    public void setmListener(GroupEdtorListener mListener) {
-        this.mListener = mListener;
-    }
 
     int count = 0;
 
@@ -66,7 +59,7 @@ public class ShopTestAdapter extends BaseExpandableListAdapter {
      * @param children 子元素列表
      * @param context
      */
-    public ShopTestAdapter(List<Cart.DataBean> groups, Map<String, List<Cart.DataBean.GoodslistBean>> children, Context context) {
+    public ShopCartAdapter(List<Cart.DataBean> groups, Map<String, List<Cart.DataBean.GoodslistBean>> children, Context context) {
         this.groups = groups;
         this.children = children;
         this.context = context;
@@ -133,7 +126,7 @@ public class ShopTestAdapter extends BaseExpandableListAdapter {
         gholder.tvSourceName.setText(group.getShopname());
         gholder.determineChekbox.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 group.setChoosed(((CheckBox) v).isChecked());
                 checkInterface.checkGroup(groupPosition, ((CheckBox) v).isChecked());
                 // 暴露组选接口
@@ -208,14 +201,16 @@ public class ShopTestAdapter extends BaseExpandableListAdapter {
             cholder.btAdd.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    modifyCountInterface.doIncrease(groupPosition, childPosition, cholder.etNum, cholder.checkBox.isChecked());
+                    modifyCountInterface.doIncrease(groupPosition, childPosition, cholder.etNum, cholder.checkBox.isChecked(),
+                            goodsInfo.getGoodsid(), goodsInfo.getOptionid(), Integer.parseInt(goodsInfo.getCount()));
                     // 暴露增加接口
                 }
             });
             cholder.btReduce.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    modifyCountInterface.doDecrease(groupPosition, childPosition, cholder.etNum, cholder.checkBox.isChecked());
+                    modifyCountInterface.doDecrease(groupPosition, childPosition, cholder.etNum, cholder.checkBox.isChecked(),
+                            goodsInfo.getGoodsid(), goodsInfo.getOptionid(), Integer.parseInt(goodsInfo.getCount()));
                     // 暴露删减接口
                 }
             });
@@ -246,32 +241,32 @@ public class ShopTestAdapter extends BaseExpandableListAdapter {
 //            });
             /********************方案二***********************/
             //删除 购物车
-//            cholder.tvGoodsDelete.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    AlertDialog alert = new AlertDialog.Builder(context).create();
-//                    alert.setTitle("操作提示");
-//                    alert.setMessage("您确定要将这些商品从购物车中移除吗？");
-//                    alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
-//                            new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//
-//                                    return;
-//                                }
-//                            });
-//                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
-//                            new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    modifyCountInterface.childDelete(groupPosition, childPosition);
-//
-//                                }
-//                            });
-//                    alert.show();
-//
-//                }
-//            });
+            cholder.tvDelete.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog alert = new AlertDialog.Builder(context).create();
+                    alert.setTitle("操作提示");
+                    alert.setMessage("您确定要将这些商品从购物车中移除吗？");
+                    alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    return;
+                                }
+                            });
+                    alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    modifyCountInterface.childDelete(groupPosition, childPosition);
+
+                                }
+                            });
+                    alert.show();
+
+                }
+            });
 
         }
 
@@ -282,69 +277,6 @@ public class ShopTestAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
 
-    }
-
-
-    /**
-     * 复选框接口
-     */
-    public interface CheckInterface {
-        /**
-         * 组选框状态改变触发的事件
-         *
-         * @param groupPosition 组元素位置
-         * @param isChecked     组元素选中与否
-         */
-        void checkGroup(int groupPosition, boolean isChecked);
-
-        /**
-         * 子选框状态改变时触发的事件
-         *
-         * @param groupPosition 组元素位置
-         * @param childPosition 子元素位置
-         * @param isChecked     子元素选中与否
-         */
-        void checkChild(int groupPosition, int childPosition, boolean isChecked);
-    }
-
-    /**
-     * 改变数量的接口
-     */
-    public interface ModifyCountInterface {
-        /**
-         * 增加操作
-         *
-         * @param groupPosition 组元素位置
-         * @param childPosition 子元素位置
-         * @param showCountView 用于展示变化后数量的View
-         * @param isChecked     子元素选中与否
-         */
-        void doIncrease(int groupPosition, int childPosition, View showCountView, boolean isChecked);
-
-        /**
-         * 删减操作
-         *
-         * @param groupPosition 组元素位置
-         * @param childPosition 子元素位置
-         * @param showCountView 用于展示变化后数量的View
-         * @param isChecked     子元素选中与否
-         */
-        void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked);
-
-        /**
-         * 删除子item
-         *
-         * @param groupPosition
-         * @param childPosition
-         */
-        void childDelete(int groupPosition, int childPosition);
-    }
-
-    /**
-     * 监听编辑状态
-     */
-    public interface GroupEdtorListener {
-        void groupEdit(int groupPosition);
     }
 
     /**
@@ -428,12 +360,14 @@ public class ShopTestAdapter extends BaseExpandableListAdapter {
 //        TextView tvBuyNum;
 //        @BindView(R.id.rl_no_edtor)
 //        RelativeLayout rlNoEdtor;
-        @Bind(R.id.iv_sub)
-        ImageView btReduce;
+        @Bind(R.id.lin_shopcart_sub)
+        LinearLayout btReduce;
         @Bind(R.id.tv_show_num)
         TextView etNum;
-        @Bind(R.id.iv_add)
-        ImageView btAdd;
+        @Bind(R.id.lin_shopcart_add)
+        LinearLayout btAdd;
+        @Bind(R.id.tv_delete)
+        TextView tvDelete;
 
         //        @BindView(R.id.ll_change_num)
 //        RelativeLayout llChangeNum;

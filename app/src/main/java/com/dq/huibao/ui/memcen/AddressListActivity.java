@@ -8,10 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import com.dq.huibao.Interface.AddrInterface;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.AddressListAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.addr.Addr;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -20,6 +23,9 @@ import com.dq.huibao.utils.SPUserInfo;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +36,8 @@ import butterknife.OnClick;
  * Created by jingang on 2017/10/31.
  */
 
-public class AddressListActivity extends BaseActivity {
+public class AddressListActivity extends BaseActivity
+        implements AddrInterface {
     @Bind(R.id.rv_addresslist)
     RecyclerView rvAddresslist;
 
@@ -41,6 +48,7 @@ public class AddressListActivity extends BaseActivity {
     private AddressListActivity TAG = AddressListActivity.this;
 
     private AddressListAdapter addressListAdapter;
+    private List<Addr.DataBean> addrList = new ArrayList<>();
 
     /*接收页面传值*/
     private Intent intent;
@@ -60,10 +68,12 @@ public class AddressListActivity extends BaseActivity {
         setContentView(R.layout.activity_addresslist);
         ButterKnife.bind(this);
 
-        addressListAdapter = new AddressListAdapter(this);
+        addressListAdapter = new AddressListAdapter(this, addrList);
 
         rvAddresslist.setLayoutManager(new LinearLayoutManager(this));
         rvAddresslist.setAdapter(addressListAdapter);
+
+        addressListAdapter.setAddrInterface(this);
 
         isLogin();
     }
@@ -93,8 +103,19 @@ public class AddressListActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.but_add_address:
-                intent = new Intent(this, AddAddressActivity.class);
-                startActivity(intent);
+//                intent = new Intent(this, AddAddressActivity.class);
+//                startActivityForResult(intent, CodeUtils.ADDR_LIST);
+
+                intent = new Intent(TAG, AddAddressActivity.class);
+                intent.putExtra("addrid", "");
+                intent.putExtra("regionid", "");
+                intent.putExtra("region", "");
+                intent.putExtra("isdefault", "");
+                intent.putExtra("addr", "");
+                intent.putExtra("contact", "");
+                intent.putExtra("mobile", "");
+                intent.putExtra("tag", "0");
+                startActivityForResult(intent, CodeUtils.ADDR_LIST);
                 break;
         }
     }
@@ -118,6 +139,12 @@ public class AddressListActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("获取收货地址 = " + result);
+                        Addr addr = GsonUtil.gsonIntance().gsonToBean(result, Addr.class);
+                        if (addr.getStatus() == 1) {
+                            addrList.addAll(addr.getData());
+                            addressListAdapter.notifyDataSetChanged();
+                        }
+
                     }
 
                     @Override
@@ -136,5 +163,78 @@ public class AddressListActivity extends BaseActivity {
                     }
                 });
 
+    }
+
+    /**
+     * 删除收货地址
+     *
+     * @param position
+     * @param id
+     * @param phone
+     * @param token
+     */
+    public void addrDel(final int position, String id, String phone, String token) {
+        MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_DELADDR + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+
+        params = new RequestParams(PATH);
+        System.out.println("删除收货地址 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("删除收货地址 = " + result);
+
+                        addrList.remove(position);
+                        addressListAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void checkEdit(int position, String id, String regionid, String region, int isdefault, String addr, String contact, String mobile) {
+        intent = new Intent(TAG, AddAddressActivity.class);
+        intent.putExtra("addrid", id);
+        intent.putExtra("regionid", regionid);
+        intent.putExtra("region", region);
+        intent.putExtra("isdefault", "" + isdefault);
+        intent.putExtra("addr", addr);
+        intent.putExtra("contact", contact);
+        intent.putExtra("mobile", mobile);
+        intent.putExtra("tag", "1");
+        startActivityForResult(intent, CodeUtils.ADDR_LIST);
+    }
+
+    @Override
+    public void checkDel(int position, String id) {
+        addrDel(position, id, phone, token);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CodeUtils.ADDR_LIST) {
+            if (resultCode == CodeUtils.ADDR_ADD) {
+                addrList.clear();
+                isLogin();
+            }
+        }
     }
 }

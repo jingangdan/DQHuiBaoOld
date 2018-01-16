@@ -5,20 +5,20 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dq.huibao.Interface.CheckInterface;
+import com.dq.huibao.Interface.ModifyCountInterface;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.cart.ShopTestAdapter;
+import com.dq.huibao.adapter.cart.ShopCartAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.cart.Cart;
@@ -46,9 +46,8 @@ import butterknife.OnClick;
  * Created by jingang on 2017/11/1.
  */
 public class ShopcarActivity extends BaseActivity implements
-        ShopTestAdapter.CheckInterface,
-        ShopTestAdapter.ModifyCountInterface,
-        ShopTestAdapter.GroupEdtorListener {
+        CheckInterface,
+        ModifyCountInterface {
 
     /*登录状态*/
     @Bind(R.id.lin_shopcart_nologin)
@@ -109,7 +108,7 @@ public class ShopcarActivity extends BaseActivity implements
 
     private List<Cart.DataBean> shopList = new ArrayList<>();
     private Map<String, List<Cart.DataBean.GoodslistBean>> children = new HashMap<String, List<Cart.DataBean.GoodslistBean>>();// 子元素数据列表
-    private ShopTestAdapter shopTestAdapter;
+    private ShopCartAdapter shopCartAdapter;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -120,11 +119,10 @@ public class ShopcarActivity extends BaseActivity implements
 
         relShopcarHeader.setVisibility(View.GONE);
 
-        shopTestAdapter = new ShopTestAdapter(shopList, children, this);
-        shopTestAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
-        shopTestAdapter.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
-        shopTestAdapter.setmListener(this);
-        exListView.setAdapter(shopTestAdapter);
+        shopCartAdapter = new ShopCartAdapter(shopList, children, this);
+        shopCartAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
+        shopCartAdapter.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
+        exListView.setAdapter(shopCartAdapter);
 
         isLogin();
 
@@ -151,7 +149,6 @@ public class ShopcarActivity extends BaseActivity implements
                 token = login.getData().getToken();
 
                 getCart(phone, token);
-
 
                 tvBaseTitle.setText("购物车");
 
@@ -187,9 +184,9 @@ public class ShopcarActivity extends BaseActivity implements
                         for (int i = 0; i < shopList.size(); i++) {
                             children.put(shopList.get(i).getShopid(), shopList.get(i).getGoodslist());
                         }
-                        shopTestAdapter.notifyDataSetChanged();
+                        shopCartAdapter.notifyDataSetChanged();
 
-                        for (int i = 0; i < shopTestAdapter.getGroupCount(); i++) {
+                        for (int i = 0; i < shopCartAdapter.getGroupCount(); i++) {
                             // 关键步骤3,初始化时，将ExpandableListView以展开的方式呈现
                             exListView.expandGroup(i);
                         }
@@ -222,8 +219,8 @@ public class ShopcarActivity extends BaseActivity implements
      * @param optionid
      * @param count
      */
-    public void cartAdd(int groupPosition, int childPosition, View showCountView, boolean isChecked,
-                        String phone, String token, final String gid, String optionid, int count) {
+    public void cartAdd(final int groupPosition, final int childPosition, final View showCountView, boolean isChecked,
+                        String phone, String token, final String gid, String optionid, final int count, final int tag) {
         MD5_PATH = "count=" + count + "&goodsid=" + gid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.CART_ADD + MD5_PATH + "&sign=" +
@@ -238,6 +235,36 @@ public class ShopcarActivity extends BaseActivity implements
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("添加购物车 = " + result);
+                        Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
+                        if (cart.getStatus() == 1) {
+                            if (tag == 1) {
+                                //增加
+                                Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
+                                        childPosition);
+                                int currentCount = Integer.parseInt(product.getCount());
+                                currentCount++;
+                                product.setCount("" + currentCount);
+                                ((TextView) showCountView).setText("" + currentCount);
+
+                            } else if (tag == 0) {
+                                //减少
+                                Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
+                                        childPosition);
+                                int currentCount = Integer.parseInt(product.getCount());
+                                if (currentCount == 1)
+                                    return;
+                                currentCount--;
+                                product.setCount("" + currentCount);
+                                ((TextView) showCountView).setText(currentCount + "");
+
+                            }
+                            shopCartAdapter.notifyDataSetChanged();
+                            calculate();
+
+                        } else {
+                            toast("购物车操作失败");
+                        }
+
 
                     }
 
@@ -258,10 +285,52 @@ public class ShopcarActivity extends BaseActivity implements
                 });
     }
 
+    /**
+     * 删除购物车
+     *
+     * @param phone
+     * @param token
+     * @param ids
+     */
+    public void cartDel(String phone, String token, String ids) {
+        MD5_PATH = "ids=" + ids + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+        PATH = HttpUtils.PATHS + HttpUtils.CART_DEL +
+                MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        params = new RequestParams(PATH);
+        System.out.println("删除购物车 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("删除购物车 = " + result);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
+    }
+
+
     String ids = "";
 
     @OnClick({R.id.ck_all, R.id.tv_settlement, R.id.but_shopcart_tofavorite, R.id.but_shopacrt_delete})
     public void onClick(View v) {
+        AlertDialog alert;
         switch (v.getId()) {
 
             case R.id.ck_all:
@@ -293,7 +362,7 @@ public class ShopcarActivity extends BaseActivity implements
 
             case R.id.but_shopacrt_delete:
                 //删除
-                ids = "";
+
 //                if (cartList.size() != 0) {
 //                    for (int i = 0; i < cartList.size(); i++) {
 //                        cartList.get(i).isChoosed();
@@ -307,17 +376,68 @@ public class ShopcarActivity extends BaseActivity implements
 //                    }
 //                }
 
-                if (!ids.equals("")) {
-                    setDialog(unionid, ids);
-                } else {
+//                if (!ids.equals("")) {
+//                    setDialog(unionid, ids);
+//                } else {
+//
+//                }
 
+                if (totalCount == 0) {
+                    toast("请选择要移除的商品");
+                    //Toast.makeText(context, "请选择要移除的商品", Toast.LENGTH_LONG).show();
+                    return;
                 }
+                alert = new AlertDialog.Builder(this).create();
+                alert.setTitle("操作提示");
+                alert.setMessage("您确定要将这些商品从购物车中移除吗？\n总计:\n" + totalCount + "种商品\n" + totalPrice + "元" + "\n商品id = " + ids);
+                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //doDelete();
+                                System.out.println("ids = " + ids);
+                                //cartDel(phone, token, ids);
+                                //删除操作
+                            }
+                        });
+                alert.show();
                 break;
+
 
             case R.id.tv_settlement:
                 //提交订单
-                intent = new Intent(this, SubmitOrderActivity.class);
-                startActivity(intent);
+
+                if (totalCount == 0) {
+                    toast("请选择要支付的商品");
+                    return;
+                }
+                alert = new AlertDialog.Builder(this).create();
+                alert.setTitle("操作提示");
+                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元" + "\n商品id = " + ids);
+                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                alert.show();
+//                intent = new Intent(this, SubmitOrderActivity.class);
+//                startActivity(intent);
 
                 break;
 
@@ -343,8 +463,8 @@ public class ShopcarActivity extends BaseActivity implements
             ck_all.setChecked(true);
         else
             ck_all.setChecked(false);
-        shopTestAdapter.notifyDataSetChanged();
-        //calculate();
+        shopCartAdapter.notifyDataSetChanged();
+        calculate();
 
     }
 
@@ -380,8 +500,8 @@ public class ShopcarActivity extends BaseActivity implements
         } else {
             ck_all.setChecked(false);// 反选
         }
-        shopTestAdapter.notifyDataSetChanged();
-        //calculate();
+        shopCartAdapter.notifyDataSetChanged();
+        calculate();
     }
 
     /**
@@ -393,18 +513,20 @@ public class ShopcarActivity extends BaseActivity implements
      * @param isChecked     子元素选中与否
      */
     @Override
-    public void doIncrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
-//        cartAdd(groupPosition, childPosition, showCountView, isChecked,
-//                phone, token, );
-        Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopTestAdapter.getChild(groupPosition,
-                childPosition);
-        int currentCount = Integer.parseInt(product.getCount());
-        currentCount++;
-        product.setCount("" + currentCount);
-        ((TextView) showCountView).setText("" + currentCount);
-        shopTestAdapter.notifyDataSetChanged();
+    public void doIncrease(int groupPosition, int childPosition, View showCountView, boolean isChecked,
+                           String gid, String optionid, int count) {
+        cartAdd(groupPosition, childPosition, showCountView, isChecked,
+                phone, token, gid, optionid, count, 1);
 
-        calculate();
+//        Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopTestAdapter.getChild(groupPosition,
+//                childPosition);
+//        int currentCount = Integer.parseInt(product.getCount());
+//        currentCount++;
+//        product.setCount("" + currentCount);
+//        ((TextView) showCountView).setText("" + currentCount);
+//        shopTestAdapter.notifyDataSetChanged();
+//
+//        calculate();
     }
 
     /**
@@ -416,29 +538,35 @@ public class ShopcarActivity extends BaseActivity implements
      * @param isChecked     子元素选中与否
      */
     @Override
-    public void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
-        Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopTestAdapter.getChild(groupPosition,
-                childPosition);
-        int currentCount = Integer.parseInt(product.getCount());
-        if (currentCount == 1)
-            return;
-        currentCount--;
-        product.setCount("" + currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-        shopTestAdapter.notifyDataSetChanged();
-        calculate();
+    public void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked,
+                           String gid, String optionid, int count) {
+
+        cartAdd(groupPosition, childPosition, showCountView, isChecked,
+                phone, token, gid, optionid, -1, 0);
+//        Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
+//                childPosition);
+//        int currentCount = Integer.parseInt(product.getCount());
+//        if (currentCount == 1)
+//            return;
+//        currentCount--;
+//        product.setCount("" + currentCount);
+//        ((TextView) showCountView).setText(currentCount + "");
+//        shopCartAdapter.notifyDataSetChanged();
+//        calculate();
     }
 
     @Override
     public void childDelete(int groupPosition, int childPosition) {
-
+//        children.get(shopList.get(groupPosition).getShopid()).remove(childPosition);
+//        Cart.DataBean group = shopList.get(groupPosition);
+//        List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+//        if (childs.size() == 0) {
+//            shopList.remove(groupPosition);
+//        }
+//        shopTestAdapter.notifyDataSetChanged();
+//        //     handler.sendEmptyMessage(0);
+//        calculate();
     }
-
-    @Override
-    public void groupEdit(int groupPosition) {
-
-    }
-
 
     /**
      * 遍历list集合
@@ -493,8 +621,8 @@ public class ShopcarActivity extends BaseActivity implements
                 childs.get(j).setChoosed(ck_all.isChecked());
             }
         }
-        shopTestAdapter.notifyDataSetChanged();
-        // calculate();
+        shopCartAdapter.notifyDataSetChanged();
+        calculate();
     }
 
     /**
@@ -506,6 +634,7 @@ public class ShopcarActivity extends BaseActivity implements
     private void calculate() {
         totalCount = 0;
         totalPrice = 0.00;
+        ids = "";
         for (int i = 0; i < shopList.size(); i++) {
             Cart.DataBean group = shopList.get(i);
             List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
@@ -514,6 +643,11 @@ public class ShopcarActivity extends BaseActivity implements
                 if (product.isChoosed()) {
                     totalCount++;
                     totalPrice += Double.parseDouble(product.getMarketprice()) * Integer.parseInt(product.getCount());
+                    if (ids.equals("")) {
+                        ids = product.getGoodsid();
+                    } else {
+                        ids = ids + "," + product.getGoodsid();
+                    }
                 }
             }
         }

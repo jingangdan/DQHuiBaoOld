@@ -1,7 +1,6 @@
 package com.dq.huibao.ui.memcen;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -37,11 +36,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Description：添加收货地址
+ * Description：修改收货地址
  * Created by jingang on 2017/10/31.
  */
 
-public class AddAddressActivity extends BaseActivity {
+public class AddrEditActivity extends BaseActivity {
 
     /*选择地区*/
     @Bind(R.id.rel_address_area)
@@ -62,7 +61,9 @@ public class AddAddressActivity extends BaseActivity {
     CheckBox cbAddrIsdefault;
 
     /*UI获取参数*/
-
+    private String addr = "", contact = "", mobile = "", regionid = "";
+    private String UTF_addr = "", UTF_contact = "";
+    private int isdefault = 0;
 
     /*解析数据*/
     private List<Region.DataBean> regionList = new ArrayList<>();
@@ -82,38 +83,11 @@ public class AddAddressActivity extends BaseActivity {
     private SPUserInfo spUserInfo;
     private String phone = "", token = "";
 
-    private Intent intent;
-    private String addr = "", contact = "", mobile = "", regionid = "", region = "", isdefault = "", addrid = "", tag = "";
-    private String UTF_addr = "", UTF_contact = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addaddress);
         ButterKnife.bind(this);
-
-        intent = getIntent();
-        addrid = intent.getStringExtra("addrid");
-        addr = intent.getStringExtra("addr");
-        contact = intent.getStringExtra("contact");
-        mobile = intent.getStringExtra("mobile");
-        regionid = intent.getStringExtra("regionid");
-        region = intent.getStringExtra("region");
-        isdefault = intent.getStringExtra("isdefault");
-
-        etAddrContact.setText(contact);
-        etAddrMobile.setText(mobile);
-        etAddr.setText(addr);
-        tvAddressArea.setText(region);
-
-        if (isdefault.equals("1")) {
-            cbAddrIsdefault.setChecked(true);
-        } else if (isdefault.equals("0")) {
-            cbAddrIsdefault.setChecked(false);
-        }
-
-        tag = intent.getStringExtra("tag");
-
 
         getRegion();
         isLogin();
@@ -164,7 +138,6 @@ public class AddAddressActivity extends BaseActivity {
                 //选择所在区域
                 if (regionList.size() > 0) {
                     showPickerView();
-
                 }
 
                 break;
@@ -176,15 +149,7 @@ public class AddAddressActivity extends BaseActivity {
                     if (!mobile.equals("")) {
                         if (!UTF_addr.equals("")) {
                             if (!regionid.equals("")) {
-                                if (tag.equals("1")) {
-                                    //修改
-                                    editAddr(addrid, regionid, isdefault, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
-
-                                } else if (tag.equals("0")) {
-                                    //添加
-                                    addAddr(regionid, isdefault, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
-                                }
-
+                                addAddr(regionid, isdefault, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
 
                             } else {
                                 toast("请选择所在区域");
@@ -205,9 +170,9 @@ public class AddAddressActivity extends BaseActivity {
             case R.id.cb_addr_isdefault:
                 //是否默认
                 if (cbAddrIsdefault.isChecked()) {
-                    isdefault = "1";
+                    isdefault = 1;
                 } else {
-                    isdefault = "0";
+                    isdefault = 0;
                 }
                 break;
 
@@ -307,7 +272,7 @@ public class AddAddressActivity extends BaseActivity {
      * @param phone
      * @param token
      */
-    public void addAddr(final String regionid, String isdefault, String addr, String UTF_addr, String contact, String UTF_contact, String mobile, String phone, String token) {
+    public void addAddr(final String regionid, int isdefault, String addr, String UTF_addr, String contact, String UTF_contact, String mobile, String phone, String token) {
         MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&isdefault=" + isdefault + "&mobile=" + mobile +
                 "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
@@ -327,69 +292,9 @@ public class AddAddressActivity extends BaseActivity {
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
                             toast("" + addrReturn.getData());
-                            AddAddressActivity.this.finish();
+                            AddrEditActivity.this.finish();
                             setResult(CodeUtils.ADDR_ADD);
                         }
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-    }
-
-    /**
-     * 修改收货地址
-     *
-     * @param id
-     * @param regionid
-     * @param isdefault
-     * @param addr
-     * @param UTF_addr
-     * @param contact
-     * @param UTF_contact
-     * @param mobile
-     * @param phone
-     * @param token
-     */
-    public void editAddr(String id, final String regionid, String isdefault, String addr, String UTF_addr, String contact, String UTF_contact, String mobile, String phone, String token) {
-        MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
-                "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_ADDADDR + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
-                        "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
-
-        params = new RequestParams(PATH);
-        System.out.println("加密 = " + MD5_PATH);
-
-        System.out.println("修改收货地址 = " + PATH);
-        x.http().post(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("修改收货地址 = " + result);
-                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
-                        if (addrReturn.getStatus() == 1) {
-                            toast("" + addrReturn.getData());
-                            AddAddressActivity.this.finish();
-                            intent = new Intent();
-                            setResult(CodeUtils.ADDR_ADD, intent);
-                        }
-
 
                     }
 

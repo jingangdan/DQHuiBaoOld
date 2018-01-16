@@ -11,7 +11,7 @@ public class GoodsDetail {
 
     /**
      * status : 1
-     * data : {"id":2650,"goodsname":"生产定制韩国ulzzang休闲鞋秋冬情侣学生帆布鞋百搭原宿风小白鞋","shopid":0,"thumb":"/attachment/images/sz_yi/1604/2017/12/ghN8dttnZN8t2I4r708m0hM0HH06Tt.jpg","unit":"件","status":1,"content":"<p><br/> <br/> <img alt=\"undefined\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/IeTZ2LLs7S0l6pv6zsl7xS78j0XEjp.jpg\" size=\"752x1144\"/><br/> <img alt=\"undefined\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/ongf6f0Ney6cERG0R6NrfcggRZ4ZSF.jpg\" size=\"752x863\"/><br/> <img alt=\"undefined\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/QJsj8Wo3jKwGGjj3gvwVJ8dvwWZwSG.jpg\" size=\"752x820\"/><br/> <img alt=\"undefined\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/gMAn8Mh6sB88NmaG8MllneDNxGGl8Z.jpg\" size=\"752x1218\"/><br/> <img alt=\"undefined\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/c7BFPBB7dzFQF1bGBZQlhDapgDGGAb.jpg\" size=\"752x1569\"/><br/> <img alt=\"undefined\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/INJWC6cw2Nx2FC6Fj9bOMBnMhWyxAC.jpg\" size=\"752x950\"/><br/> <img alt=\"undefined\" src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/n3mqKf9uMKqe29XMOXF3m2bKOK99w9.jpg\" size=\"752x895\"/><\/p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style=\"font-size:7.5pt;\">&nbsp; &nbsp; 《买家必读》<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于混批】一件为30双，一件以上支持混批，如有特殊原因\\要求请联系客服。<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于色差】因个人显示器明暗对比显示等差异图片与实物可能会有细微色差。<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于气味】刚出厂的鞋子会有些胶水气味，无关质量，放置通气处胶水气味就会散去。<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于售后】售出鞋子如有任何问题均需第一时间联系我们客服说明情况，我们负责处理。<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于货运】一箱以上江浙沪皖发快递，除江浙沪皖外，其它地区均发专线物流到付，需要买家自提。如有特殊需求可以联系客服！<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于质量】断底、脱胶、破损、严重色差、严重污点&nbsp; 本店负责全部费用处理。<\/span><\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;尺码大小、小线头、小污点、微色差、微胶水气味&nbsp;均非质量问题，需买家自行承担退换货费用。<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【设计理念】定制简约随心舒适的鞋子&nbsp;百搭日常户外休闲运动、&nbsp;自由宽松、随性时尚。<\/span><\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【一件代发说明】<\/span><\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1、本公司支持一件代发 ,<a>代理申请，请点击<\/a>&nbsp;申请代理可以享原价第二档价格代发！<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2、发货时间 &nbsp; 除特殊原因当天下午16：00之前付款当日正常发货，16：00过后付款尽量当天发出，如真发不出第二天准时发出；<\/span><\/p><p>&nbsp;<\/p><p><span style=\"font-size:7.5pt;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3、一件代发时拍下地址信息请各位买家自行核对清楚，如买家地址搞错本鞋行均不负责；<\/span><\/p>","gno":"","productprice":68,"costprice":40,"stock":20000,"sales":0,"weight":0,"minbuy":0,"maxbuy":0,"ishot":0,"isrecommand":0,"isnew":0,"isdiscount":0,"issendfree":0,"istime":0,"thumb_url":["/attachment/images/sz_yi/1604/2017/12/i0N534zH6VRhh35355H54nG3QO4PeH.jpg","/attachment/images/sz_yi/1604/2017/12/jL8H7bzhceSbCsBHzteYW8L6UcQzLS.jpg","/attachment/images/sz_yi/1604/2017/12/GF76VKRkxHtWVHB36Kntt7Tx8oTYqv.jpg","/attachment/images/sz_yi/1604/2017/12/m90Wa09z692hfUI9DAcu6FO9Knf202.jpg"],"canbuy":1,"marketprice":45,"score":0,"hasoption":1,"spec":[{"id":"48213","goodsid":"2650","title":"尺码","content":null,"items":[{"id":"55670","specid":"48213","title":"35","thumb":""},{"id":"55671","specid":"48213","title":"36","thumb":""},{"id":"55672","specid":"48213","title":"37","thumb":""},{"id":"55673","specid":"48213","title":"38","thumb":""},{"id":"55674","specid":"48213","title":"39","thumb":""},{"id":"55675","specid":"48213","title":"40","thumb":""},{"id":"55676","specid":"48213","title":"41","thumb":""},{"id":"55677","specid":"48213","title":"42","thumb":""},{"id":"55678","specid":"48213","title":"43","thumb":""},{"id":"55679","specid":"48213","title":"44","thumb":""}]},{"id":"48214","goodsid":"2650","title":"颜色分类","content":null,"items":[{"id":"55680","specid":"48214","title":"白色","thumb":"/attachment/images/sz_yi/1604/2017/12/U461ISS1e4z2yCOAYz0p7s2R7rO7as.jpg"},{"id":"55681","specid":"48214","title":"黑色","thumb":"/attachment/images/sz_yi/1604/2017/12/ekK08pzKxNATPe6113hD1ZnK7th79J.jpg"}]}],"option":[{"id":"4090","goodsid":"2650","title":"39+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55674_55680","gno":""},{"id":"4091","goodsid":"2650","title":"43+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55678_55680","gno":""},{"id":"4092","goodsid":"2650","title":"43+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55678_55681","gno":""},{"id":"4093","goodsid":"2650","title":"41+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55676_55681","gno":""},{"id":"4094","goodsid":"2650","title":"41+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55676_55680","gno":""},{"id":"4095","goodsid":"2650","title":"42+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55677_55680","gno":""},{"id":"4096","goodsid":"2650","title":"42+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55677_55681","gno":""},{"id":"4097","goodsid":"2650","title":"36+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55671_55680","gno":""},{"id":"4098","goodsid":"2650","title":"36+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55671_55681","gno":""},{"id":"4099","goodsid":"2650","title":"35+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55670_55680","gno":""},{"id":"4100","goodsid":"2650","title":"35+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55670_55681","gno":""},{"id":"4101","goodsid":"2650","title":"44+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55679_55680","gno":""},{"id":"4102","goodsid":"2650","title":"39+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55674_55681","gno":""},{"id":"4103","goodsid":"2650","title":"38+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55673_55680","gno":""},{"id":"4104","goodsid":"2650","title":"37+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55672_55681","gno":""},{"id":"4105","goodsid":"2650","title":"44+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55679_55681","gno":""},{"id":"4106","goodsid":"2650","title":"37+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55672_55680","gno":""},{"id":"4107","goodsid":"2650","title":"38+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55673_55681","gno":""},{"id":"4108","goodsid":"2650","title":"40+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55675_55681","gno":""},{"id":"4109","goodsid":"2650","title":"40+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55675_55680","gno":""}],"param":[{"id":"19102","goodsid":"2650","title":"鞋制作工艺","value":"硫化鞋","displayorder":"0"},{"id":"19103","goodsid":"2650","title":"鞋帮高度","value":"低帮","displayorder":"0"},{"id":"19104","goodsid":"2650","title":"鞋跟","value":"平跟","displayorder":"0"},{"id":"19105","goodsid":"2650","title":"风格","value":"韩版","displayorder":"0"},{"id":"19106","goodsid":"2650","title":"货号","value":"3768","displayorder":"0"},{"id":"19107","goodsid":"2650","title":"闭合方式","value":"系带","displayorder":"0"},{"id":"19108","goodsid":"2650","title":"品牌","value":"乔驰","displayorder":"0"},{"id":"19109","goodsid":"2650","title":"流行元素","value":"车缝线","displayorder":"0"},{"id":"19110","goodsid":"2650","title":"图案","value":"纯色","displayorder":"0"},{"id":"19111","goodsid":"2650","title":"季节","value":"冬季","displayorder":"0"},{"id":"19112","goodsid":"2650","title":"鞋底材质","value":"橡胶","displayorder":"0"},{"id":"19113","goodsid":"2650","title":"颜色分类","value":"白色,黑色","displayorder":"0"},{"id":"19114","goodsid":"2650","title":"尺码","value":"35,36,37,38,39,40,41","displayorder":"0"},{"id":"19115","goodsid":"2650","title":"内里材质","value":"布","displayorder":"0"},{"id":"19116","goodsid":"2650","title":"适用对象","value":"青年（18-40周岁）","displayorder":"0"}]}
+     * data : {"id":2350,"goodsname":"2盒起购泰国小老板海苔卷32.4克脆紫菜烤海苔卷即食进口零食原味bigroll","shopid":0,"thumb":"/attachment/images/1604/2017/12/oQw88Gmnny9oY0Zn6m7vcyVOQtTINE.jpg","unit":"盒","status":1,"content":"<p>&nbsp;<\/p><p><img src=\"http://www.dequanhuibao.com/attachment/images/1604/2017/12/oQw88Gmnny9oY0Zn6m7vcyVOQtTINE.jpg\" width=\"100%\" alt=\"001.jpg\"/><img src=\"http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/JSi58z2gs781I7IHtvIO7Y7H12v5II.jpg\" align=\"absmiddle\" size=\"430x430\" style=\"max-width:640px;\"/><br/><\/p>","gno":"","productprice":18,"costprice":10.4,"stock":940,"sales":103,"weight":32,"minbuy":2,"maxbuy":0,"ishot":0,"isrecommand":1,"isnew":1,"isdiscount":0,"issendfree":0,"istime":0,"thumb_url":["/attachment/images/sz_yi/1604/2017/12/RMwgyGo0nNm0wvWYjjmz0vgWm9sJSn.jpg","/attachment/images/sz_yi/1604/2017/12/fH7khdPpeKTL0pHESEZhhDsHsd677h.jpg","/attachment/images/sz_yi/1604/2017/12/F8M9Hl0JJy33EjhaH8RlBEw0MyzyyZ.jpg","/attachment/images/1604/2017/12/oQw88Gmnny9oY0Zn6m7vcyVOQtTINE.jpg"],"canbuy":0,"hasoption":1,"spec":[{"id":"48037","goodsid":"2350","title":"口味","content":null,"items":[{"id":"55114","specid":"48037","title":"冬阴功汤味12盒（整箱）","thumb":""},{"id":"55115","specid":"48037","title":"鱿鱼味12盒（整箱）","thumb":""},{"id":"55116","specid":"48037","title":"烧烤味12盒（整箱）","thumb":""},{"id":"55117","specid":"48037","title":"原味12盒（整箱）","thumb":""}]}],"option":[{"id":"3149","goodsid":"2350","title":"冬阴功汤味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55114","gno":"","discountprice":10.9},{"id":"3150","goodsid":"2350","title":"鱿鱼味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55115","gno":"","discountprice":10.9},{"id":"3151","goodsid":"2350","title":"烧烤味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55116","gno":"","discountprice":10.9},{"id":"3152","goodsid":"2350","title":"原味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55117","gno":"","discountprice":10.9}],"param":[{"id":"15459","goodsid":"2350","title":"厂名","value":"小老板","displayorder":"0"},{"id":"15460","goodsid":"2350","title":"厂址","value":"泰国","displayorder":"0"},{"id":"15461","goodsid":"2350","title":"厂家联系方式","value":"02169515529","displayorder":"0"},{"id":"15462","goodsid":"2350","title":"配料表","value":"详见包装","displayorder":"0"},{"id":"15463","goodsid":"2350","title":"保质期","value":"365","displayorder":"0"},{"id":"15464","goodsid":"2350","title":"食品添加剂","value":"详见包装","displayorder":"0"},{"id":"15465","goodsid":"2350","title":"净含量","value":"32g","displayorder":"0"},{"id":"15466","goodsid":"2350","title":"包装方式","value":"包装","displayorder":"0"},{"id":"15467","goodsid":"2350","title":"原产地","value":"其他/other","displayorder":"0"},{"id":"15468","goodsid":"2350","title":"品牌","value":"小老板（泰国）","displayorder":"0"},{"id":"15469","goodsid":"2350","title":"系列","value":"小老板原味紫菜","displayorder":"0"},{"id":"15470","goodsid":"2350","title":"商品条形码","value":"8858702410823","displayorder":"0"},{"id":"15471","goodsid":"2350","title":"是否为有机食品","value":"否","displayorder":"0"},{"id":"15472","goodsid":"2350","title":"口味","value":"原味12盒（整箱）,辣椒味12盒（整箱）","displayorder":"0"},{"id":"15473","goodsid":"2350","title":"是否含糖","value":"含糖","displayorder":"0"},{"id":"15474","goodsid":"2350","title":"产地","value":"泰国","displayorder":"0"},{"id":"15475","goodsid":"2350","title":"生产日期","value":"2017年06月10日 至 2017年0","displayorder":"0"}],"marketprice":10.9,"discount":0,"discount_text":"元","discountprice":10.9,"score":10}
      */
 
     private int status;
@@ -35,35 +35,38 @@ public class GoodsDetail {
 
     public static class DataBean {
         /**
-         * id : 2650
-         * goodsname : 生产定制韩国ulzzang休闲鞋秋冬情侣学生帆布鞋百搭原宿风小白鞋
+         * id : 2350
+         * goodsname : 2盒起购泰国小老板海苔卷32.4克脆紫菜烤海苔卷即食进口零食原味bigroll
          * shopid : 0
-         * thumb : /attachment/images/sz_yi/1604/2017/12/ghN8dttnZN8t2I4r708m0hM0HH06Tt.jpg
-         * unit : 件
+         * thumb : /attachment/images/1604/2017/12/oQw88Gmnny9oY0Zn6m7vcyVOQtTINE.jpg
+         * unit : 盒
          * status : 1
-         * content : <p><br/> <br/> <img alt="undefined" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/IeTZ2LLs7S0l6pv6zsl7xS78j0XEjp.jpg" size="752x1144"/><br/> <img alt="undefined" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/ongf6f0Ney6cERG0R6NrfcggRZ4ZSF.jpg" size="752x863"/><br/> <img alt="undefined" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/QJsj8Wo3jKwGGjj3gvwVJ8dvwWZwSG.jpg" size="752x820"/><br/> <img alt="undefined" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/gMAn8Mh6sB88NmaG8MllneDNxGGl8Z.jpg" size="752x1218"/><br/> <img alt="undefined" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/c7BFPBB7dzFQF1bGBZQlhDapgDGGAb.jpg" size="752x1569"/><br/> <img alt="undefined" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/INJWC6cw2Nx2FC6Fj9bOMBnMhWyxAC.jpg" size="752x950"/><br/> <img alt="undefined" src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/n3mqKf9uMKqe29XMOXF3m2bKOK99w9.jpg" size="752x895"/></p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="font-size:7.5pt;">&nbsp; &nbsp; 《买家必读》</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于混批】一件为30双，一件以上支持混批，如有特殊原因\要求请联系客服。</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于色差】因个人显示器明暗对比显示等差异图片与实物可能会有细微色差。</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于气味】刚出厂的鞋子会有些胶水气味，无关质量，放置通气处胶水气味就会散去。</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于售后】售出鞋子如有任何问题均需第一时间联系我们客服说明情况，我们负责处理。</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于货运】一箱以上江浙沪皖发快递，除江浙沪皖外，其它地区均发专线物流到付，需要买家自提。如有特殊需求可以联系客服！</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【关于质量】断底、脱胶、破损、严重色差、严重污点&nbsp; 本店负责全部费用处理。</span></p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;尺码大小、小线头、小污点、微色差、微胶水气味&nbsp;均非质量问题，需买家自行承担退换货费用。</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【设计理念】定制简约随心舒适的鞋子&nbsp;百搭日常户外休闲运动、&nbsp;自由宽松、随性时尚。</span></p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 【一件代发说明】</span></p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1、本公司支持一件代发 ,<a>代理申请，请点击</a>&nbsp;申请代理可以享原价第二档价格代发！</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2、发货时间 &nbsp; 除特殊原因当天下午16：00之前付款当日正常发货，16：00过后付款尽量当天发出，如真发不出第二天准时发出；</span></p><p>&nbsp;</p><p><span style="font-size:7.5pt;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3、一件代发时拍下地址信息请各位买家自行核对清楚，如买家地址搞错本鞋行均不负责；</span></p>
+         * content : <p>&nbsp;</p><p><img src="http://www.dequanhuibao.com/attachment/images/1604/2017/12/oQw88Gmnny9oY0Zn6m7vcyVOQtTINE.jpg" width="100%" alt="001.jpg"/><img src="http://www.dequanhuibao.com/attachment/images/sz_yi/1604/2017/12/JSi58z2gs781I7IHtvIO7Y7H12v5II.jpg" align="absmiddle" size="430x430" style="max-width:640px;"/><br/></p>
          * gno :
-         * productprice : 68
-         * costprice : 40
-         * stock : 20000
-         * sales : 0
-         * weight : 0
-         * minbuy : 0
+         * productprice : 18
+         * costprice : 10.4
+         * stock : 940
+         * sales : 103
+         * weight : 32
+         * minbuy : 2
          * maxbuy : 0
          * ishot : 0
-         * isrecommand : 0
-         * isnew : 0
+         * isrecommand : 1
+         * isnew : 1
          * isdiscount : 0
          * issendfree : 0
          * istime : 0
-         * thumb_url : ["/attachment/images/sz_yi/1604/2017/12/i0N534zH6VRhh35355H54nG3QO4PeH.jpg","/attachment/images/sz_yi/1604/2017/12/jL8H7bzhceSbCsBHzteYW8L6UcQzLS.jpg","/attachment/images/sz_yi/1604/2017/12/GF76VKRkxHtWVHB36Kntt7Tx8oTYqv.jpg","/attachment/images/sz_yi/1604/2017/12/m90Wa09z692hfUI9DAcu6FO9Knf202.jpg"]
-         * canbuy : 1
-         * marketprice : 45
-         * score : 0
+         * thumb_url : ["/attachment/images/sz_yi/1604/2017/12/RMwgyGo0nNm0wvWYjjmz0vgWm9sJSn.jpg","/attachment/images/sz_yi/1604/2017/12/fH7khdPpeKTL0pHESEZhhDsHsd677h.jpg","/attachment/images/sz_yi/1604/2017/12/F8M9Hl0JJy33EjhaH8RlBEw0MyzyyZ.jpg","/attachment/images/1604/2017/12/oQw88Gmnny9oY0Zn6m7vcyVOQtTINE.jpg"]
+         * canbuy : 0
          * hasoption : 1
-         * spec : [{"id":"48213","goodsid":"2650","title":"尺码","content":null,"items":[{"id":"55670","specid":"48213","title":"35","thumb":""},{"id":"55671","specid":"48213","title":"36","thumb":""},{"id":"55672","specid":"48213","title":"37","thumb":""},{"id":"55673","specid":"48213","title":"38","thumb":""},{"id":"55674","specid":"48213","title":"39","thumb":""},{"id":"55675","specid":"48213","title":"40","thumb":""},{"id":"55676","specid":"48213","title":"41","thumb":""},{"id":"55677","specid":"48213","title":"42","thumb":""},{"id":"55678","specid":"48213","title":"43","thumb":""},{"id":"55679","specid":"48213","title":"44","thumb":""}]},{"id":"48214","goodsid":"2650","title":"颜色分类","content":null,"items":[{"id":"55680","specid":"48214","title":"白色","thumb":"/attachment/images/sz_yi/1604/2017/12/U461ISS1e4z2yCOAYz0p7s2R7rO7as.jpg"},{"id":"55681","specid":"48214","title":"黑色","thumb":"/attachment/images/sz_yi/1604/2017/12/ekK08pzKxNATPe6113hD1ZnK7th79J.jpg"}]}]
-         * option : [{"id":"4090","goodsid":"2650","title":"39+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55674_55680","gno":""},{"id":"4091","goodsid":"2650","title":"43+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55678_55680","gno":""},{"id":"4092","goodsid":"2650","title":"43+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55678_55681","gno":""},{"id":"4093","goodsid":"2650","title":"41+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55676_55681","gno":""},{"id":"4094","goodsid":"2650","title":"41+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55676_55680","gno":""},{"id":"4095","goodsid":"2650","title":"42+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55677_55680","gno":""},{"id":"4096","goodsid":"2650","title":"42+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55677_55681","gno":""},{"id":"4097","goodsid":"2650","title":"36+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55671_55680","gno":""},{"id":"4098","goodsid":"2650","title":"36+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55671_55681","gno":""},{"id":"4099","goodsid":"2650","title":"35+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55670_55680","gno":""},{"id":"4100","goodsid":"2650","title":"35+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55670_55681","gno":""},{"id":"4101","goodsid":"2650","title":"44+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55679_55680","gno":""},{"id":"4102","goodsid":"2650","title":"39+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55674_55681","gno":""},{"id":"4103","goodsid":"2650","title":"38+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55673_55680","gno":""},{"id":"4104","goodsid":"2650","title":"37+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55672_55681","gno":""},{"id":"4105","goodsid":"2650","title":"44+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55679_55681","gno":""},{"id":"4106","goodsid":"2650","title":"37+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55672_55680","gno":""},{"id":"4107","goodsid":"2650","title":"38+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55673_55681","gno":""},{"id":"4108","goodsid":"2650","title":"40+黑色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55675_55681","gno":""},{"id":"4109","goodsid":"2650","title":"40+白色","thumb":"","productprice":"68.00","marketprice":"45.00","costprice":"40.00","stock":"1000","weight":"0","specs":"55675_55680","gno":""}]
-         * param : [{"id":"19102","goodsid":"2650","title":"鞋制作工艺","value":"硫化鞋","displayorder":"0"},{"id":"19103","goodsid":"2650","title":"鞋帮高度","value":"低帮","displayorder":"0"},{"id":"19104","goodsid":"2650","title":"鞋跟","value":"平跟","displayorder":"0"},{"id":"19105","goodsid":"2650","title":"风格","value":"韩版","displayorder":"0"},{"id":"19106","goodsid":"2650","title":"货号","value":"3768","displayorder":"0"},{"id":"19107","goodsid":"2650","title":"闭合方式","value":"系带","displayorder":"0"},{"id":"19108","goodsid":"2650","title":"品牌","value":"乔驰","displayorder":"0"},{"id":"19109","goodsid":"2650","title":"流行元素","value":"车缝线","displayorder":"0"},{"id":"19110","goodsid":"2650","title":"图案","value":"纯色","displayorder":"0"},{"id":"19111","goodsid":"2650","title":"季节","value":"冬季","displayorder":"0"},{"id":"19112","goodsid":"2650","title":"鞋底材质","value":"橡胶","displayorder":"0"},{"id":"19113","goodsid":"2650","title":"颜色分类","value":"白色,黑色","displayorder":"0"},{"id":"19114","goodsid":"2650","title":"尺码","value":"35,36,37,38,39,40,41","displayorder":"0"},{"id":"19115","goodsid":"2650","title":"内里材质","value":"布","displayorder":"0"},{"id":"19116","goodsid":"2650","title":"适用对象","value":"青年（18-40周岁）","displayorder":"0"}]
+         * spec : [{"id":"48037","goodsid":"2350","title":"口味","content":null,"items":[{"id":"55114","specid":"48037","title":"冬阴功汤味12盒（整箱）","thumb":""},{"id":"55115","specid":"48037","title":"鱿鱼味12盒（整箱）","thumb":""},{"id":"55116","specid":"48037","title":"烧烤味12盒（整箱）","thumb":""},{"id":"55117","specid":"48037","title":"原味12盒（整箱）","thumb":""}]}]
+         * option : [{"id":"3149","goodsid":"2350","title":"冬阴功汤味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55114","gno":"","discountprice":10.9},{"id":"3150","goodsid":"2350","title":"鱿鱼味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55115","gno":"","discountprice":10.9},{"id":"3151","goodsid":"2350","title":"烧烤味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55116","gno":"","discountprice":10.9},{"id":"3152","goodsid":"2350","title":"原味12盒（整箱）","thumb":"","productprice":"19.00","marketprice":"10.90","costprice":"10.90","stock":"235","weight":"32","specs":"55117","gno":"","discountprice":10.9}]
+         * param : [{"id":"15459","goodsid":"2350","title":"厂名","value":"小老板","displayorder":"0"},{"id":"15460","goodsid":"2350","title":"厂址","value":"泰国","displayorder":"0"},{"id":"15461","goodsid":"2350","title":"厂家联系方式","value":"02169515529","displayorder":"0"},{"id":"15462","goodsid":"2350","title":"配料表","value":"详见包装","displayorder":"0"},{"id":"15463","goodsid":"2350","title":"保质期","value":"365","displayorder":"0"},{"id":"15464","goodsid":"2350","title":"食品添加剂","value":"详见包装","displayorder":"0"},{"id":"15465","goodsid":"2350","title":"净含量","value":"32g","displayorder":"0"},{"id":"15466","goodsid":"2350","title":"包装方式","value":"包装","displayorder":"0"},{"id":"15467","goodsid":"2350","title":"原产地","value":"其他/other","displayorder":"0"},{"id":"15468","goodsid":"2350","title":"品牌","value":"小老板（泰国）","displayorder":"0"},{"id":"15469","goodsid":"2350","title":"系列","value":"小老板原味紫菜","displayorder":"0"},{"id":"15470","goodsid":"2350","title":"商品条形码","value":"8858702410823","displayorder":"0"},{"id":"15471","goodsid":"2350","title":"是否为有机食品","value":"否","displayorder":"0"},{"id":"15472","goodsid":"2350","title":"口味","value":"原味12盒（整箱）,辣椒味12盒（整箱）","displayorder":"0"},{"id":"15473","goodsid":"2350","title":"是否含糖","value":"含糖","displayorder":"0"},{"id":"15474","goodsid":"2350","title":"产地","value":"泰国","displayorder":"0"},{"id":"15475","goodsid":"2350","title":"生产日期","value":"2017年06月10日 至 2017年0","displayorder":"0"}]
+         * marketprice : 10.9
+         * discount : 0
+         * discount_text : 元
+         * discountprice : 10.9
+         * score : 10
          */
 
         private int id;
@@ -74,8 +77,8 @@ public class GoodsDetail {
         private int status;
         private String content;
         private String gno;
-        private int productprice;
-        private int costprice;
+        private double productprice;
+        private double costprice;
         private int stock;
         private int sales;
         private int weight;
@@ -88,9 +91,12 @@ public class GoodsDetail {
         private int issendfree;
         private int istime;
         private int canbuy;
-        private int marketprice;
-        private int score;
         private int hasoption;
+        private double marketprice;
+        private double discount;
+        private String discount_text;
+        private double discountprice;
+        private double score;
         private List<String> thumb_url;
         private List<SpecBean> spec;
         private List<OptionBean> option;
@@ -160,7 +166,7 @@ public class GoodsDetail {
             this.gno = gno;
         }
 
-        public int getProductprice() {
+        public double getProductprice() {
             return productprice;
         }
 
@@ -168,11 +174,11 @@ public class GoodsDetail {
             this.productprice = productprice;
         }
 
-        public int getCostprice() {
+        public double getCostprice() {
             return costprice;
         }
 
-        public void setCostprice(int costprice) {
+        public void setCostprice(double costprice) {
             this.costprice = costprice;
         }
 
@@ -272,28 +278,52 @@ public class GoodsDetail {
             this.canbuy = canbuy;
         }
 
-        public int getMarketprice() {
-            return marketprice;
-        }
-
-        public void setMarketprice(int marketprice) {
-            this.marketprice = marketprice;
-        }
-
-        public int getScore() {
-            return score;
-        }
-
-        public void setScore(int score) {
-            this.score = score;
-        }
-
         public int getHasoption() {
             return hasoption;
         }
 
         public void setHasoption(int hasoption) {
             this.hasoption = hasoption;
+        }
+
+        public double getMarketprice() {
+            return marketprice;
+        }
+
+        public void setMarketprice(double marketprice) {
+            this.marketprice = marketprice;
+        }
+
+        public double getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(int discount) {
+            this.discount = discount;
+        }
+
+        public String getDiscount_text() {
+            return discount_text;
+        }
+
+        public void setDiscount_text(String discount_text) {
+            this.discount_text = discount_text;
+        }
+
+        public double getDiscountprice() {
+            return discountprice;
+        }
+
+        public void setDiscountprice(double discountprice) {
+            this.discountprice = discountprice;
+        }
+
+        public double getScore() {
+            return score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
         }
 
         public List<String> getThumb_url() {
@@ -330,11 +360,11 @@ public class GoodsDetail {
 
         public static class SpecBean {
             /**
-             * id : 48213
-             * goodsid : 2650
-             * title : 尺码
+             * id : 48037
+             * goodsid : 2350
+             * title : 口味
              * content : null
-             * items : [{"id":"55670","specid":"48213","title":"35","thumb":""},{"id":"55671","specid":"48213","title":"36","thumb":""},{"id":"55672","specid":"48213","title":"37","thumb":""},{"id":"55673","specid":"48213","title":"38","thumb":""},{"id":"55674","specid":"48213","title":"39","thumb":""},{"id":"55675","specid":"48213","title":"40","thumb":""},{"id":"55676","specid":"48213","title":"41","thumb":""},{"id":"55677","specid":"48213","title":"42","thumb":""},{"id":"55678","specid":"48213","title":"43","thumb":""},{"id":"55679","specid":"48213","title":"44","thumb":""}]
+             * items : [{"id":"55114","specid":"48037","title":"冬阴功汤味12盒（整箱）","thumb":""},{"id":"55115","specid":"48037","title":"鱿鱼味12盒（整箱）","thumb":""},{"id":"55116","specid":"48037","title":"烧烤味12盒（整箱）","thumb":""},{"id":"55117","specid":"48037","title":"原味12盒（整箱）","thumb":""}]
              */
 
             private String id;
@@ -385,9 +415,9 @@ public class GoodsDetail {
 
             public static class ItemsBean {
                 /**
-                 * id : 55670
-                 * specid : 48213
-                 * title : 35
+                 * id : 55114
+                 * specid : 48037
+                 * title : 冬阴功汤味12盒（整箱）
                  * thumb :
                  */
 
@@ -432,17 +462,18 @@ public class GoodsDetail {
 
         public static class OptionBean {
             /**
-             * id : 4090
-             * goodsid : 2650
-             * title : 39+白色
+             * id : 3149
+             * goodsid : 2350
+             * title : 冬阴功汤味12盒（整箱）
              * thumb :
-             * productprice : 68.00
-             * marketprice : 45.00
-             * costprice : 40.00
-             * stock : 1000
-             * weight : 0
-             * specs : 55674_55680
+             * productprice : 19.00
+             * marketprice : 10.90
+             * costprice : 10.90
+             * stock : 235
+             * weight : 32
+             * specs : 55114
              * gno :
+             * discountprice : 10.9
              */
 
             private String id;
@@ -456,6 +487,7 @@ public class GoodsDetail {
             private String weight;
             private String specs;
             private String gno;
+            private double discountprice;
 
             public String getId() {
                 return id;
@@ -544,14 +576,22 @@ public class GoodsDetail {
             public void setGno(String gno) {
                 this.gno = gno;
             }
+
+            public double getDiscountprice() {
+                return discountprice;
+            }
+
+            public void setDiscountprice(double discountprice) {
+                this.discountprice = discountprice;
+            }
         }
 
         public static class ParamBean {
             /**
-             * id : 19102
-             * goodsid : 2650
-             * title : 鞋制作工艺
-             * value : 硫化鞋
+             * id : 15459
+             * goodsid : 2350
+             * title : 厂名
+             * value : 小老板
              * displayorder : 0
              */
 
@@ -638,9 +678,12 @@ public class GoodsDetail {
                     ", issendfree=" + issendfree +
                     ", istime=" + istime +
                     ", canbuy=" + canbuy +
-                    ", marketprice=" + marketprice +
-                    ", score=" + score +
                     ", hasoption=" + hasoption +
+                    ", marketprice=" + marketprice +
+                    ", discount=" + discount +
+                    ", discount_text='" + discount_text + '\'' +
+                    ", discountprice=" + discountprice +
+                    ", score=" + score +
                     ", thumb_url=" + thumb_url +
                     ", spec=" + spec +
                     ", option=" + option +

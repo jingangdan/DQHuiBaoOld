@@ -16,14 +16,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.Interface.CheckInterface;
 import com.dq.huibao.Interface.ModifyCountInterface;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.ShopCartAdapter;
+import com.dq.huibao.adapter.ShopCartAdapterOld;
 import com.dq.huibao.adapter.ShoppingCartAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.CartOld;
@@ -51,9 +50,11 @@ import butterknife.OnClick;
  * Description：购物车（fragment）
  * Created by jingang on 2017/10/18.
  */
-public class FMShopcar extends BaseFragment implements
-        CheckInterface,
-        ModifyCountInterface {
+public class FMShopcar extends BaseFragment
+//        implements
+//        CheckInterface,
+//        ModifyCountInterface
+{
 
     /*登录状态*/
     @Bind(R.id.lin_shopcart_nologin)
@@ -116,7 +117,7 @@ public class FMShopcar extends BaseFragment implements
     /*UI显示*/
 //    @Bind(R.id.rv_shopcart)
 //    RecyclerView rvShopCart;
-    private ShopCartAdapter shopCartAdapter;
+    private ShopCartAdapterOld shopCartAdapter;
     private List<CartOld.DataBean.ListBean> cartList = new ArrayList<>();
 
     @Nullable
@@ -127,7 +128,7 @@ public class FMShopcar extends BaseFragment implements
 
         tvNologinTitle.setText("购物车");
 
-//        shopCartAdapter = new ShopCartAdapter(getActivity(), cartList);
+//        shopCartAdapter = new ShopCartAdapterOld(getActivity(), cartList);
 //        rvShopCart.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        rvShopCart.setAdapter(shopCartAdapter);
 //        shopCartAdapter.setCheckInterface(this);
@@ -518,20 +519,20 @@ public class FMShopcar extends BaseFragment implements
      * @param position  组元素位置
      * @param isChecked 组元素选中与否
      */
-    @Override
-    public void checkGroup(int position, boolean isChecked) {
-
-        cartList.get(position).setChoosed(isChecked);
-
-        if (isAllCheck()) {
-            ck_all.setChecked(true);
-        } else {
-            ck_all.setChecked(false);
-        }
-        shopCartAdapter.notifyDataSetChanged();
-        statistics();
-
-    }
+//    @Override
+//    public void checkGroup(int position, boolean isChecked) {
+//
+//        cartList.get(position).setChoosed(isChecked);
+//
+//        if (isAllCheck()) {
+//            ck_all.setChecked(true);
+//        } else {
+//            ck_all.setChecked(false);
+//        }
+//        shopCartAdapter.notifyDataSetChanged();
+//        statistics();
+//
+//    }
 
 
     /**
@@ -579,21 +580,21 @@ public class FMShopcar extends BaseFragment implements
      * @param goodsid
      * @param total
      */
-    @Override
-    public void doIncrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total) {
-        total++;
-
-        setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 0);
-
-//        CartOld.DataBean.ListBean listBean = cartList.get(position);
-//        int currentCount = Integer.parseInt(listBean.getTotal());
-//        currentCount++;
-//        listBean.setTotal("" + currentCount);
-//        ((TextView) showCountView).setText(currentCount + "");
-//        shopCartAdapter.notifyDataSetChanged();
-//        statistics();
-
-    }
+//    @Override
+//    public void doIncrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total) {
+//        total++;
+//
+//        setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 0);
+//
+////        CartOld.DataBean.ListBean listBean = cartList.get(position);
+////        int currentCount = Integer.parseInt(listBean.getTotal());
+////        currentCount++;
+////        listBean.setTotal("" + currentCount);
+////        ((TextView) showCountView).setText(currentCount + "");
+////        shopCartAdapter.notifyDataSetChanged();
+////        statistics();
+//
+//    }
 
     /**
      * 减少
@@ -605,32 +606,32 @@ public class FMShopcar extends BaseFragment implements
      * @param goodsid
      * @param total
      */
-    @Override
-    public void doDecrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total) {
-        total--;
-        setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 1);
-        //        CartOld.DataBean.ListBean listBean = cartList.get(position);
-//        int currentCount = Integer.parseInt(listBean.getTotal());
-//        if (currentCount == 1) {
-//            return;
-//        }
-//        currentCount--;
-//        listBean.setTotal("" + currentCount);
-//        ((TextView) showCountView).setText(currentCount + "");
-//        shopCartAdapter.notifyDataSetChanged();
-//        statistics();
-
-    }
+//    @Override
+//    public void doDecrease(int position, View showCountView, boolean isChecked, String id, String goodsid, int total) {
+//        total--;
+//        setCartUpdateNum(position, showCountView, isChecked, unionid, id, goodsid, total, 1);
+//        //        CartOld.DataBean.ListBean listBean = cartList.get(position);
+////        int currentCount = Integer.parseInt(listBean.getTotal());
+////        if (currentCount == 1) {
+////            return;
+////        }
+////        currentCount--;
+////        listBean.setTotal("" + currentCount);
+////        ((TextView) showCountView).setText(currentCount + "");
+////        shopCartAdapter.notifyDataSetChanged();
+////        statistics();
+//
+//    }
 
     /**
      * 删除
      *
      * @param position
      */
-    @Override
-    public void childDelete(int position) {
-
-    }
+//    @Override
+//    public void childDelete(int position) {
+//
+//    }
 
     /**
      * 弹窗确定
@@ -691,7 +692,7 @@ public class FMShopcar extends BaseFragment implements
         public void onBindViewHolder(MyViewHolder holder, int i) {
             holder.shopname.setText("" + shopList.get(i).getShopname());
 
-            shopCartAdapter = new ShopCartAdapter(mContext, shopList.get(i).getGoodslist());
+            shopCartAdapter = new ShopCartAdapterOld(mContext, shopList.get(i).getGoodslist());
             holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             holder.recyclerView.setAdapter(shopCartAdapter);
 

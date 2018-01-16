@@ -382,6 +382,16 @@ public class HttpUtils {
     public static final String CART_GET = "Cart/get?";
 
     /**
+     * 17.
+     * 删除购物车
+     * 方式：post/get
+     * 参数：
+     * ids 商品id集合，逗号隔开
+     * 用户登陆验证（phone,token）
+     */
+    public static final String CART_DEL = "Cart/del?";
+
+    /**
      * 获取配送费
      * 方式：post/get
      * 参数：
@@ -403,7 +413,7 @@ public class HttpUtils {
      * mobile 联系人电话
      * 用户登陆验证（phone,token）
      */
-    public static final String MEMBER_ADDADDR = "Member/addaddr";
+    public static final String MEMBER_ADDADDR = "Member/addaddr?";
 
     /**
      * 修改收货地址
@@ -417,7 +427,7 @@ public class HttpUtils {
      * mobile 联系人电话
      * 用户登陆验证（phone,token）
      */
-    public static final String MEMBER_EDITADDR = "Member/editaddr";
+    public static final String MEMBER_EDITADDR = "Member/editaddr?";
 
     /**
      * 获取收货地址
@@ -425,7 +435,7 @@ public class HttpUtils {
      * 参数：
      * 用户登陆验证（phone,token）
      */
-    public static final String MEMBER_GETADDR = "Member/getaddr";
+    public static final String MEMBER_GETADDR = "Member/getaddr?";
 
     /**
      * 删除收货地址
@@ -434,6 +444,6 @@ public class HttpUtils {
      * id 要删除的收货地址id
      * 用户登陆验证（phone,token）
      */
-    public static final String MEMBER_DELADDR = "Member/deladdr";
+    public static final String MEMBER_DELADDR = "Member/deladdr?";
 
 }

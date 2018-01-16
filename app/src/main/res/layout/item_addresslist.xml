@@ -28,10 +28,12 @@
                 android:layout_alignParentTop="true">
 
                 <TextView
+                    android:id="@+id/tv_item_addr_contact"
                     style="@style/text_main"
                     android:text="收货人姓名" />
 
                 <TextView
+                    android:id="@+id/tv_item_addr_mobile"
                     style="@style/text_main"
                     android:layout_marginLeft="5dp"
                     android:text="收货人电话" />
@@ -46,13 +48,9 @@
                 android:layout_marginTop="5dp">
 
                 <TextView
+                    android:id="@+id/tv_item_addr"
                     style="@style/text_main"
                     android:text="选择地址"
-                    android:textSize="12dp" />
-
-                <TextView
-                    style="@style/text_main"
-                    android:text="详细地址"
                     android:textSize="12dp" />
 
             </LinearLayout>
@@ -107,7 +105,6 @@
                     android:text="编辑" />
 
                 <Button
-
                     android:id="@+id/but_item_address_delete"
                     style="@style/text_main"
                     android:layout_width="45dp"

@@ -5,33 +5,48 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
+import com.dq.huibao.Interface.AddrInterface;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.bean.addr.Addr;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
+
+import java.util.List;
 
 /**
  * Description：
  * Created by jingang on 2017/10/31.
  */
 
-public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.MyViewHolder>{
+public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.MyViewHolder> {
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
     private Context mContext;
+    private List<Addr.DataBean> addrList;
 
-    public AddressListAdapter(Context mContext){
+    private AddrInterface addrInterface;
+
+    public AddressListAdapter(Context mContext, List<Addr.DataBean> addrList) {
         this.mContext = mContext;
+        this.addrList = addrList;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener){
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
         this.onItemLongClickListener = onItemLongClickListener;
+    }
+
+    public void setAddrInterface(AddrInterface addrInterface) {
+        this.addrInterface = addrInterface;
     }
 
     @Override
@@ -41,8 +56,8 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
-        if(onItemClickListener != null){
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        if (onItemClickListener != null) {
             //
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -65,19 +80,59 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
             });
         }
 
-
+        holder.contact.setText("" + addrList.get(position).getContact());
+        holder.mobile.setText("" + addrList.get(position).getMobile());
+        holder.addr.setText("" + addrList.get(position).getProvince() + addrList.get(position).getCity() + addrList.get(position).getAddr());
+        if (addrList.get(position).getIsdefault().equals("1")) {
+            holder.checkBox.setChecked(true);
+        } else if (addrList.get(position).getIsdefault().equals("0")) {
+            holder.checkBox.setChecked(false);
+        }
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //暴露修改接口
+                addrInterface.checkEdit(position,
+                        addrList.get(position).getId(),
+                        addrList.get(position).getRegionid(),
+                        addrList.get(position).getProvince() + addrList.get(position).getCity(),
+                        Integer.parseInt(addrList.get(position).getIsdefault()),
+                        addrList.get(position).getAddr(),
+                        addrList.get(position).getContact(),
+                        addrList.get(position).getMobile());
+            }
+        });
+        holder.del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //暴露删除接口
+                addrInterface.checkDel(position, addrList.get(position).getId());
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return addrList.size();
     }
 
-    public class MyViewHolder extends BaseRecyclerViewHolder{
+    public class MyViewHolder extends BaseRecyclerViewHolder {
+        private TextView contact, mobile, addr;
+        private CheckBox checkBox;
+        private Button edit, del;
 
         public MyViewHolder(View view) {
             super(view);
+            contact = view.findViewById(R.id.tv_item_addr_contact);
+            mobile = view.findViewById(R.id.tv_item_addr_mobile);
+            addr = view.findViewById(R.id.tv_item_addr);
+
+            checkBox = view.findViewById(R.id.cb_item_address);
+
+            edit = view.findViewById(R.id.but_item_address_update);
+            del = view.findViewById(R.id.but_item_address_delete);
+
         }
     }
 }
