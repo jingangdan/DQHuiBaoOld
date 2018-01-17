@@ -106,11 +106,16 @@ public class AddAddressActivity extends BaseActivity {
         etAddr.setText(addr);
         tvAddressArea.setText(region);
 
-        if (isdefault.equals("1")) {
-            cbAddrIsdefault.setChecked(true);
-        } else if (isdefault.equals("0")) {
-            cbAddrIsdefault.setChecked(false);
+        if (isdefault != null) {
+            if (isdefault.equals("1")) {
+                cbAddrIsdefault.setChecked(true);
+            } else if (isdefault.equals("0")) {
+                cbAddrIsdefault.setChecked(false);
+            }
+        } else {
+            isdefault = "0";
         }
+
 
         tag = intent.getStringExtra("tag");
 
@@ -327,8 +332,9 @@ public class AddAddressActivity extends BaseActivity {
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
                             toast("" + addrReturn.getData());
+                            intent = new Intent();
+                            setResult(CodeUtils.ADDR_ADD, intent);
                             AddAddressActivity.this.finish();
-                            setResult(CodeUtils.ADDR_ADD);
                         }
 
 
@@ -369,15 +375,19 @@ public class AddAddressActivity extends BaseActivity {
         MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
                 "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_ADDADDR + MD5_PATH + "&sign=" +
+        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_EDITADDR + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
                         "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
 
-        params = new RequestParams(PATH);
+        System.out.println("addr=" + addr + "&contact=" + contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
+                "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
+
         System.out.println("加密 = " + MD5_PATH);
 
+        params = new RequestParams(PATH);
+
         System.out.println("修改收货地址 = " + PATH);
-        x.http().post(params,
+        x.http().get(params,
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
@@ -385,9 +395,9 @@ public class AddAddressActivity extends BaseActivity {
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
                             toast("" + addrReturn.getData());
-                            AddAddressActivity.this.finish();
                             intent = new Intent();
                             setResult(CodeUtils.ADDR_ADD, intent);
+                            AddAddressActivity.this.finish();
                         }
 
 

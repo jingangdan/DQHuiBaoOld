@@ -76,7 +76,7 @@ public class ShopcarActivity extends BaseActivity implements
     @Bind(R.id.but_shopacrt_delete)
     Button butShopacrtDelete;
 
-    private View view;
+    //private View view;
 
     private TextView tv_all_check;
 

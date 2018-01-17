@@ -1,6 +1,8 @@
 package com.dq.huibao.ui.memcen;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import com.dq.huibao.adapter.AddressListAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.addr.Addr;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -26,6 +29,8 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.net.ssl.SSLContext;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -107,13 +112,13 @@ public class AddressListActivity extends BaseActivity
 //                startActivityForResult(intent, CodeUtils.ADDR_LIST);
 
                 intent = new Intent(TAG, AddAddressActivity.class);
-                intent.putExtra("addrid", "");
-                intent.putExtra("regionid", "");
-                intent.putExtra("region", "");
-                intent.putExtra("isdefault", "");
-                intent.putExtra("addr", "");
-                intent.putExtra("contact", "");
-                intent.putExtra("mobile", "");
+//                intent.putExtra("addrid", "");
+//                intent.putExtra("regionid", "");
+//                intent.putExtra("region", "");
+//                intent.putExtra("isdefault", "");
+//                intent.putExtra("addr", "");
+//                intent.putExtra("contact", "");
+//                intent.putExtra("mobile", "");
                 intent.putExtra("tag", "0");
                 startActivityForResult(intent, CodeUtils.ADDR_LIST);
                 break;
@@ -186,9 +191,13 @@ public class AddressListActivity extends BaseActivity
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("删除收货地址 = " + result);
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if(addrReturn.getStatus() == 1){
+                            addrList.remove(position);
+                            addressListAdapter.notifyDataSetChanged();
+                        }
 
-                        addrList.remove(position);
-                        addressListAdapter.notifyDataSetChanged();
+
                     }
 
                     @Override
@@ -222,9 +231,29 @@ public class AddressListActivity extends BaseActivity
         startActivityForResult(intent, CodeUtils.ADDR_LIST);
     }
 
+    AlertDialog alert;
     @Override
-    public void checkDel(int position, String id) {
-        addrDel(position, id, phone, token);
+    public void checkDel(final int position, final String id) {
+        alert = new AlertDialog.Builder(this).create();
+        alert.setTitle("操作提示");
+        alert.setMessage("确定要删除吗？");
+        alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+        alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        addrDel(position, id, phone, token);
+                        return;
+                    }
+                });
+        alert.show();
+
     }
 
     @Override
