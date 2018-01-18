@@ -1,4 +1,4 @@
-package com.dq.huibao.ui.memcen;
+package com.dq.huibao.ui.addr;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -313,7 +313,7 @@ public class AddAddressActivity extends BaseActivity {
      * @param token
      */
     public void addAddr(final String regionid, String isdefault, String addr, String UTF_addr, String contact, String UTF_contact, String mobile, String phone, String token) {
-        MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&isdefault=" + isdefault + "&mobile=" + mobile +
+        MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&isdefault=1" + "&mobile=" + mobile +
                 "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.MEMBER_ADDADDR + MD5_PATH + "&sign=" +

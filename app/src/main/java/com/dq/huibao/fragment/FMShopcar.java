@@ -745,6 +745,7 @@ import com.dq.huibao.adapter.cart.ShopCartAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.cart.Cart;
+import com.dq.huibao.ui.SubmitOrderActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -865,16 +866,44 @@ public class FMShopcar extends BaseFragment implements
                 Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
                 phone = login.getData().getPhone();
                 token = login.getData().getToken();
-
                 getCart(phone, token);
 
                 tvBaseTitle.setText("购物车");
 
             }
-        } else {
 
+            relShopCartLogin.setVisibility(View.VISIBLE);
+            linShopcartNologin.setVisibility(View.GONE);
+        } else {
+            relShopCartLogin.setVisibility(View.GONE);
+            linShopcartNologin.setVisibility(View.VISIBLE);
         }
     }
+
+
+    /*
+  * 判断登录状态
+  *  */
+//    @SuppressLint("WrongConstant")
+//    public void isLogin() {
+//        spUserInfo = new SPUserInfo(getActivity().getApplication());
+//
+//        if (spUserInfo.getLogin().equals("1")) {
+//
+//            if (!(spUserInfo.getLoginReturn().equals(""))) {
+//                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
+//                phone = login.getData().getPhone();
+//                token = login.getData().getToken();
+//
+//                getCart(phone, token);
+//
+//                tvBaseTitle.setText("购物车");
+//
+//            }
+//        } else {
+//
+//        }
+//    }
 
     /**
      * 获取购物车
@@ -1146,16 +1175,19 @@ public class FMShopcar extends BaseFragment implements
                                 return;
                             }
                         });
+
                 alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                intent = new Intent(getActivity(), SubmitOrderActivity.class);
+                                intent.putExtra("cartids", ids);
+                                startActivity(intent);
                                 return;
                             }
                         });
                 alert.show();
-//                intent = new Intent(this, SubmitOrderActivity.class);
-//                startActivity(intent);
+
 
                 break;
 
@@ -1362,9 +1394,11 @@ public class FMShopcar extends BaseFragment implements
                     totalCount++;
                     totalPrice += Double.parseDouble(product.getMarketprice()) * Integer.parseInt(product.getCount());
                     if (ids.equals("")) {
-                        ids = product.getGoodsid();
+                        //ids = product.getGoodsid();
+                        ids = product.getId();
                     } else {
-                        ids = ids + "," + product.getGoodsid();
+                        //ids = ids + "," + product.getGoodsid();
+                        ids = ids + "," + product.getId();
                     }
                 }
             }

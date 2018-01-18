@@ -63,6 +63,7 @@
             android:background="@color/bg_main"></View>
 
         <LinearLayout
+            android:id="@+id/lin_item_addrlist"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:gravity="center_vertical"

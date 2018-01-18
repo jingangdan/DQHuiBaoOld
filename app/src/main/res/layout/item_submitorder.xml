@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/bg_main">
+    android:background="@color/bg_main"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_white"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:background="@color/bg_white">
+        android:padding="10dp">
 
         <TextView
+            android:id="@+id/tv_checkorder_shopname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="德泉一店"/>
+            android:text="德泉一店" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="@color/view_main"/>
+        android:background="@color/view_main" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:background="@color/bg_white">
 
         <android.support.v7.widget.RecyclerView
@@ -43,18 +42,18 @@
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="@color/view_main"/>
+        android:background="@color/view_main" />
 
     <!--买家留言-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/bg_white">
+        android:background="@color/bg_white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,53 +62,56 @@
             android:padding="5dp">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
                 style="@style/text_adware"
-                android:text="买家留言："/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="买家留言：" />
 
             <EditText
+                android:id="@+id/et_checkorder_comment"
                 android:layout_width="0dp"
-                android:layout_weight="3.5"
                 android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:background="@color/bg_main"
                 android:hint="给卖家留言"
-                android:textSize="12dp"
                 android:padding="5dp"
-                android:background="@color/bg_main"/>
+                android:textSize="12dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="right"
+            android:orientation="horizontal"
             android:padding="10dp">
 
             <TextView
+                style="@style/text_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_main"
-                android:text="共"/>
+                android:text="共" />
 
             <TextView
+                android:id="@+id/tv_checkorder_num"
+                style="@style/text_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_main"
-                android:text="2"/>
+                android:text="2" />
 
             <TextView
+                style="@style/text_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/text_main"
-                android:text="件商品 合计："/>
+                android:text="件商品 合计：" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tv_checkorder_money"
                 style="@style/text_red"
-                android:text="¥100.00"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥100.00" />
 
         </LinearLayout>
 
@@ -117,28 +119,29 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="10dp" />
 
     <!---->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/bg_white">
+        android:background="@color/bg_white"
+        android:padding="10dp">
 
         <TextView
-            android:layout_alignParentLeft="true"
             style="@style/text_adware"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+运费"/>
+            android:layout_alignParentLeft="true"
+            android:text="+运费" />
 
         <TextView
-            android:layout_alignParentRight="true"
+            android:id="@+id/tv_checkorder_dispatch"
+            style="@style/text_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text_main"
-            android:text="¥0.00"/>
+            android:layout_alignParentRight="true"
+            android:text="¥0.00" />
 
 
     </RelativeLayout>
@@ -146,61 +149,88 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="@color/view_main"/>
+        android:background="@color/view_main" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/bg_white">
+        android:background="@color/bg_white"
+        android:padding="10dp">
 
         <TextView
-            android:layout_alignParentLeft="true"
             style="@style/text_adware"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="优惠券"/>
+            android:layout_alignParentLeft="true"
+            android:text="会员优惠" />
 
         <TextView
-            android:layout_toLeftOf="@+id/iv_youhuiquan_tight"
+            android:id="@+id/tv_item_co_discount_all"
+            style="@style/text_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="¥0.00" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/text_adware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="优惠券" />
+
+        <TextView
             style="@style/text_red"
-            android:text="0"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_youhuiquan_tight"
+            android:text="0" />
 
         <ImageView
             android:id="@+id/iv_youhuiquan_tight"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_next"/>
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_next" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="@color/view_main"/>
+        android:background="@color/view_main" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/bg_white">
+        android:background="@color/bg_white"
+        android:padding="10dp">
 
         <TextView
-            android:layout_alignParentLeft="true"
+            android:id="@+id/tv_checkorder_money_all"
             style="@style/text_adware"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="商品小计"/>
+            android:layout_alignParentLeft="true"
+            android:text="商品小计" />
 
         <TextView
-            android:layout_alignParentRight="true"
+            android:id="@+id/tv_item_co_pay_all"
+            style="@style/text_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text_main"
-            android:text="¥0.00"/>
+            android:layout_alignParentRight="true"
+            android:text="¥0.00" />
 
 
     </RelativeLayout>
@@ -208,6 +238,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="@color/view_main"/>
+        android:background="@color/view_main" />
 
 </LinearLayout>

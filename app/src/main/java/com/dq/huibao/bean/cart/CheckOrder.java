@@ -3,15 +3,16 @@ package com.dq.huibao.bean.cart;
 import java.util.List;
 
 /**
- * 添加购物车返回
- * Created by jingang on 2018/1/13.
+ * 确认订单 实体类
+ * Created by jingang on 2018/1/18.
  */
 
-public class Cart {
+public class CheckOrder {
+
 
     /**
      * status : 1
-     * data : [{"shopid":"0","shopname":"惠宝商城","goodslist":[{"id":"6","uid":"4","goodsid":"2653","count":"20","createtime":"1515825895","shopid":"0","marketprice":"118.00","optionid":"4120","goods":{"canbuy":1,"id":2653,"goodsname":"新款欧美简约牛津电脑背包 学生科技书包轻便男包 休闲双肩包批发","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"4120","goodsid":"2653","title":"黑色","thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg","productprice":"168.00","marketprice":"118.00","costprice":"95.00","stock":"387","weight":"750","specs":"55691","gno":""},"thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg","unit":"个","stock":987,"buycount":20,"weight":"750","shopid":0,"issendfree":1,"dispatch":0,"marketprice":"118.00","discount_money":11.8,"discountprice":106.2,"score":106}},{"id":"4","uid":"4","goodsid":"2560","count":"2","createtime":"1515809798","shopid":"0","marketprice":"36.00","optionid":"3508","goods":{"canbuy":1,"id":2560,"goodsname":"手表时尚韩版男士学生超薄礼品表便宜石英男表","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"3508","goodsid":"2560","title":"黑面啡带","thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","productprice":"56.00","marketprice":"36.00","costprice":"16.00","stock":"500","weight":"0","specs":"55451","gno":""},"thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","unit":"个","stock":4500,"buycount":2,"weight":0,"shopid":0,"issendfree":0,"dispatch":0,"marketprice":"36.00","discount_money":3.6,"discountprice":32.4,"score":32}}]}]
+     * data : [{"shopid":"0","shopname":"惠宝商城","goodslist":[{"id":"4","uid":"4","goodsid":"2560","count":"2","createtime":"1515809798","shopid":"0","marketprice":"36.00","optionid":"3508","goods":{"canbuy":1,"id":2560,"goodsname":"手表时尚韩版男士学生超薄礼品表便宜石英男表","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"3508","goodsid":"2560","title":"黑面啡带","thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","productprice":"56.00","marketprice":"36.00","costprice":"16.00","stock":"500","weight":"0","specs":"55451","gno":""},"thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","unit":"个","stock":4500,"buycount":2,"weight":0,"shopid":0,"issendfree":0,"marketprice":"36.00","discount_money":3.6,"discountprice":32.4,"score":32}}],"money_all":72,"discount_all":7.2,"score_all":64,"count_all":2,"dispatch_all":0}]
      */
 
     private int status;
@@ -37,31 +38,22 @@ public class Cart {
         /**
          * shopid : 0
          * shopname : 惠宝商城
-         * goodslist : [{"id":"6","uid":"4","goodsid":"2653","count":"20","createtime":"1515825895","shopid":"0","marketprice":"118.00","optionid":"4120","goods":{"canbuy":1,"id":2653,"goodsname":"新款欧美简约牛津电脑背包 学生科技书包轻便男包 休闲双肩包批发","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"4120","goodsid":"2653","title":"黑色","thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg","productprice":"168.00","marketprice":"118.00","costprice":"95.00","stock":"387","weight":"750","specs":"55691","gno":""},"thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg","unit":"个","stock":987,"buycount":20,"weight":"750","shopid":0,"issendfree":1,"dispatch":0,"marketprice":"118.00","discount_money":11.8,"discountprice":106.2,"score":106}},{"id":"4","uid":"4","goodsid":"2560","count":"2","createtime":"1515809798","shopid":"0","marketprice":"36.00","optionid":"3508","goods":{"canbuy":1,"id":2560,"goodsname":"手表时尚韩版男士学生超薄礼品表便宜石英男表","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"3508","goodsid":"2560","title":"黑面啡带","thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","productprice":"56.00","marketprice":"36.00","costprice":"16.00","stock":"500","weight":"0","specs":"55451","gno":""},"thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","unit":"个","stock":4500,"buycount":2,"weight":0,"shopid":0,"issendfree":0,"dispatch":0,"marketprice":"36.00","discount_money":3.6,"discountprice":32.4,"score":32}}]
+         * goodslist : [{"id":"4","uid":"4","goodsid":"2560","count":"2","createtime":"1515809798","shopid":"0","marketprice":"36.00","optionid":"3508","goods":{"canbuy":1,"id":2560,"goodsname":"手表时尚韩版男士学生超薄礼品表便宜石英男表","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"3508","goodsid":"2560","title":"黑面啡带","thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","productprice":"56.00","marketprice":"36.00","costprice":"16.00","stock":"500","weight":"0","specs":"55451","gno":""},"thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","unit":"个","stock":4500,"buycount":2,"weight":0,"shopid":0,"issendfree":0,"marketprice":"36.00","discount_money":3.6,"discountprice":32.4,"score":32}}]
+         * money_all : 72
+         * discount_all : 7.2
+         * score_all : 64
+         * count_all : 2
+         * dispatch_all : 0
          */
 
         private String shopid;
         private String shopname;
+        private double money_all;
+        private double discount_all;
+        private double score_all;
+        private int count_all;
+        private double dispatch_all;
         private List<GoodslistBean> goodslist;
-
-        public boolean isCheck = false;
-        public boolean isChoosed;
-
-        public boolean isCheck() {
-            return isCheck;
-        }
-
-        public void setCheck(boolean check) {
-            isCheck = check;
-        }
-
-        public boolean isChoosed() {
-            return isChoosed;
-        }
-
-        public void setChoosed(boolean choosed) {
-            isChoosed = choosed;
-        }
 
         public String getShopid() {
             return shopid;
@@ -79,6 +71,46 @@ public class Cart {
             this.shopname = shopname;
         }
 
+        public double getMoney_all() {
+            return money_all;
+        }
+
+        public void setMoney_all(double money_all) {
+            this.money_all = money_all;
+        }
+
+        public double getDiscount_all() {
+            return discount_all;
+        }
+
+        public void setDiscount_all(double discount_all) {
+            this.discount_all = discount_all;
+        }
+
+        public double getScore_all() {
+            return score_all;
+        }
+
+        public void setScore_all(double score_all) {
+            this.score_all = score_all;
+        }
+
+        public int getCount_all() {
+            return count_all;
+        }
+
+        public void setCount_all(int count_all) {
+            this.count_all = count_all;
+        }
+
+        public double getDispatch_all() {
+            return dispatch_all;
+        }
+
+        public void setDispatch_all(double dispatch_all) {
+            this.dispatch_all = dispatch_all;
+        }
+
         public List<GoodslistBean> getGoodslist() {
             return goodslist;
         }
@@ -89,15 +121,15 @@ public class Cart {
 
         public static class GoodslistBean {
             /**
-             * id : 6
+             * id : 4
              * uid : 4
-             * goodsid : 2653
-             * count : 20
-             * createtime : 1515825895
+             * goodsid : 2560
+             * count : 2
+             * createtime : 1515809798
              * shopid : 0
-             * marketprice : 118.00
-             * optionid : 4120
-             * goods : {"canbuy":1,"id":2653,"goodsname":"新款欧美简约牛津电脑背包 学生科技书包轻便男包 休闲双肩包批发","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"4120","goodsid":"2653","title":"黑色","thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg","productprice":"168.00","marketprice":"118.00","costprice":"95.00","stock":"387","weight":"750","specs":"55691","gno":""},"thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg","unit":"个","stock":987,"buycount":20,"weight":"750","shopid":0,"issendfree":1,"dispatch":0,"marketprice":"118.00","discount_money":11.8,"discountprice":106.2,"score":106}
+             * marketprice : 36.00
+             * optionid : 3508
+             * goods : {"canbuy":1,"id":2560,"goodsname":"手表时尚韩版男士学生超薄礼品表便宜石英男表","status":1,"istime":"0","minbuy":0,"maxbuy":0,"option":{"id":"3508","goodsid":"2560","title":"黑面啡带","thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","productprice":"56.00","marketprice":"36.00","costprice":"16.00","stock":"500","weight":"0","specs":"55451","gno":""},"thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","unit":"个","stock":4500,"buycount":2,"weight":0,"shopid":0,"issendfree":0,"marketprice":"36.00","discount_money":3.6,"discountprice":32.4,"score":32}
              */
 
             private String id;
@@ -109,24 +141,6 @@ public class Cart {
             private String marketprice;
             private String optionid;
             private GoodsBean goods;
-            public boolean isCheck = false;
-            public boolean isChoosed;
-
-            public boolean isCheck() {
-                return isCheck;
-            }
-
-            public void setCheck(boolean check) {
-                isCheck = check;
-            }
-
-            public boolean isChoosed() {
-                return isChoosed;
-            }
-
-            public void setChoosed(boolean choosed) {
-                isChoosed = choosed;
-            }
 
             public String getId() {
                 return id;
@@ -203,25 +217,24 @@ public class Cart {
             public static class GoodsBean {
                 /**
                  * canbuy : 1
-                 * id : 2653
-                 * goodsname : 新款欧美简约牛津电脑背包 学生科技书包轻便男包 休闲双肩包批发
+                 * id : 2560
+                 * goodsname : 手表时尚韩版男士学生超薄礼品表便宜石英男表
                  * status : 1
                  * istime : 0
                  * minbuy : 0
                  * maxbuy : 0
-                 * option : {"id":"4120","goodsid":"2653","title":"黑色","thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg","productprice":"168.00","marketprice":"118.00","costprice":"95.00","stock":"387","weight":"750","specs":"55691","gno":""}
-                 * thumb : /attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg
+                 * option : {"id":"3508","goodsid":"2560","title":"黑面啡带","thumb":"/attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg","productprice":"56.00","marketprice":"36.00","costprice":"16.00","stock":"500","weight":"0","specs":"55451","gno":""}
+                 * thumb : /attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg
                  * unit : 个
-                 * stock : 987
-                 * buycount : 20
-                 * weight : 750
+                 * stock : 4500
+                 * buycount : 2
+                 * weight : 0
                  * shopid : 0
-                 * issendfree : 1
-                 * dispatch : 0
-                 * marketprice : 118.00
-                 * discount_money : 11.8
-                 * discountprice : 106.2
-                 * score : 106
+                 * issendfree : 0
+                 * marketprice : 36.00
+                 * discount_money : 3.6
+                 * discountprice : 32.4
+                 * score : 32
                  */
 
                 private int canbuy;
@@ -236,10 +249,9 @@ public class Cart {
                 private String unit;
                 private int stock;
                 private int buycount;
-                private String weight;
+                private int weight;
                 private int shopid;
                 private int issendfree;
-                private double dispatch;
                 private String marketprice;
                 private double discount_money;
                 private double discountprice;
@@ -341,11 +353,11 @@ public class Cart {
                     this.buycount = buycount;
                 }
 
-                public String getWeight() {
+                public int getWeight() {
                     return weight;
                 }
 
-                public void setWeight(String weight) {
+                public void setWeight(int weight) {
                     this.weight = weight;
                 }
 
@@ -363,14 +375,6 @@ public class Cart {
 
                 public void setIssendfree(int issendfree) {
                     this.issendfree = issendfree;
-                }
-
-                public double getDispatch() {
-                    return dispatch;
-                }
-
-                public void setDispatch(double dispatch) {
-                    this.dispatch = dispatch;
                 }
 
                 public String getMarketprice() {
@@ -407,16 +411,16 @@ public class Cart {
 
                 public static class OptionBean {
                     /**
-                     * id : 4120
-                     * goodsid : 2653
-                     * title : 黑色
-                     * thumb : /attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg
-                     * productprice : 168.00
-                     * marketprice : 118.00
-                     * costprice : 95.00
-                     * stock : 387
-                     * weight : 750
-                     * specs : 55691
+                     * id : 3508
+                     * goodsid : 2560
+                     * title : 黑面啡带
+                     * thumb : /attachment/images/sz_yi/1604/2017/12/BQ5jXCmUM8XNjEONH8NnOWh8NJhxze.jpg
+                     * productprice : 56.00
+                     * marketprice : 36.00
+                     * costprice : 16.00
+                     * stock : 500
+                     * weight : 0
+                     * specs : 55451
                      * gno :
                      */
 
@@ -553,10 +557,9 @@ public class Cart {
                             ", unit='" + unit + '\'' +
                             ", stock=" + stock +
                             ", buycount=" + buycount +
-                            ", weight='" + weight + '\'' +
+                            ", weight=" + weight +
                             ", shopid=" + shopid +
                             ", issendfree=" + issendfree +
-                            ", dispatch=" + dispatch +
                             ", marketprice='" + marketprice + '\'' +
                             ", discount_money=" + discount_money +
                             ", discountprice=" + discountprice +
@@ -577,8 +580,6 @@ public class Cart {
                         ", marketprice='" + marketprice + '\'' +
                         ", optionid='" + optionid + '\'' +
                         ", goods=" + goods +
-                        ", isCheck=" + isCheck +
-                        ", isChoosed=" + isChoosed +
                         '}';
             }
         }
@@ -588,16 +589,19 @@ public class Cart {
             return "DataBean{" +
                     "shopid='" + shopid + '\'' +
                     ", shopname='" + shopname + '\'' +
+                    ", money_all=" + money_all +
+                    ", discount_all=" + discount_all +
+                    ", score_all=" + score_all +
+                    ", count_all=" + count_all +
+                    ", dispatch_all=" + dispatch_all +
                     ", goodslist=" + goodslist +
-                    ", isCheck=" + isCheck +
-                    ", isChoosed=" + isChoosed +
                     '}';
         }
     }
 
     @Override
     public String toString() {
-        return "Cart{" +
+        return "CheckOrder{" +
                 "status=" + status +
                 ", data=" + data +
                 '}';

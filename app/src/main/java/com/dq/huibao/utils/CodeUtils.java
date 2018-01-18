@@ -13,6 +13,6 @@ public class CodeUtils {
     public static final int ADDR_ADD = 0x02;
 
     /*提交订单选择收货地址*/
-    public static final int s = 0x03;
+    public static final int CONFIRM_ORDER = 0x03;
 
 }

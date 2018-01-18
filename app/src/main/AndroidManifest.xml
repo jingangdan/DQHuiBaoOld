@@ -139,10 +139,13 @@
         <activity android:name="com.dq.huibao.ui.SubmitOrderActivity" />
 
         <!--管理收货地址-->
-        <activity android:name="com.dq.huibao.ui.memcen.AddressListActivity" />
+        <activity android:name="com.dq.huibao.ui.addr.AddressListActivity" />
 
         <!--添加收货地址-->
-        <activity android:name="com.dq.huibao.ui.memcen.AddAddressActivity" />
+        <activity android:name="com.dq.huibao.ui.addr.AddAddressActivity" />
+
+        <!--选择收货地址-->
+        <activity android:name=".ui.addr.AddrListActivity" />
 
         <!--我的订单-->
         <activity android:name="com.dq.huibao.ui.memcen.OrderActivity" />

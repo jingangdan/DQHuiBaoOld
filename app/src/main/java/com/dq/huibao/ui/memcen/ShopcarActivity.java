@@ -432,6 +432,9 @@ public class ShopcarActivity extends BaseActivity implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                intent = new Intent(ShopcarActivity.this, SubmitOrderActivity.class);
+                                intent.putExtra("cartids", ids);
+                                startActivity(intent);
                                 return;
                             }
                         });

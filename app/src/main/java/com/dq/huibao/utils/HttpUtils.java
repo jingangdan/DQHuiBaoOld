@@ -403,6 +403,7 @@ public class HttpUtils {
     public static final String CONFIRM_DISPATCH = "Confirm/dispatch";
 
     /**
+     * 18.
      * 添加收货地址
      * 方式：post/get
      * 参数：
@@ -416,6 +417,7 @@ public class HttpUtils {
     public static final String MEMBER_ADDADDR = "Member/addaddr?";
 
     /**
+     * 19.
      * 修改收货地址
      * 方式：post/get
      * 参数：
@@ -430,6 +432,7 @@ public class HttpUtils {
     public static final String MEMBER_EDITADDR = "Member/editaddr?";
 
     /**
+     * 20.
      * 获取收货地址
      * 方式：post/get
      * 参数：
@@ -438,6 +441,7 @@ public class HttpUtils {
     public static final String MEMBER_GETADDR = "Member/getaddr?";
 
     /**
+     * 21.
      * 删除收货地址
      * 方式：post/get
      * 参数：
@@ -445,5 +449,27 @@ public class HttpUtils {
      * 用户登陆验证（phone,token）
      */
     public static final String MEMBER_DELADDR = "Member/deladdr?";
+
+
+    /**
+     * 提交订单前确认
+     * 方式：post/get
+     * 参数：
+     * cartids  购物车id 集合 逗号隔开
+     * cityid 配送地址的市级id  在收货地址里面有
+     * 用户登陆验证（phone,token）
+     */
+    public static final String CONFIRM_CHECKORDER = "Confirm/checkorder?";
+
+    /**
+     * 提交订单
+     * 方式：post/get
+     * 参数：
+     * cartids  购物车id 集合 逗号隔开
+     * addrid收货地址的id
+     * remark 备注[{shopid:remark}]备注
+     * 用户登陆验证（phone,token）
+     */
+    public static final String ORDER_ADD = "Order/add?";
 
 }

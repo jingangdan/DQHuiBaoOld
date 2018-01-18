@@ -1,4 +1,4 @@
-package com.dq.huibao.ui.memcen;
+package com.dq.huibao.ui.addr;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -29,8 +29,6 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.SSLContext;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

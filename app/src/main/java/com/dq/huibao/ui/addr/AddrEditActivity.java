@@ -1,6 +1,7 @@
-package com.dq.huibao.ui.memcen;
+package com.dq.huibao.ui.addr;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -82,6 +83,10 @@ public class AddrEditActivity extends BaseActivity {
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
     private String phone = "", token = "";
+
+    /*接受页面传值*/
+    private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -292,8 +297,9 @@ public class AddrEditActivity extends BaseActivity {
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
                             toast("" + addrReturn.getData());
+                            intent = new Intent();
+                            setResult(CodeUtils.ADDR_ADD, intent);
                             AddrEditActivity.this.finish();
-                            setResult(CodeUtils.ADDR_ADD);
                         }
 
                     }

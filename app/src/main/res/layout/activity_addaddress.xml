@@ -55,12 +55,12 @@
             android:text="联系电话" />
 
         <EditText
-            android:hint="请填写收货人手机号"
             android:id="@+id/et_addr_mobile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:background="@null"
+            android:hint="请填写收货人手机号"
             android:inputType="number"
             android:maxLength="16"
             android:padding="5dp"
@@ -171,7 +171,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <CheckBox
             android:id="@+id/cb_addr_isdefault"
