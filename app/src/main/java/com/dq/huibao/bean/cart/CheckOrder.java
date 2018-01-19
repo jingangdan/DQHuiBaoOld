@@ -53,7 +53,16 @@ public class CheckOrder {
         private double score_all;
         private int count_all;
         private double dispatch_all;
+        private String commet;
         private List<GoodslistBean> goodslist;
+
+        public String getCommet() {
+            return commet;
+        }
+
+        public void setCommet(String commet) {
+            this.commet = commet;
+        }
 
         public String getShopid() {
             return shopid;
@@ -594,6 +603,7 @@ public class CheckOrder {
                     ", score_all=" + score_all +
                     ", count_all=" + count_all +
                     ", dispatch_all=" + dispatch_all +
+                    ", commet='" + commet + '\'' +
                     ", goodslist=" + goodslist +
                     '}';
         }

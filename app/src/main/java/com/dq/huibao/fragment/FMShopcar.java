@@ -746,6 +746,7 @@ import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.ui.SubmitOrderActivity;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -841,7 +842,7 @@ public class FMShopcar extends BaseFragment implements
 
         ButterKnife.bind(this, view);
 
-        relShopcarHeader.setVisibility(View.GONE);
+//        relShopcarHeader.setVisibility(View.GONE);
 
         shopCartAdapter = new ShopCartAdapter(shopList, children, getActivity());
         shopCartAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
@@ -851,6 +852,21 @@ public class FMShopcar extends BaseFragment implements
         isLogin();
 
         return view;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            System.out.println("离开FMShopCart");
+
+        } else {
+            System.out.println("刷新FMShopCart");
+            shopList.clear();
+            isLogin();
+
+        }
+
     }
 
     /*
@@ -880,30 +896,6 @@ public class FMShopcar extends BaseFragment implements
         }
     }
 
-
-    /*
-  * 判断登录状态
-  *  */
-//    @SuppressLint("WrongConstant")
-//    public void isLogin() {
-//        spUserInfo = new SPUserInfo(getActivity().getApplication());
-//
-//        if (spUserInfo.getLogin().equals("1")) {
-//
-//            if (!(spUserInfo.getLoginReturn().equals(""))) {
-//                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
-//                phone = login.getData().getPhone();
-//                token = login.getData().getToken();
-//
-//                getCart(phone, token);
-//
-//                tvBaseTitle.setText("购物车");
-//
-//            }
-//        } else {
-//
-//        }
-//    }
 
     /**
      * 获取购物车
@@ -937,6 +929,8 @@ public class FMShopcar extends BaseFragment implements
                             // 关键步骤3,初始化时，将ExpandableListView以展开的方式呈现
                             exListView.expandGroup(i);
                         }
+
+                        calculate();
 
                     }
 
@@ -1182,7 +1176,8 @@ public class FMShopcar extends BaseFragment implements
                             public void onClick(DialogInterface dialog, int which) {
                                 intent = new Intent(getActivity(), SubmitOrderActivity.class);
                                 intent.putExtra("cartids", ids);
-                                startActivity(intent);
+                                //startActivity(intent);
+                                startActivityForResult(intent, CodeUtils.CART_FM);
                                 return;
                             }
                         });
@@ -1418,5 +1413,15 @@ public class FMShopcar extends BaseFragment implements
     @Override
     protected void lazyLoad() {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CodeUtils.CART_FM) {
+            if (resultCode == CodeUtils.CONFIRM_ORDER) {
+
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,8 +16,10 @@ import com.dq.huibao.adapter.SubmitOrderAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.addr.Addr;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.cart.CheckOrder;
 import com.dq.huibao.ui.addr.AddAddressActivity;
+import com.dq.huibao.ui.addr.AddrListActivity;
 import com.dq.huibao.ui.addr.AddressListActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
@@ -24,10 +27,15 @@ import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +63,7 @@ public class SubmitOrderActivity extends BaseActivity {
     private SubmitOrderAdapter submitOrderAdapter;
     private LinearLayoutManager mManager;
     private List<CheckOrder.DataBean> shopList = new ArrayList<>();
+    private String remark = "";
 
     /*接收页面传值*/
     private Intent intent;
@@ -71,6 +80,7 @@ public class SubmitOrderActivity extends BaseActivity {
     /*收货地址*/
     private List<Addr.DataBean> addrList = new ArrayList<>();
     private String regionid = "";//市级id（省市二级id）
+    private String addrid = "";//收货地址id
 
     /*支付价格*/
     private double pay_all = 0.00;
@@ -110,15 +120,45 @@ public class SubmitOrderActivity extends BaseActivity {
                     startActivityForResult(intent, CodeUtils.CONFIRM_ORDER);
                 } else {
                     //选择收货地址
-                    intent = new Intent(this, AddressListActivity.class);
+                    intent = new Intent(this, AddrListActivity.class);
                     startActivityForResult(intent, CodeUtils.CONFIRM_ORDER);
                 }
                 break;
 
             case R.id.but_confirm_pay:
                 //提交订单
+                JSONObject object = new JSONObject();//创建一个总的对象，这个对象对整个json串
+                String UTF_comment = "";
 
-                orderAdd(phone, token, cartids, "", "");
+                for (int i = 0; i < shopList.size(); i++) {
+                    pay_all += shopList.get(i).getMoney_all() - shopList.get(i).getDiscount_all() + shopList.get(i).getDispatch_all();
+
+                    try {
+                        object.put("" + shopList.get(i).getShopid(), shopList.get(i).getCommet());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                System.out.println("111 =" + object.toString());
+
+
+                //Base64.encodeToString(URLEncoder.encode(object.toString(), "UTF-8").getBytes(), Base64.DEFAULT);
+                // orderAdd(phone, token, cartids, addrid, MD5Util.getMD5String(object.toString()));
+                //Base64.encodeToString(URLEncoder.encode(object.toString(), "UTF-8").getBytes(), Base64.DEFAULT);
+
+                try {
+                    String s = URLEncoder.encode(object.toString(), "UTF-8");
+                    String ss = Base64.encodeToString(s.getBytes(), Base64.DEFAULT);
+                    ss = ss.replaceAll("[\\s*\t\n\r]", "");
+
+                    orderAdd(phone, token, cartids, addrid, ss);
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             default:
                 break;
@@ -164,20 +204,16 @@ public class SubmitOrderActivity extends BaseActivity {
                         addrList = addr.getData();
                         if (addr.getStatus() == 1) {
 
-//                            addrList.addAll(addr.getData());
-//                            addressListAdapter.notifyDataSetChanged();
-
                             //确认订单
                             for (int i = 0; i < addrList.size(); i++) {
                                 if (addrList.get(i).getIsdefault().equals("1")) {
                                     regionid = addrList.get(i).getRegionid();
+                                    addrid = addrList.get(i).getId();
                                     tvAddr.setText(addrList.get(i).getContact() + "(" + addrList.get(i).getMobile() + ")\n" +
                                             addrList.get(i).getProvince() + "." + addrList.get(i).getCity() + "." + addrList.get(i).getAddr());
 
                                     getCheckorder(phone, token, cartids, regionid);
 
-                                } else {
-                                    tvAddr.setText("请选择收货地址");
                                 }
                             }
                         }
@@ -211,7 +247,7 @@ public class SubmitOrderActivity extends BaseActivity {
      * @param regionid 配送地址的市级id
      */
     public void getCheckorder(String phone, String token, String cartids, String regionid) {
-        MD5_PATH = "cartids=" + cartids + "&cityid=" + regionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+        MD5_PATH = "addrid=" + regionid + "&cartids=" + cartids + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.CONFIRM_CHECKORDER + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
@@ -263,8 +299,9 @@ public class SubmitOrderActivity extends BaseActivity {
      * @param addrid  收货地址的id
      * @param remark  备注[{shopid:remark}]备注
      */
-    public void orderAdd(String phone, String token, String cartids, String addrid, String remark) {
+    public void orderAdd(String phone, String token, String cartids, String addrid, final String remark) {
         MD5_PATH = "addrid=" + addrid + "&cartids=" + cartids + "&phone=" + phone + "&remark=" + remark + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
         PATH = HttpUtils.PATHS + HttpUtils.ORDER_ADD + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
 
@@ -275,6 +312,12 @@ public class SubmitOrderActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("提交订单 = " + result);
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            toast("" + addrReturn.getData());
+                            intent = new Intent(SubmitOrderActivity.this, PayActivity.class);
+                            startActivityForResult(intent, CodeUtils.CONFIRM_ORDER);
+                        }
                     }
 
                     @Override
@@ -298,9 +341,16 @@ public class SubmitOrderActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CodeUtils.CONFIRM_ORDER) {
-            if (resultCode == CodeUtils.ADDR_ADD && resultCode == CodeUtils.ADDR_LIST) {
+            if (resultCode == CodeUtils.ADDR_ADD || resultCode == CodeUtils.ADDR_LIST || resultCode == CodeUtils.ADDR_LISTS) {
+
                 addrList.clear();
+                shopList.clear();
+                pay_all = 0.0;
                 isLogin();
+            } else if (resultCode == CodeUtils.PAY) {
+                intent = new Intent();
+                setResult(CodeUtils.CONFIRM_ORDER, intent);
+                SubmitOrderActivity.this.finish();
             }
         }
     }

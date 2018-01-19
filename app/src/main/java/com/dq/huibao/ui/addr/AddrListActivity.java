@@ -85,6 +85,7 @@ public class AddrListActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 //addAddr(regionid, isdefault, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
+                setDefaultaddr(addrList.get(position).getId(), phone, token);
             }
         });
 
@@ -160,39 +161,29 @@ public class AddrListActivity extends BaseActivity {
 
 
     /**
-     * 添加收货地址
+     * 设置默认地址
      *
-     * @param regionid  选择区域id
-     * @param isdefault 是否设为默认  0 否 1 是
-     * @param addr      详细地址
-     * @param contact   联系人
-     * @param mobile    联系电话
+     * @param id
      * @param phone
      * @param token
      */
-    public void addAddr(final String regionid, int isdefault, String addr, String UTF_addr, String contact, String UTF_contact, String mobile, String phone, String token) {
-        MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&isdefault=" + isdefault + "&mobile=" + mobile +
-                "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_ADDADDR + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&isdefault=" + isdefault + "&mobile=" + mobile +
-                        "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
-
+    public void setDefaultaddr(String id, String phone, String token) {
+        MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_DEGAULTADDR + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
         params = new RequestParams(PATH);
-        System.out.println("加密 = " + MD5_PATH);
-
-        System.out.println("添加收货地址 = " + PATH);
+        System.out.println("设置默认地址 = " + PATH);
         x.http().post(params,
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println("添加收货地址 = " + result);
+                        System.out.println("设置默认地址 = " + result);
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
-                            toast("" + addrReturn.getData());
+                            toast("" + addrReturn.getData().toString());
                             intent = new Intent();
-                            setResult(CodeUtils.ADDR_ADD, intent);
-                            TAG.finish();
+                            setResult(CodeUtils.ADDR_LISTS, intent);
+                            AddrListActivity.this.finish();
                         }
 
                     }

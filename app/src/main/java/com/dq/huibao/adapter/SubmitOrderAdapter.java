@@ -3,6 +3,8 @@ package com.dq.huibao.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +54,7 @@ public class SubmitOrderAdapter extends RecyclerView.Adapter<SubmitOrderAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         if (mOnItemClickListener != null) {
             //为ItemView设置监听器
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -74,13 +76,31 @@ public class SubmitOrderAdapter extends RecyclerView.Adapter<SubmitOrderAdapter.
                 }
             });
         }
+        shopList.get(position).setCommet("");
         holder.shopname.setText("" + shopList.get(position).getShopname());
         holder.num.setText("" + shopList.get(position).getCount_all());
         holder.money.setText("" + shopList.get(position).getMoney_all());
         holder.dispatch.setText("" + shopList.get(position).getDispatch_all());
-        holder.discount_all.setText(""+shopList.get(position).getDiscount_all());
+        holder.discount_all.setText("" + shopList.get(position).getDiscount_all());
 
-        holder.pay_all.setText(""+(shopList.get(position).getMoney_all() - shopList.get(position).getDiscount_all() + shopList.get(position).getDispatch_all()));
+        holder.comment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                shopList.get(position).setCommet("" + editable);
+            }
+        });
+
+        holder.pay_all.setText("" + (shopList.get(position).getMoney_all() - shopList.get(position).getDiscount_all() + shopList.get(position).getDispatch_all()));
 
         soGoodsAdapter = new SOGoodsAdapter(mContext, shopList.get(position).getGoodslist());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -107,6 +127,9 @@ public class SubmitOrderAdapter extends RecyclerView.Adapter<SubmitOrderAdapter.
             money_all = view.findViewById(R.id.tv_checkorder_money_all);
             discount_all = view.findViewById(R.id.tv_item_co_discount_all);
             pay_all = view.findViewById(R.id.tv_item_co_pay_all);
+
+            comment = view.findViewById(R.id.et_checkorder_comment);
+
             recyclerView = (RecyclerView) view.findViewById(R.id.rv_so_goods);
         }
     }

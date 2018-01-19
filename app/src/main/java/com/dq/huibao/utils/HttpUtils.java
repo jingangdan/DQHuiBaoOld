@@ -450,6 +450,16 @@ public class HttpUtils {
      */
     public static final String MEMBER_DELADDR = "Member/deladdr?";
 
+    /**
+     * 22.
+     * 设置默认收货地址
+     * 方式：post/get
+     * 参数：
+     * id 要修改的收货地址id
+     * 用户登陆验证（phone,token）
+     */
+    public static final String MEMBER_DEGAULTADDR = "Member/defaultaddr?";
+
 
     /**
      * 提交订单前确认
