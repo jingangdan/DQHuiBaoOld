@@ -151,7 +151,7 @@
         <activity android:name=".ui.addr.AddrListActivity" />
 
         <!--我的订单-->
-        <activity android:name="com.dq.huibao.ui.memcen.OrderActivity" />
+        <activity android:name="com.dq.huibao.ui.order.OrderActivity" />
 
         <!--购物车-->
         <activity android:name="com.dq.huibao.ui.memcen.ShopcarActivity" />

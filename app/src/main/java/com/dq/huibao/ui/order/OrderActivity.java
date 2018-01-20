@@ -1,4 +1,4 @@
-package com.dq.huibao.ui.memcen;
+package com.dq.huibao.ui.order;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,9 +40,12 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
 
     private SimpleFragmentPagerAdapter sfpAdapter;
 
+    private FMOrderAll fmOrderAll;
+
     /*接收页面传值*/
     private Intent intent;
     private int page = 0;
+    private String phone = "", token = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +54,12 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
         ButterKnife.bind(this);
         intent = getIntent();
         page = intent.getExtras().getInt("page");
+        phone = intent.getStringExtra("phone");
+        token = intent.getStringExtra("token");
 
-        fragments.add(FMOrderAll.newInstance("FMOrderAll"));
+        fmOrderAll = new FMOrderAll();
+
+        fragments.add(fmOrderAll.newInstance(phone, token));
         fragments.add(FMOrderNoPay.newInstance("FMOrderNoPay"));
         fragments.add(FMOrderNoSend.newInstance("FMOrderNoSend"));
 
@@ -76,6 +83,10 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
     protected void initWidght() {
         super.initWidght();
         setTitleName("我的订单");
+
+    }
+
+    public void setFragments() {
 
     }
 

@@ -462,6 +462,7 @@ public class HttpUtils {
 
 
     /**
+     * 23.
      * 提交订单前确认
      * 方式：post/get
      * 参数：
@@ -472,6 +473,7 @@ public class HttpUtils {
     public static final String CONFIRM_CHECKORDER = "Confirm/checkorder?";
 
     /**
+     * 24.
      * 提交订单
      * 方式：post/get
      * 参数：
@@ -481,5 +483,19 @@ public class HttpUtils {
      * 用户登陆验证（phone,token）
      */
     public static final String ORDER_ADD = "Order/add?";
+
+    /**
+     * 25.
+     * 获取订单列表
+     * 方式：post/get
+     * 参数：
+     * status 订单状态 全部获取传空
+     * 用户登陆验证（phone,token）
+     * <p>
+     * 注：订单状态 status  0生成订单未支付1支付2发货3确认收获 -1关闭订单
+     * 是否已经评价 is_recomment 0未评价 1已评价
+     * 退款refund 0正常，1申请退款 2商家确认 3退款成功 -1拒绝申请
+     */
+    public static final String ORDER_GETIST = "Order/getlist?";
 
 }

@@ -27,7 +27,7 @@ import com.dq.huibao.ui.memcen.CollectActivity;
 import com.dq.huibao.ui.memcen.CouponsActivity;
 import com.dq.huibao.ui.memcen.FootprintActivity;
 import com.dq.huibao.ui.memcen.MemcenActivity;
-import com.dq.huibao.ui.memcen.OrderActivity;
+import com.dq.huibao.ui.order.OrderActivity;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -371,6 +371,8 @@ public class FMMemCen extends BaseFragment {
     public void setIntentOrder(int page) {
         intent = new Intent(getActivity(), OrderActivity.class);
         intent.putExtra("page", page);
+        intent.putExtra("phone", phone);
+        intent.putExtra("token", token);
         startActivity(intent);
     }
 

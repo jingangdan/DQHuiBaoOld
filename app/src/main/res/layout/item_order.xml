@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:background="@color/bg_white"
-    android:orientation="vertical"
-    android:layout_marginTop="10dp">
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
@@ -14,14 +14,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/tv_order_lift"
             style="@style/text_adware"
             android:layout_alignParentLeft="true"
             android:text="订单号：" />
 
         <TextView
+            android:id="@+id/tv_order_ordersn"
+            style="@style/text_adware"
+            android:layout_toRightOf="@+id/tv_order_lift"
+            android:text="111" />
+
+
+        <TextView
+            android:id="@+id/tv_order_status"
             style="@style/text_red"
             android:layout_alignParentRight="true"
             android:text="订单状态" />
@@ -34,10 +44,24 @@
         android:background="@color/view_main" />
 
     <LinearLayout
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -105,46 +129,105 @@
         android:layout_height="0.8dp"
         android:background="@color/view_main" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <TextView
-            style="@style/text_main"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/tv_item_order_price"
-            android:gravity="right"
-            android:text="共1件商品 实付：" />
-
-        <TextView
-            android:id="@+id/tv_item_order_price"
-            style="@style/text_main"
-            android:layout_alignParentRight="true"
-            android:text="100.00" />
-
-    </RelativeLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
         android:background="@color/view_main" />
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/text_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共" />
+
+        <TextView
+            android:id="@+id/tv_order_allcount"
+            style="@style/text_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2" />
+
+        <TextView
+            style="@style/text_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="件商品 合计：" />
+
+        <TextView
+            android:id="@+id/tv_order_pay_money"
+            style="@style/text_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥100.00" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
         android:padding="5dp">
 
-
         <Button
+            android:id="@+id/but_order_pay"
             style="@style/text_main"
             android:layout_height="35dp"
-            android:layout_alignParentRight="true"
             android:background="@drawable/kuang_gary"
-            android:text="删除订单" />
+            android:text="支付" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/but_order_kuaidi"
+            style="@style/text_main"
+            android:layout_height="35dp"
+            android:background="@drawable/kuang_gary"
+            android:text="查看物流" />
+
+        <Button
+            android:id="@+id/but_order_collect"
+            style="@style/text_main"
+            android:layout_height="35dp"
+            android:background="@drawable/kuang_gary"
+            android:text="确认收货" />
+
+        <Button
+            android:id="@+id/but_order_comment"
+            style="@style/text_main"
+            android:layout_height="35dp"
+            android:background="@drawable/kuang_gary"
+            android:text="评价" />
+
+        <Button
+            android:id="@+id/but_order_del"
+            style="@style/text_main"
+            android:layout_height="35dp"
+            android:background="@drawable/kuang_gary"
+            android:text="删除" />
+
+        <Button
+            android:id="@+id/but_order_close"
+            style="@style/text_main"
+            android:layout_height="35dp"
+            android:background="@drawable/kuang_gary"
+            android:text="删除" />
+
+        <Button
+            android:id="@+id/but_order_refund"
+            style="@style/text_main"
+            android:layout_height="35dp"
+            android:background="@drawable/kuang_gary"
+            android:text="退款" />
+
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
