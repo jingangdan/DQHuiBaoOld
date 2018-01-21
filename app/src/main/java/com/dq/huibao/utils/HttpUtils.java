@@ -498,4 +498,39 @@ public class HttpUtils {
      */
     public static final String ORDER_GETIST = "Order/getlist?";
 
+    /**
+     * 快递100快递查询接口
+     * 方式：get
+     * 参数：type 快递公司编号订单详情提供
+     * postid快递单号
+     */
+    public static final String KUAIDI = "https://www.kuaidi100.com/query?";
+
+    /**
+     * 订单退款
+     * 方式：post/get
+     * 参数：
+     * id 订单id
+     * remark 退款原因—文字
+     * 用户登陆验证（phone,token）
+     * <p>
+     * 注：订单状态status=1作可以删除
+     */
+    public static final String ORDER_REFUND = "Order/refund?";
+
+    /**
+     * 订单状态修改
+     * 方式：post/get
+     * 参数：
+     * id 订单id
+     * type操作
+     * 用户登陆验证（phone,token）
+     * <p>
+     * 注：type = ['del删除','close关闭','finish确认收货']
+     * 删除——必须先执行关闭操作才能删除，status==-1
+     * 关闭——订单状态是未支付的时候才能关闭status==0
+     * 确认收获——只有当发货的状态才能收货status==2
+     */
+    public static final String ORDER_EDIT = "Order/edit?";
+
 }

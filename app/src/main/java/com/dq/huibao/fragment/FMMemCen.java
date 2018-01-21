@@ -21,14 +21,15 @@ import com.dq.huibao.R;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.account.Account;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.ui.LoginActivity;
 import com.dq.huibao.ui.addr.AddressListActivity;
 import com.dq.huibao.ui.memcen.CollectActivity;
 import com.dq.huibao.ui.memcen.CouponsActivity;
 import com.dq.huibao.ui.memcen.FootprintActivity;
 import com.dq.huibao.ui.memcen.MemcenActivity;
-import com.dq.huibao.ui.order.OrderActivity;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
+import com.dq.huibao.ui.order.OrderActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -41,6 +42,9 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,7 +53,10 @@ import butterknife.OnClick;
  * Description：会员中心
  * Created by jingang on 2017/10/18.
  */
-public class FMMemCen extends BaseFragment {
+public class FMMemCen extends BaseFragment implements
+        PullToRefreshView.OnHeaderRefreshListener,
+        PullToRefreshView.OnFooterRefreshListener {
+
     /*登录状态*/
     @Bind(R.id.lin_percen_login)
     LinearLayout linPercenLogin;
@@ -63,6 +70,8 @@ public class FMMemCen extends BaseFragment {
     /**/
     @Bind(R.id.tv_nologin_title)
     TextView tvNologinTitle;
+    @Bind(R.id.ptrv_mem)
+    PullToRefreshView pullToRefreshView;
 
     private View view;
 
@@ -169,9 +178,15 @@ public class FMMemCen extends BaseFragment {
         initWaveView();
 
         isLogin();
+
+        pullToRefreshView.setOnHeaderRefreshListener(this);
+        pullToRefreshView.setOnFooterRefreshListener(this);
+        pullToRefreshView.setLastUpdated(new Date().toLocaleString());
+
         return view;
     }
 
+    /*浪花效果*/
     private void initWaveView() {
         waveView = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#30ffffff");
         waveView2 = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#50ffffff");
@@ -390,7 +405,6 @@ public class FMMemCen extends BaseFragment {
                 phone = login.getData().getPhone();
                 token = login.getData().getToken();
 
-                //getUserInfo(unionid);
                 getMember(phone, token);
             }
 
@@ -412,11 +426,10 @@ public class FMMemCen extends BaseFragment {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.MEM_MEMBER + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("个人信息 = " + PATH);
-        System.out.println(""+MD5_PATH);
 
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
@@ -431,9 +444,6 @@ public class FMMemCen extends BaseFragment {
                         nickname = login.getData().getNickname();
                         credit1 = login.getData().getBalance();
                         credit2 = login.getData().getScore();
-                        //couponcount = userInfo.getData().getCounts().getCouponcount();
-
-                        //setUserInfo(userInfo.getData().getMember().getAvatar());
                         setUserInfo(avatar);
 
                     }
@@ -628,5 +638,34 @@ public class FMMemCen extends BaseFragment {
 
             }
         }
+    }
+
+    @Override
+    public void onFooterRefresh(PullToRefreshView view) {
+        pullToRefreshView.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //加载更多数据
+                pullToRefreshView.onFooterRefreshComplete();
+
+            }
+
+        }, 1000);
+    }
+
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        pullToRefreshView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //刷新数据
+                pullToRefreshView.onHeaderRefreshComplete("更新于:"
+                        + Calendar.getInstance().getTime().toLocaleString());
+                pullToRefreshView.onHeaderRefreshComplete();
+
+            }
+
+        }, 1000);
     }
 }

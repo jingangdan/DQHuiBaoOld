@@ -8,13 +8,15 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="#E3E3E3" />
+        android:background="#E3E3E3"
+        android:visibility="gone" />
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"

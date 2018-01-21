@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.order.Order;
@@ -56,11 +58,19 @@ public class OrderGoodsAdapter extends RecyclerView.Adapter<OrderGoodsAdapter.My
             });
 
         }
-        ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.IMG_HEADER + goodsList.get(positon).getThumb(),
-                R.mipmap.icon_empty002,
-                R.mipmap.icon_error002,
-                holder.img);
+//        ImageUtils.loadIntoUseFitWidths(mContext,
+//                HttpUtils.IMG_HEADER + goodsList.get(positon).getThumb(),
+//                R.mipmap.icon_empty002,
+//                R.mipmap.icon_error002,
+//                holder.img);
+
+        Glide.with(mContext)
+                .load(HttpUtils.IMG_HEADER + goodsList.get(positon).getThumb())
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(holder.img);
+
+
         holder.goodsname.setText("" + goodsList.get(positon).getGoodsname());
         holder.optionname.setText("" + goodsList.get(positon).getOptionname());
         holder.price.setText("¥" + goodsList.get(positon).getPrice());
@@ -79,6 +89,7 @@ public class OrderGoodsAdapter extends RecyclerView.Adapter<OrderGoodsAdapter.My
         TextView optionname;
         TextView price;
         TextView count;
+
         public MyViewHolder(View view) {
             super(view);
             img = view.findViewById(R.id.iv_order_img);

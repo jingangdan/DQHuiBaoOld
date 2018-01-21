@@ -14,7 +14,6 @@ import com.dq.huibao.fragment.memcen.FMOrderNoCollect;
 import com.dq.huibao.fragment.memcen.FMOrderNoPay;
 import com.dq.huibao.fragment.memcen.FMOrderNoSend;
 import com.dq.huibao.fragment.memcen.FMorderOK;
-import com.dq.huibao.fragment.memcen.FMorderReFund;
 import com.dq.huibao.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -35,12 +34,10 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
     @Bind(R.id.tb_noScrollViewPage)
     NoScrollViewPager noScrollViewPager;
 
-    private String[] titles = new String[]{"全部", "待付款", "待发货", "待收货", "已完成", "待退款"};
+    private String[] titles = new String[]{"全部", "待支付", "待发货", "待收货", "已完成"};
     private List<Fragment> fragments = new ArrayList<>();
 
     private SimpleFragmentPagerAdapter sfpAdapter;
-
-    private FMOrderAll fmOrderAll;
 
     /*接收页面传值*/
     private Intent intent;
@@ -57,15 +54,13 @@ public class OrderActivity extends BaseActivity implements ViewPager.OnPageChang
         phone = intent.getStringExtra("phone");
         token = intent.getStringExtra("token");
 
-        fmOrderAll = new FMOrderAll();
+        fragments.add(FMOrderAll.newInstance(phone, token));
+        fragments.add(FMOrderNoPay.newInstance(phone, token));
+        fragments.add(FMOrderNoSend.newInstance(phone, token));
 
-        fragments.add(fmOrderAll.newInstance(phone, token));
-        fragments.add(FMOrderNoPay.newInstance("FMOrderNoPay"));
-        fragments.add(FMOrderNoSend.newInstance("FMOrderNoSend"));
-
-        fragments.add(FMOrderNoCollect.newInstance("FMOrderNoCollect"));
-        fragments.add(FMorderOK.newInstance("FMorderOK"));
-        fragments.add(FMorderReFund.newInstance("FMorderReFund"));
+        fragments.add(FMOrderNoCollect.newInstance(phone, token));
+        fragments.add(FMorderOK.newInstance(phone, token));
+        //fragments.add(FMorderReFund.newInstance("FMorderReFund"));
 
         sfpAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this, fragments, titles);
         noScrollViewPager.setAdapter(sfpAdapter);

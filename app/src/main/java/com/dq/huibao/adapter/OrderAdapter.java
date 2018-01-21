@@ -16,6 +16,7 @@ import com.dq.huibao.R;
 import com.dq.huibao.bean.order.Order;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     private Context mContext;
     private List<Order.DataBean> orderList;
     private OrderInterface orderInterface;
+    OrderGoodsAdapter orderGoodsAdapter = null;
+    private List<Order.DataBean.GoodslistBean> goodsList = new ArrayList<>();
 
     public OrderAdapter(Context mContext, List<Order.DataBean> orderList) {
         this.mContext = mContext;
@@ -48,6 +51,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @SuppressLint("WrongConstant")
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int i) {
+
 
         holder.ordersn.setText("" + orderList.get(i).getOrdersn());
         holder.status.setText("" + orderList.get(i).getStatus());
@@ -112,7 +116,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.but_refund.setVisibility(View.GONE);
         }
 
-        OrderGoodsAdapter orderGoodsAdapter = new OrderGoodsAdapter(mContext, orderList.get(i).getGoodslist());
+        orderGoodsAdapter = new OrderGoodsAdapter(mContext, orderList.get(i).getGoodslist());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         holder.recyclerView.setAdapter(orderGoodsAdapter);
 
@@ -143,7 +147,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.but_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                orderInterface.doOrderEdit(orderList.get(i).getId(), "");
+                orderInterface.doOrderEdit(orderList.get(i).getId(), "finish", i);
             }
         });
 
@@ -151,7 +155,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.but_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                orderInterface.doOrderEdit(orderList.get(i).getId(), "");
+                orderInterface.doOrderEdit(orderList.get(i).getId(), "del", i);
             }
         });
 
@@ -159,7 +163,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.but_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                orderInterface.doOrderEdit(orderList.get(i).getId(), "");
+                orderInterface.doOrderEdit(orderList.get(i).getId(), "colse", i);
             }
         });
 

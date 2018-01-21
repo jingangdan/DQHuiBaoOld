@@ -129,13 +129,8 @@
         android:layout_height="0.8dp"
         android:background="@color/view_main" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:background="@color/view_main" />
-
-
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"

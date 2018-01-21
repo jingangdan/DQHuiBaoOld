@@ -28,10 +28,10 @@ public interface OrderInterface {
     /**
      * 确认收货 删除 关闭
      *
-     * @param id
-     * @param type
+     * @param id   订单id
+     * @param type del删除','close关闭','finish确认收货
      */
-    void doOrderEdit(String id, String type);
+    void doOrderEdit(String id, String type, int position);
 
 
 }

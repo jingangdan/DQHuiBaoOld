@@ -36,12 +36,12 @@ import butterknife.ButterKnife;
  * Created by jingang on 2017/10/20.
  */
 public class FMStore extends BaseFragment {
-
     @Bind(R.id.tv_base_title)
     TextView tvBaseTitle;
-
     @Bind(R.id.list)
     LRecyclerView mRecyclerView = null;
+    private DataAdapter mDataAdapter = null;
+
     private View view;
 
     /**
@@ -58,10 +58,6 @@ public class FMStore extends BaseFragment {
      * 已经获取到多少条数据了
      */
     private static int mCurrentCounter = 0;
-
-    //private LRecyclerView mRecyclerView = null;
-
-    private DataAdapter mDataAdapter = null;
 
     private PreviewHandler mHandler = new PreviewHandler(this);
     private LRecyclerViewAdapter mLRecyclerViewAdapter = null;
@@ -93,7 +89,7 @@ public class FMStore extends BaseFragment {
         mRecyclerView.setFooterViewHint("拼命加载中", "已经全部为你呈现了", "网络不给力啊，点击再试一次吧");
 
         int spacing = getResources().getDimensionPixelSize(R.dimen.dp_4);
-        mRecyclerView.addItemDecoration(SpacesItemDecoration.newInstance(spacing, spacing, manager.getSpanCount(), Color.rgb(244,244,244)));
+        mRecyclerView.addItemDecoration(SpacesItemDecoration.newInstance(spacing, spacing, manager.getSpanCount(), Color.rgb(244, 244, 244)));
 
         //根据需要选择使用GridItemDecoration还是SpacesItemDecoration
         GridItemDecoration divider = new GridItemDecoration.Builder(getActivity())

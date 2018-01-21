@@ -153,6 +153,9 @@
         <!--我的订单-->
         <activity android:name="com.dq.huibao.ui.order.OrderActivity" />
 
+        <!--查看物流-->
+        <activity android:name=".ui.order.OrderKuaiDiActivity" />
+
         <!--购物车-->
         <activity android:name="com.dq.huibao.ui.memcen.ShopcarActivity" />
 

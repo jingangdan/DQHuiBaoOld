@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dq.huibao.ui.MainActivity"
-    android:background="#fff">
+    android:background="#fff"
+    tools:context="com.dq.huibao.ui.MainActivity">
 
     <FrameLayout
         android:id="@+id/content"
@@ -19,8 +18,8 @@
         android:id="@+id/view_mian"
         android:layout_width="match_parent"
         android:layout_height="0.8dp"
-        android:background="#F0F0F0"
-        android:layout_above="@+id/lin_footer"/>
+        android:layout_above="@+id/lin_footer"
+        android:background="#F0F0F0" />
 
     <LinearLayout
         android:id="@+id/lin_footer"
@@ -51,9 +50,9 @@
                     android:id="@+id/tv_home_page"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:text="首页"
                     android:textColor="#999"
-                    android:layout_marginTop="2dp"
                     android:textSize="12dp" />
 
             </LinearLayout>
@@ -74,9 +73,9 @@
                     android:id="@+id/tv_hp_store"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:text="小店"
                     android:textColor="#999"
-                    android:layout_marginTop="2dp"
                     android:textSize="12dp" />
 
             </LinearLayout>
@@ -99,16 +98,15 @@
                 android:id="@+id/tv_classify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="分类"
                 android:textColor="#999"
-                android:layout_marginTop="2dp"
                 android:textSize="12dp" />
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -125,10 +123,10 @@
                     android:src="@mipmap/icon_memcen001" />
 
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/tv_store"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:text="小店"
                     android:textColor="#999"
                     android:textSize="12dp" />
@@ -148,10 +146,10 @@
                     android:src="@mipmap/icon_memcen001" />
 
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/tv_distribution"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:text="分销中心"
                     android:textColor="#999"
                     android:textSize="12dp" />
@@ -165,26 +163,26 @@
             android:id="@+id/lin_shopcar"
             style="@style/lin_footer_style">
 
-                <ImageView
-                    android:id="@+id/iv_shopcar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/icon_shopcar001" />
+            <ImageView
+                android:id="@+id/iv_shopcar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_shopcar001" />
 
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/tv_shopcar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/iv_shopping"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="购物车"
-                    android:textColor="#999"
-                    android:textSize="12dp" />
+            <TextView
+                android:id="@+id/tv_shopcar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_shopping"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="2dp"
+                android:text="购物车"
+                android:textColor="#999"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -200,10 +198,10 @@
                 android:src="@mipmap/icon_memcen001" />
 
             <TextView
-                android:layout_marginTop="2dp"
                 android:id="@+id/tv_members_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="会员中心"
                 android:textColor="#999"
                 android:textSize="12dp" />

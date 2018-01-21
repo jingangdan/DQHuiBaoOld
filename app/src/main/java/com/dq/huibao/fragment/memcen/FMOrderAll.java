@@ -14,7 +14,9 @@ import com.dq.huibao.Interface.OrderInterface;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.order.Order;
+import com.dq.huibao.ui.order.OrderKuaiDiActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -35,12 +37,11 @@ import butterknife.OnClick;
  * Created by jingang on 2017/11/1.
  */
 
-public class FMOrderAll extends BaseFragment implements OrderInterface{
+public class FMOrderAll extends BaseFragment implements OrderInterface {
     @Bind(R.id.rv_order_all)
     RecyclerView recyclerView;
     @Bind(R.id.but_tablayout)
     Button butTablayout;
-
     private View view;
 
     private List<Order.DataBean> orderList = new ArrayList<>();
@@ -53,8 +54,6 @@ public class FMOrderAll extends BaseFragment implements OrderInterface{
     private String PATH = "", MD5_PATH = "";
     private RequestParams params = null;
 
-    Bundle bundle;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,13 +64,13 @@ public class FMOrderAll extends BaseFragment implements OrderInterface{
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(orderAdapters);
 
-        orderGetList("", getArguments().getString("phone"), getArguments().getString("token"));
+        orderAdapters.setOrderInterface(this);
 
         return view;
     }
 
-    public FMOrderAll newInstance(String phone, String token) {
-        bundle = new Bundle();
+    public static FMOrderAll newInstance(String phone, String token) {
+        Bundle bundle = new Bundle();
         bundle.putString("phone", phone);
         bundle.putString("token", token);
         FMOrderAll fragment = new FMOrderAll();
@@ -84,10 +83,12 @@ public class FMOrderAll extends BaseFragment implements OrderInterface{
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            System.out.println("in FMSellerOK");
+            System.out.println("in FMSellerAll");
+            orderGetList("", getArguments().getString("phone"), getArguments().getString("token"));
+
 
         } else {
-            System.out.println("move FMSellerOK");
+            System.out.println("move FMSellerAll");
 
         }
 
@@ -130,7 +131,53 @@ public class FMOrderAll extends BaseFragment implements OrderInterface{
                         orderList.addAll(order.getData());
 
                         orderAdapters.notifyDataSetChanged();
+                    }
 
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
+     * 订单状态修改
+     *
+     * @param id
+     * @param type 'del删除','close关闭','finish确认收货
+     */
+    public void orderEdit(String id, String type, String phone, String token) {
+        MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
+        PATH = HttpUtils.PATHS + HttpUtils.ORDER_EDIT + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+
+        params = new RequestParams(PATH);
+        System.out.println("订单状态修改 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("订单状态修改 = " + result);
+
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            toast("" + addrReturn.getData());
+
+                            orderGetList("", getArguments().getString("phone"), getArguments().getString("token"));
+
+                        } else {
+                            toast("操作失败");
+                        }
                     }
 
                     @Override
@@ -165,20 +212,24 @@ public class FMOrderAll extends BaseFragment implements OrderInterface{
 
     @Override
     public void doOrderKuaidi(String type, String postid) {
-
+        intent = new Intent(getActivity(), OrderKuaiDiActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("postid", postid);
+        startActivity(intent);
     }
 
     @Override
-    public void doOrderEdit(String id, String type) {
-
+    public void doOrderEdit(String id, String type, int postion) {
+        orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
     }
 
     /**
      * 快递100快递查询接口
-     * @param type 快递公司编号订单详情提供
+     *
+     * @param type   快递公司编号订单详情提供
      * @param postid 快递单号
      */
-    public void getOrderKuaidi(String type, String postid){
+    public void getOrderKuaidi(String type, String postid) {
 
     }
 

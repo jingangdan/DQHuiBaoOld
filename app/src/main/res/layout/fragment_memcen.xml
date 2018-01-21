@@ -21,112 +21,112 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ScrollView
+        <com.dq.huibao.refresh.PullToRefreshView
+            android:id="@+id/ptrv_mem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:scrollbars="none">
 
-                <!--头像、名称-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#F15353"
-                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <RelativeLayout
+                    <!--头像、名称-->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:background="#F15353"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/iv_memcen"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true" />
-
-                        <ImageView
-                            android:id="@+id/iv_mc_refresh"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:padding="5dp"
-                            android:src="@mipmap/ic_refresh" />
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
-                    </RelativeLayout>
+                            <ImageView
+                                android:id="@+id/iv_memcen"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true" />
 
+                            <ImageView
+                                android:id="@+id/iv_mc_refresh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:padding="5dp"
+                                android:src="@mipmap/ic_refresh" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/tv_mc_nickname"
-                            style="@style/text_white"
-                            android:text="用户名称" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_mc_id"
-                            style="@style/text_white"
-                            android:text="id" />
+                            <TextView
+                                android:id="@+id/tv_mc_nickname"
+                                style="@style/text_white"
+                                android:text="用户名称" />
+
+                            <TextView
+                                android:id="@+id/tv_mc_id"
+                                style="@style/text_white"
+                                android:text="id" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_mc_level"
+                                style="@style/text_white"
+                                android:text="会员等级" />
+
+                            <TextView
+                                android:id="@+id/tv_mc_l"
+                                style="@style/text_white"
+                                android:text="[推荐人]" />
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:id="@+id/rootView"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp">
+
+                        </FrameLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                    <!--我的账号-->
+                    <include layout="@layout/include_mc_account" />
 
-                        <TextView
-                            android:id="@+id/tv_mc_level"
-                            style="@style/text_white"
-                            android:text="会员等级" />
+                    <!--我的订单-->
+                    <include layout="@layout/include_mc_order" />
 
-                        <TextView
-                            android:id="@+id/tv_mc_l"
-                            style="@style/text_white"
-                            android:text="[推荐人]" />
-
-                    </LinearLayout>
-
-                    <FrameLayout
-                        android:id="@+id/rootView"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp">
-
-                        <!--<com.dq.huibao.view.DoubleWaveView-->
-                            <!--android:id="@+id/doubleWaveView"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="fill_parent" />-->
-
-                    </FrameLayout>
+                    <!--菜单-->
+                    <include layout="@layout/include_mc_menu" />
 
                 </LinearLayout>
-
-                <!--我的账号-->
-                <include layout="@layout/include_mc_account" />
-
-                <!--我的订单-->
-                <include layout="@layout/include_mc_order" />
-
-                <!--菜单-->
-                <include layout="@layout/include_mc_menu" />
-
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
+        </com.dq.huibao.refresh.PullToRefreshView>
 
     </LinearLayout>
 

@@ -13,13 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.cart.CheckOrder;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.HttpUtils;
-import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
 
@@ -74,16 +75,23 @@ public class SOGoodsAdapter extends RecyclerView.Adapter<SOGoodsAdapter.MyViewHo
             });
         }
 
-        ImageUtils.loadIntoUseFitWidths(mContext,
-                HttpUtils.IMG_HEADER + goodsList.get(position).getGoods().getThumb(),
-                R.mipmap.icon_empty002,
-                R.mipmap.icon_error002,
-                holder.img);
+//        ImageUtils.loadIntoUseFitWidths(mContext,
+//                HttpUtils.IMG_HEADER + goodsList.get(position).getGoods().getThumb(),
+//                R.mipmap.icon_empty002,
+//                R.mipmap.icon_error002,
+//                holder.img);
 
-        holder.goodsname.setText(""+goodsList.get(position).getGoods().getGoodsname());
-        holder.option.setText(""+goodsList.get(position).getGoods().getOption().getTitle());
-        holder.marketprice.setText("¥"+goodsList.get(position).getGoods().getMarketprice());
-        holder.buycount.setText("数量×"+goodsList.get(position).getGoods().getBuycount());
+        Glide.with(mContext)
+                .load(HttpUtils.IMG_HEADER + goodsList.get(position).getGoods().getThumb())
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(holder.img);
+
+
+        holder.goodsname.setText("" + goodsList.get(position).getGoods().getGoodsname());
+        holder.option.setText("" + goodsList.get(position).getGoods().getOption().getTitle());
+        holder.marketprice.setText("¥" + goodsList.get(position).getGoods().getMarketprice());
+        holder.buycount.setText("数量×" + goodsList.get(position).getGoods().getBuycount());
 
     }
 

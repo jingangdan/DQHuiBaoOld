@@ -44,8 +44,6 @@ import butterknife.OnClick;
 public class FMClassify extends BaseFragment {
     @Bind(R.id.rv_c_classify)
     RecyclerView rvCClassify;
-//    @Bind(R.id.rv_c_goods)
-//    RecyclerView rvCGoods;
     @Bind(R.id.tv_search)
     TextView tvSearch;
 
@@ -54,8 +52,6 @@ public class FMClassify extends BaseFragment {
 
     @Bind(R.id.rv_c_classify_three)
     RecyclerView rvCClassifyThree;
-//    @Bind(R.id.tv_classify_two)
-//    TextView tvClassifyTwo;
 
     private View view;
 
@@ -72,7 +68,6 @@ public class FMClassify extends BaseFragment {
 
     /*接口地址*/
     private String PATH = "";
-    private String pcate = "", ccate = "", name = "";//一级分类id 二级分类id 分类名称
     private RequestParams params;
 
     private List<Cate.DataBean> cateList = new ArrayList<>();
@@ -88,20 +83,14 @@ public class FMClassify extends BaseFragment {
         rvCClassify.setLayoutManager(mLayoutManager);
 
         llmv = new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false);
-        //rvCGoods.setLayoutManager(llmv);
         rvCClassifyThree.setLayoutManager(llmv);
 
         /*一级分类*/
-//        classifyAdapter = new ClassifyAdapter(getActivity(), classifyList);
-//        rvCClassify.setAdapter(classifyAdapter);
         classifyAdapter = new ClassifyAdapter(getActivity(), cateList);
         rvCClassify.setAdapter(classifyAdapter);
 
         /*二级分类*/
-//        classifyTwoAdapter = new ClassifyTwoAdapter(getActivity(), classifytwoList);
-//        rvCGoods.setAdapter(classifyTwoAdapter);
         classifyTwoAdapter = new ClassifyTwoAdapter(getActivity(), cateChildrenList);
-        //rvCGoods.setAdapter(classifyTwoAdapter);
         rvCClassifyThree.setAdapter(classifyTwoAdapter);
 
         classifyAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -111,82 +100,8 @@ public class FMClassify extends BaseFragment {
                 cateChildrenList.clear();
                 getCateChildren(cateList.get(position).getId());
 
-//                classifytwoList.clear();
-//
-//                if (position == 0) {
-//                    classifytwoList.addAll(classifyList.get(0).getChildren());
-//                } else {
-//                    classifytwoList.addAll(classifyList.get(position).getChildren());
-//                }
-//
-//                pcate = classifyList.get(position).getId();
-//
-//                if (!classifyList.get(position).getAdvimg().equals("")) {
-//                    ImageUtils.loadIntoUseFitWidths(getActivity(),
-//                            HttpUtils.HEADER + classifyList.get(position).getAdvimg(),
-//                            R.mipmap.icon_empty002,
-//                            R.mipmap.icon_error002,
-//                            ivAdvImg);
-//                } else {
-//                    ivAdvImg.setImageResource(R.mipmap.ic_launcher);
-//                }
-//
-//                classifyAdapter.changeSelected(position);
-//
-//                //classifytwoList.addAll(classifyList.get(position).getChildren());
-//
-//                classifyTwoAdapter.notifyDataSetChanged();
-
             }
         });
-
-//        classifyAdapter.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                classifytwoList.clear();
-//
-//                if (position == 0) {
-//                    classifytwoList.addAll(classifyList.get(0).getChildren());
-//                } else {
-//                    classifytwoList.addAll(classifyList.get(position).getChildren());
-//                }
-//
-//                pcate = classifyList.get(position).getId();
-//
-//                if (!classifyList.get(position).getAdvimg().equals("")) {
-//                    ImageUtils.loadIntoUseFitWidths(getActivity(),
-//                            HttpUtils.HEADER + classifyList.get(position).getAdvimg(),
-//                            R.mipmap.icon_empty002,
-//                            R.mipmap.icon_error002,
-//                            ivAdvImg);
-//                } else {
-//                    ivAdvImg.setImageResource(R.mipmap.ic_launcher);
-//                }
-//
-//                classifyAdapter.changeSelected(position);
-//
-//                //classifytwoList.addAll(classifyList.get(position).getChildren());
-//
-//                classifyTwoAdapter.notifyDataSetChanged();
-//
-//            }
-//        });
-
-//        classifyTwoAdapter.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                ccate = classifytwoList.get(position).getId();
-//                name = classifytwoList.get(position).getName();
-//                intent = new Intent(getActivity(), GoodsListActivity.class);
-//                intent.putExtra("pcate", "&pcate=" + pcate);
-//                intent.putExtra("ccate", "&ccate=" + ccate);
-//                intent.putExtra("name", name);
-//                intent.putExtra("keywords", "");
-//                startActivity(intent);
-//            }
-//        });
-
-        //getClassify("1604");
         getClassify();
         return view;
     }
@@ -231,18 +146,19 @@ public class FMClassify extends BaseFragment {
 
     /**
      * 获取子分类
+     *
      * @param cateId 顶级分类id
      */
-    public void getCateChildren(String cateId){
-        PATH = HttpUtils.PATHS+HttpUtils.GOODS_CATECHILDREN+"id="+cateId;
+    public void getCateChildren(String cateId) {
+        PATH = HttpUtils.PATHS + HttpUtils.GOODS_CATECHILDREN + "id=" + cateId;
         params = new RequestParams(PATH);
-        System.out.println("子分类 = "+PATH);
+        System.out.println("子分类 = " + PATH);
 
         x.http().get(params,
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println("子分类 = "+result);
+                        System.out.println("子分类 = " + result);
                         CateChildren cateChildren = GsonUtil.gsonIntance().gsonToBean(result, CateChildren.class);
 
                         cateChildrenList.addAll(cateChildren.getData());
@@ -298,8 +214,6 @@ public class FMClassify extends BaseFragment {
                             ivAdvImg.setImageResource(R.mipmap.ic_launcher);
                         }
 
-                        pcate = classifyList.get(0).getId();
-
                         classifyAdapter.notifyDataSetChanged();
                         classifyTwoAdapter.notifyDataSetChanged();
 
@@ -347,142 +261,5 @@ public class FMClassify extends BaseFragment {
                 break;
         }
     }
-
-
-//    PopupWindow pop;
-//    View view_pop;`
-//    LinearLayout ll_popup;
-//
-//    private AutoCompleteTextView autoCompleteTextView;
-//    private TextView tv_cancel;
-//    private ImageView iv_pop;
-//    private RecyclerView rv_pop;
-//
-//    private String UTF_search = "";
-//
-//    private KeywordsAdapter keywordsAdapter;
-//    private List<Keywords.DataBean.GoodsBean> keywordsList = new ArrayList<>();
-//
-//    /*
-//    * 搜索弹出框
-//    * */
-//    public void setDialog() {
-//        pop = new PopupWindow(getActivity());
-//        view_pop = getActivity().getLayoutInflater().inflate(R.layout.pop_search, null);
-//        view_pop.setAnimation(AnimationUtils.loadAnimation(
-//                getActivity(), R.anim.slide_bottom_to_top));
-//        ll_popup = (LinearLayout) view_pop.findViewById(R.id.lin_pop);
-//
-//        pop.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-//        pop.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-//        pop.setBackgroundDrawable(new BitmapDrawable());
-//        pop.setFocusable(true);
-//        pop.setOutsideTouchable(true);
-//        pop.setContentView(view_pop);
-//        pop.showAsDropDown(view_pop);
-//
-//        autoCompleteTextView = (AutoCompleteTextView) view_pop.findViewById(R.id.autoCompleteTextView);
-//        iv_pop = (ImageView) view_pop.findViewById(R.id.iv_pop_search);
-//        tv_cancel = (TextView) view_pop.findViewById(R.id.tv_pop_cancel);
-//
-//        rv_pop = (RecyclerView) view_pop.findViewById(R.id.rv_pop);
-//        rv_pop.setLayoutManager(new LinearLayoutManager(getActivity()));
-//
-//        keywordsAdapter = new KeywordsAdapter(getActivity(), keywordsList);
-//
-//        rv_pop.setAdapter(keywordsAdapter);
-//
-//        //取消
-//        tv_cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pop.dismiss();
-//                ll_popup.clearAnimation();
-//            }
-//        });
-//
-//        /**
-//         * 当输入关键字变化时，动态更新建议列表
-//         */
-//        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
-//
-//            @Override
-//            public void afterTextChanged(Editable arg0) {
-//
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence arg0, int arg1,
-//                                          int arg2, int arg3) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-//
-//                try {
-//                    UTF_search = URLEncoder.encode(autoCompleteTextView.getText().toString(), "UTF-8");
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                getSearch(UTF_search);
-//
-//            }
-//        });
-//
-//        /**/
-//        keywordsAdapter.setmOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                toast("商品id = " + keywordsList.get(position).getGoodid());
-//            }
-//        });
-//
-//    }
-//
-//    /**
-//     * 获取搜索数据
-//     *
-//     * @param keywords
-//     */
-//    public void getSearch(String keywords) {
-//        PATH = HttpUtils.PATH + HttpUtils.SHOP_SEARCH + "keywords=" + keywords;
-//
-//        params = new RequestParams(PATH);
-//        System.out.println("搜索 = " + PATH);
-//        x.http().get(params,
-//                new Callback.CommonCallback<String>() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        System.out.println("搜索 = " + result);
-//
-//                        Keywords keywords = GsonUtil.gsonIntance().gsonToBean(result, Keywords.class);
-//
-//                        keywordsList.clear();
-//                        keywordsList.addAll(keywords.getData().getGoods());
-//
-//                        keywordsAdapter.notifyDataSetChanged();
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable ex, boolean isOnCallback) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(CancelledException cex) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFinished() {
-//
-//                    }
-//                });
-//
-//    }
-
 
 }

@@ -5,152 +5,160 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.dq.huibao.refresh.PullToRefreshView
+        android:id="@+id/ptrv_hp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:scrollbars="none">
 
-            <!--搜索-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F20000"
-                android:padding="10dp">
-
-                <LinearLayout
-                    android:id="@+id/lin_hp_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edit_sreach"
-                        style="@style/text_main"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:editable="false"
-                        android:gravity="left"
-                        android:hint="输入关键字在店铺内搜索"
-                        android:padding="3dp" />
-
-                    <ImageView
-                        android:id="@+id/iv_hp_sreach"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:src="@mipmap/ic_sreach" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!--轮播图-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <fragment
-                    android:id="@+id/fragment_cycle_viewpager_content"
-                    android:name="com.dq.huibao.lunbotu.CycleViewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="135dp" />
-
-            </LinearLayout>
-
-            <!--菜单-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_hp_menu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
-
-            <!--图片-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_hp_appimglist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
-
-            <!--glist-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_hp_glist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
-
-
-            <!--广告-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:visibility="gone">
-
+                <!--搜索-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#EEEEEE">
+                    android:background="#F20000"
+                    android:padding="10dp">
 
-                    <TextView
-                        style="@style/text_adware"
-                        android:layout_margin="10dp"
-                        android:text="秋季新装先到先得，万款产品等你嗨！购！" />
+                    <LinearLayout
+                        android:id="@+id/lin_hp_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#fff"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edit_sreach"
+                            style="@style/text_main"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:editable="false"
+                            android:gravity="left"
+                            android:hint="输入关键字在店铺内搜索"
+                            android:padding="3dp" />
+
+                        <ImageView
+                            android:id="@+id/iv_hp_sreach"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:src="@mipmap/ic_sreach" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/iv_hp_adware"
+                <!--轮播图-->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <fragment
+                        android:id="@+id/fragment_cycle_viewpager_content"
+                        android:name="com.dq.huibao.lunbotu.CycleViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="135dp" />
+
+                </LinearLayout>
+
+                <!--菜单-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_hp_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <!--图片-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_hp_appimglist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <!--glist-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_hp_glist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+
+                <!--广告-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#EEEEEE">
+
+                        <TextView
+                            style="@style/text_adware"
+                            android:layout_margin="10dp"
+                            android:text="秋季新装先到先得，万款产品等你嗨！购！" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_hp_adware"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!--hot-->
+                <include layout="@layout/include_hot_classify" />
+
+                <!--每日推荐-->
+                <include layout="@layout/include_recommend" />
+
+                <!--热销产品-->
+                <include layout="@layout/include_hot_selling" />
+
+                <!--猜你喜欢-->
+                <include layout="@layout/include_youlike" />
 
             </LinearLayout>
 
-            <!--hot-->
-            <include layout="@layout/include_hot_classify" />
 
-            <!--每日推荐-->
-            <include layout="@layout/include_recommend" />
+        </ScrollView>
 
-            <!--热销产品-->
-            <include layout="@layout/include_hot_selling" />
-
-            <!--猜你喜欢-->
-            <include layout="@layout/include_youlike" />
-
-        </LinearLayout>
-
-
-    </ScrollView>
+    </com.dq.huibao.refresh.PullToRefreshView>
 
 </LinearLayout>

@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="订阅" />
+                android:text="订购" />
 
         </RelativeLayout>
     </LinearLayout>

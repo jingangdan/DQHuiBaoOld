@@ -25,6 +25,7 @@ import com.dq.huibao.bean.index.Index;
 import com.dq.huibao.lunbotu.ADInfo;
 import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
+import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.ui.GoodsListActivity;
 import com.dq.huibao.ui.KeywordsActivity;
@@ -45,6 +46,8 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -56,7 +59,9 @@ import butterknife.OnClick;
  * Created by jingang on 2018/1/10.
  */
 
-public class FMHomePage extends BaseFragment {
+public class FMHomePage extends BaseFragment implements
+        PullToRefreshView.OnHeaderRefreshListener,
+        PullToRefreshView.OnFooterRefreshListener {
     @Bind(R.id.rv_hp_menu)
     RecyclerView rvHpMenu;
     @Bind(R.id.rv_hp_appimglist)
@@ -67,6 +72,9 @@ public class FMHomePage extends BaseFragment {
     LinearLayout linHpSearch;
     @Bind(R.id.edit_sreach)
     EditText editSearch;
+
+    @Bind(R.id.ptrv_hp)
+    PullToRefreshView pullToRefreshView;
 
     private View view;
     /*接口地址*/
@@ -147,6 +155,10 @@ public class FMHomePage extends BaseFragment {
         rvHpGlist.setLayoutManager(new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false));
         gAdapter = new GAdapter(getActivity(), gList);
         rvHpGlist.setAdapter(gAdapter);
+
+        pullToRefreshView.setOnHeaderRefreshListener(this);
+        pullToRefreshView.setOnFooterRefreshListener(this);
+        pullToRefreshView.setLastUpdated(new Date().toLocaleString());
 
         return view;
     }
@@ -272,11 +284,6 @@ public class FMHomePage extends BaseFragment {
                                 bannerList.get(position - 1).getTitle(),
                                 bannerList.get(position - 1).getContent());
 
-//                        intent = new Intent(TAG, ShowBigPictrueActivity.class);
-//                        intent.putExtra("position", index);
-//                        intent.putExtra("picslist", picsList.toString());
-//                        startActivity(intent);
-
                     }
 
                 }
@@ -400,6 +407,35 @@ public class FMHomePage extends BaseFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        pullToRefreshView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //刷新数据
+                pullToRefreshView.onHeaderRefreshComplete("更新于:"
+                        + Calendar.getInstance().getTime().toLocaleString());
+                pullToRefreshView.onHeaderRefreshComplete();
+
+            }
+
+        }, 1000);
+    }
+
+    @Override
+    public void onFooterRefresh(PullToRefreshView view) {
+        pullToRefreshView.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                //加载更多数据
+                pullToRefreshView.onFooterRefreshComplete();
+
+            }
+
+        }, 1000);
     }
 
     /**

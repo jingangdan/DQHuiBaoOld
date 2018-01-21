@@ -11,14 +11,15 @@
 
     <!--搜索-->
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:background="#fff"
         android:gravity="center"
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/jingang"
             style="@style/text_main"
             android:layout_weight="1"
             android:background="@null"
@@ -41,26 +42,5 @@
             android:text="推荐宝贝" />
 
     </LinearLayout>
-
-    <!--<View-->
-        <!--android:layout_width="@dimen/dp_72"-->
-        <!--android:layout_height="@dimen/dp_066"-->
-        <!--android:background="@color/color_00" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/person_video_list_honey_count"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/dp_4"-->
-        <!--android:layout_marginRight="@dimen/dp_10"-->
-        <!--android:text="头部"-->
-        <!--android:textColor="@color/colorAccent"-->
-        <!--android:textSize="@dimen/sp_16"-->
-        <!--android:textStyle="bold" />-->
-
-    <!--<View-->
-        <!--android:layout_width="@dimen/dp_72"-->
-        <!--android:layout_height="@dimen/dp_066"-->
-        <!--android:background="@color/color_00" />-->
 
 </LinearLayout>
