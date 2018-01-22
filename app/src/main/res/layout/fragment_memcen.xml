@@ -58,13 +58,13 @@
                                 android:layout_centerVertical="true" />
 
                             <ImageView
-                                android:id="@+id/iv_mc_refresh"
+                                android:id="@+id/iv_mc_setting"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentTop="true"
                                 android:padding="5dp"
-                                android:src="@mipmap/ic_refresh" />
+                                android:src="@mipmap/ic_setting" />
 
                         </RelativeLayout>
 

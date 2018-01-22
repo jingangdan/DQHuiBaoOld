@@ -25,6 +25,7 @@ import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.wechat.WeChat;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -434,7 +435,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
                             intent = new Intent();
                             intent.putExtra("uid", login.getData().getUid());
-                            setResult(2, intent);
+                            setResult(CodeUtils.LOGIN, intent);
 
                             LoginActivity.this.finish();
 

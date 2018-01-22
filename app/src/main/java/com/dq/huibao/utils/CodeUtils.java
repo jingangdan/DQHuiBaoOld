@@ -27,4 +27,17 @@ public class CodeUtils {
     /*支付*/
     public static final int PAY = 0x07;
 
+    /*会员中心*/
+    public static final int MEMBER = 0x08;
+
+    /*修改会员信息*/
+    public static final int MEMBER_EDIT = 0x09;
+
+    /*登录*/
+    public static final int LOGIN = 0x10;
+
+    /*商品详情*/
+    public static final int GDTAILD = 0x11;
+
+
 }

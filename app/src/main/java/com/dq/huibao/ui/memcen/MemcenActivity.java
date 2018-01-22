@@ -30,28 +30,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseActivity;
-import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.common.Region;
-import com.dq.huibao.bean.memcen.Member;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.FileUtil;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
-import com.dq.huibao.view.JsonBean;
-import com.dq.huibao.view.JsonFileReader;
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.xutils.common.Callback;
-import org.xutils.common.util.MD5;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -66,37 +65,28 @@ import butterknife.OnClick;
  */
 
 public class MemcenActivity extends BaseActivity {
+    @Bind(R.id.et_member_realname)
+    EditText etMemberRealname;
+    @Bind(R.id.iv_member_header)
+    ImageView ivMemberHeader;
+    @Bind(R.id.rel_percen_header)
+    RelativeLayout relPercenHeader;
+    @Bind(R.id.tv_member_phone)
+    TextView tvMemberPhone;
+    @Bind(R.id.et_member_weixin)
+    EditText etMemberWeixin;
     @Bind(R.id.rb_man)
     RadioButton rbMan;
     @Bind(R.id.rb_wuman)
     RadioButton rbWuman;
     @Bind(R.id.rg_sex)
     RadioGroup rgSex;
-    /**/
-    @Bind(R.id.et_member_realname)
-    EditText etMemberRealname;
-    @Bind(R.id.tv_member_mobile)
-    TextView tvMemberMobile;
-    @Bind(R.id.et_member_weixin)
-    EditText etMemberWeixin;
-    @Bind(R.id.et_member_mobile)
-    EditText etMemberMobile;
-    @Bind(R.id.et_member_alipay)
-    EditText etMemberAlipay;
-    @Bind(R.id.et_member_alipayname)
-    EditText etMemberAlipayname;
-    @Bind(R.id.tv_member_province)
-    TextView tvMemberProvince;
+    @Bind(R.id.et_member_province)
+    EditText etMemberProvince;
     @Bind(R.id.tv_member_birth)
     TextView tvMemberBirth;
     @Bind(R.id.but_member_ok)
     Button butMemberOk;
-
-    @Bind(R.id.iv_percen_header)
-    ImageView ivPercenHeader;
-    @Bind(R.id.rel_percen_header)
-    RelativeLayout relPercenHeader;
-
     /*所在城市*/
     private List<String> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
@@ -117,10 +107,12 @@ public class MemcenActivity extends BaseActivity {
     //private String unionid = "";
     private String phone = "", token = "";
 
-    /*UI显示*/
-    private String realname = "", weixin = "", membermobile = "", alipay = "",
-            alipayname = "", gender = "", province = "", city = "",
-            birthyear = "", birthmonth = "", birthday = "";
+    /*UI显示 ：姓名 头像 手机号 微信号 性别 省 市*/
+    private String realname = "", headimgurl = "", mem_phone = "", weixin = "", sex = "", province = "", city = "";
+    private String birthyear = "", birthmonth = "", birthday = "";
+
+    private List<Region.DataBean> regionList = new ArrayList<>();
+    private String regionid = "";
 
     @SuppressLint("WrongConstant")
     @Override
@@ -129,6 +121,7 @@ public class MemcenActivity extends BaseActivity {
         setContentView(R.layout.activity_memcen);
         ButterKnife.bind(this);
 
+        /*选择头像*/
         relPercenHeader.setOnClickListener(new OnClickListener());
 
         rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -136,14 +129,15 @@ public class MemcenActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == rbMan.getId()) {
-                    toast("男");
+                    //toast("男");
+                    sex = "1";
                 } else if (checkedId == rbWuman.getId()) {
-                    toast("女");
+                    //toast("女");
+                    sex = "0";
                 }
             }
         });
 
-        //initJsonData();
         getRegion();
 
         final Calendar ca = Calendar.getInstance();
@@ -160,19 +154,18 @@ public class MemcenActivity extends BaseActivity {
         setTitleName("个人资料");
     }
 
-    @OnClick({R.id.rel_percen_header,
-            R.id.tv_member_mobile, R.id.tv_member_province, R.id.tv_member_birth, R.id.but_member_ok})
+    @OnClick({R.id.tv_member_phone, R.id.et_member_province, R.id.tv_member_birth, R.id.but_member_ok})
     public void onClick(View view) {
+        realname = etMemberRealname.getText().toString();
+
         switch (view.getId()) {
-            case R.id.rel_percen_header:
-                //选择头像
-                break;
-            case R.id.tv_member_mobile:
+            case R.id.tv_member_phone:
+                //绑定手机
                 intent = new Intent(MemcenActivity.this, MobileActivity.class);
                 startActivity(intent);
 
                 break;
-            case R.id.tv_member_province:
+            case R.id.et_member_province:
                 //选择所在城市
                 showPickerView();
                 break;
@@ -215,7 +208,13 @@ public class MemcenActivity extends BaseActivity {
 
                 break;
             case R.id.but_member_ok:
-                dialog();
+                //修改个人信息
+                try {
+                    dialog(URLEncoder.encode(realname, "UTF-8"), sex, regionid);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 break;
         }
     }
@@ -224,15 +223,11 @@ public class MemcenActivity extends BaseActivity {
     /**/
     public void initDate() {
         spUserInfo = new SPUserInfo(getApplication());
-
         if (!(spUserInfo.getLoginReturn().equals(""))) {
-            //LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
-            //unionid = loginBean.getData().getUnionid();
             Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
             phone = login.getData().getPhone();
             token = login.getData().getToken();
 
-            //getMember(unionid);
             getMember(phone, token);
 
         } else {
@@ -261,6 +256,14 @@ public class MemcenActivity extends BaseActivity {
                     public void onSuccess(String result) {
                         System.out.println("个人信息 = " + result);
                         Login login = GsonUtil.gsonIntance().gsonToBean(result, Login.class);
+                        realname = login.getData().getNickname();
+                        headimgurl = login.getData().getHeadimgurl();
+                        mem_phone = login.getData().getPhone();
+                        sex = login.getData().getSex();
+                        province = login.getData().getProvince();
+                        city = login.getData().getCity();
+
+                        setDate();
 
                     }
 
@@ -282,7 +285,100 @@ public class MemcenActivity extends BaseActivity {
     }
 
     /**
-     * 获取个人资料
+     * 上传头像
+     *
+     * @param file
+     * @param phone
+     * @param token
+     */
+    public void setUpImg(String file, String phone, String token) {
+        MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.MEM_UPIMG + "sign=" +
+                MD5Util.getMD5String("phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
+
+        System.out.println("上传图片 = " + PATH);
+
+        params = new RequestParams(PATH);
+        params.addBodyParameter("file", new File(file));  //filePath是手机获取的图片地址
+        params.addBodyParameter("phone", phone);
+        params.addBodyParameter("timestamp", String.valueOf((System.currentTimeMillis() / 1000)));
+        params.addBodyParameter("token", token);
+
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("上传图片 = " + result);
+                AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                if (addrReturn.getStatus() == 1) {
+                    toast("图片上传成功");
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    /**
+     * 修改个人信息
+     *
+     * @param phone
+     * @param token
+     * @param sex
+     * @param region
+     */
+    public void setMember(String phone, String token, String nickname, String sex, final String region) {
+        MD5_PATH = "headimg=" + "&nickname=" + nickname + "&phone=" + phone + "&region=" + region + "&sex=" + sex + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.MEM_EDITINFO + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        params = new RequestParams(PATH);
+        System.out.println("修改个人信息 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("修改个人信息 = " + result);
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(region, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            toast("" + addrReturn.getData());
+                            intent = new Intent();
+                            setResult(CodeUtils.MEMBER_EDIT, intent);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
+     * 获取个人资料 old
      *
      * @param unionid
      */
@@ -301,19 +397,18 @@ public class MemcenActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("获取个人资料 = " + result);
-                        Member member = GsonUtil.gsonIntance().gsonToBean(result, Member.class);
-
-                        realname = member.getData().getRealname();
-                        weixin = member.getData().getWeixin();
-                        membermobile = member.getData().getMembermobile();
-                        alipay = member.getData().getAlipay();
-                        alipayname = member.getData().getAlipayname();
-                        gender = member.getData().getGender();
-                        province = member.getData().getProvince();
-                        city = member.getData().getCity();
-                        birthyear = member.getData().getBirthyear();
-                        birthmonth = member.getData().getBirthmonth();
-                        birthday = member.getData().getBirthday();
+//                        Member member = GsonUtil.gsonIntance().gsonToBean(result, Member.class);
+//                        realname = member.getData().getRealname();
+//                        weixin = member.getData().getWeixin();
+//                        membermobile = member.getData().getMembermobile();
+//                        alipay = member.getData().getAlipay();
+//                        alipayname = member.getData().getAlipayname();
+//                        gender = member.getData().getGender();
+//                        province = member.getData().getProvince();
+//                        city = member.getData().getCity();
+//                        birthyear = member.getData().getBirthyear();
+//                        birthmonth = member.getData().getBirthmonth();
+//                        birthday = member.getData().getBirthday();
 
                         setDate();
 
@@ -339,7 +434,7 @@ public class MemcenActivity extends BaseActivity {
     }
 
     /**
-     * 修改个人资料
+     * 修改个人资料 old
      *
      * @param unionid
      * @param realname     真实姓名
@@ -399,15 +494,26 @@ public class MemcenActivity extends BaseActivity {
     /*组件赋值*/
     public void setDate() {
         etMemberRealname.setText("" + realname);
-        etMemberMobile.setText("" + membermobile);
-        etMemberWeixin.setText("" + weixin);
-        etMemberAlipay.setText("" + alipay);
-        etMemberAlipayname.setText("" + alipayname);
-
-        tvMemberProvince.setText("" + province + "  " + city);
-        if (!birthyear.equals("")) {
-            tvMemberBirth.setText(birthyear + "-" + birthmonth + "-" + birthday);
+        if (headimgurl.equals("")) {
+            ivMemberHeader.setImageResource(R.mipmap.ic_launcher);
+        } else {
+            Glide.with(this)
+                    .load(HttpUtils.IMG_HEADER + headimgurl)
+                    .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(ivMemberHeader);
         }
+        if (sex.equals("1")) {
+            rbMan.setChecked(true);
+        } else if (sex.equals("0")) {
+            rbWuman.setChecked(true);
+        }
+        tvMemberPhone.setText("" + mem_phone);
+        etMemberProvince.setText(province + city);
+
+//        if (!birthyear.equals("")) {
+//            tvMemberBirth.setText(birthyear + "-" + birthmonth + "-" + birthday);
+//        }
 
     }
 
@@ -418,6 +524,7 @@ public class MemcenActivity extends BaseActivity {
     private String imgUrl = "";
     private static final String IMAGE_FILE_NAME = "avatarImage.jpg";// 头像文件名称
     private String urlpath;            // 图片本地路径
+    private File file;
 
     private static final int REQUESTCODE_PICK = 0;        // 相册选图标记
     private static final int REQUESTCODE_TAKE = 1;        // 相机拍照标记
@@ -552,8 +659,12 @@ public class MemcenActivity extends BaseActivity {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(null, photo);
             urlpath = FileUtil.saveFile(MemcenActivity.this, "temphead.jpg", photo);
-            ivPercenHeader.setImageDrawable(drawable);
+            ivMemberHeader.setImageDrawable(drawable);
             //roundImageView.setImageDrawable(drawable);
+            // file = new File(urlpath);
+
+            setUpImg(urlpath, phone, token);
+
 
             // 新线程后台上传服务端
 //			pd = ProgressDialog.show(mContext, null, "正在上传图片，请稍候...");
@@ -577,17 +688,17 @@ public class MemcenActivity extends BaseActivity {
                         System.out.println("省市列表 = " + result);
 
                         Region region = GsonUtil.gsonIntance().gsonToBean(result, Region.class);
-                        //options1Items = region.getData();
+                        regionList = region.getData();
 
-                        for (int i = 0; i < region.getData().size(); i++) {//遍历省份
+                        for (int i = 0; i < regionList.size(); i++) {//遍历省份
                             ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
                             ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
 
-                            options1Items.add(region.getData().get(i).getRegion_name());
+                            options1Items.add(regionList.get(i).getRegion_name());
 
-                            for (int c = 0; c < region.getData().get(i).getCity().size(); c++) {
+                            for (int c = 0; c < regionList.get(i).getCity().size(); c++) {
                                 //遍历该省份的所有城市
-                                String CityName = region.getData().get(i).getCity().get(c).getRegion_name();
+                                String CityName = regionList.get(i).getCity().get(c).getRegion_name();
                                 CityList.add(CityName);//添加城市
 
 //                                ArrayList<String> City_AreaList = new ArrayList<>();//该城市的所有地区列表
@@ -654,7 +765,9 @@ public class MemcenActivity extends BaseActivity {
                 province = options1Items.get(options1);
                 city = options2Items.get(options1).get(options2);
 
-                tvMemberProvince.setText(text);
+                getRegionid(options1, options2);
+
+                etMemberProvince.setText(text);
             }
         }).setTitleText("")
                 .setDividerColor(Color.GRAY)
@@ -669,7 +782,7 @@ public class MemcenActivity extends BaseActivity {
     }
 
     /*弹出框*/
-    protected void dialog() {
+    protected void dialog(final String realname, final String sex, final String regionid) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("确认修改吗？");
         builder.setTitle("提示");
@@ -677,10 +790,7 @@ public class MemcenActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-//                setMember(unionid, etMemberRealname.getText().toString().toString(), etMemberWeixin.getText().toString(),
-//                        etMemberMobile.getText().toString(), etMemberAlipay.getText().toString(), etMemberAlipayname.getText().toString(),
-//                        "", province, city,
-//                        birthyear, birthmonth, birthday);
+                setMember(phone, token, realname, sex, regionid);
 
             }
         });
@@ -692,6 +802,18 @@ public class MemcenActivity extends BaseActivity {
             }
         });
         builder.create().show();
+    }
+
+    /**
+     * @param position1
+     * @param position2
+     */
+    public void getRegionid(int position1, int position2) {
+        for (int i = 0; i < regionList.size(); i++) {
+            for (int j = 0; j < regionList.get(i).getCity().size(); j++) {
+                regionid = regionList.get(position1).getCity().get(position2).getId();
+            }
+        }
     }
 
 }

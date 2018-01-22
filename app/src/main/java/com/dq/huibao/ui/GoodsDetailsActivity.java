@@ -55,6 +55,7 @@ import com.dq.huibao.lunbotu.CycleViewPager;
 import com.dq.huibao.lunbotu.ViewFactory;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
@@ -283,9 +284,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         intent = getIntent();
         gid = intent.getStringExtra("gid");
 
-        //getGoodsDetailOld(gid);
-
-        //getGoodsDetail(gid, token, phone);
+        spUserInfo = new SPUserInfo(getApplication());
 
         getSaveCollection();
 
@@ -340,42 +339,55 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 break;
             case R.id.lin_gd_collection:
                 //收藏
-                if (isCollection) {
-                    //提示是否取消收藏
-                    cancelCollection();
+                if (isLogin()) {
+                    if (isCollection) {
+                        //提示是否取消收藏
+                        cancelCollection();
+                    } else {
+                        isCollection = true;
+                        setSaveCollection();
+                        //如果已经收藏，则显示收藏后的效果
+                        ivGdCollection.setImageResource(R.mipmap.ic_collection002);
+                        tvGdCollection.setText("已收藏");
+                        //butGdCollection.setBackgroundResource(R.mipmap.ic_collection002);
+                        Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    isCollection = true;
-                    setSaveCollection();
-                    //如果已经收藏，则显示收藏后的效果
-                    ivGdCollection.setImageResource(R.mipmap.ic_collection002);
-                    tvGdCollection.setText("已收藏");
-                    //butGdCollection.setBackgroundResource(R.mipmap.ic_collection002);
-                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                    dialog();
                 }
+
                 break;
 
             case R.id.rel_gd_shopcar:
                 //购物车
-                intent = new Intent(TAG, ShopcarActivity.class);
-                startActivity(intent);
+                if (isLogin()) {
+                    intent = new Intent(TAG, ShopcarActivity.class);
+                    startActivity(intent);
+                } else {
+                    dialog();
+                }
+
 
                 break;
 
             case R.id.but_gd_put_in:
                 //添加购物车
-                setPopTest(1);
-                setBackgroundBlack(all_choice_layout, 0);
-//                isClickBuy = false;
-//                setBackgroundBlack(all_choice_layout, 0);
-//                popWindow.showAsDropDown(view);
+                if (isLogin()) {
+                    setPopTest(1);
+                    setBackgroundBlack(all_choice_layout, 0);
+                } else {
+                    dialog();
+                }
+
                 break;
             case R.id.but_gd_bug_new:
                 //立即购买
-//                isClickBuy = true;
-//                setBackgroundBlack(all_choice_layout, 0);
-//                popWindow.showAsDropDown(view);
-                setPopTest(2);
-                setBackgroundBlack(all_choice_layout, 0);
+                if (isLogin()) {
+                    setPopTest(2);
+                    setBackgroundBlack(all_choice_layout, 0);
+                } else {
+                    dialog();
+                }
 
 
                 break;
@@ -394,10 +406,12 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             case R.id.tv_gd_params:
                 //产品参数
                 setTabChoose();
+
                 tvGdParams.setTextColor(Color.rgb(241, 83, 83));
                 vGdParams.setVisibility(View.VISIBLE);
                 linGdParams.setVisibility(View.VISIBLE);
 
+                paramsList.clear();
                 paramsList = goodsDetail.getData().getParam();
                 gdParmasAdapter = new GdParmasAdapter(TAG, paramsList);
                 rvGdParams.setLayoutManager(new LinearLayoutManager(TAG));
@@ -435,29 +449,21 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     * */
     @SuppressLint("WrongConstant")
     public void initDate() {
-        if (isLogin()) {
-            if (!(spUserInfo.getLoginReturn().equals(""))) {
-//                LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
-//                unionid = loginBean.getData().getUnionid();
+        if (!(spUserInfo.getLoginReturn().equals(""))) {
+            Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
+            phone = login.getData().getPhone();
+            token = login.getData().getToken();
+            getGoodsDetail(gid, token, phone);
 
-                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
-                phone = login.getData().getPhone();
-                token = login.getData().getToken();
-                getGoodsDetail(gid, token, phone);
-
-
-            } else {
-                //toast("登录状态出错，请重新登录");
-                //Toast.makeText(TAG, "登录状态出错，请重新登录", Toast.LENGTH_SHORT).show();
-                getGoodsDetail(gid, token, phone);
-            }
+        } else {
+            //toast("登录状态出错，请重新登录");
+            getGoodsDetail(gid, token, phone);
         }
 
     }
 
     /*判断登录状态*/
     public boolean isLogin() {
-        spUserInfo = new SPUserInfo(getApplication());
         if (spUserInfo.getLogin().equals("1")) {
             return true;
         } else if (spUserInfo.getLogin().equals("")) {
@@ -484,6 +490,11 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                     public void onSuccess(String result) {
                         System.out.println("商品详情 = " + result);
                         goodsDetail = GsonUtil.gsonIntance().gsonToBean(result, GoodsDetail.class);
+
+                        picsList.clear();
+                        specsList.clear();
+                        optionsList.clear();
+
 
                         picsList = goodsDetail.getData().getThumb_url();
 
@@ -930,11 +941,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      * @param count
      */
     public void cartAdd(String phone, String token, final String gid, String optionid, int count) {
-        // MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-//        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD +
-//                "phone=" + phone + "&token=" + token + "&goodsid=" + gid
-//                + "&optioned=" + optioned + "&count=" + count;
-
         MD5_PATH = "count=" + count + "&goodsid=" + gid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.CART_ADD + MD5_PATH + "&sign=" +
@@ -1154,6 +1160,40 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     }
 
+    /*弹出框*/
+    protected void dialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("确定登录？");
+        builder.setTitle("提示：未登录");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                intent = new Intent(TAG, LoginActivity.class);
+                startActivityForResult(intent, CodeUtils.GDTAILD);
+
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CodeUtils.GDTAILD) {
+            if (resultCode == CodeUtils.LOGIN) {
+                initDate();
+            }
+        }
+    }
 
     String[] strings;
     String string = "";

@@ -7,9 +7,10 @@ package com.dq.huibao.bean.account;
 
 public class Login {
 
+
     /**
      * status : 1
-     * data : {"uid":"11","phone":"17865069350","regtime":"1514172849","balance":"0.00","score":"0","user_status":"1","regtype":"app","token":"ac1b28198b79d4ccb87a4f2ca05ebccd","role_id":"0","nickname":null,"sex":"1","city":null,"province":null,"country":null,"headimgurl":null}
+     * data : {"uid":"4","phone":"17865069350","regtime":"1515809780","balance":"0.00","score":"0","user_status":"1","regtype":"app","token":"dcb252e7fc72e2ff493511c4bf5616d8","role_id":"2","nickname":"","sex":"1","city":"","province":"","country":"","headimgurl":"","realname":"","role_name":""}
      */
 
     private int status;
@@ -33,21 +34,23 @@ public class Login {
 
     public static class DataBean {
         /**
-         * uid : 11
+         * uid : 4
          * phone : 17865069350
-         * regtime : 1514172849
+         * regtime : 1515809780
          * balance : 0.00
          * score : 0
          * user_status : 1
          * regtype : app
-         * token : ac1b28198b79d4ccb87a4f2ca05ebccd
-         * role_id : 0
-         * nickname : null
+         * token : dcb252e7fc72e2ff493511c4bf5616d8
+         * role_id : 2
+         * nickname :
          * sex : 1
-         * city : null
-         * province : null
-         * country : null
-         * headimgurl : null
+         * city :
+         * province :
+         * country :
+         * headimgurl :
+         * realname :
+         * role_name :
          */
 
         private String uid;
@@ -65,6 +68,8 @@ public class Login {
         private String province;
         private String country;
         private String headimgurl;
+        private String realname;
+        private String role_name;
 
         public String getUid() {
             return uid;
@@ -186,6 +191,22 @@ public class Login {
             this.headimgurl = headimgurl;
         }
 
+        public String getRealname() {
+            return realname;
+        }
+
+        public void setRealname(String realname) {
+            this.realname = realname;
+        }
+
+        public String getRole_name() {
+            return role_name;
+        }
+
+        public void setRole_name(String role_name) {
+            this.role_name = role_name;
+        }
+
         @Override
         public String toString() {
             return "DataBean{" +
@@ -198,12 +219,14 @@ public class Login {
                     ", regtype='" + regtype + '\'' +
                     ", token='" + token + '\'' +
                     ", role_id='" + role_id + '\'' +
-                    ", nickname=" + nickname +
+                    ", nickname='" + nickname + '\'' +
                     ", sex='" + sex + '\'' +
-                    ", city=" + city +
-                    ", province=" + province +
-                    ", country=" + country +
-                    ", headimgurl=" + headimgurl +
+                    ", city='" + city + '\'' +
+                    ", province='" + province + '\'' +
+                    ", country='" + country + '\'' +
+                    ", headimgurl='" + headimgurl + '\'' +
+                    ", realname='" + realname + '\'' +
+                    ", role_name='" + role_name + '\'' +
                     '}';
         }
     }

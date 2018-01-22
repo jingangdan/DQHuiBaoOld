@@ -284,6 +284,15 @@ public class HttpUtils {
     public static final String MEM_EDITINFO = "Member/editinfo?";
 
     /**
+     * 上传图片
+     * 方式：post/get
+     * 参数：
+     * $_FILES['file']用户头像（这个不能同时上传的话 跟我说，我给改）
+     * 用户登陆验证（phone,token）
+     */
+    public static final String MEM_UPIMG = "Member/upimg?";
+
+    /**
      * 9.
      * 获取省市列表
      */

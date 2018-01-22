@@ -30,6 +30,7 @@ import com.dq.huibao.ui.memcen.FootprintActivity;
 import com.dq.huibao.ui.memcen.MemcenActivity;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.ui.order.OrderActivity;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -92,8 +93,8 @@ public class FMMemCen extends BaseFragment implements
     @Bind(R.id.iv_memcen)
     ImageView ivMemcen;
 
-    @Bind(R.id.iv_mc_refresh)
-    ImageView ivMcRefresh;
+    @Bind(R.id.iv_mc_setting)
+    ImageView ivMcSetting;
 
     /*会员等级 id 昵称 余额 积分 优惠券*/
     @Bind(R.id.tv_mc_level)
@@ -157,9 +158,6 @@ public class FMMemCen extends BaseFragment implements
     @Bind(R.id.but_mc_menu13)
     Button butMcMenu13;
 
-    /*更新UI*/
-//    private UserInfo userInfo;
-//    private UserInfo.DataBean.MemberBean memberBean;
     /*会员等级 头像 昵称 余额 积分*/
     private String level, id, avatar, nickname, credit1, credit2, couponcount;
 
@@ -202,24 +200,6 @@ public class FMMemCen extends BaseFragment implements
         waveView3.startAnimation(3000);
     }
 
-    public void initDate() {
-        spUserInfo = new SPUserInfo(getActivity().getApplication());
-
-        if (spUserInfo.getLogin().equals("1")) {
-
-            if (!(spUserInfo.getLoginReturn().equals(""))) {
-                Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
-                phone = login.getData().getPhone();
-                token = login.getData().getToken();
-
-                //getCart(unionid, "", "");
-
-            }
-        } else {
-
-        }
-    }
-
     @Override
     protected void lazyLoad() {
 
@@ -233,7 +213,7 @@ public class FMMemCen extends BaseFragment implements
     }
 
     @OnClick({R.id.but_percen_login,
-            R.id.iv_memcen, R.id.iv_mc_refresh,
+            R.id.iv_memcen, R.id.iv_mc_setting,
             R.id.lin_mc_credit1, R.id.lin_mc_credit2, R.id.lin_mc_couponcount,
             R.id.rel_mc_orders, R.id.but_mc_status0, R.id.but_mc_status1, R.id.but_mc_status2, R.id.but_mc_status3,
 
@@ -252,9 +232,11 @@ public class FMMemCen extends BaseFragment implements
                 startActivityForResult(intent, 1);
                 break;
 
-            case R.id.iv_mc_refresh:
-                //刷新
-                isLogin();
+            case R.id.iv_mc_setting:
+                //设置
+                intent = new Intent(getActivity(), MemcenActivity.class);
+                //startActivity(intent);
+                startActivityForResult(intent, CodeUtils.MEMBER);
                 break;
 
             /*个人信息*/
@@ -264,7 +246,7 @@ public class FMMemCen extends BaseFragment implements
 //                startActivity(intent);
 
                 intent = new Intent(getActivity(), LoginActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, CodeUtils.MEMBER);
                 break;
             case R.id.lin_mc_credit1:
                 //余额
@@ -438,6 +420,7 @@ public class FMMemCen extends BaseFragment implements
                         System.out.println("个人信息 = " + result);
                         Login login = GsonUtil.gsonIntance().gsonToBean(result, Login.class);
 
+
                         level = login.getData().getRole_id();
                         id = login.getData().getUid();
                         avatar = login.getData().getHeadimgurl();
@@ -524,11 +507,14 @@ public class FMMemCen extends BaseFragment implements
      * @param avatar
      */
     public void setUserInfo(String avatar) {
+
         Glide.with(getActivity())
-                .load(avatar)
+                .load(HttpUtils.IMG_HEADER + avatar)
                 .bitmapTransform(new GlideCircleTransform(getActivity()))
                 .crossFade(1000)
+                .error(R.mipmap.ic_launcher)
                 .into(ivMemcen);
+
         //会员等级
         if (level.equals("0")) {
             //普通会员
@@ -548,8 +534,6 @@ public class FMMemCen extends BaseFragment implements
         tvMcNickname.setText("" + nickname);
         tvMcCredit1.setText("" + credit1);
         tvMcCredit2.setText("" + credit2);
-        //tvMcCouponcount.setText("" + couponcount);
-
 
     }
 
@@ -627,14 +611,10 @@ public class FMMemCen extends BaseFragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (resultCode == 2) {
-                Bundle bundle = data.getExtras();
-                String uid = bundle.getString("uid");
+        if (requestCode == CodeUtils.MEMBER) {
+            if (resultCode == CodeUtils.LOGIN || resultCode == CodeUtils.MEMBER_EDIT) {
 
                 isLogin();
-
-                System.out.println("登录成功跳转 uid= " + uid);
 
             }
         }
