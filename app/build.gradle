@@ -24,6 +24,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    lintOptions {
+//        //即使有lint报错也不停止打包
+//        checkReleaseBuilds false
+//        abortOnError false
+//    }
 }
 
 dependencies {

@@ -97,7 +97,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/tv_mc_couponcount"

@@ -1,13 +1,17 @@
 package com.dq.huibao.ui.addr;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +35,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,11 +48,9 @@ import butterknife.OnClick;
  */
 
 public class AddAddressActivity extends BaseActivity {
-
     /*选择地区*/
     @Bind(R.id.rel_address_area)
     RelativeLayout relAddressArea;
-
     @Bind(R.id.tv_address_area)
     TextView tvAddressArea;
     @Bind(R.id.et_addr_contact)
@@ -61,17 +65,14 @@ public class AddAddressActivity extends BaseActivity {
     @Bind(R.id.cb_addr_isdefault)
     CheckBox cbAddrIsdefault;
 
-    /*UI获取参数*/
-
+    @Bind(R.id.lin_addr_main)
+    LinearLayout linAddrMain;
 
     /*解析数据*/
     private List<Region.DataBean> regionList = new ArrayList<>();
-
     private ArrayList<String> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-
-    private int tag1 = 0, tag2 = 0;
 
     /*接口地址*/
     private String PATH = "";
@@ -82,6 +83,7 @@ public class AddAddressActivity extends BaseActivity {
     private SPUserInfo spUserInfo;
     private String phone = "", token = "";
 
+    /*接收页面传值*/
     private Intent intent;
     private String addr = "", contact = "", mobile = "", regionid = "", region = "", isdefault = "", addrid = "", tag = "";
     private String UTF_addr = "", UTF_contact = "";
@@ -116,12 +118,18 @@ public class AddAddressActivity extends BaseActivity {
             isdefault = "0";
         }
 
-
         tag = intent.getStringExtra("tag");
-
 
         getRegion();
         isLogin();
+
+        linAddrMain.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboard();
+                return true;
+            }
+        });
 
     }
 
@@ -137,14 +145,11 @@ public class AddAddressActivity extends BaseActivity {
     @SuppressLint("WrongConstant")
     public void isLogin() {
         spUserInfo = new SPUserInfo(getApplication());
-
         if (spUserInfo.getLogin().equals("1")) {
-
             if (!(spUserInfo.getLoginReturn().equals(""))) {
                 Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
                 phone = login.getData().getPhone();
                 token = login.getData().getToken();
-
             }
 
         } else {
@@ -167,23 +172,23 @@ public class AddAddressActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.rel_address_area:
                 //选择所在区域
+                hideKeyboard();
                 if (regionList.size() > 0) {
                     showPickerView();
-
                 }
 
                 break;
 
             case R.id.but_delivery:
-                System.out.println("111 = " + regionid);
                 //添加
+                //if (isPhone(mobile) || isMobile(mobile)) {
                 if (!UTF_contact.equals("")) {
                     if (!mobile.equals("")) {
                         if (!UTF_addr.equals("")) {
                             if (!regionid.equals("")) {
                                 if (tag.equals("1")) {
                                     //修改
-                                    editAddr(addrid, regionid, isdefault, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
+                                    editAddr(addrid, regionid, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
 
                                 } else if (tag.equals("0")) {
                                     //添加
@@ -204,6 +209,7 @@ public class AddAddressActivity extends BaseActivity {
                 } else {
                     toast("收货人不可为空");
                 }
+
 
                 break;
 
@@ -317,7 +323,7 @@ public class AddAddressActivity extends BaseActivity {
                 "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.MEMBER_ADDADDR + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&isdefault=" + isdefault + "&mobile=" + mobile +
+                MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&isdefault=1" + "&mobile=" + mobile +
                         "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
 
         params = new RequestParams(PATH);
@@ -362,7 +368,6 @@ public class AddAddressActivity extends BaseActivity {
      *
      * @param id
      * @param regionid
-     * @param isdefault
      * @param addr
      * @param UTF_addr
      * @param contact
@@ -371,16 +376,13 @@ public class AddAddressActivity extends BaseActivity {
      * @param phone
      * @param token
      */
-    public void editAddr(String id, final String regionid, String isdefault, String addr, String UTF_addr, String contact, String UTF_contact, String mobile, String phone, String token) {
-        MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
+    public void editAddr(String id, final String regionid, String addr, String UTF_addr, String contact, String UTF_contact, String mobile, String phone, String token) {
+        MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&id=" + id + "&isdefault=1" + "&mobile=" + mobile +
                 "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.MEMBER_EDITADDR + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
+                MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&id=" + id + "&isdefault=1" + "&mobile=" + mobile +
                         "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
-
-        System.out.println("addr=" + addr + "&contact=" + contact + "&id=" + id + "&isdefault=" + isdefault + "&mobile=" + mobile +
-                "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
 
         System.out.println("加密 = " + MD5_PATH);
 
@@ -421,6 +423,7 @@ public class AddAddressActivity extends BaseActivity {
     }
 
 
+    /*选择地区*/
     private void showPickerView() {
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
@@ -448,6 +451,8 @@ public class AddAddressActivity extends BaseActivity {
     }
 
     /**
+     * 获取城市id
+     *
      * @param position1
      * @param position2
      */
@@ -457,6 +462,54 @@ public class AddAddressActivity extends BaseActivity {
                 regionid = regionList.get(position1).getCity().get(position2).getId();
             }
         }
+    }
+
+    /*强制关闭软键盘*/
+    private void hideKeyboard() {
+        @SuppressLint("WrongConstant") InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive() && this.getCurrentFocus() != null) {
+            if (this.getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
+
+    /**
+     * 手机号验证
+     *
+     * @param str
+     * @return 验证通过返回true
+     */
+    public static boolean isPhone(String str) {
+        Pattern p = null;
+        Matcher m = null;
+        boolean b = false;
+        p = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$"); // 验证手机号
+        m = p.matcher(str);
+        b = m.matches();
+        return b;
+    }
+
+    /**
+     * 电话号码验证
+     *
+     * @param str
+     * @return 验证通过返回true
+     */
+    public static boolean isMobile(String str) {
+        Pattern p1 = null, p2 = null;
+        Matcher m = null;
+        boolean b = false;
+        p1 = Pattern.compile("^[0][1-9]{2,3}-[0-9]{5,10}$");  // 验证带区号的
+        p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
+        if (str.length() > 9) {
+            m = p1.matcher(str);
+            b = m.matches();
+        } else {
+            m = p2.matcher(str);
+            b = m.matches();
+        }
+        return b;
     }
 
 }

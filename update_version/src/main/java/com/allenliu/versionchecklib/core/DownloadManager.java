@@ -1,5 +1,6 @@
 package com.allenliu.versionchecklib.core;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -41,6 +42,7 @@ public class DownloadManager {
     private static boolean isDownloadSuccess = false;
 
     //   private static final int TASK=Intent.FLAG_ACTIVITY_CLEAR_TOP;
+    @SuppressLint("WrongConstant")
     public static void downloadAPK(final Context context, final String url, final VersionParams versionParams, final DownloadListener listener) {
         lastProgress = 0;
         isDownloadSuccess = false;

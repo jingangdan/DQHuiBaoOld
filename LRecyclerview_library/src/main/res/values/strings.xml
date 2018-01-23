@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">LRecyclerview</string>
 
     <string name="listview_header_hint_normal">下拉刷新</string>

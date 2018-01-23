@@ -119,22 +119,10 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         linLoginMain.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                @SuppressLint("WrongConstant")
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(etLoginPhone.getWindowToken(), 0);
+                hideKeyboard();
                 return true;
             }
         });
-        linLoginMain.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                @SuppressLint("WrongConstant")
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(etLoginPwd.getWindowToken(), 0);
-                return true;
-            }
-        });
-
     }
 
     @OnClick({R.id.iv_phone_clear, R.id.iv_pwd_clear, R.id.iv_pwd_eye,
@@ -460,6 +448,16 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
                     }
                 });
+    }
+
+    /*强制关闭软键盘*/
+    private void hideKeyboard() {
+        @SuppressLint("WrongConstant") InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive() && this.getCurrentFocus() != null) {
+            if (this.getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
     }
 }
 

@@ -5,7 +5,7 @@ version = "1.8.4"
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.0"
-    resourcePrefix "versionchecklib"
+   // resourcePrefix "versionchecklib"
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 27

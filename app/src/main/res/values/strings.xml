@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">德泉惠宝</string>
 
     <string name="refresh_succeed">刷新成功</string>

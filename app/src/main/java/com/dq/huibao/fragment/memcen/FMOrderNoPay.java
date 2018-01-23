@@ -100,7 +100,7 @@ public class FMOrderNoPay extends BaseFragment implements OrderInterface {
 
         PATH = HttpUtils.PATHS + HttpUtils.ORDER_GETIST + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
-        params = new RequestParams("http://new.dequanhuibao.com/Api/Order/getlist?phone=17865069350&status=&timestamp=1516418845&token=dcb252e7fc72e2ff493511c4bf5616d8&sign=5f0cc942a0f9cecd57fe4bf0946071bd");
+        params = new RequestParams(PATH);
         System.out.println("全部订单列表 = " + PATH);
         x.http().get(params,
                 new Callback.CommonCallback<String>() {

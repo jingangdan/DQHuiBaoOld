@@ -1,5 +1,5 @@
-<resources>
-    <string name="app_name">VersionCheckLib</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="ResourceName">VersionCheckLib</string>
     <string name="versionchecklib_confirm">Commit</string>
     <string name="versionchecklib_cancel">Cancel</string>
     <string name="versionchecklib_retry">Retry</string>

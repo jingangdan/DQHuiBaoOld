@@ -20,14 +20,12 @@ import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.cart.CheckOrder;
 import com.dq.huibao.ui.addr.AddAddressActivity;
 import com.dq.huibao.ui.addr.AddrListActivity;
-import com.dq.huibao.ui.addr.AddressListActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
@@ -67,7 +65,7 @@ public class SubmitOrderActivity extends BaseActivity {
 
     /*接收页面传值*/
     private Intent intent;
-    private String cartids = "";
+    private String cartids = "", goodsid = "", count = "", optionid = "", tag = "";
 
     /*接口地址*/
     private String PATH = "", MD5_PATH = "";
@@ -93,6 +91,10 @@ public class SubmitOrderActivity extends BaseActivity {
 
         intent = getIntent();
         cartids = intent.getStringExtra("cartids");
+        goodsid = intent.getStringExtra("goodsid");
+        count = intent.getStringExtra("count");
+        optionid = intent.getStringExtra("optioned");
+        tag = intent.getStringExtra("tag");
 
         mManager = new LinearLayoutManager(this);
         submitOrderAdapter = new SubmitOrderAdapter(this, shopList);
@@ -128,25 +130,15 @@ public class SubmitOrderActivity extends BaseActivity {
             case R.id.but_confirm_pay:
                 //提交订单
                 JSONObject object = new JSONObject();//创建一个总的对象，这个对象对整个json串
-                String UTF_comment = "";
 
                 for (int i = 0; i < shopList.size(); i++) {
                     pay_all += shopList.get(i).getMoney_all() - shopList.get(i).getDiscount_all() + shopList.get(i).getDispatch_all();
-
                     try {
                         object.put("" + shopList.get(i).getShopid(), shopList.get(i).getCommet());
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-
-                System.out.println("111 =" + object.toString());
-
-
-                //Base64.encodeToString(URLEncoder.encode(object.toString(), "UTF-8").getBytes(), Base64.DEFAULT);
-                // orderAdd(phone, token, cartids, addrid, MD5Util.getMD5String(object.toString()));
-                //Base64.encodeToString(URLEncoder.encode(object.toString(), "UTF-8").getBytes(), Base64.DEFAULT);
 
                 try {
                     String s = URLEncoder.encode(object.toString(), "UTF-8");
@@ -201,6 +193,7 @@ public class SubmitOrderActivity extends BaseActivity {
                     public void onSuccess(String result) {
                         System.out.println("获取收货地址 = " + result);
                         Addr addr = GsonUtil.gsonIntance().gsonToBean(result, Addr.class);
+                        addrList.clear();
                         addrList = addr.getData();
                         if (addr.getStatus() == 1) {
 
@@ -212,7 +205,13 @@ public class SubmitOrderActivity extends BaseActivity {
                                     tvAddr.setText(addrList.get(i).getContact() + "(" + addrList.get(i).getMobile() + ")\n" +
                                             addrList.get(i).getProvince() + "." + addrList.get(i).getCity() + "." + addrList.get(i).getAddr());
 
-                                    getCheckorder(phone, token, cartids, regionid);
+                                    if (tag.equals("1")) {
+                                        getCheckorder(phone, token, goodsid, addrid, count, optionid);
+
+                                    } else if (tag.equals("0")) {
+                                        getCheckorder(phone, token, cartids, addrid);
+                                    }
+
 
                                 }
                             }
@@ -239,15 +238,15 @@ public class SubmitOrderActivity extends BaseActivity {
     }
 
     /**
-     * 提交订单前确认
+     * 提交订单前确认 (购物车)
      *
      * @param phone
      * @param token
-     * @param cartids  购物车id 集合 逗号隔开
-     * @param regionid 配送地址的市级id
+     * @param cartids 购物车id 集合 逗号隔开
+     * @param addrid  配送地址的市级id
      */
-    public void getCheckorder(String phone, String token, String cartids, String regionid) {
-        MD5_PATH = "addrid=" + regionid + "&cartids=" + cartids + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+    public void getCheckorder(String phone, String token, String cartids, String addrid) {
+        MD5_PATH = "addrid=" + addrid + "&cartids=" + cartids + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.CONFIRM_CHECKORDER + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
@@ -260,6 +259,8 @@ public class SubmitOrderActivity extends BaseActivity {
                     public void onSuccess(String result) {
                         System.out.println("确认订单 = " + result);
                         CheckOrder checkOrder = GsonUtil.gsonIntance().gsonToBean(result, CheckOrder.class);
+
+                        shopList.clear();
 
                         shopList.addAll(checkOrder.getData());
 
@@ -291,6 +292,62 @@ public class SubmitOrderActivity extends BaseActivity {
     }
 
     /**
+     * 确认订单（商品详情）
+     *
+     * @param phone
+     * @param token
+     * @param goodsid
+     * @param addrid
+     * @param count
+     * @param optionid
+     */
+    public void getCheckorder(String phone, String token, String goodsid, String addrid, String count, String optionid) {
+        MD5_PATH = "addrid=" + addrid + "&count=" + count + "&goodsid=" + goodsid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpUtils.PATHS + HttpUtils.CONFIRM_BUYNOW + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+
+        params = new RequestParams(PATH);
+        System.out.println("确认订单（商品详情） = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("确认订单（商品详情） = " + result);
+                        CheckOrder checkOrder = GsonUtil.gsonIntance().gsonToBean(result, CheckOrder.class);
+
+                        shopList.clear();
+                        shopList.addAll(checkOrder.getData());
+
+                        submitOrderAdapter.notifyDataSetChanged();
+
+                        for (int i = 0; i < shopList.size(); i++) {
+                            pay_all += shopList.get(i).getMoney_all() - shopList.get(i).getDiscount_all() + shopList.get(i).getDispatch_all();
+                        }
+
+                        tvConfirmPay.setText("需付：¥" + pay_all);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+
+    /**
      * 提交订单
      *
      * @param phone
@@ -314,8 +371,8 @@ public class SubmitOrderActivity extends BaseActivity {
                         System.out.println("提交订单 = " + result);
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
-                            toast("" + addrReturn.getData());
                             intent = new Intent(SubmitOrderActivity.this, PayActivity.class);
+                            intent.putExtra("ordersn", addrReturn.getData().toString());
                             startActivityForResult(intent, CodeUtils.CONFIRM_ORDER);
                         }
                     }
@@ -342,9 +399,6 @@ public class SubmitOrderActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CodeUtils.CONFIRM_ORDER) {
             if (resultCode == CodeUtils.ADDR_ADD || resultCode == CodeUtils.ADDR_LIST || resultCode == CodeUtils.ADDR_LISTS) {
-
-                addrList.clear();
-                shopList.clear();
                 pay_all = 0.0;
                 isLogin();
             } else if (resultCode == CodeUtils.PAY) {

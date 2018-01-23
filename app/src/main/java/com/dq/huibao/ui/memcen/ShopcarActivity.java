@@ -434,13 +434,12 @@ public class ShopcarActivity extends BaseActivity implements
                             public void onClick(DialogInterface dialog, int which) {
                                 intent = new Intent(ShopcarActivity.this, SubmitOrderActivity.class);
                                 intent.putExtra("cartids", ids);
+                                intent.putExtra("tag", "0");
                                 startActivity(intent);
                                 return;
                             }
                         });
                 alert.show();
-//                intent = new Intent(this, SubmitOrderActivity.class);
-//                startActivity(intent);
 
                 break;
 
@@ -647,9 +646,9 @@ public class ShopcarActivity extends BaseActivity implements
                     totalCount++;
                     totalPrice += Double.parseDouble(product.getMarketprice()) * Integer.parseInt(product.getCount());
                     if (ids.equals("")) {
-                        ids = product.getGoodsid();
+                        ids = product.getId();
                     } else {
-                        ids = ids + "," + product.getGoodsid();
+                        ids = ids + "," + product.getId();
                     }
                 }
             }

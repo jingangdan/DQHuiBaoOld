@@ -745,6 +745,7 @@ import com.dq.huibao.adapter.cart.ShopCartAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.cart.Cart;
+import com.dq.huibao.ui.LoginActivity;
 import com.dq.huibao.ui.SubmitOrderActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
@@ -778,6 +779,9 @@ public class FMShopcar extends BaseFragment implements
     LinearLayout linShopcartNologin;
     @Bind(R.id.rel_shopcart_login)
     RelativeLayout relShopCartLogin;
+
+    @Bind(R.id.but_percen_login)
+    Button butPercenLogin;
 
     @Bind(R.id.tv_base_title)
     TextView tvBaseTitle;
@@ -841,8 +845,6 @@ public class FMShopcar extends BaseFragment implements
         view = inflater.inflate(R.layout.fragment_shopcar, null);
 
         ButterKnife.bind(this, view);
-
-//        relShopcarHeader.setVisibility(View.GONE);
 
         shopCartAdapter = new ShopCartAdapter(shopList, children, getActivity());
         shopCartAdapter.setCheckInterface(this);// 关键步骤1,设置复选框接口
@@ -919,7 +921,6 @@ public class FMShopcar extends BaseFragment implements
                         Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
                         shopList.clear();
                         shopList.addAll(cart.getData());
-                        //shopAdapter.notifyDataSetChanged();
                         for (int i = 0; i < shopList.size(); i++) {
                             children.put(shopList.get(i).getShopid(), shopList.get(i).getGoodslist());
                         }
@@ -1069,11 +1070,16 @@ public class FMShopcar extends BaseFragment implements
 
     String ids = "";
 
-    @OnClick({R.id.ck_all, R.id.tv_settlement, R.id.but_shopcart_tofavorite, R.id.but_shopacrt_delete})
+    @OnClick({R.id.but_percen_login, R.id.ck_all, R.id.tv_settlement,
+            R.id.but_shopcart_tofavorite, R.id.but_shopacrt_delete})
     public void onClick(View v) {
         AlertDialog alert;
         switch (v.getId()) {
-
+            case R.id.but_percen_login:
+                //登录
+                intent = new Intent(getActivity(), LoginActivity.class);
+                startActivityForResult(intent, CodeUtils.CART_FM);
+                break;
             case R.id.ck_all:
                 //全选按钮
                 doCheckAll();
@@ -1081,48 +1087,10 @@ public class FMShopcar extends BaseFragment implements
 
             case R.id.but_shopcart_tofavorite:
                 //移至收藏夹
-
-//                if (cartList.size() != 0) {
-//                    for (int i = 0; i < cartList.size(); i++) {
-//                        cartList.get(i).isChoosed();
-//                        if (cartList.get(i).isChoosed()) {
-//                            if (ids.equals("")) {
-//                                ids = cartList.get(i).getId();
-//                            } else {
-//                                ids = ids + "," + cartList.get(i).getId();
-//                            }
-//                        }
-//                    }
-//                }
-
-                if (!ids.equals("")) {
-                } else {
-
-                }
                 break;
 
             case R.id.but_shopacrt_delete:
                 //删除
-
-//                if (cartList.size() != 0) {
-//                    for (int i = 0; i < cartList.size(); i++) {
-//                        cartList.get(i).isChoosed();
-//                        if (cartList.get(i).isChoosed()) {
-//                            if (ids.equals("")) {
-//                                ids = cartList.get(i).getId();
-//                            } else {
-//                                ids = ids + "," + cartList.get(i).getId();
-//                            }
-//                        }
-//                    }
-//                }
-
-//                if (!ids.equals("")) {
-//                    setDialog(unionid, ids);
-//                } else {
-//
-//                }
-
                 if (totalCount == 0) {
                     toast("请选择要移除的商品");
                     //Toast.makeText(context, "请选择要移除的商品", Toast.LENGTH_LONG).show();
@@ -1144,7 +1112,7 @@ public class FMShopcar extends BaseFragment implements
                             public void onClick(DialogInterface dialog, int which) {
                                 //doDelete();
                                 System.out.println("ids = " + ids);
-                                //cartDel(phone, token, ids);
+                                cartDel(phone, token, ids);
                                 //删除操作
                             }
                         });
@@ -1176,7 +1144,7 @@ public class FMShopcar extends BaseFragment implements
                             public void onClick(DialogInterface dialog, int which) {
                                 intent = new Intent(getActivity(), SubmitOrderActivity.class);
                                 intent.putExtra("cartids", ids);
-                                //startActivity(intent);
+                                intent.putExtra("tag", "0");
                                 startActivityForResult(intent, CodeUtils.CART_FM);
                                 return;
                             }
@@ -1419,8 +1387,8 @@ public class FMShopcar extends BaseFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CodeUtils.CART_FM) {
-            if (resultCode == CodeUtils.CONFIRM_ORDER) {
-
+            if (resultCode == CodeUtils.CONFIRM_ORDER || resultCode == CodeUtils.LOGIN) {
+                isLogin();
             }
         }
     }

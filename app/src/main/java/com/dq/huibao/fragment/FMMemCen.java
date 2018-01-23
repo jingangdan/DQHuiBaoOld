@@ -225,26 +225,20 @@ public class FMMemCen extends BaseFragment implements
     })
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.but_percen_login:
                 //登录
                 intent = new Intent(getActivity(), LoginActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, CodeUtils.MEMBER);
                 break;
 
             case R.id.iv_mc_setting:
                 //设置
                 intent = new Intent(getActivity(), MemcenActivity.class);
-                //startActivity(intent);
                 startActivityForResult(intent, CodeUtils.MEMBER);
                 break;
 
             /*个人信息*/
             case R.id.iv_memcen:
-                //个人信息
-//                intent = new Intent(getActivity(), MemcenActivity.class);
-//                startActivity(intent);
-
                 intent = new Intent(getActivity(), LoginActivity.class);
                 startActivityForResult(intent, CodeUtils.MEMBER);
                 break;
@@ -259,8 +253,8 @@ public class FMMemCen extends BaseFragment implements
             case R.id.lin_mc_couponcount:
                 //优惠券
                 //toast("优惠券");
-                intent = new Intent(getActivity(), CouponsActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getActivity(), CouponsActivity.class);
+//                startActivity(intent);
                 break;
 
             /*我的订单*/
@@ -292,7 +286,6 @@ public class FMMemCen extends BaseFragment implements
                 break;
             case R.id.but_mc_menu1:
                 //我的资料
-                //toast("我的资料");
                 intent = new Intent(getActivity(), MemcenActivity.class);
                 startActivity(intent);
                 break;
@@ -428,58 +421,6 @@ public class FMMemCen extends BaseFragment implements
                         credit1 = login.getData().getBalance();
                         credit2 = login.getData().getScore();
                         setUserInfo(avatar);
-
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-
-    }
-
-    /**
-     * 获取个人信息
-     *
-     * @param unionid
-     */
-    public void getUserInfo(String unionid) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_MEMBER_CENTER +
-                "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_MEMBER_CENTER + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom");
-
-        params = new RequestParams(PATH);
-        System.out.println("个人信息 = " + PATH);
-
-        x.http().get(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("个人信息 = " + result);
-
-//                        userInfo = GsonUtil.gsonIntance().gsonToBean(result, UserInfo.class);
-//                        memberBean = userInfo.getData().getMember();
-//
-//                        level = memberBean.getLevel();
-//                        id = memberBean.getId();
-//                        avatar = memberBean.getAvatar();
-//                        nickname = memberBean.getNickname();
-//                        credit1 = memberBean.getCredit1();
-//                        credit2 = memberBean.getCredit2();
-//                        couponcount = userInfo.getData().getCounts().getCouponcount();
-//
-//                        setUserInfo(userInfo.getData().getMember().getAvatar());
 
                     }
 

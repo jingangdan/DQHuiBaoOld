@@ -175,7 +175,7 @@ public class HttpUtils {
     /**
      * 图片头部
      */
-    public static final String IMG_HEADER = "http://www.dequanhuibao.com";
+    public static final String IMG_HEADER = "http://www.dequanhuibao.com/";
 
     public static final String NEW_HEADER = "http://new.dequanhuibao.com/";
 
@@ -471,8 +471,8 @@ public class HttpUtils {
 
 
     /**
-     * 23.
-     * 提交订单前确认
+     * 23.（1）
+     * 提交订单前确认（购物车）
      * 方式：post/get
      * 参数：
      * cartids  购物车id 集合 逗号隔开
@@ -480,6 +480,19 @@ public class HttpUtils {
      * 用户登陆验证（phone,token）
      */
     public static final String CONFIRM_CHECKORDER = "Confirm/checkorder?";
+
+    /**
+     * 23.（2）
+     * 提交订单前确认（购物车）
+     * 方式：post/get
+     * 参数：
+     * goodsid  购物车id 集合 逗号隔开
+     * optionid
+     * count
+     * addrid 收货地址的id
+     * 用户登陆验证（phone,token）
+     */
+    public static final String CONFIRM_BUYNOW = "Confirm/buynow?";
 
     /**
      * 24.

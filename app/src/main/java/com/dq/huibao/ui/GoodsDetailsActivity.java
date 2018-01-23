@@ -373,8 +373,15 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             case R.id.but_gd_put_in:
                 //添加购物车
                 if (isLogin()) {
+//                    if (optionid.equals("")) {
+//                        setPopTest(1);
+//                        setBackgroundBlack(all_choice_layout, 0);
+//                    } else {
+//                        cartAdd(phone, token, gid, optionid, num);
+//                    }
                     setPopTest(1);
                     setBackgroundBlack(all_choice_layout, 0);
+
                 } else {
                     dialog();
                 }
@@ -383,8 +390,18 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             case R.id.but_gd_bug_new:
                 //立即购买
                 if (isLogin()) {
-                    setPopTest(2);
-                    setBackgroundBlack(all_choice_layout, 0);
+                    if (optionid.equals("")) {
+                        setPopTest(2);
+                        setBackgroundBlack(all_choice_layout, 0);
+                    } else {
+                        intent = new Intent(TAG, SubmitOrderActivity.class);
+                        intent.putExtra("goodsid", gid);
+                        intent.putExtra("tag", "1");
+                        intent.putExtra("count", num + "");
+                        intent.putExtra("optioned", optionid);
+                        startActivity(intent);
+                    }
+
                 } else {
                     dialog();
                 }
@@ -807,129 +824,35 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                for (int i = 0; i < optionsList.size(); i++) {
-//                    if (options_specs.equals(optionsList.get(i).getSpecs())) {
-//                        options_id = optionsList.get(i).getId();
-//                        options_title = optionsList.get(i).getTitle();
-//
-//                    } else {
-//                        System.out.println("有规格木有选择");
-//                    }
-//                }
-
                 if (tag == 0) {
                     //选择规格
                     tvGdSpecification.setText("已选：" + string_name);
                     popWindow.dismiss();
                 } else if (tag == 1) {
                     //添加购物车
-                    //setAddCart(unionid, gid, options_id, "" + num);
                     cartAdd(phone, token, gid, optionid, num);
 
                 } else if (tag == 2) {
                     //立即购买
-                    intent = new Intent(TAG, SubmitOrderActivity.class);
-                    startActivity(intent);
+                    if (!optionid.equals("")) {
+                        intent = new Intent(TAG, SubmitOrderActivity.class);
+                        intent.putExtra("goodsid", gid);
+                        intent.putExtra("tag", "1");
+                        intent.putExtra("count", num + "");
+                        intent.putExtra("optioned", optionid);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(TAG, "未选规格", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
+                popWindow.dismiss();
+
 
             }
         });
 
-        /*根据数据结构动态生成UI*/
-//        for (int i = 0; i < specsList.size(); i++) {
-//            setChooseLayout(i, "0");
-//        }
-
     }
-
-    /**/
-    private LinearLayout lin_choose;
-
-    /**
-     * 选择商品规格和数量时根据json数据动态创建布局
-     *
-     * @param i
-     * @param displayorder
-     */
-//    public void setChooseLayout(int i, String displayorder) {
-//        switch (displayorder) {
-//            case "0":
-//                lin_choose = (LinearLayout) TAG.getLayoutInflater().inflate(R.layout.include_gd_choose, null);
-//                linGdMain.addView(lin_choose);
-//
-//                textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
-//                recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
-//
-//                itemList = specsList.get(i).getItems();
-//
-//                textView.setText("" + specsList.get(i).getTitle());
-//
-//                chooseTwoAdapter = new ChooseTwoAdapter(TAG, itemList);
-//
-//                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
-//
-//                recyclerView.setAdapter(chooseTwoAdapter);
-//
-//                chooseTwoAdapter.setmOnItemClickListener(new OnItemClickListener() {
-//                    @SuppressLint("WrongConstant")
-//                    @Override
-//                    public void onItemClick(View view, int position) {
-//                        chooseTwoAdapter.changeSelected(position);
-//                        //Toast.makeText(TAG, "000 = " + itemList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-//
-//                        specifications1 = itemList.get(position).getTitle();
-//                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
-//
-//                        specsItemId1 = itemList.get(position).getId();
-//                    }
-//                });
-//                break;
-//
-//            case "1":
-//                lin_choose = (LinearLayout) TAG.getLayoutInflater().inflate(R.layout.include_gd_choose, null);
-//                linGdMain.addView(lin_choose);
-//
-//                textView = (TextView) lin_choose.findViewById(R.id.tv_gd_choose);
-//                recyclerView = (RecyclerView) lin_choose.findViewById(R.id.rv_gd_choose);
-//
-//                itemLists = specsList.get(i).getItems();
-//
-//                textView.setText("" + specsList.get(i).getTitle());
-//
-//                chooseAdapter = new ChooseAdapter(TAG, itemLists);
-//
-//                recyclerView.setLayoutManager(new GridLayoutManager(TAG, 1, GridLayoutManager.HORIZONTAL, false));
-//
-//                recyclerView.setAdapter(chooseAdapter);
-//
-//                chooseAdapter.setmOnItemClickListener(new OnItemClickListener() {
-//                    @SuppressLint("WrongConstant")
-//                    @Override
-//                    public void onItemClick(View view, int position) {
-//
-//                        chooseAdapter.changeSelected(position);
-//
-//                        ImageUtils.loadIntoUseFitWidth(TAG,
-//                                HttpUtils.IMG_HEADER + itemLists.get(position).getThumb(),
-//                                R.mipmap.icon_empty002,
-//                                R.mipmap.icon_error002,
-//                                iv_thumb);
-//
-//                        specifications2 = itemLists.get(position).getTitle();
-//
-//                        tv_specification.setText("已选：" + specifications1 + "   " + specifications2);
-//
-//                        specsItemId2 = itemLists.get(position).getId();
-//
-//                    }
-//                });
-//                break;
-//            default:
-//                break;
-//        }
-//
-//    }
 
     /**
      * 添加购物车
