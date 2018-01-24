@@ -149,9 +149,14 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
                     cholder.ivAdapterListPic);
 
             cholder.tvIntro.setText("" + goodsInfo.getGoods().getGoodsname());
-            cholder.tvColorSize.setText("" + goodsInfo.getGoods().getOption().getTitle());
-            cholder.tvPrice.setText("" + goodsInfo.getGoods().getOption().getMarketprice());
-            cholder.tvProductprice.setText("" + goodsInfo.getGoods().getOption().getProductprice());
+            if (goodsInfo.getGoods().getOption().getTitle() == null) {
+                cholder.tvColorSize.setText("");
+            } else {
+                cholder.tvColorSize.setText("" + goodsInfo.getGoods().getOption().getTitle());
+            }
+
+            cholder.tvPrice.setText("¥" + goodsInfo.getMarketprice());
+            //cholder.tvProductprice.setText("" + goodsInfo.getGoods().getOption().getProductprice());
             cholder.etNum.setText("" + goodsInfo.getCount());
 
             cholder.checkBox.setChecked(goodsInfo.isChoosed());

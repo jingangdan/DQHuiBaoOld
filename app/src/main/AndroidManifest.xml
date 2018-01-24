@@ -153,6 +153,9 @@
         <!--我的订单-->
         <activity android:name="com.dq.huibao.ui.order.OrderActivity" />
 
+        <!--订单详情-->
+        <activity android:name=".ui.order.OrderDettailActivity" />
+
         <!--查看物流-->
         <activity android:name=".ui.order.OrderKuaiDiActivity" />
 
@@ -183,6 +186,9 @@
         <activity
             android:name="com.dq.huibao.ui.memcen.MobileActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <!--关于我们-->
+        <activity android:name=".ui.memcen.AboutUsActivity" />
 
         <!--增加图片清晰度-->
         <meta-data

@@ -111,7 +111,7 @@ public class FMHomePage extends BaseFragment implements
         if (isNetworkUtils()) {
             getIndex();
         } else {
-
+            toast("无网络连接");
         }
 
         rvHpMenu.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
@@ -127,15 +127,17 @@ public class FMHomePage extends BaseFragment implements
         });
 
         appimglistAdapter = new AppimglistAdapter(getActivity(), appimgList);
-        mManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+        mManager = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
         mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 String imgwidth = appimgList.get(position).getWidth();
                 if (imgwidth.equals("50")) {
-                    return 1;
-                } else if (imgwidth.equals("100")) {
                     return 2;
+                } else if (imgwidth.equals("100")) {
+                    return 4;
+                } else if (imgwidth.equals("25")) {
+                    return 1;
                 }
                 return 1;
             }
@@ -190,6 +192,11 @@ public class FMHomePage extends BaseFragment implements
                     public void onSuccess(String result) {
                         System.out.println("首页 = " + result);
                         index = GsonUtil.gsonIntance().gsonToBean(result, Index.class);
+
+                        bannerList.clear();
+                        menuList.clear();
+                        appimgList.clear();
+                        gList.clear();
 
                         if (!index.getData().getBanner().toString().equals("[]")) {
                             bannerList = index.getData().getBanner();
@@ -418,6 +425,12 @@ public class FMHomePage extends BaseFragment implements
                 pullToRefreshView.onHeaderRefreshComplete("更新于:"
                         + Calendar.getInstance().getTime().toLocaleString());
                 pullToRefreshView.onHeaderRefreshComplete();
+
+                if (isNetworkUtils()) {
+                    getIndex();
+                } else {
+                    toast("无网络连接");
+                }
 
             }
 

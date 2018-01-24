@@ -181,33 +181,36 @@ public class AddAddressActivity extends BaseActivity {
 
             case R.id.but_delivery:
                 //添加
-                //if (isPhone(mobile) || isMobile(mobile)) {
-                if (!UTF_contact.equals("")) {
-                    if (!mobile.equals("")) {
-                        if (!UTF_addr.equals("")) {
-                            if (!regionid.equals("")) {
-                                if (tag.equals("1")) {
-                                    //修改
-                                    editAddr(addrid, regionid, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
+                if (isPhone(mobile)) {
+                    if (!UTF_contact.equals("")) {
+                        if (!mobile.equals("")) {
+                            if (!UTF_addr.equals("")) {
+                                if (!regionid.equals("")) {
+                                    if (tag.equals("1")) {
+                                        //修改
+                                        editAddr(addrid, regionid, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
 
-                                } else if (tag.equals("0")) {
-                                    //添加
-                                    addAddr(regionid, isdefault, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
+                                    } else if (tag.equals("0")) {
+                                        //添加
+                                        addAddr(regionid, isdefault, addr, UTF_addr, contact, UTF_contact, mobile, phone, token);
+                                    }
+
+
+                                } else {
+                                    toast("请选择所在区域");
                                 }
 
-
                             } else {
-                                toast("请选择所在区域");
+                                toast("详细地址不可为空");
                             }
-
                         } else {
-                            toast("详细地址不可为空");
+                            toast("联系电话不可为空");
                         }
                     } else {
-                        toast("联系电话不可为空");
+                        toast("收货人不可为空");
                     }
                 } else {
-                    toast("收货人不可为空");
+                    toast("请填写正确的手机号码");
                 }
 
 

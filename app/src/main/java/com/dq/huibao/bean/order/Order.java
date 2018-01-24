@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Order {
 
-
     /**
      * status : 1
      * data : [{"id":"18","ordersn":"SN201801201022383242","status":"-1","refund":"0","pay_money":"212.40","is_comment":"0","sendtime":"0","express":"","expressorder":"","expressname":"","allcount":"2","goodslist":[{"id":"12","goodsname":"新款欧美简约牛津电脑背包 学生科技书包轻便男包 休闲双肩包批发","optionname":"黑色","price":"106.20","count":"2","thumb":"/attachment/images/1604/2017/12/M8zB8Gk2yqNi3Dgqq5y222G838cBiy.jpg"}]}]

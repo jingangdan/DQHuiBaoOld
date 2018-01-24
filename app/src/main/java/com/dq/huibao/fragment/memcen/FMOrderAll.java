@@ -1,5 +1,7 @@
 package com.dq.huibao.fragment.memcen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OrderInterface;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.order.Order;
+import com.dq.huibao.ui.LoginActivity;
+import com.dq.huibao.ui.PayActivity;
+import com.dq.huibao.ui.order.OrderDettailActivity;
 import com.dq.huibao.ui.order.OrderKuaiDiActivity;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -64,6 +71,17 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(orderAdapters);
 
+        orderAdapters.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                intent = new Intent(getActivity(), OrderDettailActivity.class);
+                intent.putExtra("orderid", orderList.get(position).getId());
+                intent.putExtra("phone", getArguments().getString("phone"));
+                intent.putExtra("token", getArguments().getString("token"));
+                startActivity(intent);
+            }
+        });
+
         orderAdapters.setOrderInterface(this);
 
         return view;
@@ -85,7 +103,6 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
         if (isVisibleToUser) {
             System.out.println("in FMSellerAll");
             orderGetList("", getArguments().getString("phone"), getArguments().getString("token"));
-
 
         } else {
             System.out.println("move FMSellerAll");
@@ -211,6 +228,20 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
 
 
     @Override
+    public void doOrderPay(String ordersn) {
+        intent = new Intent(getActivity(), PayActivity.class);
+        intent.putExtra("ordersn", ordersn);
+        intent.putExtra("phone", getArguments().getString("phone"));
+        intent.putExtra("token", getArguments().getString("token"));
+        startActivityForResult(intent, CodeUtils.ORDER);
+    }
+
+    @Override
+    public void doOrderComment() {
+
+    }
+
+    @Override
     public void doOrderKuaidi(String type, String postid) {
         intent = new Intent(getActivity(), OrderKuaiDiActivity.class);
         intent.putExtra("type", type);
@@ -220,7 +251,8 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
 
     @Override
     public void doOrderEdit(String id, String type, int postion) {
-        orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
+        dialog(id, type);
+
     }
 
     /**
@@ -231,6 +263,30 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
      */
     public void getOrderKuaidi(String type, String postid) {
 
+    }
+
+    /*弹出框*/
+    protected void dialog(final String id, final String type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("确定操作该订单吗？");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
     }
 
 }

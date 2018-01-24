@@ -57,8 +57,8 @@ public class AppimglistAdapter extends RecyclerView.Adapter<AppimglistAdapter.My
         }
         ImageUtils.loadIntoUseFitWidth(mContext,
                 HttpUtils.NEW_HEADER + appimgList.get(i).getThumb(),
-                R.mipmap.icon_empty002,
-                R.mipmap.icon_error002,
+                R.mipmap.icon_empty003,
+                R.mipmap.icon_error003,
                 holder.img);
 
 

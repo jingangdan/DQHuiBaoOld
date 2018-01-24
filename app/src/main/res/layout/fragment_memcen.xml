@@ -2,13 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/bg_main"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/lin_percen_nologin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_white"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -37,83 +38,94 @@
                     android:orientation="vertical">
 
                     <!--头像、名称-->
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#F15353"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:background="#F15353">
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
                             android:padding="10dp">
 
-                            <ImageView
-                                android:id="@+id/iv_memcen"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true" />
-
-                            <ImageView
-                                android:id="@+id/iv_mc_setting"
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentTop="true"
-                                android:padding="5dp"
-                                android:src="@mipmap/ic_setting" />
+                                android:orientation="horizontal">
 
-                        </RelativeLayout>
+                                <ImageView
+                                    android:id="@+id/iv_memcen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@mipmap/ic_header" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                                <ImageView
+                                    android:id="@+id/iv_mc_setting"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:padding="5dp"
+                                    android:src="@mipmap/ic_setting" />
 
-                            <TextView
-                                android:id="@+id/tv_mc_nickname"
-                                style="@style/text_white"
-                                android:text="用户名称" />
+                            </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/tv_mc_id"
-                                style="@style/text_white"
-                                android:text="id" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                        </LinearLayout>
+                                <TextView
+                                    android:id="@+id/tv_mc_nickname"
+                                    style="@style/text_white"
+                                    android:text="用户名称" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/tv_mc_id"
+                                    style="@style/text_white"
+                                    android:text="id" />
 
-                            <TextView
-                                android:id="@+id/tv_mc_level"
-                                style="@style/text_white"
-                                android:text="会员等级" />
+                            </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/tv_mc_l"
-                                style="@style/text_white"
-                                android:text="[推荐人]" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_mc_level"
+                                    style="@style/text_white"
+                                    android:text="会员等级" />
+
+                                <TextView
+                                    android:id="@+id/tv_mc_l"
+                                    style="@style/text_white"
+                                    android:text="[推荐人]" />
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
 
                         <FrameLayout
                             android:id="@+id/rootView"
                             android:layout_width="match_parent"
-                            android:layout_height="80dp">
+                            android:layout_height="100dp"
+                            android:layout_gravity="bottom">
 
                         </FrameLayout>
 
-                    </LinearLayout>
+                    </FrameLayout>
+
 
                     <!--我的账号-->
                     <include layout="@layout/include_mc_account" />

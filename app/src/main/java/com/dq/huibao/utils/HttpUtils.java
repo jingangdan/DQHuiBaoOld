@@ -521,6 +521,7 @@ public class HttpUtils {
     public static final String ORDER_GETIST = "Order/getlist?";
 
     /**
+     * 26.
      * 快递100快递查询接口
      * 方式：get
      * 参数：type 快递公司编号订单详情提供
@@ -529,6 +530,7 @@ public class HttpUtils {
     public static final String KUAIDI = "https://www.kuaidi100.com/query?";
 
     /**
+     * 27.
      * 订单退款
      * 方式：post/get
      * 参数：
@@ -541,6 +543,7 @@ public class HttpUtils {
     public static final String ORDER_REFUND = "Order/refund?";
 
     /**
+     * 28.
      * 订单状态修改
      * 方式：post/get
      * 参数：
@@ -554,5 +557,36 @@ public class HttpUtils {
      * 确认收获——只有当发货的状态才能收货status==2
      */
     public static final String ORDER_EDIT = "Order/edit?";
+
+    /**
+     * 29.
+     * 订单详情
+     * 方式：post/get
+     * 参数：
+     * id 订单id
+     * 用户登陆验证（phone,token）
+     */
+    public static final String ORDER_DETAIL = "Order/detail?";
+
+    /**
+     * 30.
+     * 选择支付方式
+     * 方式：post/get
+     * 参数：
+     * ordersn 订单号
+     * 用户登录验证（phone,token）
+     */
+    public static final String PAY_PAYTYPE = "Pay/paytype?";
+
+    /**
+     * 31.
+     * 调用第三方支付前，在第三方下单
+     * 方式：post/get
+     * 参数：
+     * ordersn 订单号
+     * paytype  支付方式balance---余额支付 wxpay---微信支付 alipay---支付宝支付
+     * 用户登录验证（phone,token）
+     */
+    public static final String PAY_ORDER = "Pay/order?";
 
 }

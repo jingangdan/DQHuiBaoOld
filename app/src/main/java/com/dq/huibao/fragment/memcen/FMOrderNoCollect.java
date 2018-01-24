@@ -1,5 +1,7 @@
 package com.dq.huibao.fragment.memcen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,16 +56,17 @@ public class FMOrderNoCollect extends BaseFragment implements OrderInterface {
     private RequestParams params = null;
 
     private List<Order.DataBean> orderList = new ArrayList<>();
-    private OrderAdapter orderAdapters;
+    private OrderAdapter orderAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fm_tablayout, null);
         ButterKnife.bind(this, view);
-        orderAdapters = new OrderAdapter(getActivity(), orderList);
+        orderAdapter = new OrderAdapter(getActivity(), orderList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(orderAdapters);
+        recyclerView.setAdapter(orderAdapter);
+        orderAdapter.setOrderInterface(this);
         return view;
     }
 
@@ -111,7 +114,7 @@ public class FMOrderNoCollect extends BaseFragment implements OrderInterface {
                         orderList.clear();
                         orderList.addAll(order.getData());
 
-                        orderAdapters.notifyDataSetChanged();
+                        orderAdapter.notifyDataSetChanged();
 
                     }
 
@@ -191,6 +194,16 @@ public class FMOrderNoCollect extends BaseFragment implements OrderInterface {
     }
 
     @Override
+    public void doOrderPay(String ordersn) {
+
+    }
+
+    @Override
+    public void doOrderComment() {
+
+    }
+
+    @Override
     public void doOrderKuaidi(String type, String postid) {
         intent = new Intent(getActivity(), OrderKuaiDiActivity.class);
         intent.putExtra("type", type);
@@ -200,6 +213,29 @@ public class FMOrderNoCollect extends BaseFragment implements OrderInterface {
 
     @Override
     public void doOrderEdit(String id, String type, int position) {
-        orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
+        dialog(id, type);
     }
+
+    /*弹出框*/
+    protected void dialog(final String id, final String type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("确定操作该订单吗？");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
+    }
+
 }

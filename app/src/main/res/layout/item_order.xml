@@ -130,12 +130,12 @@
         android:background="@color/view_main" />
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <TextView
             style="@style/text_main"
@@ -212,7 +212,7 @@
             style="@style/text_main"
             android:layout_height="35dp"
             android:background="@drawable/kuang_gary"
-            android:text="删除" />
+            android:text="关闭" />
 
         <Button
             android:id="@+id/but_order_refund"

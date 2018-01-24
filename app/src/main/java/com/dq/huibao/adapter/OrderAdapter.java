@@ -31,6 +31,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     OrderGoodsAdapter orderGoodsAdapter = null;
     private List<Order.DataBean.GoodslistBean> goodsList = new ArrayList<>();
 
+    private OnItemClickListener onItemClickListener;
+
     public OrderAdapter(Context mContext, List<Order.DataBean> orderList) {
         this.mContext = mContext;
         this.orderList = orderList;
@@ -38,6 +40,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public void setOrderInterface(OrderInterface orderInterface) {
         this.orderInterface = orderInterface;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -50,7 +56,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     @SuppressLint("WrongConstant")
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int i) {
+    public void onBindViewHolder(final MyViewHolder holder, final int i) {
+        if (onItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = holder.getLayoutPosition(); // 1
+                    onItemClickListener.onItemClick(holder.itemView, position); // 2
+                }
+            });
+        }
 
 
         holder.ordersn.setText("" + orderList.get(i).getOrdersn());
@@ -97,7 +112,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.but_del.setVisibility(View.VISIBLE);
             holder.but_comment.setVisibility(View.VISIBLE);
             holder.but_close.setVisibility(View.GONE);
-            holder.but_refund.setVisibility(View.VISIBLE);
+            holder.but_refund.setVisibility(View.GONE);
             if (comment.equals("0")) {
                 holder.but_comment.setText("评价");
                 holder.but_comment.setClickable(true);
@@ -120,18 +135,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         holder.recyclerView.setAdapter(orderGoodsAdapter);
 
-        orderGoodsAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-        });
+//        orderGoodsAdapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//
+//            }
+//        });
 
          /*支付*/
         holder.but_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                orderInterface.doOrderPay(orderList.get(i).getOrdersn());
             }
         });
 
@@ -163,7 +178,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.but_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                orderInterface.doOrderEdit(orderList.get(i).getId(), "colse", i);
+                orderInterface.doOrderEdit(orderList.get(i).getId(), "close", i);
             }
         });
 

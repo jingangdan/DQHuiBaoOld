@@ -28,16 +28,16 @@ import java.util.List;
 public class OrderGoodsAdapter extends RecyclerView.Adapter<OrderGoodsAdapter.MyViewHolder> {
     private Context mContext;
     private List<Order.DataBean.GoodslistBean> goodsList;
-    private OnItemClickListener onItemClickListener;
+//    private OnItemClickListener onItemClickListener;
 
     public OrderGoodsAdapter(Context mContext, List<Order.DataBean.GoodslistBean> goodsList) {
         this.mContext = mContext;
         this.goodsList = goodsList;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
+//    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+//        this.onItemClickListener = onItemClickListener;
+//    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -47,17 +47,15 @@ public class OrderGoodsAdapter extends RecyclerView.Adapter<OrderGoodsAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int positon) {
-        if (onItemClickListener != null) {
-            //
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = holder.getLayoutPosition(); // 1
-                    onItemClickListener.onItemClick(holder.itemView, position); // 2
-                }
-            });
-
-        }
+//        if (onItemClickListener != null) {
+//            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int position = holder.getLayoutPosition(); // 1
+//                    onItemClickListener.onItemClick(holder.itemView, position); // 2
+//                }
+//            });
+//        }
 //        ImageUtils.loadIntoUseFitWidths(mContext,
 //                HttpUtils.IMG_HEADER + goodsList.get(positon).getThumb(),
 //                R.mipmap.icon_empty002,

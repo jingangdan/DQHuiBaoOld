@@ -265,6 +265,7 @@ public class SubmitOrderActivity extends BaseActivity {
                         shopList.addAll(checkOrder.getData());
 
                         submitOrderAdapter.notifyDataSetChanged();
+                        pay_all = 0.0;
 
                         for (int i = 0; i < shopList.size(); i++) {
                             pay_all += shopList.get(i).getMoney_all() - shopList.get(i).getDiscount_all() + shopList.get(i).getDispatch_all();
@@ -321,6 +322,7 @@ public class SubmitOrderActivity extends BaseActivity {
 
                         submitOrderAdapter.notifyDataSetChanged();
 
+                        pay_all = 0.00;
                         for (int i = 0; i < shopList.size(); i++) {
                             pay_all += shopList.get(i).getMoney_all() - shopList.get(i).getDiscount_all() + shopList.get(i).getDispatch_all();
                         }
@@ -356,7 +358,7 @@ public class SubmitOrderActivity extends BaseActivity {
      * @param addrid  收货地址的id
      * @param remark  备注[{shopid:remark}]备注
      */
-    public void orderAdd(String phone, String token, String cartids, String addrid, final String remark) {
+    public void orderAdd(final String phone, final String token, String cartids, String addrid, final String remark) {
         MD5_PATH = "addrid=" + addrid + "&cartids=" + cartids + "&phone=" + phone + "&remark=" + remark + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.ORDER_ADD + MD5_PATH + "&sign=" +
@@ -373,6 +375,9 @@ public class SubmitOrderActivity extends BaseActivity {
                         if (addrReturn.getStatus() == 1) {
                             intent = new Intent(SubmitOrderActivity.this, PayActivity.class);
                             intent.putExtra("ordersn", addrReturn.getData().toString());
+                            intent.putExtra("price", "" + pay_all);
+                            intent.putExtra("phone", phone);
+                            intent.putExtra("token", token);
                             startActivityForResult(intent, CodeUtils.CONFIRM_ORDER);
                         }
                     }

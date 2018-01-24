@@ -1,5 +1,7 @@
 package com.dq.huibao.fragment.memcen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +19,7 @@ import com.dq.huibao.adapter.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.order.Order;
+import com.dq.huibao.ui.order.OrderKuaiDiActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -63,6 +66,7 @@ public class FMorderOK extends BaseFragment implements OrderInterface {
         orderAdapters = new OrderAdapter(getActivity(), orderList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(orderAdapters);
+        orderAdapters.setOrderInterface(this);
         return view;
     }
 
@@ -154,7 +158,7 @@ public class FMorderOK extends BaseFragment implements OrderInterface {
                         if (addrReturn.getStatus() == 1) {
                             toast("" + addrReturn.getData());
 
-                            orderGetList("", getArguments().getString("phone"), getArguments().getString("token"));
+                            orderGetList("3", getArguments().getString("phone"), getArguments().getString("token"));
 
                         } else {
                             toast("操作失败");
@@ -191,13 +195,47 @@ public class FMorderOK extends BaseFragment implements OrderInterface {
     }
 
     @Override
-    public void doOrderKuaidi(String type, String postid) {
+    public void doOrderPay(String ordersn) {
 
     }
 
     @Override
-    public void doOrderEdit(String id, String type, int position) {
-        orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
+    public void doOrderComment() {
 
+    }
+
+    @Override
+    public void doOrderKuaidi(String type, String postid) {
+        intent = new Intent(getActivity(), OrderKuaiDiActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("postid", postid);
+        startActivity(intent);
+    }
+
+    @Override
+    public void doOrderEdit(String id, String type, int position) {
+        dialog(id, type);
+    }
+
+    /*弹出框*/
+    protected void dialog(final String id, final String type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("确定操作该订单吗？");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
     }
 }

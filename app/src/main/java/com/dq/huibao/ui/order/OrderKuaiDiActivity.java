@@ -2,8 +2,6 @@ package com.dq.huibao.ui.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseActivity;
@@ -27,15 +25,14 @@ public class OrderKuaiDiActivity extends BaseActivity {
     private RequestParams params = null;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kuaidi);
         intent = getIntent();
         type = intent.getStringExtra("type");
         postid = intent.getStringExtra("postid");
 
         getKuaidi(type, postid);
-
     }
 
     @Override

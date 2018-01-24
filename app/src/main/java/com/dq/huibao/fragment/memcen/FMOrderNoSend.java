@@ -16,6 +16,7 @@ import com.dq.huibao.R;
 import com.dq.huibao.adapter.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.order.Order;
+import com.dq.huibao.ui.order.OrderKuaiDiActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -138,12 +139,27 @@ public class FMOrderNoSend extends BaseFragment implements OrderInterface {
     }
 
     @Override
-    public void doOrderKuaidi(String type, String postid) {
+    public void doOrderPay(String ordersn) {
 
+    }
+
+    @Override
+    public void doOrderComment() {
+
+    }
+
+    @Override
+    public void doOrderKuaidi(String type, String postid) {
+        intent = new Intent(getActivity(), OrderKuaiDiActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("postid", postid);
+        startActivity(intent);
     }
 
     @Override
     public void doOrderEdit(String id, String type, int position) {
 
     }
+
+
 }

@@ -39,5 +39,8 @@ public class CodeUtils {
     /*商品详情*/
     public static final int GDTAILD = 0x11;
 
+    /*订单*/
+    public static final int ORDER = 0x12;
+
 
 }

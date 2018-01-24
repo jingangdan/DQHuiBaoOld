@@ -9,13 +9,12 @@ public interface OrderInterface {
     /**
      * 支付
      */
-    //void doOrderPay();
+    void doOrderPay(String ordersn);
 
     /**
      * 评价
      */
-    //void doOrderComment();
-
+    void doOrderComment();
 
     /**
      * 查看物流

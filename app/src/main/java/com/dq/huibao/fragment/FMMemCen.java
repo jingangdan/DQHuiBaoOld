@@ -24,6 +24,7 @@ import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.ui.LoginActivity;
 import com.dq.huibao.ui.addr.AddressListActivity;
+import com.dq.huibao.ui.memcen.AboutUsActivity;
 import com.dq.huibao.ui.memcen.CollectActivity;
 import com.dq.huibao.ui.memcen.CouponsActivity;
 import com.dq.huibao.ui.memcen.FootprintActivity;
@@ -158,6 +159,9 @@ public class FMMemCen extends BaseFragment implements
     @Bind(R.id.but_mc_menu13)
     Button butMcMenu13;
 
+    @Bind(R.id.but_mc_aboutus)
+    Button butMcAboutus;
+
     /*会员等级 头像 昵称 余额 积分*/
     private String level, id, avatar, nickname, credit1, credit2, couponcount;
 
@@ -195,9 +199,9 @@ public class FMMemCen extends BaseFragment implements
         rootView.addView(waveView2, params);
         rootView.addView(waveView3, params);
 
-        waveView.startAnimation(2000);
-        waveView2.startAnimation(2500);
-        waveView3.startAnimation(3000);
+        waveView.startAnimation(3000);
+        waveView2.startAnimation(4000);
+        waveView3.startAnimation(50000);
     }
 
     @Override
@@ -221,7 +225,8 @@ public class FMMemCen extends BaseFragment implements
             R.id.but_mc_menu3, R.id.but_mc_menu4, R.id.but_mc_menu5,
             R.id.but_mc_menu6, R.id.but_mc_menu7, R.id.but_mc_menu8,
             R.id.but_mc_menu9, R.id.but_mc_menu10, R.id.but_mc_menu11,
-            R.id.but_mc_menu12, R.id.but_mc_menu13
+            R.id.but_mc_menu12, R.id.but_mc_menu13,
+            R.id.but_mc_aboutus
     })
     public void onClick(View v) {
         switch (v.getId()) {
@@ -340,6 +345,13 @@ public class FMMemCen extends BaseFragment implements
                 intent = new Intent(getActivity(), AddressListActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.but_mc_aboutus:
+                //关于我们
+                intent = new Intent(getActivity(), AboutUsActivity.class);
+                startActivity(intent);
+
+                break;
             case R.id.but_mc_menu13:
                 //退出登录
                 dialog(phone, token);
@@ -413,7 +425,6 @@ public class FMMemCen extends BaseFragment implements
                         System.out.println("个人信息 = " + result);
                         Login login = GsonUtil.gsonIntance().gsonToBean(result, Login.class);
 
-
                         level = login.getData().getRole_id();
                         id = login.getData().getUid();
                         avatar = login.getData().getHeadimgurl();
@@ -453,7 +464,7 @@ public class FMMemCen extends BaseFragment implements
                 .load(HttpUtils.IMG_HEADER + avatar)
                 .bitmapTransform(new GlideCircleTransform(getActivity()))
                 .crossFade(1000)
-                .error(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_header)
                 .into(ivMemcen);
 
         //会员等级
@@ -584,6 +595,8 @@ public class FMMemCen extends BaseFragment implements
                 pullToRefreshView.onHeaderRefreshComplete("更新于:"
                         + Calendar.getInstance().getTime().toLocaleString());
                 pullToRefreshView.onHeaderRefreshComplete();
+
+                isLogin();
 
             }
 

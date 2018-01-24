@@ -1,5 +1,7 @@
 package com.dq.huibao.fragment.memcen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +17,10 @@ import com.dq.huibao.Interface.OrderInterface;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.order.Order;
+import com.dq.huibao.ui.PayActivity;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -52,7 +57,7 @@ public class FMOrderNoPay extends BaseFragment implements OrderInterface {
     private RequestParams params = null;
 
     private List<Order.DataBean> orderList = new ArrayList<>();
-    private OrderAdapter orderAdapters;
+    private OrderAdapter orderAdapter;
 
     @Nullable
     @Override
@@ -60,9 +65,10 @@ public class FMOrderNoPay extends BaseFragment implements OrderInterface {
         view = inflater.inflate(R.layout.fm_tablayout, null);
         ButterKnife.bind(this, view);
 
-        orderAdapters = new OrderAdapter(getActivity(), orderList);
+        orderAdapter = new OrderAdapter(getActivity(), orderList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(orderAdapters);
+        recyclerView.setAdapter(orderAdapter);
+        orderAdapter.setOrderInterface(this);
 
         return view;
     }
@@ -112,8 +118,55 @@ public class FMOrderNoPay extends BaseFragment implements OrderInterface {
                         orderList.clear();
                         orderList.addAll(order.getData());
 
-                        orderAdapters.notifyDataSetChanged();
+                        orderAdapter.notifyDataSetChanged();
 
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
+     * 订单状态修改
+     *
+     * @param id
+     * @param type 'del删除','close关闭','finish确认收货
+     */
+    public void orderEdit(String id, String type, String phone, String token) {
+        MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
+        PATH = HttpUtils.PATHS + HttpUtils.ORDER_EDIT + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+
+        params = new RequestParams(PATH);
+        System.out.println("订单状态修改 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("订单状态修改 = " + result);
+
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            toast("" + addrReturn.getData());
+
+                            orderGetList("0", getArguments().getString("phone"), getArguments().getString("token"));
+
+                        } else {
+                            toast("操作失败");
+                        }
                     }
 
                     @Override
@@ -146,12 +199,61 @@ public class FMOrderNoPay extends BaseFragment implements OrderInterface {
     }
 
     @Override
+    public void doOrderPay(String ordersn) {
+        intent = new Intent(getActivity(), PayActivity.class);
+        intent.putExtra("ordersn", ordersn);
+        intent.putExtra("phone", getArguments().getString("phone"));
+        intent.putExtra("token", getArguments().getString("token"));
+        startActivityForResult(intent, CodeUtils.ORDER);
+    }
+
+    @Override
+    public void doOrderComment() {
+
+    }
+
+    @Override
     public void doOrderKuaidi(String type, String postid) {
 
     }
 
     @Override
     public void doOrderEdit(String id, String type, int position) {
+        dialog(id, type);
+    }
 
+    /*弹出框*/
+    protected void dialog(final String id, final String type) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("确定操作该订单吗？");
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                orderEdit(id, type, getArguments().getString("phone"), getArguments().getString("token"));
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        builder.create().show();
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CodeUtils.ORDER) {
+            if (resultCode == CodeUtils.PAY) {
+                orderGetList("0", getArguments().getString("phone"), getArguments().getString("token"));
+            }
+        }
     }
 }

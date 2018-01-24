@@ -18,8 +18,8 @@ import android.widget.Toast;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.GoodsAdapter;
-//import com.dq.huibao.bean.classifytest.GoodsList;
 import com.dq.huibao.bean.goods.GoodsList;
+import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 
@@ -30,6 +30,8 @@ import org.xutils.x;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -40,7 +42,9 @@ import butterknife.OnClick;
  * Description：商品列表
  * Created by jingang on 2017/10/25.
  */
-public class GoodsListActivity extends Activity {
+public class GoodsListActivity extends Activity implements
+        PullToRefreshView.OnFooterRefreshListener,
+        PullToRefreshView.OnHeaderRefreshListener {
 
     /*标题*/
     @Bind(R.id.include_img)
@@ -80,19 +84,18 @@ public class GoodsListActivity extends Activity {
     @Bind(R.id.gv_goodslist)
     ScrollView gvGoodslist;
 
+    @Bind(R.id.ptrv_goodslist)
+    PullToRefreshView pullToRefreshView;
+
     private GoodsListActivity TAG = GoodsListActivity.this;
     private GoodsAdapter goodsAdapter;
-    //private List<GoodsList.DataBean.GoodsBean> goodsList = new ArrayList<>();
     private List<GoodsList.DataBean.ListBean> goodsLists = new ArrayList<>();
 
     /*接收页面传值*/
     private Intent intent;
     private String content = "", catename = "", keywords = "";
     private String all_content = "";
-    //    private String pcate = "", ccate = "", name = "", keywords = "";
     private String UTF_keywords = "";
-//
-//    private String cateId = "", cateName = "", context = "";
 
     /*接口地址*/
     private String PATH = "";
@@ -112,12 +115,6 @@ public class GoodsListActivity extends Activity {
         content = intent.getStringExtra("content");
         catename = intent.getStringExtra("catename");
         keywords = intent.getStringExtra("keywords");
-//        pcate = intent.getStringExtra("pcate");
-//        ccate = intent.getStringExtra("ccate");
-//        name = intent.getStringExtra("name");
-//        keywords = intent.getStringExtra("keywords");
-//        cateId = intent.getStringExtra("cateid");
-//        cateName = intent.getStringExtra("catename");
 
         try {
             UTF_keywords = URLEncoder.encode(keywords, "UTF-8");
@@ -132,8 +129,6 @@ public class GoodsListActivity extends Activity {
         goodsAdapter = new GoodsAdapter(this, goodsLists);
         lrvGoodslist.setAdapter(goodsAdapter);
 
-        //getGoodsListTest(pcate, ccate, "sales", "desc", index, 20, UTF_keywords);
-
         getGoodsList(content, UTF_keywords, index);
 
         goodsAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -146,6 +141,10 @@ public class GoodsListActivity extends Activity {
         });
 
         includeTitle.setText("" + catename);
+
+        pullToRefreshView.setOnHeaderRefreshListener(this);
+        pullToRefreshView.setOnFooterRefreshListener(this);
+        pullToRefreshView.setLastUpdated(new Date().toLocaleString());
 
     }
 
@@ -170,22 +169,13 @@ public class GoodsListActivity extends Activity {
                 tvSalesTop.setTextColor(textColor);
                 all_content = content + "&sales=asc";
 
-//                getGoodsList(cateId, "", UTF_keywords,
-//                        "0", "0", "0",
-//                        "0", "0", "0",
-//                        index, price, sales, comment);
                 getGoodsList(all_content, UTF_keywords, index);
                 break;
             case R.id.tv_price_low:
                 //价格从低到高
                 setTextColor();
                 tvPriceLow.setTextColor(textColor);
-                //getGoodsListTest(pcate, ccate, "marketprice", "asc", index, 20, UTF_keywords);
                 all_content = content + "&price=asc";
-//                getGoodsList(cateId, "", UTF_keywords,
-//                        "0", "0", "0",
-//                        "0", "0", "0",
-//                        index, price, sales, comment);
                 getGoodsList(all_content, UTF_keywords, index);
 
 
@@ -197,11 +187,6 @@ public class GoodsListActivity extends Activity {
 
                 all_content = content + "&price=desc";
 
-                //getGoodsListTest(pcate, ccate, "marketprice", "desc", index, 20, UTF_keywords);
-//                getGoodsList(cateId, "", UTF_keywords,
-//                        "0", "0", "0",
-//                        "0", "0", "0",
-//                        index, price, sales, comment);
                 getGoodsList(all_content, UTF_keywords, index);
 
                 break;
@@ -209,24 +194,13 @@ public class GoodsListActivity extends Activity {
                 //评价从高到底
                 setTextColor();
                 tvCommentTop.setTextColor(textColor);
-                //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
                 all_content = content + "&comment=asc";
-//                getGoodsList(cateId, "", UTF_keywords,
-//                        "0", "0", "0",
-//                        "0", "0", "0",
-//                        index, price, sales, comment);
                 getGoodsList(all_content, UTF_keywords, index);
                 break;
 
             case R.id.but_gl_first:
                 //首页
                 index = 1;
-                //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-
-//                getGoodsList(cateId, "", UTF_keywords,
-//                        "0", "0", "0",
-//                        "0", "0", "0",
-//                        index, price, sales, comment);
                 getGoodsList(all_content, UTF_keywords, index);
 
                 break;
@@ -234,11 +208,6 @@ public class GoodsListActivity extends Activity {
                 //上一页
                 if (index > 1) {
                     index--;
-                    //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-//                    getGoodsList(cateId, "", UTF_keywords,
-//                            "0", "0", "0",
-//                            "0", "0", "0",
-//                            index, price, sales, comment);
                     getGoodsList(all_content, UTF_keywords, index);
                 } else {
                     Toast.makeText(TAG, "已经是首页了", Toast.LENGTH_SHORT).show();
@@ -249,11 +218,6 @@ public class GoodsListActivity extends Activity {
                 //下一页
                 if (index < total) {
                     index++;
-                    //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-//                    getGoodsList(cateId, "", UTF_keywords,
-//                            "0", "0", "0",
-//                            "0", "0", "0",
-//                            index, price, sales, comment);
                     getGoodsList(content, UTF_keywords, index);
 
                 } else {
@@ -264,11 +228,6 @@ public class GoodsListActivity extends Activity {
             case R.id.but_gl_last:
                 //尾页
                 index = total;
-                //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-//                getGoodsList(cateId, "", UTF_keywords,
-//                        "0", "0", "0",
-//                        "0", "0", "0",
-//                        index, price, sales, comment);
                 getGoodsList(content, UTF_keywords, index);
                 break;
             case R.id.but_gl_jump:
@@ -276,11 +235,6 @@ public class GoodsListActivity extends Activity {
                 if (!etGlPage.getText().toString().equals("")) {
                     if (Integer.parseInt(etGlPage.getText().toString()) > 0 && Integer.parseInt(etGlPage.getText().toString()) <= total) {
                         index = Integer.parseInt(etGlPage.getText().toString());
-                        //getGoodsListTest(pcate, ccate, "score", "asc", index, 20, UTF_keywords);
-//                        getGoodsList(cateId, "", UTF_keywords,
-//                                "0", "0", "0",
-//                                "0", "0", "0",
-//                                index, price, sales, comment);
                         getGoodsList(content, UTF_keywords, index);
                     }
 
@@ -303,93 +257,6 @@ public class GoodsListActivity extends Activity {
         tvCommentTop.setTextColor(textColor);
 
     }
-
-    /**
-     * 测试商品列表
-     *
-     * @param pcate
-     * @param ccate
-     * @param order
-     * @param by
-     * @param page
-     * @param pagesize
-     * @param keyword
-     */
-//    public void getGoodsListTest(String pcate, String ccate, String order, String by, int page, int pagesize, String keyword) {
-//        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODSLIST +
-//                pcate + ccate + "&order=" + order + "&by=" + by + "&page=" + page + "&pagesize=" + pagesize + "&keywords=" + keyword;
-//        params = new RequestParams(PATH);
-//
-//        System.out.println("商品列表 = " + PATH);
-//
-//        x.http().get(params,
-//                new Callback.CommonCallback<String>() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        System.out.println("商品列表 = " + result);
-//                        gvGoodslist.scrollTo(0, 0);
-//
-//                        GoodsList goodsLists = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
-//
-//                        total = Integer.parseInt(goodsLists.getData().getAllpage());
-//
-//                        goodsList.clear();
-//
-//                        goodsList.addAll(goodsLists.getData().getGoods());
-//
-//                        goodsAdapter.notifyDataSetChanged();
-//
-//                        etGlPage.setText("" + index);
-//
-//                        includeTitle.setText("" + goodsLists.getData().getCurrent_category().getName());
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable ex, boolean isOnCallback) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(CancelledException cex) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFinished() {
-//
-//                    }
-//                });
-//    }
-
-//    /**
-//     * 获取商品列表（暂时用搜索滴）
-//     *
-//     * @param cateid      分类id
-//     * @param custom      自定义分类（暂时不用）
-//     * @param key         关键词
-//     * @param ishot       热销 0/1
-//     * @param isrecommand 推荐 0/1
-//     * @param isnew       新品 0/1
-//     * @param isdiscount  促销 0/1
-//     * @param issendfree  包邮 0/1
-//     * @param istime      限时0/1
-//     * @param page
-//     * @param price       价格排序 asc/desc
-//     * @param sales       销量排序 asc/desc
-//     * @param comment     评价排序 asc/desc
-//     */
-//    public void getGoodsList(String cateid, String custom, String key,
-//                             String ishot, String isrecommand, String isnew,
-//                             String isdiscount, String issendfree, String istime,
-//                             int page, String price, String sales,
-//                             String comment) {
-//        PATH = HttpUtils.PATHS + HttpUtils.GOODS_SEARCH +
-//                "cate=" + cateid + "&custom=" + custom + "&key=" + key +
-//                "&ishot=" + ishot + "&isrecomand=" + isrecommand + "&isnew=" + isnew +
-//                "&isdiscount=" + isdiscount + "&issendfree=" + issendfree + "&istime=" + istime +
-//                "&page=" + page + "&price=" + price + "&sales=" + sales +
-//                "&comment=" + comment;
 
     /**
      * 获取商品列表
@@ -417,6 +284,7 @@ public class GoodsListActivity extends Activity {
                         GoodsList goodsList = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
 
                         goodsLists.clear();
+                        total = 0;
 
                         goodsLists.addAll(goodsList.getData().getList());
                         goodsAdapter.notifyDataSetChanged();
@@ -424,18 +292,6 @@ public class GoodsListActivity extends Activity {
                         total = (Integer.parseInt(goodsList.getData().getCount()) / 20) + 1;
 
                         etGlPage.setText("" + index);
-
-//                        GoodsList goodsLists = GsonUtil.gsonIntance().gsonToBean(result, GoodsList.class);
-//
-//                        total = Integer.parseInt(goodsLists.getData().getAllpage());
-//
-//                        goodsList.clear();
-//
-//                        goodsList.addAll(goodsLists.getData().getGoods());
-//
-//                        goodsAdapter.notifyDataSetChanged();
-//
-//                        etGlPage.setText("" + index);
 
                     }
 
@@ -456,101 +312,34 @@ public class GoodsListActivity extends Activity {
                 });
     }
 
+    @Override
+    public void onFooterRefresh(PullToRefreshView view) {
+        pullToRefreshView.postDelayed(new Runnable() {
 
-//    private AutoCompleteTextView autoCompleteTextView;
-//    private TextView tv_cancel;
-//    private ImageView iv_pop;
-//    private RecyclerView rv_pop;
-//
-//    private String UTF_search = "";
-//
-//    /**
-//     * 搜索
-//     */
-//    public void setDialog() {
-//        pop = new PopupWindow(TAG);
-//        view_pop = getLayoutInflater().inflate(R.layout.pop_search, null);
-//        view_pop.setAnimation(AnimationUtils.loadAnimation(
-//                TAG, R.anim.slide_bottom_to_top));
-//        ll_popup = (LinearLayout) view_pop.findViewById(R.id.lin_pop);
-//
-//        pop.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-//        pop.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-//        pop.setBackgroundDrawable(new BitmapDrawable());
-//        pop.setFocusable(true);
-//        pop.setOutsideTouchable(true);
-//        pop.setContentView(view_pop);
-//        pop.showAsDropDown(view_pop);
-//
-//        //final LinearLayout parent = (LinearLayout) view_pop.findViewById(R.id.lin_pop);
-//
-//        autoCompleteTextView = (AutoCompleteTextView) view_pop.findViewById(R.id.autoCompleteTextView);
-//        iv_pop = (ImageView) view_pop.findViewById(R.id.iv_pop_search);
-//        tv_cancel = (TextView) view_pop.findViewById(R.id.tv_pop_cancel);
-//
-//        rv_pop = (RecyclerView) view_pop.findViewById(R.id.rv_pop);
-//        rv_pop.setLayoutManager(new LinearLayoutManager(this));
-//
-//        //取消
-//        tv_cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pop.dismiss();
-//                ll_popup.clearAnimation();
-//            }
-//        });
-//
-//        //搜索
-//        iv_pop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                try {
-//                    UTF_search = URLEncoder.encode(autoCompleteTextView.getText().toString(), "UTF-8");
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
-//                getSearch(UTF_search);
-//            }
-//        });
-//
-//    }
-//
-//    /**
-//     * 获取搜索数据
-//     *
-//     * @param keywords
-//     */
-//    public void getSearch(String keywords) {
-//        PATH = HttpUtils.PATH + HttpUtils.SHOP_SEARCH + "keywords=" + keywords;
-//
-//        params = new RequestParams(PATH);
-//        System.out.println("搜索 = " + PATH);
-//        x.http().get(params,
-//                new Callback.CommonCallback<String>() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        System.out.println("搜索 = " + result);
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable ex, boolean isOnCallback) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(CancelledException cex) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFinished() {
-//
-//                    }
-//                });
-//
-//    }
+            @Override
+            public void run() {
+                //加载更多数据
+                pullToRefreshView.onFooterRefreshComplete();
 
+            }
 
+        }, 1000);
+    }
+
+    @Override
+    public void onHeaderRefresh(PullToRefreshView view) {
+        pullToRefreshView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //刷新数据
+                pullToRefreshView.onHeaderRefreshComplete("更新于:"
+                        + Calendar.getInstance().getTime().toLocaleString());
+                pullToRefreshView.onHeaderRefreshComplete();
+
+                getGoodsList(content, UTF_keywords, index);
+
+            }
+
+        }, 1000);
+    }
 }
