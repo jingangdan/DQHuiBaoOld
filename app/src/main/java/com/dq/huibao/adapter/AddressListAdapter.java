@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.Interface.AddrInterface;
@@ -82,7 +83,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
         holder.contact.setText("" + addrList.get(position).getContact());
         holder.mobile.setText("" + addrList.get(position).getMobile());
-        holder.addr.setText("" + addrList.get(position).getProvince() + addrList.get(position).getCity() + addrList.get(position).getAddr());
+        holder.addr.setText("" + addrList.get(position).getProvince() + addrList.get(position).getCity() + addrList.get(position).getDistrict() + addrList.get(position).getAddr());
         if (addrList.get(position).getIsdefault().equals("1")) {
             holder.checkBox.setChecked(true);
         } else if (addrList.get(position).getIsdefault().equals("0")) {
@@ -95,7 +96,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                 addrInterface.checkEdit(position,
                         addrList.get(position).getId(),
                         addrList.get(position).getRegionid(),
-                        addrList.get(position).getProvince() + addrList.get(position).getCity(),
+                        addrList.get(position).getProvince() + addrList.get(position).getCity() + addrList.get(position).getDistrict(),
                         Integer.parseInt(addrList.get(position).getIsdefault()),
                         addrList.get(position).getAddr(),
                         addrList.get(position).getContact(),
@@ -110,6 +111,13 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
             }
         });
 
+        holder.linIsdefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addrInterface.checkIsdefault(addrList.get(position).getId(), position);
+            }
+        });
+
     }
 
     @Override
@@ -121,6 +129,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
         private TextView contact, mobile, addr;
         private CheckBox checkBox;
         private Button edit, del;
+        private LinearLayout linIsdefault;
 
         public MyViewHolder(View view) {
             super(view);
@@ -132,6 +141,7 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
             edit = view.findViewById(R.id.but_item_address_update);
             del = view.findViewById(R.id.but_item_address_delete);
+            linIsdefault = view.findViewById(R.id.lin_addr_isdefault);
 
         }
     }

@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OrderInterface;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.order.Order;
+import com.dq.huibao.ui.order.OrderDettailActivity;
 import com.dq.huibao.ui.order.OrderKuaiDiActivity;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -65,6 +67,16 @@ public class FMOrderNoSend extends BaseFragment implements OrderInterface {
         orderAdapters = new OrderAdapter(getActivity(), orderList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(orderAdapters);
+        orderAdapters.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                intent = new Intent(getActivity(), OrderDettailActivity.class);
+                intent.putExtra("orderid", orderList.get(position).getId());
+                intent.putExtra("phone", getArguments().getString("phone"));
+                intent.putExtra("token", getArguments().getString("token"));
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

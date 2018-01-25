@@ -13,7 +13,6 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dq.huibao.Interface.CheckInterface;
 import com.dq.huibao.Interface.ModifyCountInterface;
@@ -22,7 +21,9 @@ import com.dq.huibao.adapter.cart.ShopCartAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.cart.Cart;
+import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.ui.SubmitOrderActivity;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -47,7 +48,7 @@ import butterknife.OnClick;
  */
 public class ShopcarActivity extends BaseActivity implements
         CheckInterface,
-        ModifyCountInterface {
+        ModifyCountInterface{
 
     /*登录状态*/
     @Bind(R.id.lin_shopcart_nologin)
@@ -76,7 +77,8 @@ public class ShopcarActivity extends BaseActivity implements
     @Bind(R.id.but_shopacrt_delete)
     Button butShopacrtDelete;
 
-    //private View view;
+//    @Bind(R.id.ptrv_fm_cart)
+//    PullToRefreshView pullToRefreshView;
 
     private TextView tv_all_check;
 
@@ -125,6 +127,10 @@ public class ShopcarActivity extends BaseActivity implements
         exListView.setAdapter(shopCartAdapter);
 
         isLogin();
+
+//        pullToRefreshView.setOnHeaderRefreshListener(this);
+//        pullToRefreshView.setOnFooterRefreshListener(this);
+//        pullToRefreshView.setLastUpdated(new Date().toLocaleString());
 
     }
 
@@ -180,7 +186,6 @@ public class ShopcarActivity extends BaseActivity implements
                         Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
                         shopList.clear();
                         shopList.addAll(cart.getData());
-                        //shopAdapter.notifyDataSetChanged();
                         for (int i = 0; i < shopList.size(); i++) {
                             children.put(shopList.get(i).getShopid(), shopList.get(i).getGoodslist());
                         }
@@ -435,7 +440,7 @@ public class ShopcarActivity extends BaseActivity implements
                                 intent = new Intent(ShopcarActivity.this, SubmitOrderActivity.class);
                                 intent.putExtra("cartids", ids);
                                 intent.putExtra("tag", "0");
-                                startActivity(intent);
+                                startActivityForResult(intent, CodeUtils.CART_AC);
                                 return;
                             }
                         });
@@ -664,5 +669,44 @@ public class ShopcarActivity extends BaseActivity implements
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CodeUtils.CART_AC) {
+            if (resultCode == CodeUtils.CONFIRM_ORDER) {
+                isLogin();
+            }
+        }
+    }
 
+//    @Override
+//    public void onFooterRefresh(PullToRefreshView view) {
+//        pullToRefreshView.postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                //加载更多数据
+//                pullToRefreshView.onFooterRefreshComplete();
+//
+//            }
+//
+//        }, 1000);
+//    }
+//
+//    @Override
+//    public void onHeaderRefresh(PullToRefreshView view) {
+//        pullToRefreshView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //刷新数据
+//                pullToRefreshView.onHeaderRefreshComplete("更新于:"
+//                        + Calendar.getInstance().getTime().toLocaleString());
+//                pullToRefreshView.onHeaderRefreshComplete();
+//
+//                isLogin();
+//
+//            }
+//
+//        }, 1000);
+//    }
 }

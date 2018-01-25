@@ -2,6 +2,7 @@ package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -375,7 +376,8 @@ public class FMMemCen extends BaseFragment implements
         intent.putExtra("page", page);
         intent.putExtra("phone", phone);
         intent.putExtra("token", token);
-        startActivity(intent);
+        startActivityForResult(intent, CodeUtils.MEMBER);
+        //startActivity(intent);
     }
 
     /*
@@ -461,7 +463,7 @@ public class FMMemCen extends BaseFragment implements
     public void setUserInfo(String avatar) {
 
         Glide.with(getActivity())
-                .load(HttpUtils.IMG_HEADER + avatar)
+                .load(HttpUtils.NEW_HEADER + avatar)
                 .bitmapTransform(new GlideCircleTransform(getActivity()))
                 .crossFade(1000)
                 .error(R.mipmap.ic_header)
@@ -564,10 +566,8 @@ public class FMMemCen extends BaseFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CodeUtils.MEMBER) {
-            if (resultCode == CodeUtils.LOGIN || resultCode == CodeUtils.MEMBER_EDIT) {
-
+            if (resultCode == CodeUtils.LOGIN || resultCode == CodeUtils.MEMBER_EDIT || resultCode == CodeUtils.ORDER) {
                 isLogin();
-
             }
         }
     }

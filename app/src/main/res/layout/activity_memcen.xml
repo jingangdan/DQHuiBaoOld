@@ -84,8 +84,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/iv_percen_header_right"
-                android:src="@mipmap/ic_launcher" />
+                android:layout_toLeftOf="@+id/iv_percen_header_right" />
 
 
         </RelativeLayout>

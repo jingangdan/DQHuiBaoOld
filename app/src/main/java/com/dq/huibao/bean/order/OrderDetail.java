@@ -9,9 +9,10 @@ import java.util.List;
 
 public class OrderDetail {
 
+
     /**
      * status : 1
-     * data : {"id":"33","ordersn":"SN201801241533413384","uid":"4","money":"296.00","status":"-1","shopid":"0","pay_money":"266.40","discount_money":"29.60","dipatch_money":"10.00","createtime":"1516779221","paytime":"0","sendtime":"0","finishtime":"0","get_score":"282","is_comment":"0","express":"","expressorder":"","expressname":"","refund":"0","refund_remark":"","address":{"id":"4","uid":"4","province":"山东省","city":"临沂市","district":"","regionid":"1454","addr":"哈哈哈","contact":"jingang","mobile":"17865069380","isdefault":"1"},"shopname":"惠宝商城","goodslist":[{"id":"36","goodsname":"冬季男士职业加绒加厚保暖衬衫商务纯色长袖衬衫免烫白色保暖衬衫","optionname":"","price":"70.20","count":"2","thumb":"/attachment/images/1604/2017/12/K8apuZbP80pN3AGGqJWO8sSoOQG8GH.jpg"},{"id":"37","goodsname":"爱生活竹纤维男士短袜船袜女士船袜","optionname":"","price":"63.00","count":"2","thumb":"/attachment/images/sz_yi/1604/2017/12/pzt9Cq281mNd8QzgdzyGdd5Z188yN8.jpg"}]}
+     * data : {"id":"35","ordersn":"SN201801251355425327","uid":"4","money":"156.00","status":"0","shopid":"0","pay_money":"140.40","discount_money":"15.60","dipatch_money":"10.00","createtime":"1516859742","paytime":"0","sendtime":"0","finishtime":"0","get_score":"156","is_comment":"0","express":"","expressorder":"","expressname":"","refund":"0","refund_remark":"","address":{"id":"4","uid":"4","province":"山东省","city":"临沂市","district":"","regionid":"1454","addr":"哈哈哈","contact":"jingang","mobile":"17865069380","isdefault":"1"},"shopname":"惠宝商城","goodslist":[{"id":"39","goodsid":"2591","goodsname":"冬季男士职业加绒加厚保暖衬衫商务纯色长袖衬衫免烫白色保暖衬衫","optionname":"","price":"70.20","count":"2","thumb":"/attachment/images/1604/2017/12/K8apuZbP80pN3AGGqJWO8sSoOQG8GH.jpg"}]}
      */
 
     private int status;
@@ -35,20 +36,20 @@ public class OrderDetail {
 
     public static class DataBean {
         /**
-         * id : 33
-         * ordersn : SN201801241533413384
+         * id : 35
+         * ordersn : SN201801251355425327
          * uid : 4
-         * money : 296.00
-         * status : -1
+         * money : 156.00
+         * status : 0
          * shopid : 0
-         * pay_money : 266.40
-         * discount_money : 29.60
+         * pay_money : 140.40
+         * discount_money : 15.60
          * dipatch_money : 10.00
-         * createtime : 1516779221
+         * createtime : 1516859742
          * paytime : 0
          * sendtime : 0
          * finishtime : 0
-         * get_score : 282
+         * get_score : 156
          * is_comment : 0
          * express :
          * expressorder :
@@ -57,7 +58,7 @@ public class OrderDetail {
          * refund_remark :
          * address : {"id":"4","uid":"4","province":"山东省","city":"临沂市","district":"","regionid":"1454","addr":"哈哈哈","contact":"jingang","mobile":"17865069380","isdefault":"1"}
          * shopname : 惠宝商城
-         * goodslist : [{"id":"36","goodsname":"冬季男士职业加绒加厚保暖衬衫商务纯色长袖衬衫免烫白色保暖衬衫","optionname":"","price":"70.20","count":"2","thumb":"/attachment/images/1604/2017/12/K8apuZbP80pN3AGGqJWO8sSoOQG8GH.jpg"},{"id":"37","goodsname":"爱生活竹纤维男士短袜船袜女士船袜","optionname":"","price":"63.00","count":"2","thumb":"/attachment/images/sz_yi/1604/2017/12/pzt9Cq281mNd8QzgdzyGdd5Z188yN8.jpg"}]
+         * goodslist : [{"id":"39","goodsid":"2591","goodsname":"冬季男士职业加绒加厚保暖衬衫商务纯色长袖衬衫免烫白色保暖衬衫","optionname":"","price":"70.20","count":"2","thumb":"/attachment/images/1604/2017/12/K8apuZbP80pN3AGGqJWO8sSoOQG8GH.jpg"}]
          */
 
         private String id;
@@ -376,7 +377,8 @@ public class OrderDetail {
 
         public static class GoodslistBean {
             /**
-             * id : 36
+             * id : 39
+             * goodsid : 2591
              * goodsname : 冬季男士职业加绒加厚保暖衬衫商务纯色长袖衬衫免烫白色保暖衬衫
              * optionname :
              * price : 70.20
@@ -385,6 +387,7 @@ public class OrderDetail {
              */
 
             private String id;
+            private String goodsid;
             private String goodsname;
             private String optionname;
             private String price;
@@ -397,6 +400,14 @@ public class OrderDetail {
 
             public void setId(String id) {
                 this.id = id;
+            }
+
+            public String getGoodsid() {
+                return goodsid;
+            }
+
+            public void setGoodsid(String goodsid) {
+                this.goodsid = goodsid;
             }
 
             public String getGoodsname() {
@@ -443,6 +454,7 @@ public class OrderDetail {
             public String toString() {
                 return "GoodslistBean{" +
                         "id='" + id + '\'' +
+                        ", goodsid='" + goodsid + '\'' +
                         ", goodsname='" + goodsname + '\'' +
                         ", optionname='" + optionname + '\'' +
                         ", price='" + price + '\'' +

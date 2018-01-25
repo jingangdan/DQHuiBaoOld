@@ -379,6 +379,11 @@ public class SubmitOrderActivity extends BaseActivity {
                             intent.putExtra("phone", phone);
                             intent.putExtra("token", token);
                             startActivityForResult(intent, CodeUtils.CONFIRM_ORDER);
+
+                            setResult();
+                            SubmitOrderActivity.this.finish();
+
+
                         }
                     }
 
@@ -397,6 +402,11 @@ public class SubmitOrderActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    public void setResult() {
+        intent = new Intent();
+        setResult(CodeUtils.CONFIRM_ORDER, intent);
     }
 
     @Override

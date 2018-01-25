@@ -89,7 +89,12 @@ public class SOGoodsAdapter extends RecyclerView.Adapter<SOGoodsAdapter.MyViewHo
 
 
         holder.goodsname.setText("" + goodsList.get(position).getGoods().getGoodsname());
-        holder.option.setText("" + goodsList.get(position).getGoods().getOption().getTitle());
+        if(goodsList.get(position).getGoods().getOption().getTitle() == null){
+            holder.option.setText("");
+        }else{
+            holder.option.setText("" + goodsList.get(position).getGoods().getOption().getTitle());
+        }
+
         holder.marketprice.setText("¥" + goodsList.get(position).getGoods().getMarketprice());
         holder.buycount.setText("数量×" + goodsList.get(position).getGoods().getBuycount());
 

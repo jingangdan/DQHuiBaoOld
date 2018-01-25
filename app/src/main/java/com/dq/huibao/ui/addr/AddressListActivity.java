@@ -144,6 +144,7 @@ public class AddressListActivity extends BaseActivity
                         System.out.println("获取收货地址 = " + result);
                         Addr addr = GsonUtil.gsonIntance().gsonToBean(result, Addr.class);
                         if (addr.getStatus() == 1) {
+                            addrList.clear();
                             addrList.addAll(addr.getData());
                             addressListAdapter.notifyDataSetChanged();
                         }
@@ -176,7 +177,7 @@ public class AddressListActivity extends BaseActivity
      * @param phone
      * @param token
      */
-    public void addrDel(final int position, String id, String phone, String token) {
+    public void addrDel(final int position, String id, final String phone, final String token) {
         MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
         PATH = HttpUtils.PATHS + HttpUtils.MEMBER_DELADDR + MD5_PATH + "&sign=" +
@@ -190,11 +191,59 @@ public class AddressListActivity extends BaseActivity
                     public void onSuccess(String result) {
                         System.out.println("删除收货地址 = " + result);
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
-                        if(addrReturn.getStatus() == 1){
+                        if (addrReturn.getStatus() == 1) {
                             addrList.remove(position);
                             addressListAdapter.notifyDataSetChanged();
+
                         }
 
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
+     * 设置默认地址
+     *
+     * @param id
+     * @param phone
+     * @param token
+     */
+    public void setDefaultaddr(String id, final String phone, final String token, final int position) {
+        MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_DEGAULTADDR + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        params = new RequestParams(PATH);
+        System.out.println("设置默认地址 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("设置默认地址 = " + result);
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            toast("" + addrReturn.getData().toString());
+//                            addrList.get(position).setIsdefault("1");
+//                            addressListAdapter.notifyDataSetChanged();
+
+                            getAddr(phone, token);
+
+                        }
 
                     }
 
@@ -230,6 +279,7 @@ public class AddressListActivity extends BaseActivity
     }
 
     AlertDialog alert;
+
     @Override
     public void checkDel(final int position, final String id) {
         alert = new AlertDialog.Builder(this).create();
@@ -252,6 +302,29 @@ public class AddressListActivity extends BaseActivity
                 });
         alert.show();
 
+    }
+
+    @Override
+    public void checkIsdefault(final String id, final int position) {
+        alert = new AlertDialog.Builder(this).create();
+        alert.setTitle("操作提示");
+        alert.setMessage("确定此操作吗？");
+        alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+        alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setDefaultaddr(id, phone, token, position);
+                        return;
+                    }
+                });
+        alert.show();
     }
 
     @Override

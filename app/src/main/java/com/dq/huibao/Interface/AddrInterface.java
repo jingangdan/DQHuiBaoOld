@@ -28,4 +28,12 @@ public interface AddrInterface {
      */
     void checkDel(int position, String id);
 
+    /**
+     * 设为默认地址
+     *
+     * @param id
+     * @param position
+     */
+    void checkIsdefault(String id, int position);
+
 }

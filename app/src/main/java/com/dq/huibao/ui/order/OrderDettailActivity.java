@@ -103,7 +103,7 @@ public class OrderDettailActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 intent = new Intent(OrderDettailActivity.this, GoodsDetailsActivity.class);
-                intent.putExtra("gid", goodsList.get(position).getId());
+                intent.putExtra("gid", goodsList.get(position).getGoodsid());
                 startActivity(intent);
             }
         });

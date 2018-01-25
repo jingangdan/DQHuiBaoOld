@@ -436,7 +436,7 @@ public class AddAddressActivity extends BaseActivity {
                         options2Items.get(options1).get(options2) +
                         options3Items.get(options1).get(options2).get(options3);
 
-                getRegionid(options1, options2);
+                getRegionid(options1, options2, options3);
 
                 tvAddressArea.setText(text);
             }
@@ -459,10 +459,12 @@ public class AddAddressActivity extends BaseActivity {
      * @param position1
      * @param position2
      */
-    public void getRegionid(int position1, int position2) {
+    public void getRegionid(int position1, int position2, int position3) {
         for (int i = 0; i < regionList.size(); i++) {
             for (int j = 0; j < regionList.get(i).getCity().size(); j++) {
-                regionid = regionList.get(position1).getCity().get(position2).getId();
+                for (int k = 0; k < regionList.get(i).getCity().get(j).getDistrict().size(); k++) {
+                    regionid = regionList.get(position1).getCity().get(position2).getDistrict().get(position3).getId();
+                }
             }
         }
     }
