@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OrderInterface;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.OrderAdapter;
+import com.dq.huibao.adapter.order.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.order.Order;
@@ -221,7 +221,7 @@ public class FMOrderNoPay extends BaseFragment implements OrderInterface {
     }
 
     @Override
-    public void doOrderComment() {
+    public void doOrderComment(String id, int position) {
 
     }
 
@@ -233,6 +233,11 @@ public class FMOrderNoPay extends BaseFragment implements OrderInterface {
     @Override
     public void doOrderEdit(String id, String type, int position) {
         dialog(id, type);
+    }
+
+    @Override
+    public void deRefund(String id, String price, int position) {
+
     }
 
     /*弹出框*/

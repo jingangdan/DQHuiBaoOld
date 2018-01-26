@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dq.huibao.R;
+import com.dq.huibao.bean.goods.GoodsDetail;
 import com.dq.huibao.bean.goodsdetail.Comment;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
+import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -23,9 +25,9 @@ import java.util.List;
 
 public class GdCommentAdapter extends RecyclerView.Adapter<GdCommentAdapter.MyViewHolder> {
     private Context mContext;
-    private List<Comment> commentList;
+    private List<GoodsDetail.DataBean.CommentBean> commentList;
 
-    public GdCommentAdapter(Context mContext, List<Comment> commentList) {
+    public GdCommentAdapter(Context mContext, List<GoodsDetail.DataBean.CommentBean> commentList) {
         this.mContext = mContext;
         this.commentList = commentList;
     }
@@ -39,12 +41,12 @@ public class GdCommentAdapter extends RecyclerView.Adapter<GdCommentAdapter.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tv_nickname.setText("" + commentList.get(position).getNickname());
-        holder.tv_level.setText(commentList.get(position).getLevel() + "星");
-        holder.tv_createtime.setText("" + commentList.get(position).getCreatetime());
-        holder.tv_content.setText("" + commentList.get(position).getContent());
+        holder.tv_level.setText(commentList.get(position).getScore() + "星");
+        holder.tv_createtime.setText("" + commentList.get(position).getAddtime());
+        holder.tv_content.setText("" + commentList.get(position).getComment());
 
         Glide.with(mContext)
-                .load(commentList.get(position).getHeadimgurl())
+                .load(HttpUtils.NEW_HEADER + commentList.get(position).getHeadimgurl())
                 .placeholder(R.mipmap.icon_empty002)
                 .error(R.mipmap.icon_error002)
                 .into(holder.iv_headimgurl);

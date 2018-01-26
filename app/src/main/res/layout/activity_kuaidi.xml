@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:gravity="left"
-                    android:text="物品信息" />
+                    android:text="物流信息" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_kd_data"

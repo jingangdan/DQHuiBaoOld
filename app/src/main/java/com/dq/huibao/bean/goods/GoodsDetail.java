@@ -102,6 +102,37 @@ public class GoodsDetail {
         private List<OptionBean> option;
         private List<ParamBean> param;
 
+        private List<CommentBean> comment;
+        private Boolean collect;
+
+        public void setProductprice(double productprice) {
+            this.productprice = productprice;
+        }
+
+        public void setDiscount(double discount) {
+            this.discount = discount;
+        }
+
+        public void setScore(double score) {
+            this.score = score;
+        }
+
+        public List<CommentBean> getComment() {
+            return comment;
+        }
+
+        public void setComment(List<CommentBean> comment) {
+            this.comment = comment;
+        }
+
+        public Boolean getCollect() {
+            return collect;
+        }
+
+        public void setCollect(Boolean collect) {
+            this.collect = collect;
+        }
+
         public int getId() {
             return id;
         }
@@ -356,6 +387,105 @@ public class GoodsDetail {
 
         public void setParam(List<ParamBean> param) {
             this.param = param;
+        }
+
+        public static class CommentBean {
+            private String uid;
+            private String headimgurl;
+            private String nickname;
+            private String phone;
+            private String comment;
+            private String score;
+            private String recomment;
+            private String addtime;
+            private String retime;
+
+            public String getUid() {
+                return uid;
+            }
+
+            public void setUid(String uid) {
+                this.uid = uid;
+            }
+
+            public String getHeadimgurl() {
+                return headimgurl;
+            }
+
+            public void setHeadimgurl(String headimgurl) {
+                this.headimgurl = headimgurl;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
+            }
+
+            public String getPhone() {
+                return phone;
+            }
+
+            public void setPhone(String phone) {
+                this.phone = phone;
+            }
+
+            public String getComment() {
+                return comment;
+            }
+
+            public void setComment(String comment) {
+                this.comment = comment;
+            }
+
+            public String getScore() {
+                return score;
+            }
+
+            public void setScore(String score) {
+                this.score = score;
+            }
+
+            public String getRecomment() {
+                return recomment;
+            }
+
+            public void setRecomment(String recomment) {
+                this.recomment = recomment;
+            }
+
+            public String getAddtime() {
+                return addtime;
+            }
+
+            public void setAddtime(String addtime) {
+                this.addtime = addtime;
+            }
+
+            public String getRetime() {
+                return retime;
+            }
+
+            public void setRetime(String retime) {
+                this.retime = retime;
+            }
+
+            @Override
+            public String toString() {
+                return "CommentBean{" +
+                        "uid='" + uid + '\'' +
+                        ", headimgurl='" + headimgurl + '\'' +
+                        ", nickname='" + nickname + '\'' +
+                        ", phone='" + phone + '\'' +
+                        ", comment='" + comment + '\'' +
+                        ", score='" + score + '\'' +
+                        ", recomment='" + recomment + '\'' +
+                        ", addtime='" + addtime + '\'' +
+                        ", retime='" + retime + '\'' +
+                        '}';
+            }
         }
 
         public static class SpecBean {
@@ -688,6 +818,8 @@ public class GoodsDetail {
                     ", spec=" + spec +
                     ", option=" + option +
                     ", param=" + param +
+                    ", comment=" + comment +
+                    ", collect=" + collect +
                     '}';
         }
     }

@@ -6,11 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.bean.memcen.Collect;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
+import com.dq.huibao.utils.HttpUtils;
+
+import java.util.List;
 
 /**
  * Description：我的收藏 适配器
@@ -31,10 +39,11 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
     }
 
     private Context mContext;
-    //private List<Tese.MsgBean> msgBeen;
+    private List<Collect.DataBean.ListBean> collectList;
 
-    public CollectAdapter(Context mContext){
+    public CollectAdapter(Context mContext, List<Collect.DataBean.ListBean> collectList) {
         this.mContext = mContext;
+        this.collectList = collectList;
     }
 
     /**
@@ -82,6 +91,15 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
                 }
             });
         }
+
+        Glide.with(mContext)
+                .load(HttpUtils.IMG_HEADER + collectList.get(position).getThumb())
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(holder.img);
+
+        holder.goodsname.setText("" + collectList.get(position).getGoodsname());
+
 //        //点击改变背景
 //        if (mSelect == position) {
 //            holder.linearLayout.setBackgroundColor(Color.WHITE);
@@ -97,13 +115,19 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return 5;
+        return collectList.size();
     }
 
     class MyViewHolder extends BaseRecyclerViewHolder {
+        private ImageView img;
+        private TextView goodsname, optionname;
 
         public MyViewHolder(View view) {
             super(view);
+            img = view.findViewById(R.id.iv_item_mc);
+            goodsname = view.findViewById(R.id.tv_item_mc_goodsname);
+            optionname = view.findViewById(R.id.tv_item_mc_optionname);
+
         }
     }
 }

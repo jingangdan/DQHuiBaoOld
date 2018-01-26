@@ -2,7 +2,6 @@ package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dq.huibao.R;
+import com.dq.huibao.adapter.memcen.RechargeActivity;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.account.Account;
 import com.dq.huibao.bean.account.Login;
@@ -75,6 +75,8 @@ public class FMMemCen extends BaseFragment implements
     TextView tvNologinTitle;
     @Bind(R.id.ptrv_mem)
     PullToRefreshView pullToRefreshView;
+    @Bind(R.id.but_mem_recharge)
+    Button butMemRecharge;
 
     private View view;
 
@@ -163,6 +165,9 @@ public class FMMemCen extends BaseFragment implements
     @Bind(R.id.but_mc_aboutus)
     Button butMcAboutus;
 
+    @Bind(R.id.but_mc_collect)
+    Button butMcCollect;
+
     /*会员等级 头像 昵称 余额 积分*/
     private String level, id, avatar, nickname, credit1, credit2, couponcount;
 
@@ -227,7 +232,8 @@ public class FMMemCen extends BaseFragment implements
             R.id.but_mc_menu6, R.id.but_mc_menu7, R.id.but_mc_menu8,
             R.id.but_mc_menu9, R.id.but_mc_menu10, R.id.but_mc_menu11,
             R.id.but_mc_menu12, R.id.but_mc_menu13,
-            R.id.but_mc_aboutus
+            R.id.but_mc_aboutus, R.id.but_mc_collect,
+            R.id.but_mem_recharge
     })
     public void onClick(View v) {
         switch (v.getId()) {
@@ -246,6 +252,14 @@ public class FMMemCen extends BaseFragment implements
             /*个人信息*/
             case R.id.iv_memcen:
                 intent = new Intent(getActivity(), LoginActivity.class);
+                startActivityForResult(intent, CodeUtils.MEMBER);
+                break;
+
+            case R.id.but_mem_recharge:
+                //充值
+                intent = new Intent(getActivity(), RechargeActivity.class);
+                intent.putExtra("phone", phone);
+                intent.putExtra("token", token);
                 startActivityForResult(intent, CodeUtils.MEMBER);
                 break;
             case R.id.lin_mc_credit1:
@@ -352,6 +366,12 @@ public class FMMemCen extends BaseFragment implements
                 intent = new Intent(getActivity(), AboutUsActivity.class);
                 startActivity(intent);
 
+                break;
+            case R.id.but_mc_collect:
+                intent = new Intent(getActivity(), CollectActivity.class);
+                intent.putExtra("phone", phone);
+                intent.putExtra("token", token);
+                startActivity(intent);
                 break;
             case R.id.but_mc_menu13:
                 //退出登录
@@ -566,7 +586,7 @@ public class FMMemCen extends BaseFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CodeUtils.MEMBER) {
-            if (resultCode == CodeUtils.LOGIN || resultCode == CodeUtils.MEMBER_EDIT || resultCode == CodeUtils.ORDER) {
+            if (resultCode == CodeUtils.LOGIN || resultCode == CodeUtils.MEMBER_EDIT || resultCode == CodeUtils.ORDER || resultCode == CodeUtils.RECHARGE) {
                 isLogin();
             }
         }
@@ -602,4 +622,5 @@ public class FMMemCen extends BaseFragment implements
 
         }, 1000);
     }
+
 }

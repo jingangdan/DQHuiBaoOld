@@ -28,9 +28,9 @@ public class FootprintActivity extends BaseActivity {
         setContentView(R.layout.activity_collect);
         ButterKnife.bind(this);
 
-        collectAdapter = new CollectAdapter(this);
-        rvCollect.setLayoutManager(new LinearLayoutManager(this));
-        rvCollect.setAdapter(collectAdapter);
+//        collectAdapter = new CollectAdapter(this);
+//        rvCollect.setLayoutManager(new LinearLayoutManager(this));
+//        rvCollect.setAdapter(collectAdapter);
 
     }
 

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -42,6 +43,7 @@ import com.dq.huibao.adapter.gd.GdCommentAdapter;
 import com.dq.huibao.adapter.gd.GdParmasAdapter;
 import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.bean.goods.GoodsDetail;
 //import com.dq.huibao.bean.goodsdetail.Comment;
@@ -224,21 +226,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     private String MD5_PATH = "";
     private RequestParams params;
 
-    /**
-     *
-     */
-    //private GoodsDetail goodsDetail;
-
     /*图片*/
     public static List<String> picsList = new ArrayList<>();
-
-    /*商品规格*/
-    //private List<Specs> specsList = new ArrayList<>();
-
-    /*商品规格items*/
-//    private List<Items> itemList = new ArrayList<>();
-//    private List<Items> itemLists = new ArrayList<>();
-    //private List<Options> optionsList = new ArrayList<>();
 
     /*UI赋值*/
     private String title = "", marketprice = "", total = "", sales = "";
@@ -249,11 +238,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     //private List<Params> paramsList = new ArrayList<>();
     private GdParmasAdapter gdParmasAdapter;
     /*用户评价*/
-    //private List<Comment> commentList = new ArrayList<>();
+    private List<GoodsDetail.DataBean.CommentBean> commentList = new ArrayList<>();
     private GdCommentAdapter gdCommentAdapter;
-
-    /*规格id*/
-    //private String specsItemId1 = "", specsItemId2 = "";
 
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
@@ -281,12 +267,16 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         setContentView(R.layout.activity_goodsdetails);
         ButterKnife.bind(this);
 
+        gdCommentAdapter = new GdCommentAdapter(TAG, commentList);
+        rvGdComment.setLayoutManager(new LinearLayoutManager(TAG));
+        rvGdComment.setAdapter(gdCommentAdapter);
+
         intent = getIntent();
         gid = intent.getStringExtra("gid");
 
         spUserInfo = new SPUserInfo(getApplication());
 
-        getSaveCollection();
+        //getSaveCollection();
 
         initDate();
 
@@ -295,7 +285,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     @SuppressLint({"WrongConstant", "ResourceAsColor"})
     @OnClick({R.id.rel_gd_choose,
             R.id.tv_gd_allgoods, R.id.tv_gd_store,
-            R.id.but_gd_put_in, R.id.but_gd_bug_new, R.id.iv_gd_back, R.id.rel_gd_shopcar,
+            R.id.but_gd_put_in, R.id.but_gd_bug_new, R.id.iv_gd_back, R.id.rel_gd_shopcar, R.id.lin_gd_serice,
             R.id.lin_gd_collection, R.id.lin_gd_distribution,
             R.id.tv_gd_content, R.id.tv_gd_params, R.id.tv_gd_comment, R.id.tv_gd_recommend})
     public void onClick(View view) {
@@ -312,19 +302,12 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
             case R.id.rel_gd_choose:
                 //选择商品规格和数量
-                //specsList = goodsDetail.getData().getSpecs();
                 setPopTest(0);
-
                 setBackgroundBlack(all_choice_layout, 0);
                 break;
 
             case R.id.tv_gd_allgoods:
                 //查看全部商品
-//                intent = new Intent(TAG, GoodsListActivity.class);
-//                intent.putExtra("pcate", "");
-//                intent.putExtra("ccate", "");
-//                intent.putExtra("name", "");
-//                intent.putExtra("keywords", "");
                 intent = new Intent(TAG, GoodsListActivity.class);
                 intent.putExtra("content", "cate=");
                 intent.putExtra("catename", "所有商品");
@@ -344,18 +327,18 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                         //提示是否取消收藏
                         cancelCollection();
                     } else {
-                        isCollection = true;
-                        setSaveCollection();
-                        //如果已经收藏，则显示收藏后的效果
-                        ivGdCollection.setImageResource(R.mipmap.ic_collection002);
-                        tvGdCollection.setText("已收藏");
-                        //butGdCollection.setBackgroundResource(R.mipmap.ic_collection002);
-                        Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                        setAddRecord("collect", gid, phone, token);
                     }
                 } else {
                     dialog();
                 }
 
+                break;
+
+            case R.id.lin_gd_serice:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "0539-7290757"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
 
             case R.id.rel_gd_shopcar:
@@ -373,12 +356,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             case R.id.but_gd_put_in:
                 //添加购物车
                 if (isLogin()) {
-//                    if (optionid.equals("")) {
-//                        setPopTest(1);
-//                        setBackgroundBlack(all_choice_layout, 0);
-//                    } else {
-//                        cartAdd(phone, token, gid, optionid, num);
-//                    }
                     setPopTest(1);
                     setBackgroundBlack(all_choice_layout, 0);
 
@@ -444,10 +421,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 vGdComment.setVisibility(View.VISIBLE);
                 linGdComment.setVisibility(View.VISIBLE);
 
-                //commentList = goodsDetail.getData().getComment();
-                //gdCommentAdapter = new GdCommentAdapter(TAG, commentList);
-                rvGdComment.setLayoutManager(new LinearLayoutManager(TAG));
-                rvGdComment.setAdapter(gdCommentAdapter);
+                commentList.clear();
+                commentList.addAll(goodsDetail.getData().getComment());
+                gdCommentAdapter.notifyDataSetChanged();
 
                 break;
 
@@ -511,6 +487,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                         picsList.clear();
                         specsList.clear();
                         optionsList.clear();
+                        commentList.clear();
 
 
                         picsList = goodsDetail.getData().getThumb_url();
@@ -522,11 +499,13 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                             optionsList = goodsDetail.getData().getOption();
                         }
 
+
                         title = goodsDetail.getData().getGoodsname();
                         marketprice = "" + goodsDetail.getData().getMarketprice();
                         total = "" + goodsDetail.getData().getStock();
                         sales = "" + goodsDetail.getData().getSales();
                         content = goodsDetail.getData().getContent();
+                        isCollection = goodsDetail.getData().getCollect();
 
                         tvGdTitle.setText("" + goodsDetail.getData().getGoodsname());
 
@@ -556,49 +535,32 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     }
 
     /**
-     * 获取商品详情
+     * 添加收藏
      *
-     * @param gid
+     * @param type  收藏类型--- collect收藏商品   collect_shop收藏店铺（暂无）
+     * @param id    收藏的商品id 或者店铺id
+     * @param phone
+     * @param token
      */
-    public void getGoodsDetailOld(String gid) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODS_DETAIL + gid;
+    public void setAddRecord(String type, String id, String phone, String token) {
+        MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
+        PATH = HttpUtils.PATHS + HttpUtils.MEM_ADDRECORD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
         params = new RequestParams(PATH);
-
-        System.out.println("商品详情 = " + PATH);
-
-        x.http().get(params,
+        System.out.println("添加收藏 = " + PATH);
+        x.http().post(params,
                 new Callback.CommonCallback<String>() {
+                    @SuppressLint("WrongConstant")
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println("商品详情 = " + result);
-                        goodsDetail = GsonUtil.gsonIntance().gsonToBean(result, GoodsDetail.class);
-
-//                        picsList = goodsDetail.getData().getPics();
-//
-//                        if (!goodsDetail.getData().getSpecs().toString().equals("[]")) {
-//                            specsList = goodsDetail.getData().getSpecs();
-//                        }
-//                        if (!goodsDetail.getData().getOptions().toString().equals("[]")) {
-//                            optionsList = goodsDetail.getData().getOptions();
-//                        }
-//
-//                        title = goodsDetail.getData().getGoods().getTitle();
-//                        marketprice = goodsDetail.getData().getGoods().getMarketprice();
-//                        total = goodsDetail.getData().getGoods().getTotal();
-//                        sales = goodsDetail.getData().getGoods().getSales();
-//                        content = goodsDetail.getData().getGoods().getContent();
-//
-//                        tvGdTitle.setText("" + goodsDetail.getData().getGoods().getTitle());
-
-                        //initView();
-
-                        initData();
-
-                        getWebHTML(content);
-
-                        setLunbotu();
-
-
+                        System.out.println("添加收藏 = " + result);
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            Toast.makeText(TAG, "" + addrReturn.getData(), Toast.LENGTH_SHORT).show();
+                            isCollection = true;
+                            ivGdCollection.setImageResource(R.mipmap.ic_collection002);
+                            tvGdCollection.setText("已收藏");
+                        }
                     }
 
                     @Override
@@ -618,12 +580,67 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 });
     }
 
+    /**
+     * 取消收藏
+     *
+     * @param type  收藏类型--- collect收藏商品   collect_shop收藏店铺（暂无）
+     * @param id    收藏的商品id 或者店铺id
+     * @param phone
+     * @param token
+     */
+    public void setDelRecord(String type, String id, String phone, String token) {
+        MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
+        PATH = HttpUtils.PATHS + HttpUtils.MEM_DELRECORD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        params = new RequestParams(PATH);
+        System.out.println("取消收藏 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @SuppressLint("WrongConstant")
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("取消收藏 = " + result);
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            Toast.makeText(TAG, "" + addrReturn.getData(), Toast.LENGTH_SHORT).show();
+                            isCollection = false;
+                            ivGdCollection.setImageResource(R.mipmap.ic_collection001);
+                            tvGdCollection.setText("收藏");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+
     /*组件赋值*/
     public void initData() {
         tvGdTitle.setText("" + title);
         tvGdName.setText("" + title);
         tvGdMarketprice.setText("¥ " + marketprice);
         tvGdTotal.setText("库存：" + total + " 销量：" + sales);
+
+        if (isCollection) {
+            ivGdCollection.setImageResource(R.mipmap.ic_collection002);
+            tvGdCollection.setText("已收藏");
+        } else {
+            ivGdCollection.setImageResource(R.mipmap.ic_collection001);
+            tvGdCollection.setText("收藏");
+        }
     }
 
     private List<ImageView> views = new ArrayList<ImageView>();
@@ -697,15 +714,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
 
     /*动态添加UI*/
-    private TextView textView;
     private RecyclerView recyclerView;
-    private ChooseAdapter chooseAdapter;
-    private ChooseTwoAdapter chooseTwoAdapter;
 
     private SpecAdapter specAdapter;
-
-    /*规格*/
-//    private String specifications1 = "", specifications2 = "";
 
     /*数量*/
     private int num = 1;
@@ -728,10 +739,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             // 重写popupWindow消失时事件
             @Override
             public void dismiss() {
-                // 在pop消失之前，给咱们加的view设置背景渐变出场动画（Android3.0以上的开发环境，这里建议使用属性动画，那样很柔和，视觉效果更棒！）
-//                viewBg.startAnimation(AnimationUtils.loadAnimation(context,
-//                        R.anim.anim_bookshelf_folder_editer_exit));
-//                viewBg.setVisibility(View.GONE);
                 super.dismiss();
                 setBackgroundBlack(all_choice_layout, 1);
 
@@ -748,10 +755,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         popWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         // 响应返回键必须的语句
         popWindow.setBackgroundDrawable(new BitmapDrawable());
-        // 在显示pop之前，给咱们加的view设置背景渐变入场动画（Android3.0以上的开发环境，这里建议使用属性动画，那样很柔和，视觉效果更棒！）
-//        viewBg.setVisibility(View.VISIBLE);
-//        viewBg.startAnimation(AnimationUtils.loadAnimation(context,
-//                R.anim.anim_bookshelf_folder_editer_enter));
         // 依附的父布局自己设定，我这里为了方便，这样写的。
         popWindow.showAtLocation(all_choice_layout, Gravity.BOTTOM, 0, 0);
 
@@ -917,52 +920,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     }
 
     /**
-     * 添加购物车
-     *
-     * @param unionid
-     * @param id       商品id
-     * @param optionid 规格id
-     * @param total    商品数量
-     */
-    public void setAddCart(String unionid, String id, String optionid, String total) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_CART_ADD +
-                "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_CART_ADD + "unionid=" + unionid +
-                        "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
-                "&id=" + id + "&optionid=" + optionid + "&total=" + total;
-
-        params = new RequestParams(PATH);
-
-        System.out.println("添加购物车（商品详情） = " + PATH);
-
-        x.http().post(params,
-                new Callback.CommonCallback<String>() {
-                    @SuppressLint("WrongConstant")
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("添加购物车（商品详情） = " + result);
-                        Toast.makeText(TAG, "添加成功", Toast.LENGTH_SHORT).show();
-                        popWindow.dismiss();
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-    }
-
-    /**
      * 加载商品图文详情（html）
      *
      * @param html_bady
@@ -1027,40 +984,20 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     }
 
     /**
-     * 保存是否添加收藏
-     */
-    private void setSaveCollection() {
-        SharedPreferences sp = getSharedPreferences("SAVECOLLECTION", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("isCollection", isCollection);
-        editor.commit();
-    }
-
-    /**
-     * 得到保存的是否添加收藏标记
-     */
-    private void getSaveCollection() {
-        SharedPreferences sp = getSharedPreferences("SAVECOLLECTION", Context.MODE_PRIVATE);
-        isCollection = sp.getBoolean("isCollection", false);
-
-    }
-
-    /**
      * 取消收藏
      */
     private void cancelCollection() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("是否取消收藏");
+        dialog.setMessage("提示：");
         dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                isCollection = false;
-                //如果取消收藏，则显示取消收藏后的效果
-
-                ivGdCollection.setImageResource(R.mipmap.ic_collection001);
-                tvGdCollection.setText("收藏");
-                //butGdCollection.setBackgroundResource(R.mipmap.ic_collection001);
-                setSaveCollection();
+//                //如果取消收藏，则显示取消收藏后的效果
+                setDelRecord("collect", gid, phone, token);
+//
+//                ivGdCollection.setImageResource(R.mipmap.ic_collection001);
+//                tvGdCollection.setText("收藏");
             }
         });
         dialog.setNegativeButton("取消", null);
@@ -1169,12 +1106,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 @Override
                 public void onItemClick(View view, int position) {
                     chooseAdapter.changeSelected(position);
-
-//                        ImageUtils.loadIntoUseFitWidth(TAG,
-//                                HttpUtils.IMG_HEADER + specBeanList.get(position).get,
-//                                R.mipmap.icon_empty002,
-//                                R.mipmap.icon_error002,
-//                                iv_thumb);
 
                     strings[i] = specBeanList.get(i).getItems().get(position).getId();
 

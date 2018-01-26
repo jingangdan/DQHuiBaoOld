@@ -159,6 +159,12 @@
         <!--查看物流-->
         <activity android:name=".ui.order.OrderKuaiDiActivity" />
 
+        <!--退款-->
+        <activity android:name=".ui.order.OrderRefundActivity" />
+
+        <!--评价-->
+        <activity android:name=".ui.order.OrderCommentActivity" />
+
         <!--购物车-->
         <activity android:name="com.dq.huibao.ui.memcen.ShopcarActivity" />
 
@@ -189,6 +195,22 @@
 
         <!--关于我们-->
         <activity android:name=".ui.memcen.AboutUsActivity" />
+
+        <!--余额充值-->
+        <activity android:name=".adapter.memcen.RechargeActivity" />
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
         <!--增加图片清晰度-->
         <meta-data

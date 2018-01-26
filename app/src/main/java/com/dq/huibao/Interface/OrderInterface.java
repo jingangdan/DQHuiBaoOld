@@ -13,8 +13,11 @@ public interface OrderInterface {
 
     /**
      * 评价
+     *
+     * @param id
+     * @param position
      */
-    void doOrderComment();
+    void doOrderComment(String id, int position);
 
     /**
      * 查看物流
@@ -31,6 +34,15 @@ public interface OrderInterface {
      * @param type del删除','close关闭','finish确认收货
      */
     void doOrderEdit(String id, String type, int position);
+
+    /**
+     * 退款
+     *
+     * @param id       订单id
+     * @param price
+     * @param position 组件位置
+     */
+    void deRefund(String id, String price, int position);
 
 
 }

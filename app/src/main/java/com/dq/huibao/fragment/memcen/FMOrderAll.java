@@ -15,14 +15,15 @@ import android.widget.Button;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OrderInterface;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.OrderAdapter;
+import com.dq.huibao.adapter.order.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.order.Order;
-import com.dq.huibao.ui.LoginActivity;
 import com.dq.huibao.ui.PayActivity;
+import com.dq.huibao.ui.order.OrderCommentActivity;
 import com.dq.huibao.ui.order.OrderDettailActivity;
 import com.dq.huibao.ui.order.OrderKuaiDiActivity;
+import com.dq.huibao.ui.order.OrderRefundActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
@@ -237,8 +238,12 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
     }
 
     @Override
-    public void doOrderComment() {
-
+    public void doOrderComment(String id, int position) {
+        intent = new Intent(getActivity(), OrderCommentActivity.class);
+        intent.putExtra("orderid", id);
+        intent.putExtra("phone", getArguments().getString("phone"));
+        intent.putExtra("token", getArguments().getString("token"));
+        startActivityForResult(intent, CodeUtils.ORDER);
     }
 
     @Override
@@ -252,6 +257,17 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
     @Override
     public void doOrderEdit(String id, String type, int postion) {
         dialog(id, type);
+
+    }
+
+    @Override
+    public void deRefund(String id, String price, int position) {
+        intent = new Intent(getActivity(), OrderRefundActivity.class);
+        intent.putExtra("orderid", id);
+        intent.putExtra("price", price);
+        intent.putExtra("phone", getArguments().getString("phone"));
+        intent.putExtra("token", getArguments().getString("token"));
+        startActivityForResult(intent, CodeUtils.ORDER);
 
     }
 
@@ -289,4 +305,13 @@ public class FMOrderAll extends BaseFragment implements OrderInterface {
         builder.create().show();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CodeUtils.ORDER) {
+            if (resultCode == CodeUtils.REFUND) {
+                orderGetList("", getArguments().getString("phone"), getArguments().getString("token"));
+            }
+        }
+    }
 }

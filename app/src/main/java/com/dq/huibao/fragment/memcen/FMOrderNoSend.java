@@ -14,11 +14,13 @@ import android.widget.LinearLayout;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.Interface.OrderInterface;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.OrderAdapter;
+import com.dq.huibao.adapter.order.OrderAdapter;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.order.Order;
 import com.dq.huibao.ui.order.OrderDettailActivity;
 import com.dq.huibao.ui.order.OrderKuaiDiActivity;
+import com.dq.huibao.ui.order.OrderRefundActivity;
+import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
@@ -77,6 +79,8 @@ public class FMOrderNoSend extends BaseFragment implements OrderInterface {
                 startActivity(intent);
             }
         });
+
+        orderAdapters.setOrderInterface(this);
         return view;
     }
 
@@ -156,7 +160,7 @@ public class FMOrderNoSend extends BaseFragment implements OrderInterface {
     }
 
     @Override
-    public void doOrderComment() {
+    public void doOrderComment(String id, int position) {
 
     }
 
@@ -173,5 +177,24 @@ public class FMOrderNoSend extends BaseFragment implements OrderInterface {
 
     }
 
+    @Override
+    public void deRefund(String id, String price, int position) {
+        intent = new Intent(getActivity(), OrderRefundActivity.class);
+        intent.putExtra("orderid", id);
+        intent.putExtra("price", price);
+        intent.putExtra("phone", getArguments().getString("phone"));
+        intent.putExtra("token", getArguments().getString("token"));
+        startActivityForResult(intent, CodeUtils.ORDER);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CodeUtils.ORDER) {
+            if (resultCode == CodeUtils.REFUND) {
+                orderGetList("2", getArguments().getString("phone"), getArguments().getString("token"));
+            }
+        }
+    }
 
 }

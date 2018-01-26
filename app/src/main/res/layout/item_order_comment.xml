@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center|left"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/iv_item_oc_img"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:src="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_item_oc_goodsname"
+                style="@style/text_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="商品名称" />
+
+            <TextView
+                android:id="@+id/tv_item_oc_optionname"
+                style="@style/text_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品规格" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_item_oc_price"
+                style="@style/text_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="价格" />
+
+            <TextView
+                android:id="@+id/tv_item_oc_count"
+                style="@style/text_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="数量" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@color/view_main"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:gravity="center|left"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            style="@style/text_adware"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:text="描述相符" />
+
+        <RatingBar
+            android:id="@+id/rb_item_oc"
+            style="@style/roomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_white_shape">
+
+            <EditText
+                android:id="@+id/et_item_oc"
+                style="@style/text_main"
+                android:layout_width="match_parent"
+                android:gravity="top"
+                android:hint="您的意见很重要，请点评一下吧"
+                android:maxLines="10"
+                android:minLines="4" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -394,6 +394,25 @@ public class OrderDetail {
             private String count;
             private String thumb;
 
+            private String xing = "0";//商品星级评定
+            private String content = "";//商品评价内容
+
+            public String getXing() {
+                return xing;
+            }
+
+            public void setXing(String xing) {
+                this.xing = xing;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
             public String getId() {
                 return id;
             }
@@ -460,6 +479,8 @@ public class OrderDetail {
                         ", price='" + price + '\'' +
                         ", count='" + count + '\'' +
                         ", thumb='" + thumb + '\'' +
+                        ", xing='" + xing + '\'' +
+                        ", content='" + content + '\'' +
                         '}';
             }
         }

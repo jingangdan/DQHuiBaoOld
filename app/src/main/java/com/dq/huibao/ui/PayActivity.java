@@ -86,6 +86,7 @@ public class PayActivity extends BaseActivity {
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
 
                     String resultStatus = payResult.getResultStatus();
+                    System.out.println("111 = " + resultStatus);
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(PayActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
@@ -107,6 +108,8 @@ public class PayActivity extends BaseActivity {
 
                         }
                     }
+
+
                     break;
                 }
                 default:
@@ -223,7 +226,7 @@ public class PayActivity extends BaseActivity {
      * @param phone
      * @param token
      */
-    public void setPayOrder(String ordersn, String paytype, final String phone, final String token) {
+    public void setPayOrder(String ordersn, final String paytype, final String phone, final String token) {
         MD5_PATH = "ordersn=" + ordersn + "&paytype=" + paytype + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
         PATH = HttpUtils.PATHS + HttpUtils.PAY_ORDER + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
@@ -235,18 +238,31 @@ public class PayActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String result) {
                         System.out.println("第三方下单 = " + result);
-                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
-                        if (addrReturn.getStatus() == 1) {
-                            toast("" + addrReturn.getData());
-                            intent = new Intent(PayActivity.this, OrderActivity.class);
-                            intent.putExtra("page", 2);
-                            intent.putExtra("phone", phone);
-                            intent.putExtra("token", token);
-                            startActivityForResult(intent, CodeUtils.PAY);
-
-                            PayActivity.this.finish();
-
+                        if (paytype.equals("balance")) {
+                            AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                            if (addrReturn.getStatus() == 1) {
+                                toast("" + addrReturn.getData());
+                                intent = new Intent(PayActivity.this, OrderActivity.class);
+                                intent.putExtra("page", 2);
+                                intent.putExtra("phone", phone);
+                                intent.putExtra("token", token);
+                                startActivityForResult(intent, CodeUtils.PAY);
+                                PayActivity.this.finish();
+                            } else if (addrReturn.getStatus() == 0) {
+                                toast("" + addrReturn.getData());
+                            }
+                        } else {
+                            if (paytype.equals("wxpay")) {
+                                //微信支付
+                            } else if (paytype.equals("alipay")) {
+                                //支付宝支付
+                                // setZhifubao("","","","","","","");
+                                setZhiFuBao(result);
+                            } else if (paytype.equals("balance")) {
+                                //余额支付
+                            }
                         }
+
 
                     }
 
@@ -302,6 +318,26 @@ public class PayActivity extends BaseActivity {
         req.sign = sign;
 
         msgApi.sendReq(req);
+    }
+
+    public void setZhiFuBao(String info) {
+        final String orderInfo = info;   // 订单信息
+
+        Runnable payRunnable = new Runnable() {
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(PayActivity.this);
+                String result = alipay.pay(orderInfo, true);
+
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+                mHandler.sendMessage(msg);
+            }
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
     }
 
     /**

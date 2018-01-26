@@ -42,5 +42,11 @@ public class CodeUtils {
     /*订单*/
     public static final int ORDER = 0x12;
 
+    /*退款*/
+    public static final int REFUND = 0x13;
+
+    /*充值*/
+    public static final int RECHARGE = 0x14;
+
 
 }

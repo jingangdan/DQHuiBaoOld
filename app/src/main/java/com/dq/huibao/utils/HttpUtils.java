@@ -570,6 +570,30 @@ public class HttpUtils {
 
     /**
      * 30.
+     * 订单评价
+     * 方式：post/get
+     * 参数：
+     * orderid 订单id
+     * remark  json数组
+     * {"222":{"score":5,"comment":"*******"},
+     * "333":{"score":4,"comment":"*******"}}
+     * <p>
+     * 用户登录验证（phone,token）
+     */
+    public static final String ORDER_COMMENT = "Order/comment?";
+
+    /**
+     * 31.
+     * 余额充值-生成订单
+     * 方式：post/get
+     * 参数：
+     * money 充值金额（整数）
+     * 用户登录验证（phone,token）
+     */
+    public static final String RECHARGE_ORDER = "Recharge/order?";
+
+    /**
+     * 32.
      * 选择支付方式
      * 方式：post/get
      * 参数：
@@ -579,7 +603,7 @@ public class HttpUtils {
     public static final String PAY_PAYTYPE = "Pay/paytype?";
 
     /**
-     * 31.
+     * 33.
      * 调用第三方支付前，在第三方下单
      * 方式：post/get
      * 参数：
@@ -588,5 +612,38 @@ public class HttpUtils {
      * 用户登录验证（phone,token）
      */
     public static final String PAY_ORDER = "Pay/order?";
+
+    /**
+     * 34.
+     * 添加收藏
+     * 方式：post/get
+     * 参数：
+     * type  收藏类型--- collect收藏商品   collect_shop收藏店铺（暂无）
+     * id 收藏的商品id 或者店铺id
+     * 用户登录验证（phone,token）
+     */
+    public static final String MEM_ADDRECORD = "Member/addrecord?";
+
+    /**
+     * 35.
+     * 取消收藏
+     * 方式：post/get
+     * 参数：
+     * type  收藏类型--- collect收藏商品   collect_shop收藏店铺（暂无）
+     * id 收藏的商品id 或者店铺id
+     * 用户登录验证（phone,token）
+     */
+    public static final String MEM_DELRECORD = "Member/delrecord?";
+
+    /**
+     * 36.
+     * 获取收藏列表  获取浏览历史
+     * 方式：post/get
+     * 参数：
+     * type  类型--- browse  浏览历史  collect收藏商品   collect_shop收藏店铺（暂无）
+     * page 当前页
+     * 用户登录验证（phone,token）
+     */
+    public static final String MEM_RECORDLIST = "Member/recordlist?";
 
 }
