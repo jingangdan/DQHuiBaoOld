@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <ScrollView
+        <com.dq.huibao.view.MyScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fadingEdge="none"
+            android:overScrollMode="never"
             android:scrollbars="none">
 
             <LinearLayout
@@ -80,7 +81,9 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_hp_menu"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:fadingEdge="none"
+                        android:overScrollMode="never">
 
                     </android.support.v7.widget.RecyclerView>
 
@@ -94,7 +97,9 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_hp_appimglist"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:fadingEdge="none"
+                        android:overScrollMode="never">
 
                     </android.support.v7.widget.RecyclerView>
 
@@ -108,12 +113,13 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_hp_glist"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:fadingEdge="none"
+                        android:overScrollMode="never">
 
                     </android.support.v7.widget.RecyclerView>
 
                 </LinearLayout>
-
 
                 <!--广告-->
                 <LinearLayout
@@ -142,22 +148,9 @@
 
                 </LinearLayout>
 
-                <!--hot-->
-                <include layout="@layout/include_hot_classify" />
-
-                <!--每日推荐-->
-                <include layout="@layout/include_recommend" />
-
-                <!--热销产品-->
-                <include layout="@layout/include_hot_selling" />
-
-                <!--猜你喜欢-->
-                <include layout="@layout/include_youlike" />
-
             </LinearLayout>
 
-
-        </ScrollView>
+        </com.dq.huibao.view.MyScrollView>
 
     </com.dq.huibao.refresh.PullToRefreshView>
 

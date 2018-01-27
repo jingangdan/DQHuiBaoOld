@@ -24,15 +24,10 @@ import java.util.List;
 
 public class ChooseAdapter extends RecyclerView.Adapter<ChooseAdapter.MyViewHolder> {
     private Context mContext;
-    //private List<Items> itemList;
     private List<GoodsDetail.DataBean.SpecBean.ItemsBean> itemList;
     private OnItemClickListener mOnItemClickListener;
     private int mSelect = -1;
 
-    //    public ChooseAdapter(Context mContext, List<Items> itemList) {
-//        this.mContext = mContext;
-//        this.itemList = itemList;
-//    }
     public ChooseAdapter(Context mContext, List<GoodsDetail.DataBean.SpecBean.ItemsBean> itemList) {
         this.mContext = mContext;
         this.itemList = itemList;

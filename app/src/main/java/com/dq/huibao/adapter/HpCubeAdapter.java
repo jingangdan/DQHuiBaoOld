@@ -7,15 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.homepage.Cube;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.ImageUtils;
-
-import org.xutils.x;
 
 import java.util.List;
 
@@ -40,7 +36,7 @@ public class HpCubeAdapter extends RecyclerView.Adapter<HpCubeAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder vh = new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.include_hp_picture, parent, false));
+        MyViewHolder vh = new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_hp_picture, parent, false));
         return vh;
     }
 

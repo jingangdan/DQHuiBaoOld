@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.index.Index;
@@ -38,7 +40,7 @@ public class AppimglistAdapter extends RecyclerView.Adapter<AppimglistAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         MyViewHolder vh = new MyViewHolder(
-                LayoutInflater.from(mContext).inflate(R.layout.include_hp_picture, viewGroup, false)
+                LayoutInflater.from(mContext).inflate(R.layout.item_hp_picture, viewGroup, false)
         );
         return vh;
     }
@@ -55,12 +57,11 @@ public class AppimglistAdapter extends RecyclerView.Adapter<AppimglistAdapter.My
             });
 
         }
-        ImageUtils.loadIntoUseFitWidth(mContext,
+        ImageUtils.loadIntoUseFitWidths(mContext,
                 HttpUtils.NEW_HEADER + appimgList.get(i).getThumb(),
                 R.mipmap.icon_empty003,
                 R.mipmap.icon_error003,
                 holder.img);
-
 
     }
 

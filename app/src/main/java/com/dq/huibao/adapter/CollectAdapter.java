@@ -30,6 +30,8 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
     private OnItemLongClickListener mOnItemLongClickListener;
     private int mSelect = 0;
 
+    private CollectInterface collectInterface;
+
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
@@ -44,6 +46,10 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
     public CollectAdapter(Context mContext, List<Collect.DataBean.ListBean> collectList) {
         this.mContext = mContext;
         this.collectList = collectList;
+    }
+
+    public void setCollectInterface(CollectInterface collectInterface) {
+        this.collectInterface = collectInterface;
     }
 
     /**
@@ -69,7 +75,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
 
     @SuppressLint("WrongConstant")
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         if (mOnItemClickListener != null) {
             //为ItemView设置监听器
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -93,23 +99,18 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
         }
 
         Glide.with(mContext)
-                .load(HttpUtils.IMG_HEADER + collectList.get(position).getThumb())
+                .load(HttpUtils.NEW_HEADER + collectList.get(position).getThumb())
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(holder.img);
 
         holder.goodsname.setText("" + collectList.get(position).getGoodsname());
-
-//        //点击改变背景
-//        if (mSelect == position) {
-//            holder.linearLayout.setBackgroundColor(Color.WHITE);
-//            holder.name.setTextColor(Color.rgb(241,83,83));
-//            holder.line.setVisibility(View.VISIBLE);
-//        } else {
-//            holder.linearLayout.setBackgroundColor(Color.rgb(239, 239, 239));
-//            holder.name.setTextColor(Color.rgb(51,51,51));
-//            holder.line.setVisibility(View.GONE);
-//        }
+        holder.del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                collectInterface.doD("collect", collectList.get(position).getId(), position);
+            }
+        });
 
     }
 
@@ -119,7 +120,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
     }
 
     class MyViewHolder extends BaseRecyclerViewHolder {
-        private ImageView img;
+        private ImageView img, del;
         private TextView goodsname, optionname;
 
         public MyViewHolder(View view) {
@@ -127,7 +128,15 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
             img = view.findViewById(R.id.iv_item_mc);
             goodsname = view.findViewById(R.id.tv_item_mc_goodsname);
             optionname = view.findViewById(R.id.tv_item_mc_optionname);
+            del = view.findViewById(R.id.iv_item_mc_del);
 
         }
+    }
+
+    /**
+     * 删除接口
+     */
+    public interface CollectInterface {
+        void doD(String type, String id, int position);
     }
 }

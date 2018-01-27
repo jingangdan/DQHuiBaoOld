@@ -95,16 +95,22 @@
             android:launchMode="singleTask"
             android:theme="@style/versionCheckLibvtransparentTheme" />
 
-        <!--主界面-->
-        <activity
-            android:name="com.dq.huibao.ui.MainActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
+        <!--启动页-->
+        <activity android:name=".ui.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <!--主界面-->
+        <activity
+            android:name="com.dq.huibao.ui.MainActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
+
         </activity>
 
         <!--web网页-->

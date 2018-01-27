@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.CheckInterface;
 import com.dq.huibao.Interface.ModifyCountInterface;
 import com.dq.huibao.R;
@@ -79,9 +81,9 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
         List<Cart.DataBean.GoodslistBean> childs = null;
         if (groups.size() > 0) {
             childs = children.get(groups.get(groupPosition).getShopid());
+            return childs.get(childPosition);
         }
-
-        return childs.get(childPosition);
+        return null;
     }
 
     @Override
@@ -142,11 +144,17 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
         final Cart.DataBean.GoodslistBean goodsInfo = (Cart.DataBean.GoodslistBean) getChild(groupPosition, childPosition);
         if (goodsInfo != null) {
 
-            ImageUtils.loadIntoUseFitWidth(context,
-                    HttpUtils.IMG_HEADER + goodsInfo.getGoods().getThumb(),
-                    R.mipmap.icon_empty002,
-                    R.mipmap.icon_error002,
-                    cholder.ivAdapterListPic);
+//            ImageUtils.loadIntoUseFitWidths(context,
+//                    HttpUtils.IMG_HEADER + goodsInfo.getGoods().getThumb(),
+//                    R.mipmap.icon_empty002,
+//                    R.mipmap.icon_error002,
+//                    cholder.ivAdapterListPic);
+
+            Glide.with(context)
+                    .load(HttpUtils.IMG_HEADER + goodsInfo.getGoods().getThumb())
+                    .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(cholder.ivAdapterListPic);
 
             cholder.tvIntro.setText("" + goodsInfo.getGoods().getGoodsname());
             if (goodsInfo.getGoods().getOption().getTitle() == null) {

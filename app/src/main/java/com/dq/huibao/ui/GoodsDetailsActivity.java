@@ -193,25 +193,10 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     @Bind(R.id.lin_gd_recommend)
     LinearLayout linGdRecommend;
 
-    NfcAdapter nfcAdapter;
-
-    private HackyViewPager viewPager;
-    private ArrayList<View> allListView;
-
-    /**
-     * 判断是否点击的立即购买按钮
-     */
-    boolean isClickBuy = false;
-
     /**
      * 是否添加收藏
      */
     private static boolean isCollection = false;
-
-    /**
-     * ViewPager当前显示页的下标
-     */
-    private int position = 0;
 
     @Bind(R.id.scrollview)
     GradationScrollView scrollView;
@@ -235,7 +220,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     /*图文详情*/
     private String content = "";
     /*产品参数*/
-    //private List<Params> paramsList = new ArrayList<>();
     private GdParmasAdapter gdParmasAdapter;
     /*用户评价*/
     private List<GoodsDetail.DataBean.CommentBean> commentList = new ArrayList<>();
@@ -243,7 +227,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
-    private String unionid = "";
     private String token = "", phone = "";
 
     private GoodsDetail goodsDetail;
@@ -271,12 +254,14 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         rvGdComment.setLayoutManager(new LinearLayoutManager(TAG));
         rvGdComment.setAdapter(gdCommentAdapter);
 
+        gdParmasAdapter = new GdParmasAdapter(TAG, paramsList);
+        rvGdParams.setLayoutManager(new LinearLayoutManager(TAG));
+        rvGdParams.setAdapter(gdParmasAdapter);
+
         intent = getIntent();
         gid = intent.getStringExtra("gid");
 
         spUserInfo = new SPUserInfo(getApplication());
-
-        //getSaveCollection();
 
         initDate();
 
@@ -406,10 +391,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 linGdParams.setVisibility(View.VISIBLE);
 
                 paramsList.clear();
-                paramsList = goodsDetail.getData().getParam();
-                gdParmasAdapter = new GdParmasAdapter(TAG, paramsList);
-                rvGdParams.setLayoutManager(new LinearLayoutManager(TAG));
-                rvGdParams.setAdapter(gdParmasAdapter);
+                paramsList.addAll(goodsDetail.getData().getParam());
+                gdParmasAdapter.notifyDataSetChanged();
 
 
                 break;
@@ -996,7 +979,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 //                //如果取消收藏，则显示取消收藏后的效果
                 setDelRecord("collect", gid, phone, token);
 //
-//                ivGdCollection.setImageResource(R.mipmap.ic_collection001);
 //                tvGdCollection.setText("收藏");
             }
         });
@@ -1058,6 +1040,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     String[] strings;
     String string = "";
     String string_name = "";
+    String price = "", stock = "";
     String optionid = "";
 
     public class SpecAdapter extends RecyclerView.Adapter<SpecAdapter.MyViewHolder> {
@@ -1107,6 +1090,16 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 public void onItemClick(View view, int position) {
                     chooseAdapter.changeSelected(position);
 
+                    if (specBeanList.get(i).getItems().get(position).getThumb().equals("")) {
+
+                    } else {
+                        Glide.with(mContext)
+                                .load(HttpUtils.IMG_HEADER + specBeanList.get(i).getItems().get(position).getThumb())
+                                .placeholder(R.mipmap.icon_empty002)
+                                .error(R.mipmap.icon_error002)
+                                .into(iv_thumb);
+                    }
+
                     strings[i] = specBeanList.get(i).getItems().get(position).getId();
 
                     for (int j = 0; j < strings.length; j++) {
@@ -1121,7 +1114,11 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                         if (string.equals(optionsList.get(k).getSpecs())) {
                             optionid = optionsList.get(k).getId();
                             string_name = optionsList.get(k).getTitle();
+                            price = optionsList.get(k).getMarketprice();
+                            stock = optionsList.get(k).getStock();
                             tv_specification.setText("已选：" + string_name);
+                            tv_marketprice.setText("¥" + price);
+                            tv_total.setText("库存：" + stock);
                         }
                     }
 

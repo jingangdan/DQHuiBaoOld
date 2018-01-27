@@ -45,7 +45,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:childIndicator="@null"
-                android:groupIndicator="@null"></ExpandableListView>
+                android:fadingEdge="none"
+                android:groupIndicator="@null"
+                android:overScrollMode="never"></ExpandableListView>
 
         </LinearLayout>
 

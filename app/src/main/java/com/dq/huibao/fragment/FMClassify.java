@@ -47,9 +47,6 @@ public class FMClassify extends BaseFragment {
     @Bind(R.id.tv_search)
     TextView tvSearch;
 
-    @Bind(R.id.iv_classify_advimg)
-    ImageView ivAdvImg;
-
     @Bind(R.id.rv_c_classify_three)
     RecyclerView rvCClassifyThree;
 
@@ -182,61 +179,6 @@ public class FMClassify extends BaseFragment {
                     }
                 });
     }
-
-    /**
-     * 获取分类
-     *
-     * @param i
-     */
-    public void getClassify(String i) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_CATEGRAY + "i=" + i;
-        params = new RequestParams(PATH);
-        System.out.println("分类 = " + PATH);
-
-        x.http().get(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("分类 = " + result);
-
-                        final Classify classify = GsonUtil.gsonIntance().gsonToBean(result, Classify.class);
-
-                        classifyList.addAll(classify.getData());
-                        classifytwoList.addAll(classify.getData().get(0).getChildren());
-
-                        if (!classify.getData().get(0).getAdvimg().equals("")) {
-                            ImageUtils.loadIntoUseFitWidths(getActivity(),
-                                    HttpUtils.HEADER + classifyList.get(0).getAdvimg(),
-                                    R.mipmap.icon_empty002,
-                                    R.mipmap.icon_error002,
-                                    ivAdvImg);
-                        } else {
-                            ivAdvImg.setImageResource(R.mipmap.ic_launcher);
-                        }
-
-                        classifyAdapter.notifyDataSetChanged();
-                        classifyTwoAdapter.notifyDataSetChanged();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-
-    }
-
 
     @Override
     protected void lazyLoad() {

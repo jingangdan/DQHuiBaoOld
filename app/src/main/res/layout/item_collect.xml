@@ -15,55 +15,57 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_white"
         android:gravity="center"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/cb_item_mc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/check_box_style"
-            android:scaleX="0.6"
-            android:scaleY="0.6" />
-
-        <ImageView
-            android:id="@+id/iv_item_mc"
-            android:layout_width="48dp"
-            android:layout_height="72dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1"
-            android:background="@mipmap/ic_goods" />
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="5"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/iv_item_mc"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/tv_item_mc_goodsname"
                 style="@style/text_main"
-                android:layout_marginBottom="5dp"
-                android:text="五颜六色的酒" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="商品名称" />
 
             <TextView
                 android:id="@+id/tv_item_mc_optionname"
                 style="@style/text_main"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="颜色" />
+                android:layout_height="wrap_content" />
+
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <ImageView
+                android:id="@+id/iv_item_mc_del"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"

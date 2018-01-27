@@ -172,7 +172,7 @@ public class FMMemCen extends BaseFragment implements
     private String level, id, avatar, nickname, credit1, credit2, couponcount;
 
     @Bind(R.id.rootView)
-    FrameLayout rootView;
+    RelativeLayout rootView;
     private DoubleWaveView waveView, waveView2, waveView3;
 
     @SuppressLint("WrongConstant")
@@ -194,6 +194,20 @@ public class FMMemCen extends BaseFragment implements
         return view;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            System.out.println("离开FMShopCart");
+
+        } else {
+            System.out.println("刷新FMShopCart");
+            isLogin();
+
+        }
+
+    }
+
     /*浪花效果*/
     private void initWaveView() {
         waveView = new DoubleWaveView(getActivity(), ScreenUtils.getScreenWidth(getActivity()), 200, "#30ffffff");
@@ -207,7 +221,7 @@ public class FMMemCen extends BaseFragment implements
 
         waveView.startAnimation(3000);
         waveView2.startAnimation(4000);
-        waveView3.startAnimation(50000);
+        waveView3.startAnimation(5000);
     }
 
     @Override

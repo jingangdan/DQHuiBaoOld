@@ -12,7 +12,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_order_all"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:overScrollMode= "never"
+            android:fadingEdge="none">
 
         </android.support.v7.widget.RecyclerView>
 

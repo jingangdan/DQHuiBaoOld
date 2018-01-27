@@ -35,6 +35,7 @@ import org.xutils.x;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,7 +78,7 @@ public class PayActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SDK_PAY_FLAG: {
-                    PayResult payResult = new PayResult((String) msg.obj);
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
                     /**
                      * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
                      * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
@@ -320,14 +321,16 @@ public class PayActivity extends BaseActivity {
         msgApi.sendReq(req);
     }
 
+
+
     public void setZhiFuBao(String info) {
-        final String orderInfo = info;   // 订单信息
+        final String orderInfo = info+ "\"&" + getSignType();   // 订单信息
 
         Runnable payRunnable = new Runnable() {
             @Override
             public void run() {
                 PayTask alipay = new PayTask(PayActivity.this);
-                String result = alipay.pay(orderInfo, true);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
 
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;

@@ -217,7 +217,6 @@ public class FMHomePage extends BaseFragment implements
                             appimglistAdapter.notifyDataSetChanged();
                         }
                         if (!index.getData().getGlist().toString().equals("[]")) {
-                            //gList = index.getData().getGlist();
                             gList.addAll(index.getData().getGlist());
                             gAdapter.notifyDataSetChanged();
                         }
@@ -285,7 +284,6 @@ public class FMHomePage extends BaseFragment implements
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onImageClick(ADInfo info, int position, View imageView) {
-                    int index = position - 1;
                     if (cycleViewPager.isCycle()) {
                         setIntent(bannerList.get(position - 1).getType(),
                                 bannerList.get(position - 1).getTitle(),
@@ -427,7 +425,7 @@ public class FMHomePage extends BaseFragment implements
                 pullToRefreshView.onHeaderRefreshComplete();
 
                 if (isNetworkUtils()) {
-                    getIndex();
+                    //getIndex();
                 } else {
                     toast("无网络连接");
                 }

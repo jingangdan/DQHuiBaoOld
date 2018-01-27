@@ -139,10 +139,6 @@ public class FMShopcar extends BaseFragment implements
 
         isLogin();
 
-//        pullToRefreshView.setOnHeaderRefreshListener(this);
-//        pullToRefreshView.setOnFooterRefreshListener(this);
-//        pullToRefreshView.setLastUpdated(new Date().toLocaleString());
-
         return view;
     }
 
