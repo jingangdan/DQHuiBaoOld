@@ -238,7 +238,7 @@ public class PayActivity extends BaseActivity {
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println("第三方下单 = " + result);
+                        System.out.println(result);
                         if (paytype.equals("balance")) {
                             AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                             if (addrReturn.getStatus() == 1) {
@@ -322,9 +322,8 @@ public class PayActivity extends BaseActivity {
     }
 
 
-
     public void setZhiFuBao(String info) {
-        final String orderInfo = info+ "\"&" + getSignType();   // 订单信息
+        final String orderInfo = info;   // 订单信息
 
         Runnable payRunnable = new Runnable() {
             @Override
