@@ -646,4 +646,29 @@ public class HttpUtils {
      */
     public static final String MEM_RECORDLIST = "Member/recordlist?";
 
+    /**
+     * 签到
+     * 方式：post/get
+     * 参数：
+     * 用户登录验证
+     */
+    public static final String ACTIVITY_SIGN = "ActivitySign/sign?";
+
+    /**
+     * 获取签到信息
+     * 方式：post/get
+     * 参数：
+     * 用户登录验证
+     */
+    public static final String ACTIVITYSIGN_INDEX = "ActivitySign/index?";
+
+    /**
+     * 分享
+     * 方式：post/get
+     * 参数：
+     * 用户登陆验证：
+     * goodsid
+     */
+    public static final String POSTER_INDEX = "Poster/index?";
+
 }

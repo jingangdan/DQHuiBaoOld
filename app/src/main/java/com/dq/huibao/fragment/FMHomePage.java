@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.ImageUtils;
 import com.dq.huibao.utils.NetworkUtils;
+import com.dq.huibao.view.MaxRecyclerView;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -102,19 +104,23 @@ public class FMHomePage extends BaseFragment implements
 
     private Intent intent;
 
+    GridLayoutManager gmMenu = null, gmImg = null, gmGlist = null;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_homepage, null);
         ButterKnife.bind(this, view);
 
-        if (isNetworkUtils()) {
-            getIndex();
-        } else {
-            toast("无网络连接");
-        }
+        gmMenu = new GridLayoutManager(getActivity(), 5) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
 
         rvHpMenu.setLayoutManager(new GridLayoutManager(getActivity(), 5, GridLayoutManager.VERTICAL, false));
+        //rvHpMenu.setLayoutManager(gmMenu);
         menuAdapter = new MenuAdapter(getActivity(), menuList);
         rvHpMenu.setAdapter(menuAdapter);
         menuAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -126,8 +132,17 @@ public class FMHomePage extends BaseFragment implements
             }
         });
 
+
+        gmImg = new GridLayoutManager(getActivity(), 4) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+
         appimglistAdapter = new AppimglistAdapter(getActivity(), appimgList);
         mManager = new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
+        //rvHpAppimglist.setLayoutManager(gmImg);
         mManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -144,6 +159,7 @@ public class FMHomePage extends BaseFragment implements
         });
         rvHpAppimglist.setLayoutManager(mManager);
         rvHpAppimglist.setAdapter(appimglistAdapter);
+
         appimglistAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -154,9 +170,27 @@ public class FMHomePage extends BaseFragment implements
         });
 
 
+        gmGlist = new GridLayoutManager(getActivity(), 1) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+
+        //rvHpGlist.setLayoutManager(gmGlist);
         rvHpGlist.setLayoutManager(new GridLayoutManager(getActivity(), 1, GridLayoutManager.VERTICAL, false));
         gAdapter = new GAdapter(getActivity(), gList);
         rvHpGlist.setAdapter(gAdapter);
+
+//        rvHpMenu.setNestedScrollingEnabled(false);
+//        rvHpAppimglist.setNestedScrollingEnabled(false);
+//        rvHpAppimglist.setNestedScrollingEnabled(false);
+
+        if (isNetworkUtils()) {
+            getIndex();
+        } else {
+            toast("无网络连接");
+        }
 
         pullToRefreshView.setOnHeaderRefreshListener(this);
         pullToRefreshView.setOnFooterRefreshListener(this);

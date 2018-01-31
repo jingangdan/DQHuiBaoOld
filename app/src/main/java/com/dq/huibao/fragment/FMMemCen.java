@@ -6,9 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,6 +26,8 @@ import com.dq.huibao.adapter.memcen.RechargeActivity;
 import com.dq.huibao.base.BaseFragment;
 import com.dq.huibao.bean.account.Account;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.memcen.Sign;
+import com.dq.huibao.bean.memcen.SignIndex;
 import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.ui.LoginActivity;
 import com.dq.huibao.ui.addr.AddressListActivity;
@@ -31,6 +37,7 @@ import com.dq.huibao.ui.memcen.CouponsActivity;
 import com.dq.huibao.ui.memcen.FootprintActivity;
 import com.dq.huibao.ui.memcen.MemcenActivity;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
+import com.dq.huibao.ui.memcen.SignRuleActivity;
 import com.dq.huibao.ui.order.OrderActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
@@ -99,6 +106,8 @@ public class FMMemCen extends BaseFragment implements
 
     @Bind(R.id.iv_mc_setting)
     ImageView ivMcSetting;
+    @Bind(R.id.iv_mc_sign)
+    ImageView ivMcSign;
 
     /*会员等级 id 昵称 余额 积分 优惠券*/
     @Bind(R.id.tv_mc_level)
@@ -175,6 +184,12 @@ public class FMMemCen extends BaseFragment implements
     RelativeLayout rootView;
     private DoubleWaveView waveView, waveView2, waveView3;
 
+    /*dialog*/
+    private TextView tv_sign, tv_sign_rule, tv_sign_days;
+
+    private Boolean cansign = false;
+    private String cur_count = "", cur_money = "";
+
     @SuppressLint("WrongConstant")
     @Nullable
     @Override
@@ -237,7 +252,7 @@ public class FMMemCen extends BaseFragment implements
     }
 
     @OnClick({R.id.but_percen_login,
-            R.id.iv_memcen, R.id.iv_mc_setting,
+            R.id.iv_memcen, R.id.iv_mc_setting, R.id.iv_mc_sign,
             R.id.lin_mc_credit1, R.id.lin_mc_credit2, R.id.lin_mc_couponcount,
             R.id.rel_mc_orders, R.id.but_mc_status0, R.id.but_mc_status1, R.id.but_mc_status2, R.id.but_mc_status3,
 
@@ -261,6 +276,73 @@ public class FMMemCen extends BaseFragment implements
                 //设置
                 intent = new Intent(getActivity(), MemcenActivity.class);
                 startActivityForResult(intent, CodeUtils.MEMBER);
+                break;
+
+            case R.id.iv_mc_sign:
+                //签到
+//                View view = getLayoutInflater().inflate(R.layout.dialog_sign, null);
+//                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+//                        .setView(view)
+//                        .create();
+//
+//                //设置弹框的高为屏幕的一半宽是屏幕的宽
+//                WindowManager windowManager = getActivity().getWindowManager();
+//                Display display = windowManager.getDefaultDisplay();
+//                WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+//                lp.width = (int) (display.getWidth() * 0.5); //设置宽度
+//                lp.height = (int) (display.getHeight() * 0.5); //设置宽度
+//                dialog.getWindow().setAttributes(lp);
+//                dialog.show();
+
+                final AlertDialog dlg = new AlertDialog.Builder(getActivity()).create();
+                dlg.show();
+                Window window = dlg.getWindow();
+                window.setGravity(Gravity.CENTER);//设置弹框在屏幕的下方
+                window.setContentView(R.layout.dialog_sign);
+                tv_sign = window.findViewById(R.id.tv_sign);
+                tv_sign_rule = window.findViewById(R.id.tv_sign_rule);
+                tv_sign_days = window.findViewById(R.id.tv_sign_days);
+
+                if (cansign) {
+                    tv_sign.setText("签到");
+                } else {
+                    tv_sign.setText("已签到");
+                }
+                tv_sign_days.setText("" + cur_count + "天");
+
+                //设置弹框的高为屏幕的一半宽是屏幕的宽
+                WindowManager windowManager = getActivity().getWindowManager();
+                Display display = windowManager.getDefaultDisplay();
+                WindowManager.LayoutParams lp = dlg.getWindow().getAttributes();
+                lp.width = (int) (display.getWidth() * 0.7); //设置宽度
+                lp.height = (int) (display.getHeight() * 0.5); //设置宽度
+                dlg.getWindow().setAttributes(lp);
+
+                tv_sign.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //toast("签到");
+                        if (cansign) {
+                            setSign(phone, token);
+                        } else {
+                            toast("已签到");
+                        }
+
+                    }
+                });
+
+                tv_sign_rule.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        intent = new Intent(getActivity(), SignRuleActivity.class);
+                        intent.putExtra("phone", phone);
+                        intent.putExtra("token", token);
+                        startActivity(intent);
+
+                        dlg.dismiss();
+                    }
+                });
+
                 break;
 
             /*个人信息*/
@@ -429,6 +511,8 @@ public class FMMemCen extends BaseFragment implements
                 token = login.getData().getToken();
 
                 getMember(phone, token);
+
+                getSignIndex(phone, token);
             }
 
             linPercenLogin.setVisibility(View.VISIBLE);
@@ -576,6 +660,95 @@ public class FMMemCen extends BaseFragment implements
                         } else {
                             toast("" + account.getData());
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
+    }
+
+    /**
+     * 签到
+     *
+     * @param phone
+     * @param token
+     */
+    public void setSign(String phone, String token) {
+        MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITY_SIGN + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+
+        params = new RequestParams(PATH);
+        System.out.println("签到 = " + PATH);
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("签到 = " + result);
+                        Sign sign = GsonUtil.gsonIntance().gsonToBean(result, Sign.class);
+                        if (sign.getStatus() == 1) {
+                            toast("" + sign.getData().getMsg());
+                            tv_sign.setText("已签到");
+                        } else if (sign.getStatus() == 0) {
+                            toast("" + sign.getData().getMsg());
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
+     * 获取签到信息
+     *
+     * @param phone
+     * @param token
+     */
+    public void getSignIndex(String phone, String token) {
+        MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITYSIGN_INDEX + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        params = new RequestParams(PATH);
+        System.out.println("签到信息 = " + PATH);
+        x.http().get(params,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        System.out.println("签到信息 = " + result);
+                        SignIndex signIndex = GsonUtil.gsonIntance().gsonToBean(result, SignIndex.class);
+                        if (signIndex.getStatus() == 1) {
+                            cansign = signIndex.getData().isCansign();
+                            cur_count = signIndex.getData().getCur_count();
+                            cur_money = signIndex.getData().getCur_money();
+                        }
+
                     }
 
                     @Override

@@ -33,8 +33,8 @@ import butterknife.ButterKnife;
  */
 public class ShopCartAdapter extends BaseExpandableListAdapter {
 
-    private List<Cart.DataBean> groups;
-    private Map<String, List<Cart.DataBean.GoodslistBean>> children;
+    private List<Cart.DataBean.CartBean> groups;
+    private Map<String, List<Cart.DataBean.CartBean.GoodslistBean>> children;
     private Context context;
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
@@ -46,7 +46,7 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
      * @param children 子元素列表
      * @param context
      */
-    public ShopCartAdapter(List<Cart.DataBean> groups, Map<String, List<Cart.DataBean.GoodslistBean>> children, Context context) {
+    public ShopCartAdapter(List<Cart.DataBean.CartBean> groups, Map<String, List<Cart.DataBean.CartBean.GoodslistBean>> children, Context context) {
         this.groups = groups;
         this.children = children;
         this.context = context;
@@ -78,7 +78,7 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        List<Cart.DataBean.GoodslistBean> childs = null;
+        List<Cart.DataBean.CartBean.GoodslistBean> childs = null;
         if (groups.size() > 0) {
             childs = children.get(groups.get(groupPosition).getShopid());
             return childs.get(childPosition);
@@ -112,7 +112,7 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
         } else {
             gholder = (GroupViewHolder) convertView.getTag();
         }
-        final Cart.DataBean group = (Cart.DataBean) getGroup(groupPosition);
+        final Cart.DataBean.CartBean group = (Cart.DataBean.CartBean) getGroup(groupPosition);
 
         gholder.tvSourceName.setText(group.getShopname());
         gholder.determineChekbox.setOnClickListener(new OnClickListener() {
@@ -141,7 +141,7 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
         } else {
             cholder = (ChildViewHolder) convertView.getTag();
         }
-        final Cart.DataBean.GoodslistBean goodsInfo = (Cart.DataBean.GoodslistBean) getChild(groupPosition, childPosition);
+        final Cart.DataBean.CartBean.GoodslistBean goodsInfo = (Cart.DataBean.CartBean.GoodslistBean) getChild(groupPosition, childPosition);
         if (goodsInfo != null) {
 
 //            ImageUtils.loadIntoUseFitWidths(context,

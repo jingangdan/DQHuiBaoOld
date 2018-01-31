@@ -81,13 +81,11 @@
                 android:gravity="left" />
 
             <View
-                android:visibility="gone"
                 android:layout_width="1dp"
                 android:layout_height="fill_parent"
                 android:background="#CCCCCC" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/lin_gd_distribution"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -106,7 +104,7 @@
                     style="@style/text_main"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我要分销" />
+                    android:text="我要推广" />
 
             </LinearLayout>
 

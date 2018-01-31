@@ -108,8 +108,8 @@ public class ShopcarActivity extends BaseActivity implements
     @Bind(R.id.exListView)
     ExpandableListView exListView;
 
-    private List<Cart.DataBean> shopList = new ArrayList<>();
-    private Map<String, List<Cart.DataBean.GoodslistBean>> children = new HashMap<String, List<Cart.DataBean.GoodslistBean>>();// 子元素数据列表
+    private List<Cart.DataBean.CartBean> shopList = new ArrayList<>();
+    private Map<String, List<Cart.DataBean.CartBean.GoodslistBean>> children = new HashMap<String, List<Cart.DataBean.CartBean.GoodslistBean>>();// 子元素数据列表
     private ShopCartAdapter shopCartAdapter;
 
     @SuppressLint("WrongConstant")
@@ -185,7 +185,7 @@ public class ShopcarActivity extends BaseActivity implements
                         System.out.println("获取购物车 = " + result);
                         Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
                         shopList.clear();
-                        shopList.addAll(cart.getData());
+                        shopList.addAll(cart.getData().getCart());
                         for (int i = 0; i < shopList.size(); i++) {
                             children.put(shopList.get(i).getShopid(), shopList.get(i).getGoodslist());
                         }
@@ -244,7 +244,7 @@ public class ShopcarActivity extends BaseActivity implements
                         if (cart.getStatus() == 1) {
                             if (tag == 1) {
                                 //增加
-                                Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
+                                Cart.DataBean.CartBean.GoodslistBean product = (Cart.DataBean.CartBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
                                         childPosition);
                                 int currentCount = Integer.parseInt(product.getCount());
                                 currentCount++;
@@ -253,7 +253,7 @@ public class ShopcarActivity extends BaseActivity implements
 
                             } else if (tag == 0) {
                                 //减少
-                                Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
+                                Cart.DataBean.CartBean.GoodslistBean product = (Cart.DataBean.CartBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
                                         childPosition);
                                 int currentCount = Integer.parseInt(product.getCount());
                                 if (currentCount == 1)
@@ -461,8 +461,8 @@ public class ShopcarActivity extends BaseActivity implements
      */
     @Override
     public void checkGroup(int position, boolean isChecked) {
-        Cart.DataBean group = shopList.get(position);
-        List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+        Cart.DataBean.CartBean group = shopList.get(position);
+        List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
         for (int i = 0; i < childs.size(); i++) {
             childs.get(i).setChoosed(isChecked);
         }
@@ -486,8 +486,8 @@ public class ShopcarActivity extends BaseActivity implements
     public void checkChild(int groupPosition, int childPosition, boolean isChecked) {
         boolean allChildSameState = true;
         // 判断改组下面的所有子元素是否是同一种状态
-        Cart.DataBean group = shopList.get(groupPosition);
-        List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+        Cart.DataBean.CartBean group = shopList.get(groupPosition);
+        List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
         for (int i = 0; i < childs.size(); i++) {
             // 不全选中
             if (childs.get(i).isChoosed() != isChecked) {
@@ -581,7 +581,7 @@ public class ShopcarActivity extends BaseActivity implements
      * @return
      */
     private boolean isAllCheck() {
-        for (Cart.DataBean group : shopList) {
+        for (Cart.DataBean.CartBean group : shopList) {
             if (!group.isChoosed())
                 return false;
         }
@@ -622,8 +622,8 @@ public class ShopcarActivity extends BaseActivity implements
     private void doCheckAll() {
         for (int i = 0; i < shopList.size(); i++) {
             shopList.get(i).setChoosed(ck_all.isChecked());
-            Cart.DataBean group = shopList.get(i);
-            List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+            Cart.DataBean.CartBean group = shopList.get(i);
+            List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
             for (int j = 0; j < childs.size(); j++) {
                 childs.get(j).setChoosed(ck_all.isChecked());
             }
@@ -643,10 +643,10 @@ public class ShopcarActivity extends BaseActivity implements
         totalPrice = 0.00;
         ids = "";
         for (int i = 0; i < shopList.size(); i++) {
-            Cart.DataBean group = shopList.get(i);
-            List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+            Cart.DataBean.CartBean group = shopList.get(i);
+            List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
             for (int j = 0; j < childs.size(); j++) {
-                Cart.DataBean.GoodslistBean product = childs.get(j);
+                Cart.DataBean.CartBean.GoodslistBean product = childs.get(j);
                 if (product.isChoosed()) {
                     totalCount++;
                     totalPrice += Double.parseDouble(product.getMarketprice()) * Integer.parseInt(product.getCount());

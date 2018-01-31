@@ -119,6 +119,9 @@
         <!--商品详情-->
         <activity android:name="com.dq.huibao.ui.GoodsDetailsActivity" />
 
+        <!--分享页面-->
+        <activity android:name=".ui.InjoyActivity" />
+
         <!--显示大图-->
         <activity android:name="com.dq.huibao.ui.ShowBigPictrueActivity" />
 
@@ -146,6 +149,9 @@
 
         <!--支付-->
         <activity android:name=".ui.PayActivity" />
+
+        <!--签到规则-->
+        <activity android:name="com.dq.huibao.ui.memcen.SignRuleActivity" />
 
         <!--管理收货地址-->
         <activity android:name="com.dq.huibao.ui.addr.AddressListActivity" />

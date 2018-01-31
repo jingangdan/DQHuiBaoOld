@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_above="@+id/lin_injoy_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="WebViewLayout">
+
+            <WebView
+                android:id="@+id/wv_injoy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </WebView>
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/lin_injoy_footer">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_white"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/text_adware"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="推广佣金" />
+
+                    <TextView
+                        android:id="@+id/tv_injoy_money"
+                        style="@style/text_red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        style="@style/text_adware"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="元" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_white"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/text_adware"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已销售" />
+
+                    <TextView
+                        android:id="@+id/tv_injoy_stock"
+                        style="@style/text_red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        style="@style/text_adware"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="件" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/bg_white"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginBottom="3dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/text_adware"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="我是" />
+
+                            <TextView
+                                android:id="@+id/tv_injoy_username"
+                                style="@style/text_red"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="用户名"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@color/bg_white"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/text_adware"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="我要为" />
+
+                            <TextView
+                                style="@style/text_red"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="德泉惠宝购物商城"
+                                android:textSize="14dp" />
+
+                            <TextView
+                                style="@style/text_adware"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="代言" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_white">
+
+                    <ImageView
+                        android:id="@+id/iv_injoy"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="#88000000"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_injoy_goodsname"
+                            style="@style/text_white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="left"
+                            android:text="商品名称" />
+
+                        <TextView
+                            android:id="@+id/tv_injoy_price"
+                            style="@style/text_red"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="商品价格" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/lin_injoy_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/but_injoy1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/kuang_style"
+                android:text="连接推广" />
+
+            <Button
+                android:id="@+id/but_injoy2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/kuang_style"
+                android:text="图片推广" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

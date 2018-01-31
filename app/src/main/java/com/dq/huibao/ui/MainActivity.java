@@ -17,11 +17,12 @@ import android.widget.Toast;
 import com.dq.huibao.R;
 import com.dq.huibao.fragment.FMClassify;
 import com.dq.huibao.fragment.FMDistribution;
-//import com.dq.huibao.fragment.FMHomePageOld;
+//import com.dq.huibao.homepage.FMHomePageOld;
 import com.dq.huibao.fragment.FMHomePage;
 import com.dq.huibao.fragment.FMMemCen;
 import com.dq.huibao.fragment.FMShopcar;
 import com.dq.huibao.fragment.FMStore;
+import com.dq.huibao.homepage.FMHomePageOld;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;
@@ -110,7 +111,6 @@ public class MainActivity extends FragmentActivity {
 
         x.Ext.init(this.getApplication());
         x.Ext.setDebug(BuildConfig.DEBUG);
-
 
         fm = getSupportFragmentManager();
         setTabSelection(0);

@@ -31,7 +31,7 @@ import java.util.List;
 public class ShopCartAdapterOld extends RecyclerView.Adapter<ShopCartAdapterOld.MyViewHolder> {
     private Context mContext;
     //private List<CartOld.DataBean.ListBean> cartList;
-    private List<Cart.DataBean.GoodslistBean> goodsList;
+    private List<Cart.DataBean.CartBean.GoodslistBean> goodsList;
     private OnItemClickListener onItemClickListener;
 
     private CheckInterface checkInterface;
@@ -42,7 +42,7 @@ public class ShopCartAdapterOld extends RecyclerView.Adapter<ShopCartAdapterOld.
 //        this.cartList = cartList;
 //    }
 
-    public ShopCartAdapterOld(Context mContext, List<Cart.DataBean.GoodslistBean> goodsList) {
+    public ShopCartAdapterOld(Context mContext, List<Cart.DataBean.CartBean.GoodslistBean> goodsList) {
         this.mContext = mContext;
         this.goodsList = goodsList;
     }
@@ -95,7 +95,7 @@ public class ShopCartAdapterOld extends RecyclerView.Adapter<ShopCartAdapterOld.
                 holder.iv_show_pic);
 
         //final CartOld.DataBean.ListBean listBean = cartList.get(position);
-        final Cart.DataBean.GoodslistBean listBean = goodsList.get(position);
+        final Cart.DataBean.CartBean.GoodslistBean listBean = goodsList.get(position);
 
         holder.tv_commodity_name.setText(goodsList.get(position).getGoods().getGoodsname());
         holder.tv_price.setText("¥:" + goodsList.get(position).getMarketprice());

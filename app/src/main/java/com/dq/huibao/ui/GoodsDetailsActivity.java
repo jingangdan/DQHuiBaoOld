@@ -227,7 +227,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
     /*本地轻量型缓存*/
     private SPUserInfo spUserInfo;
-    private String token = "", phone = "";
+    private String token = "", phone = "", username = "";
 
     private GoodsDetail goodsDetail;
     /*选择规格*/
@@ -282,7 +282,17 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
             case R.id.lin_gd_distribution:
                 //我要分销
-                Toast.makeText(TAG, "我要分销", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(TAG, "我要分销", Toast.LENGTH_SHORT).show();
+                intent = new Intent(TAG, InjoyActivity.class);
+                intent.putExtra("gid", gid);
+                intent.putExtra("username", "" + username);
+                intent.putExtra("phone", phone);
+                intent.putExtra("token", token);
+                intent.putExtra("sales", "" + goodsDetail.getData().getSales());
+                intent.putExtra("thumb", "" + picsList.get(0).toString());
+                intent.putExtra("goodsname", goodsDetail.getData().getGoodsname());
+                intent.putExtra("price", "" + goodsDetail.getData().getMarketprice());
+                startActivityForResult(intent, CodeUtils.GDTAILD);
                 break;
 
             case R.id.rel_gd_choose:
@@ -429,6 +439,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             Login login = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), Login.class);
             phone = login.getData().getPhone();
             token = login.getData().getToken();
+            username = login.getData().getNickname();
             getGoodsDetail(gid, token, phone);
 
         } else {
@@ -865,13 +876,13 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                     public void onSuccess(String result) {
                         System.out.println("添加购物车 = " + result);
                         cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
-                        if (cart.getData().size() > 0) {
+                        if (cart.getData().getCart().size() > 0) {
                             Toast.makeText(TAG, "添加成功", Toast.LENGTH_SHORT).show();
 
-                            for (int i = 0; i < cart.getData().size(); i++) {
-                                for (int j = 0; j < cart.getData().get(i).getGoodslist().size(); j++) {
-                                    if (gid.equals(cart.getData().get(i).getGoodslist().get(j).getGoodsid())) {
-                                        tvShopcarNum.setText("" + cart.getData().get(i).getGoodslist().get(j).getCount());
+                            for (int i = 0; i < cart.getData().getCart().size(); i++) {
+                                for (int j = 0; j < cart.getData().getCart().get(i).getGoodslist().size(); j++) {
+                                    if (gid.equals(cart.getData().getCart().get(i).getGoodslist().get(j).getGoodsid())) {
+                                        tvShopcarNum.setText("" + cart.getData().getCart().get(i).getGoodslist().get(j).getCount());
                                     }
                                 }
 

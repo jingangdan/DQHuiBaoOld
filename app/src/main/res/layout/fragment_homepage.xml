@@ -10,12 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.dq.huibao.view.MyScrollView
+        <com.dq.huibao.view.TopicScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fadingEdge="none"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,7 +56,7 @@
                 </LinearLayout>
 
                 <!--轮播图-->
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -70,56 +67,53 @@
                         android:layout_width="match_parent"
                         android:layout_height="135dp" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <!--菜单-->
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
                     android:padding="10dp">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_hp_menu"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fadingEdge="none"
-                        android:overScrollMode="never">
+                        android:layout_height="wrap_content">
 
                     </android.support.v7.widget.RecyclerView>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <!--图片-->
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_hp_appimglist"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fadingEdge="none"
-                        android:overScrollMode="never">
+                        android:layout_height="wrap_content">
 
                     </android.support.v7.widget.RecyclerView>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <!--glist-->
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_hp_glist"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fadingEdge="none"
-                        android:overScrollMode="never">
+                        android:layout_height="wrap_content">
 
                     </android.support.v7.widget.RecyclerView>
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <!--广告-->
                 <LinearLayout
@@ -150,7 +144,7 @@
 
             </LinearLayout>
 
-        </com.dq.huibao.view.MyScrollView>
+        </com.dq.huibao.view.TopicScrollView>
 
     </com.dq.huibao.refresh.PullToRefreshView>
 

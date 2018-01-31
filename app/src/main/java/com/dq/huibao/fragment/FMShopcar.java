@@ -120,8 +120,8 @@ public class FMShopcar extends BaseFragment implements
     @Bind(R.id.exListView)
     ExpandableListView exListView;
 
-    private List<Cart.DataBean> shopList = new ArrayList<>();
-    private Map<String, List<Cart.DataBean.GoodslistBean>> children = new HashMap<String, List<Cart.DataBean.GoodslistBean>>();// 子元素数据列表
+    private List<Cart.DataBean.CartBean> shopList = new ArrayList<>();
+    private Map<String, List<Cart.DataBean.CartBean.GoodslistBean>> children = new HashMap<String, List<Cart.DataBean.CartBean.GoodslistBean>>();// 子元素数据列表
     private ShopCartAdapter shopCartAdapter;
 
     @SuppressLint("WrongConstant")
@@ -206,7 +206,7 @@ public class FMShopcar extends BaseFragment implements
                         System.out.println("获取购物车 = " + result);
                         Cart cart = GsonUtil.gsonIntance().gsonToBean(result, Cart.class);
                         shopList.clear();
-                        shopList.addAll(cart.getData());
+                        shopList.addAll(cart.getData().getCart());
                         for (int i = 0; i < shopList.size(); i++) {
                             children.put(shopList.get(i).getShopid(), shopList.get(i).getGoodslist());
                         }
@@ -267,7 +267,7 @@ public class FMShopcar extends BaseFragment implements
                         if (cart.getStatus() == 1) {
                             if (tag == 1) {
                                 //增加
-                                Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
+                                Cart.DataBean.CartBean.GoodslistBean product = (Cart.DataBean.CartBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
                                         childPosition);
                                 int currentCount = Integer.parseInt(product.getCount());
                                 currentCount++;
@@ -276,7 +276,7 @@ public class FMShopcar extends BaseFragment implements
 
                             } else if (tag == 0) {
                                 //减少
-                                Cart.DataBean.GoodslistBean product = (Cart.DataBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
+                                Cart.DataBean.CartBean.GoodslistBean product = (Cart.DataBean.CartBean.GoodslistBean) shopCartAdapter.getChild(groupPosition,
                                         childPosition);
                                 int currentCount = Integer.parseInt(product.getCount());
                                 if (currentCount == 1)
@@ -320,7 +320,7 @@ public class FMShopcar extends BaseFragment implements
      * @param token
      * @param ids
      */
-    public void cartDel(String phone, String token, String ids) {
+    public void cartDel(final String phone, final String token, String ids) {
         MD5_PATH = "ids=" + ids + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
         PATH = HttpUtils.PATHS + HttpUtils.CART_DEL +
                 MD5_PATH + "&sign=" +
@@ -336,6 +336,7 @@ public class FMShopcar extends BaseFragment implements
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
                             toast("" + addrReturn.getData());
+                            getCart(phone, token);
                         }
 
                     }
@@ -413,35 +414,15 @@ public class FMShopcar extends BaseFragment implements
 
             case R.id.tv_settlement:
                 //提交订单
-
                 if (totalCount == 0) {
                     toast("请选择要支付的商品");
                     return;
                 }
-                alert = new AlertDialog.Builder(getActivity()).create();
-                alert.setTitle("操作提示");
-                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元" + "\n商品id = " + ids);
-                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                return;
-                            }
-                        });
 
-                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                intent = new Intent(getActivity(), SubmitOrderActivity.class);
-                                intent.putExtra("cartids", ids);
-                                intent.putExtra("tag", "0");
-                                startActivityForResult(intent, CodeUtils.CART_FM);
-                                return;
-                            }
-                        });
-                alert.show();
-
+                intent = new Intent(getActivity(), SubmitOrderActivity.class);
+                intent.putExtra("cartids", ids);
+                intent.putExtra("tag", "0");
+                startActivityForResult(intent, CodeUtils.CART_FM);
 
                 break;
 
@@ -458,8 +439,8 @@ public class FMShopcar extends BaseFragment implements
      */
     @Override
     public void checkGroup(int position, boolean isChecked) {
-        Cart.DataBean group = shopList.get(position);
-        List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+        Cart.DataBean.CartBean group = shopList.get(position);
+        List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
         for (int i = 0; i < childs.size(); i++) {
             childs.get(i).setChoosed(isChecked);
         }
@@ -483,8 +464,8 @@ public class FMShopcar extends BaseFragment implements
     public void checkChild(int groupPosition, int childPosition, boolean isChecked) {
         boolean allChildSameState = true;
         // 判断改组下面的所有子元素是否是同一种状态
-        Cart.DataBean group = shopList.get(groupPosition);
-        List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+        Cart.DataBean.CartBean group = shopList.get(groupPosition);
+        List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
         for (int i = 0; i < childs.size(); i++) {
             // 不全选中
             if (childs.get(i).isChoosed() != isChecked) {
@@ -559,7 +540,7 @@ public class FMShopcar extends BaseFragment implements
      * @return
      */
     private boolean isAllCheck() {
-        for (Cart.DataBean group : shopList) {
+        for (Cart.DataBean.CartBean group : shopList) {
             if (!group.isChoosed())
                 return false;
         }
@@ -600,8 +581,8 @@ public class FMShopcar extends BaseFragment implements
     private void doCheckAll() {
         for (int i = 0; i < shopList.size(); i++) {
             shopList.get(i).setChoosed(ck_all.isChecked());
-            Cart.DataBean group = shopList.get(i);
-            List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+            Cart.DataBean.CartBean group = shopList.get(i);
+            List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
             for (int j = 0; j < childs.size(); j++) {
                 childs.get(j).setChoosed(ck_all.isChecked());
             }
@@ -621,10 +602,10 @@ public class FMShopcar extends BaseFragment implements
         totalPrice = 0.00;
         ids = "";
         for (int i = 0; i < shopList.size(); i++) {
-            Cart.DataBean group = shopList.get(i);
-            List<Cart.DataBean.GoodslistBean> childs = children.get(group.getShopid());
+            Cart.DataBean.CartBean group = shopList.get(i);
+            List<Cart.DataBean.CartBean.GoodslistBean> childs = children.get(group.getShopid());
             for (int j = 0; j < childs.size(); j++) {
-                Cart.DataBean.GoodslistBean product = childs.get(j);
+                Cart.DataBean.CartBean.GoodslistBean product = childs.get(j);
                 if (product.isChoosed()) {
                     totalCount++;
                     totalPrice += Double.parseDouble(product.getMarketprice()) * Integer.parseInt(product.getCount());

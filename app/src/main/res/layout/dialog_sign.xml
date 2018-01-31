@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/kuang_choose_white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            style="@style/text_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每日签到" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_sign"
+            style="@style/text_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_yuan"
+            android:text="签到" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_sign_rule"
+            style="@style/text_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="签到规则"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            style="@style/text_adware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="累计签到" />
+
+        <TextView
+            android:id="@+id/tv_sign_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0天"
+            android:textColor="#000"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

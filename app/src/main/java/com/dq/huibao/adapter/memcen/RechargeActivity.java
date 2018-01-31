@@ -107,7 +107,7 @@ public class RechargeActivity extends BaseActivity {
                         System.out.println("充值 = " + result);
                         AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
                         if (addrReturn.getStatus() == 1) {
-                            toast("" + addrReturn.getData());
+                            //toast("" + addrReturn.getData());
                             intent = new Intent(RechargeActivity.this, PayActivity.class);
                             intent.putExtra("ordersn", addrReturn.getData().toString());
                             intent.putExtra("price", money);

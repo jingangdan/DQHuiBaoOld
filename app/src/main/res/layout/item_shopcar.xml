@@ -22,7 +22,8 @@
             style="@style/text_main"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="删除" />
+            android:text="删除"
+            android:visibility="gone" />
 
 
     </RelativeLayout>
