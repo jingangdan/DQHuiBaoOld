@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.dq.huibao.refresh.PullToRefreshView
+        android:id="@+id/ptrv_hp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.dq.huibao.view.TopicScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lv_home_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.dq.huibao.view.TopicScrollView>
+
+    </com.dq.huibao.refresh.PullToRefreshView>
+
+</LinearLayout>

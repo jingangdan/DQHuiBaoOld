@@ -109,7 +109,7 @@ public class SubmitOrderActivity extends BaseActivity {
     @Override
     protected void initWidght() {
         super.initWidght();
-        setTitleName("提交订单");
+        setTitleName("确认订单");
     }
 
     @OnClick({R.id.lin_submitorder_address, R.id.but_confirm_pay})

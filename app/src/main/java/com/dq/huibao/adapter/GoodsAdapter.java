@@ -32,13 +32,8 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.MyViewHolder
     private OnItemLongClickListener mOnItemLongClickListener;
 
     private Context mContext;
-    //private List<GoodsList.DataBean.GoodsBean> goodsList;
     private List<GoodsList.DataBean.ListBean> goodsList;
 
-    //    public GoodsAdapter(Context mContext, List<GoodsList.DataBean.GoodsBean> goodsList) {
-//        this.mContext = mContext;
-//        this.goodsList = goodsList;
-//    }
     public GoodsAdapter(Context mContext, List<GoodsList.DataBean.ListBean> goodsList) {
         this.mContext = mContext;
         this.goodsList = goodsList;

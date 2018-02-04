@@ -84,7 +84,6 @@ public class InjoyActivity extends BaseActivity {
         }
 
         tvInjoyStock.setText("" + sales);
-        System.out.println("111" + img);
         ImageUtils.loadIntoUseFitWidths(this,
                 HttpUtils.IMG_HEADER + img,
                 R.mipmap.icon_empty,

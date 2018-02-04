@@ -73,7 +73,10 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return groups.get(groupPosition);
+        if (groups.size() > 0) {
+            return groups.get(groupPosition);
+        }
+        return null;
     }
 
     @Override
@@ -114,17 +117,18 @@ public class ShopCartAdapter extends BaseExpandableListAdapter {
         }
         final Cart.DataBean.CartBean group = (Cart.DataBean.CartBean) getGroup(groupPosition);
 
-        gholder.tvSourceName.setText(group.getShopname());
-        gholder.determineChekbox.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                group.setChoosed(((CheckBox) v).isChecked());
-                checkInterface.checkGroup(groupPosition, ((CheckBox) v).isChecked());
-                // 暴露组选接口
-            }
-        });
-        gholder.determineChekbox.setChecked(group.isChoosed());
-
+        if(group != null){
+            gholder.tvSourceName.setText(group.getShopname());
+            gholder.determineChekbox.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    group.setChoosed(((CheckBox) v).isChecked());
+                    checkInterface.checkGroup(groupPosition, ((CheckBox) v).isChecked());
+                    // 暴露组选接口
+                }
+            });
+            gholder.determineChekbox.setChecked(group.isChoosed());
+        }
         return convertView;
     }
 

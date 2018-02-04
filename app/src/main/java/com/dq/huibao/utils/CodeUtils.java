@@ -48,5 +48,8 @@ public class CodeUtils {
     /*充值*/
     public static final int RECHARGE = 0x14;
 
+    /*首页*/
+    public static final int HOMEPAGE = 0x15;
+
 
 }

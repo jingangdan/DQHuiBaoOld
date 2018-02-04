@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.dq.huibao.R;
+import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.utils.HttpUtils;
 import com.dq.huibao.utils.MD5Util;
 
@@ -18,7 +19,7 @@ import org.xutils.x;
  * Created by jingang on 2018/1/31.
  */
 
-public class SignRuleActivity extends Activity {
+public class SignRuleActivity extends BaseActivity {
     /*接收页面传值*/
     private Intent intent;
     private String phone = "", token = "";
@@ -38,6 +39,12 @@ public class SignRuleActivity extends Activity {
         getSignIndex(phone, token);
 
 
+    }
+
+    @Override
+    protected void initWidght() {
+        super.initWidght();
+        setTitleName("签到规则");
     }
 
     /**
