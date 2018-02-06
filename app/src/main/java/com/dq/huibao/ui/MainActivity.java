@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.dq.huibao.R;
 import com.dq.huibao.fragment.FMClassify;
 import com.dq.huibao.fragment.FMDistribution;
+import com.dq.huibao.fragment.FMFind;
 import com.dq.huibao.fragment.FMHomePage;
 import com.dq.huibao.fragment.FMMemCen;
 import com.dq.huibao.fragment.FMShopcar;
@@ -94,7 +95,9 @@ public class MainActivity extends FragmentActivity {
     private FMShopcar fmShopcar;
     private FMMemCen fmMemCen;
 
-    private FMStore fmStore;
+    private FMFind fmStore;
+
+    //private FMStore fmStore;
     private FMDistribution fmDistribution;
 
     public static MainActivity mainActivity;
@@ -236,7 +239,7 @@ public class MainActivity extends FragmentActivity {
                 ivHpStore.setImageResource(R.mipmap.icon_store002);
                 tvHpStore.setTextColor(mycolor);
                 if (fmStore == null) {
-                    fmStore = new FMStore();
+                    fmStore = new FMFind();
                     ft.add(R.id.content, fmStore);
                 } else {
                     ft.show(fmStore);
@@ -249,7 +252,7 @@ public class MainActivity extends FragmentActivity {
                 tvHpStore.setTextColor(mycolor);
 
                 if (fmStore == null) {
-                    fmStore = new FMStore();
+                    fmStore = new FMFind();
                     ft.add(R.id.content, fmStore);
                 } else {
                     ft.show(fmStore);
@@ -455,12 +458,8 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //
-            boolean is;
             //双击退出
             if (System.currentTimeMillis() - millis < 1000) {
-
-                //FMHomePage.mLocationClient.stop();
                 return super.onKeyDown(keyCode, event);
             } else {
                 Toast.makeText(this, "再次点击退出程序", Toast.LENGTH_SHORT).show();

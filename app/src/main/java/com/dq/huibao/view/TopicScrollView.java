@@ -27,9 +27,6 @@ public class TopicScrollView extends ScrollView {
     }
 
 
-
-
-
     public TopicScrollView(Context context, AttributeSet attrs) {
 
         super(context, attrs);
@@ -46,9 +43,6 @@ public class TopicScrollView extends ScrollView {
         mTouchSlop= ViewConfiguration.get(context).getScaledTouchSlop();
 
     }
-
-
-
 
 
     @Override
