@@ -1,5 +1,6 @@
 package com.dq.huibao.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dq.huibao.Interface.HomePageInterface;
@@ -34,9 +37,11 @@ import com.dq.huibao.ui.homepage.WebActivity;
 import com.dq.huibao.ui.memcen.SignRuleActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
+import com.dq.huibao.utils.HttpxUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
+import com.dq.huibao.view.CustomProgress;
 
 import org.xutils.common.Callback;
 import org.xutils.ex.HttpException;
@@ -50,6 +55,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 首页
@@ -67,7 +73,16 @@ public class FMHomePage extends BaseFragment implements
 
     @Bind(R.id.ptrv_hp)
     PullToRefreshView pullToRefreshView;
+
+    /*无网络或网络不佳*/
+    @Bind(R.id.lin_hp_nonetwork)
+    LinearLayout linHpNonetwork;
+    @Bind(R.id.lin_hp_network)
+    LinearLayout linHpNetwork;
+    @Bind(R.id.but_refresh)
+    Button butRefresh;
     private View view;
+    private CustomProgress progressDialog = null;
 
     /*接口地址*/
     private String PATH = "", MD5_PATH = "";
@@ -94,6 +109,8 @@ public class FMHomePage extends BaseFragment implements
         view = inflater.inflate(R.layout.fm_homepage, null);
         ButterKnife.bind(this, view);
 
+        startProgressDialog();
+
         getLogin();
 
         pullToRefreshView.setOnHeaderRefreshListener(this);
@@ -102,6 +119,7 @@ public class FMHomePage extends BaseFragment implements
         return view;
     }
 
+    /*获取登录返回的数据*/
     public void getLogin() {
         if (isLogin()) {
             if (!(spUserInfo.getLoginReturn().equals(""))) {
@@ -142,52 +160,57 @@ public class FMHomePage extends BaseFragment implements
      * url # 不做操作
      */
     public void getIndex(String phone, String token) {
-        PATH = HttpUtils.PATHS + HttpUtils.INDEXT_INDEX;
-        params = new RequestParams(PATH);
+        PATH = HttpPath.PATHS + HttpPath.INDEXT_INDEX;
         System.out.println("首页 = " + PATH);
-        x.http().get(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("首页 = " + result);
-                        Index index = GsonUtil.gsonIntance().gsonToBean(result, Index.class);
-                        dataList.clear();
-                        dataList.add(index.getData());
+        HttpxUtils.Get(PATH, null, new Callback.CommonCallback<String>() {
+            @SuppressLint("WrongConstant")
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("首页 = " + result);
+                stopProgressDialog();
+                linHpNetwork.setVisibility(View.VISIBLE);
+                linHpNonetwork.setVisibility(View.GONE);
+                Index index = GsonUtil.gsonIntance().gsonToBean(result, Index.class);
+                dataList.clear();
+                dataList.add(index.getData());
 
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        homeRecycleAdapter = new HomeRecycleViewAdapter(getActivity(), dataList);
-                        recyclerView.setAdapter(homeRecycleAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                homeRecycleAdapter = new HomeRecycleViewAdapter(getActivity(), dataList);
+                recyclerView.setAdapter(homeRecycleAdapter);
 
-                        homeRecycleAdapter.setHpInterface(FMHomePage.this);
+                homeRecycleAdapter.setHpInterface(FMHomePage.this);
+            }
 
-                    }
+            @SuppressLint("WrongConstant")
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                stopProgressDialog();
+                linHpNetwork.setVisibility(View.GONE);
+                linHpNonetwork.setVisibility(View.VISIBLE);
+                //toast(ex.getMessage());
+                if (ex instanceof HttpException) {
+                    //网络错误
+                    HttpException httpEx = (HttpException) ex;
+                    int responseCode = httpEx.getCode();
+                    String responseMsg = httpEx.getMessage();
+                    String errorResult = httpEx.getResult();
+                    toast("" + responseMsg);
+                } else {
+                    //其他错误
+                    toast("网络不佳，请重试");
+                }
+            }
 
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-                        //hasError = true;
-                        toast(ex.getMessage());
-                        //Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
-                        if (ex instanceof HttpException) {
-                            //网络错误
-                            HttpException httpEx = (HttpException) ex;
-                            int responseCode = httpEx.getCode();
-                            String responseMsg = httpEx.getMessage();
-                            String errorResult = httpEx.getResult();
-                        } else {
-                            //其他错误
-                        }
-                    }
+            @Override
+            public void onCancelled(CancelledException cex) {
 
-                    @Override
-                    public void onCancelled(CancelledException cex) {
+            }
 
-                    }
+            @Override
+            public void onFinished() {
 
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
+            }
+        });
     }
 
     /**
@@ -198,49 +221,47 @@ public class FMHomePage extends BaseFragment implements
      */
     public void getSignIndex(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITYSIGN_INDEX + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
-        params = new RequestParams(PATH);
+        PATH = HttpPath.PATHS + HttpPath.ACTIVITYSIGN_INDEX + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
+
         System.out.println("签到信息 = " + PATH);
-        x.http().get(params,
-                new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        System.out.println("签到信息 = " + result);
-                        SignIndex signIndex = GsonUtil.gsonIntance().gsonToBean(result, SignIndex.class);
-                        if (signIndex.getStatus() == 1) {
-                            cansign = signIndex.getData().isCansign();
-                            cur_count = signIndex.getData().getCur_count();
-                            cur_money = signIndex.getData().getCur_money();
 
-                            if (cansign) {
-                                tv_sign.setText("签到");
-                            } else {
-                                tv_sign.setText("已签到");
-                            }
-                            tv_sign_days.setText("" + cur_count + "天");
+        HttpxUtils.Get(PATH, null, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("签到信息 = " + result);
+                SignIndex signIndex = GsonUtil.gsonIntance().gsonToBean(result, SignIndex.class);
+                if (signIndex.getStatus() == 1) {
+                    cansign = signIndex.getData().isCansign();
+                    cur_count = signIndex.getData().getCur_count();
+                    cur_money = signIndex.getData().getCur_money();
 
-                        }
-
-
+                    if (cansign) {
+                        tv_sign.setText("签到");
+                    } else {
+                        tv_sign.setText("已签到");
                     }
+                    tv_sign_days.setText("" + cur_count + "天");
 
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
+                }
 
-                    }
+            }
 
-                    @Override
-                    public void onCancelled(CancelledException cex) {
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
 
-                    }
+            }
 
-                    @Override
-                    public void onFinished() {
+            @Override
+            public void onCancelled(CancelledException cex) {
 
-                    }
-                });
+            }
 
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     /**
@@ -251,8 +272,8 @@ public class FMHomePage extends BaseFragment implements
      */
     public void setSign(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITY_SIGN + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ACTIVITY_SIGN + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("签到 = " + PATH);
@@ -286,6 +307,17 @@ public class FMHomePage extends BaseFragment implements
 
                     }
                 });
+    }
+
+    @OnClick({R.id.but_refresh})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.but_refresh:
+                getLogin();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -443,6 +475,23 @@ public class FMHomePage extends BaseFragment implements
         builder.create().show();
     }
 
+    /*开始dialog*/
+    private void startProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = CustomProgress.createDialog(getActivity());
+            progressDialog.setMessage("请稍候...");
+        }
+        progressDialog.show();
+    }
+
+    /*结束dialog*/
+    private void stopProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+    }
+
     @Override
     public void onFooterRefresh(PullToRefreshView view) {
         pullToRefreshView.postDelayed(new Runnable() {
@@ -462,6 +511,7 @@ public class FMHomePage extends BaseFragment implements
         pullToRefreshView.postDelayed(new Runnable() {
             @Override
             public void run() {
+                startProgressDialog();
                 //刷新数据
                 pullToRefreshView.onHeaderRefreshComplete("更新于:"
                         + Calendar.getInstance().getTime().toLocaleString());
@@ -474,4 +524,5 @@ public class FMHomePage extends BaseFragment implements
 
         }, 1000);
     }
+
 }

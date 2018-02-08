@@ -17,7 +17,7 @@ import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.memcen.Collect;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 
 import org.xutils.common.Callback;
@@ -96,8 +96,8 @@ public class CollectActivity extends BaseActivity implements CollectAdapter.Coll
      */
     public void getRecordList(String type, int page, String phone, String token) {
         MD5_PATH = "page=" + page + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_RECORDLIST + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEM_RECORDLIST + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("收藏列表 = " + PATH);
@@ -169,8 +169,8 @@ public class CollectActivity extends BaseActivity implements CollectAdapter.Coll
      */
     public void setDelRecord(String type, String id, String phone, String token, final int position) {
         MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_DELRECORD + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEM_DELRECORD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("取消收藏 = " + PATH);
         x.http().post(params,

@@ -6,11 +6,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,12 +34,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.adapter.AddressListAdapter;
 import com.dq.huibao.adapter.gd.ChooseAdapter;
-import com.dq.huibao.adapter.gd.ChooseTwoAdapter;
 import com.dq.huibao.adapter.gd.GdCommentAdapter;
 import com.dq.huibao.adapter.gd.GdParmasAdapter;
-import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.cart.Cart;
@@ -59,11 +54,9 @@ import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
-import com.dq.huibao.utils.ImageUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
-import com.dq.huibao.view.HackyViewPager;
 import com.dq.huibao.view.goodsdetails_foot.GradationScrollView;
 
 import org.xutils.common.Callback;
@@ -281,7 +274,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 break;
 
             case R.id.lin_gd_distribution:
-                //我要分销
+                //我要推广
                 //Toast.makeText(TAG, "我要分销", Toast.LENGTH_SHORT).show();
                 intent = new Intent(TAG, InjoyActivity.class);
                 intent.putExtra("gid", gid);
@@ -467,7 +460,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      * @param phone （不用加密，没登陆就不传）
      */
     public void getGoodsDetail(String id, String token, String phone) {
-        PATH = HttpUtils.PATHS + HttpUtils.GOODS_DETAIL +
+        PATH = HttpPath.PATHS + HttpPath.GOODS_DETAIL +
                 "id=" + id + "&token=" + token + "&phone=" + phone;
         params = new RequestParams(PATH);
         System.out.println("商品详情 = " + PATH);
@@ -538,8 +531,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      */
     public void setAddRecord(String type, String id, String phone, String token) {
         MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_ADDRECORD + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEM_ADDRECORD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("添加收藏 = " + PATH);
         x.http().post(params,
@@ -584,8 +577,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
      */
     public void setDelRecord(String type, String id, String phone, String token) {
         MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&type=" + type;
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_DELRECORD + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEM_DELRECORD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("取消收藏 = " + PATH);
         x.http().post(params,
@@ -650,7 +643,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         infos = new ArrayList<>();
         for (int i = 0; i < picsList.size(); i++) {
             info = new ADInfo();
-            info.setUrl(HttpUtils.IMG_HEADER + picsList.get(i).toString());
+            info.setUrl(HttpPath.IMG_HEADER + picsList.get(i).toString());
             info.setContent("");
             info.setImg("");
             infos.add(info);
@@ -765,7 +758,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
 
         Glide.with(TAG)
-                .load(HttpUtils.IMG_HEADER + goodsDetail.getData().getThumb())
+                .load(HttpPath.IMG_HEADER + goodsDetail.getData().getThumb())
                 .placeholder(R.mipmap.icon_empty002)
                 .error(R.mipmap.icon_error002)
                 .into(iv_thumb);
@@ -821,29 +814,49 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tag == 0) {
-                    //选择规格
-                    tvGdSpecification.setText("已选：" + string_name);
-                    popWindow.dismiss();
-                } else if (tag == 1) {
-                    //添加购物车
-                    cartAdd(phone, token, gid, optionid, num);
-
-                } else if (tag == 2) {
-                    //立即购买
+                if (optionsList.size() > 0) {
                     if (!optionid.equals("")) {
+                        if (tag == 0) {
+                            //选择规格
+                            tvGdSpecification.setText("已选：" + string_name);
+                            popWindow.dismiss();
+                        } else if (tag == 1) {
+                            //添加购物车
+                            cartAdd(phone, token, gid, optionid, num);
+
+                        } else if (tag == 2) {
+                            //立即购买
+                            intent = new Intent(TAG, SubmitOrderActivity.class);
+                            intent.putExtra("goodsid", gid);
+                            intent.putExtra("tag", "1");
+                            intent.putExtra("count", num + "");
+                            intent.putExtra("optioned", optionid);
+                            startActivity(intent);
+                        }
+                        popWindow.dismiss();
+                    } else {
+                        Toast.makeText(TAG, "未选规格", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (tag == 0) {
+                        //选择规格
+                        tvGdSpecification.setText("已选：" + string_name);
+                        popWindow.dismiss();
+                    } else if (tag == 1) {
+                        //添加购物车
+                        cartAdd(phone, token, gid, optionid, num);
+
+                    } else if (tag == 2) {
+                        //立即购买
                         intent = new Intent(TAG, SubmitOrderActivity.class);
                         intent.putExtra("goodsid", gid);
                         intent.putExtra("tag", "1");
                         intent.putExtra("count", num + "");
                         intent.putExtra("optioned", optionid);
                         startActivity(intent);
-                    } else {
-                        Toast.makeText(TAG, "未选规格", Toast.LENGTH_SHORT).show();
                     }
-
+                    popWindow.dismiss();
                 }
-                popWindow.dismiss();
 
 
             }
@@ -863,7 +876,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     public void cartAdd(String phone, String token, final String gid, String optionid, int count) {
         MD5_PATH = "count=" + count + "&goodsid=" + gid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.CART_ADD + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
 
@@ -932,7 +945,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                 "</head>";
         String html = "<html>" + head + "<body>" + html_bady + "</body></html>";
 
-        webView.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
+        webView.loadDataWithBaseURL(HttpPath.HEADER, html, "text/html", "utf-8", null);
 
     }
 
@@ -987,10 +1000,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
         dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-//                //如果取消收藏，则显示取消收藏后的效果
                 setDelRecord("collect", gid, phone, token);
-//
-//                tvGdCollection.setText("收藏");
             }
         });
         dialog.setNegativeButton("取消", null);
@@ -1105,7 +1115,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
 
                     } else {
                         Glide.with(mContext)
-                                .load(HttpUtils.IMG_HEADER + specBeanList.get(i).getItems().get(position).getThumb())
+                                .load(HttpPath.IMG_HEADER + specBeanList.get(i).getItems().get(position).getThumb())
                                 .placeholder(R.mipmap.icon_empty002)
                                 .error(R.mipmap.icon_error002)
                                 .into(iv_thumb);
@@ -1117,7 +1127,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                         if (j == 0) {
                             string = strings[j];
                         } else {
-                            string = strings[j] + "_" + string;
+                            string = string + "_" + strings[j];
                         }
                     }
 
@@ -1156,4 +1166,5 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
             }
         }
     }
+
 }

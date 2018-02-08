@@ -13,7 +13,7 @@ import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.LoginBean;
 import com.dq.huibao.bean.memcen.CouponsList;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
@@ -96,9 +96,9 @@ public class CouponsListActivity extends BaseActivity {
      * @param page
      */
     public void getCouponsList(String unionid, int page) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_COUPON_INDEX +
+        PATH = HttpPath.PATH + HttpPath.SHOP_COUPON_INDEX +
                 "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_COUPON_INDEX + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
+                MD5Util.getMD5String(HttpPath.SHOP_COUPON_INDEX + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
                 "&page=" + page;
 
         params = new RequestParams(PATH);

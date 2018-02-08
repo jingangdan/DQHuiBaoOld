@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
-import com.dq.huibao.bean.memcen.Coupons;
 import com.dq.huibao.bean.memcen.CouponsList;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.DateUtils;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -61,7 +59,7 @@ public class CouponsListAdapter extends RecyclerView.Adapter<CouponsListAdapter.
         }
 
         ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.HEADER + couponsList.get(position).getThumb(),
+                HttpPath.HEADER + couponsList.get(position).getThumb(),
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.iv_thumb);

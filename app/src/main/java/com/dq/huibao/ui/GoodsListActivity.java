@@ -21,7 +21,7 @@ import com.dq.huibao.adapter.GoodsAdapter;
 import com.dq.huibao.bean.goods.GoodsList;
 import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -267,7 +267,7 @@ public class GoodsListActivity extends Activity implements
      */
     public void getGoodsList(String content, String keywords, int page) {
 
-        PATH = HttpUtils.PATHS + HttpUtils.GOODS_SEARCH +
+        PATH = HttpPath.PATHS + HttpPath.GOODS_SEARCH +
                 content + "&keywords=" + keywords + "&page=" + page;
 
         params = new RequestParams(PATH);

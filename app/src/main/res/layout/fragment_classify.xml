@@ -2,67 +2,76 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/view_main"
     android:orientation="vertical">
 
-    <!--搜索-->
+    <include layout="@layout/layout_nonetwork" />
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/tv_search"
-            style="@style/text_main"
-            android:layout_weight="1"
-            android:background="@drawable/kuang_style"
-            android:padding="10dp"
-            android:text="搜索：输入关键字" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:background="@color/view_main" />
-
-    <!--分类-->
-    <LinearLayout
+        android:id="@+id/lin_fc_nonetwork"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_main"
-        android:orientation="horizontal">
+        android:background="@color/view_main"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_c_classify"
-            android:layout_width="0dp"
+        <!--搜索-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tv_search"
+                style="@style/text_main"
+                android:layout_weight="1"
+                android:background="@drawable/kuang_style"
+                android:padding="10dp"
+                android:text="搜索：输入关键字" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/view_main" />
+
+        <!--分类-->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fadingEdge="none"
-            android:overScrollMode="never">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:background="@color/bg_white">
+            android:background="@color/bg_main"
+            android:orientation="horizontal">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_c_classify_three"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#fff"
+                android:id="@+id/rv_c_classify"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:fadingEdge="none"
                 android:overScrollMode="never">
 
             </android.support.v7.widget.RecyclerView>
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:background="@color/bg_white">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_c_classify_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

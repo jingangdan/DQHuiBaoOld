@@ -14,7 +14,7 @@ import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 
 import org.xutils.common.Callback;
@@ -226,9 +226,9 @@ public class OrderRefundActivity extends BaseActivity {
      */
     public void setRefund(String id, String phone, String token, String reason, String remark) {
         MD5_PATH = "id=" + id + "&phone=" + phone + "&remark=" + remark + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ORDER_REFUND + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.ORDER_REFUND + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String("id=" + id + "&phone=" + phone + "&remark=" + reason + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token +
-                        HttpUtils.KEY);
+                        HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("加密 = " + MD5_PATH);

@@ -7,13 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.index.Index;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -58,7 +56,7 @@ public class AppimglistAdapter extends RecyclerView.Adapter<AppimglistAdapter.My
 
         }
         ImageUtils.loadIntoUseFitWidths(mContext,
-                HttpUtils.NEW_HEADER + appimgList.get(i).getThumb(),
+                HttpPath.NEW_HEADER + appimgList.get(i).getThumb(),
                 R.mipmap.icon_empty003,
                 R.mipmap.icon_error003,
                 holder.img);

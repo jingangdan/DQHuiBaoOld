@@ -19,7 +19,7 @@ import com.dq.huibao.bean.addr.Addr;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
@@ -132,7 +132,7 @@ public class AddressListActivity extends BaseActivity
     public void getAddr(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_GETADDR + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.MEMBER_GETADDR + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
         params = new RequestParams(PATH);
@@ -180,8 +180,8 @@ public class AddressListActivity extends BaseActivity
     public void addrDel(final int position, String id, final String phone, final String token) {
         MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_DELADDR + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEMBER_DELADDR + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("删除收货地址 = " + PATH);
@@ -226,8 +226,8 @@ public class AddressListActivity extends BaseActivity
      */
     public void setDefaultaddr(String id, final String phone, final String token, final int position) {
         MD5_PATH = "id=" + id + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_DEGAULTADDR + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEMBER_DEGAULTADDR + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("设置默认地址 = " + PATH);
         x.http().post(params,

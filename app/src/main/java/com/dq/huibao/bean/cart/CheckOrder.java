@@ -56,6 +56,16 @@ public class CheckOrder {
         private String commet;
         private List<GoodslistBean> goodslist;
 
+        public boolean can_dispath;
+
+        public boolean isCan_dispath() {
+            return can_dispath;
+        }
+
+        public void setCan_dispath(boolean can_dispath) {
+            this.can_dispath = can_dispath;
+        }
+
         public String getCommet() {
             return commet;
         }
@@ -605,6 +615,7 @@ public class CheckOrder {
                     ", dispatch_all=" + dispatch_all +
                     ", commet='" + commet + '\'' +
                     ", goodslist=" + goodslist +
+                    ", can_dispath=" + can_dispath +
                     '}';
         }
     }

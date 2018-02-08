@@ -27,7 +27,7 @@ import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.wechat.WeChat;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 import com.mob.tools.utils.UIHandler;
@@ -347,9 +347,9 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
      */
     public void postLoginTest(String unionid) {
 
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODS_LOGIN +
+        PATH = HttpPath.PATH + HttpPath.SHOP_GOODS_LOGIN +
                 "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_GOODS_LOGIN + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom");
+                MD5Util.getMD5String(HttpPath.SHOP_GOODS_LOGIN + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom");
 
         params = new RequestParams(PATH);
         System.out.println("测试登录 = " + PATH);
@@ -403,7 +403,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
      * @param pwd
      */
     public void postLogin(String phone, String pwd) {
-        PATH = HttpUtils.PATHS + HttpUtils.ACCOUNT_LOGIN +
+        PATH = HttpPath.PATHS + HttpPath.ACCOUNT_LOGIN +
                 "phone=" + phone + "&pwd=" + pwd;
 
         params = new RequestParams(PATH);

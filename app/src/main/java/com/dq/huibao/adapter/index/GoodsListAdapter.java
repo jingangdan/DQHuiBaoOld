@@ -13,7 +13,7 @@ import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.index.Index;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsListAdapter.MyVi
         }
         /*等比例显示图片*/
         ImageUtils.loadIntoUseFitWidths(mContext,
-                HttpUtils.IMG_HEADER+goodsList.get(position).getThumb(),
+                HttpPath.IMG_HEADER+goodsList.get(position).getThumb(),
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.img);

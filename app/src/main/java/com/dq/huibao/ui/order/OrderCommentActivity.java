@@ -13,11 +13,9 @@ import com.dq.huibao.adapter.order.OrderCommentAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.order.OrderDetail;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -88,8 +86,8 @@ public class OrderCommentActivity extends BaseActivity {
      */
     public void getOrderDetail(final String orderid, String phone, String token) {
         MD5_PATH = "id=" + orderid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ORDER_DETAIL + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ORDER_DETAIL + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("订单详情 = " + PATH);
         x.http().get(params,
@@ -134,8 +132,8 @@ public class OrderCommentActivity extends BaseActivity {
      */
     public void setOrderComment(String orderid, String remark, String phone, String token) {
         MD5_PATH = "orderid=" + orderid + "&phone=" + phone + "&remark=" + remark + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ORDER_COMMENT + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ORDER_COMMENT + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("评价订单 = " + PATH);

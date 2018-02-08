@@ -19,7 +19,7 @@ import com.dq.huibao.R;
 //import com.dq.huibao.bean.CartOld;
 import com.dq.huibao.bean.cart.Cart;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -89,7 +89,7 @@ public class ShopCartAdapterOld extends RecyclerView.Adapter<ShopCartAdapterOld.
         }
 
         ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.IMG_HEADER + goodsList.get(position).getGoods().getThumb(),
+                HttpPath.IMG_HEADER + goodsList.get(position).getGoods().getThumb(),
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.iv_show_pic);

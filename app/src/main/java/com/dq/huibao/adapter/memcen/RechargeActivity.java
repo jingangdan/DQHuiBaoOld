@@ -17,7 +17,7 @@ import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.ui.PayActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 
 import org.xutils.common.Callback;
@@ -96,8 +96,8 @@ public class RechargeActivity extends BaseActivity {
      */
     public void setRechargeOrder(final String money, final String phone, final String token) {
         MD5_PATH = "money=" + money + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.RECHARGE_ORDER + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.RECHARGE_ORDER + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("充值 = " + PATH);
         x.http().post(params,

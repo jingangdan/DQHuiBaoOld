@@ -134,7 +134,6 @@
 
                     </FrameLayout>
 
-
                     <!--我的账号-->
                     <include layout="@layout/include_mc_account" />
 

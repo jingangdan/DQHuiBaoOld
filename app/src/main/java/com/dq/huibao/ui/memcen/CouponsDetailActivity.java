@@ -22,7 +22,7 @@ import com.dq.huibao.bean.memcen.Recomment;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.utils.DateUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
@@ -138,9 +138,9 @@ public class CouponsDetailActivity extends BaseActivity {
      * @param unionid
      */
     public void getCouponsDetail(String id, String unionid) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_COUPON_DETAIL +
+        PATH = HttpPath.PATH + HttpPath.SHOP_COUPON_DETAIL +
                 "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_COUPON_DETAIL + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
+                MD5Util.getMD5String(HttpPath.SHOP_COUPON_DETAIL + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
                 "&id=" + id;
 
         params = new RequestParams(PATH);
@@ -188,7 +188,7 @@ public class CouponsDetailActivity extends BaseActivity {
      * 获取推荐商品
      */
     public void getRecomment() {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_GOODS_RECOMMENT;
+        PATH = HttpPath.PATH + HttpPath.SHOP_GOODS_RECOMMENT;
         params = new RequestParams(PATH);
         System.out.println("推荐商品 = " + PATH);
         x.http().get(params,
@@ -229,7 +229,7 @@ public class CouponsDetailActivity extends BaseActivity {
      */
     public void setInitDate() {
         ImageUtils.loadIntoUseFitWidth(this,
-                HttpUtils.HEADER + respthumb,
+                HttpPath.HEADER + respthumb,
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 ivCdRespthumb);
@@ -259,7 +259,7 @@ public class CouponsDetailActivity extends BaseActivity {
                 "</head>";
         String html = "<html>" + head + "<body>" + html_bady + "</body></html>";
 
-        wvCouponsdetail.loadDataWithBaseURL(HttpUtils.HEADER, html, "text/html", "utf-8", null);
+        wvCouponsdetail.loadDataWithBaseURL(HttpPath.HEADER, html, "text/html", "utf-8", null);
 
     }
 

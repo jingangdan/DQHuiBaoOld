@@ -22,7 +22,7 @@ import com.dq.huibao.ui.order.OrderKuaiDiActivity;
 import com.dq.huibao.ui.order.OrderRefundActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 
 import org.xutils.common.Callback;
@@ -114,8 +114,8 @@ public class FMOrderNoSend extends BaseFragment implements OrderInterface {
     public void orderGetList(String status, String phone, String token) {
         MD5_PATH = "phone=" + phone + "&status=" + status + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.ORDER_GETIST + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ORDER_GETIST + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("全部订单列表 = " + PATH);
         x.http().get(params,

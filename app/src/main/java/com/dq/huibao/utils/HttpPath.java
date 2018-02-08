@@ -5,7 +5,7 @@ package com.dq.huibao.utils;
  * Created by jingang on 2017/11/2.
  */
 
-public class HttpUtils {
+public class HttpPath {
 
     /*请求头（主要用于图片请求）*/
     public static final String HEADER = "http://www.dequanhuibao.com/attachment/";
@@ -495,8 +495,8 @@ public class HttpUtils {
     public static final String CONFIRM_BUYNOW = "Confirm/buynow?";
 
     /**
-     * 24.
-     * 提交订单
+     * 24.(1)
+     * 提交订单(购物车)
      * 方式：post/get
      * 参数：
      * cartids  购物车id 集合 逗号隔开
@@ -505,6 +505,20 @@ public class HttpUtils {
      * 用户登陆验证（phone,token）
      */
     public static final String ORDER_ADD = "Order/add?";
+
+    /**
+     * 24.(2)
+     * 提交订单（商品详情）
+     * 方式：post/get
+     * 参数：
+     * goodsid
+     * optionid
+     * count
+     * addrid收货地址的id
+     * remark备注[{shopid:remark}]备注
+     * 用户登陆验证（phone,token）
+     */
+    public static final String ORDER_BUYNOW = "Order/buynow?";
 
     /**
      * 25.

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,12 +44,11 @@ import com.dq.huibao.ui.memcen.SignRuleActivity;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.NetworkUtils;
 import com.dq.huibao.utils.SPUserInfo;
-import com.dq.huibao.view.MaxRecyclerView;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -238,7 +235,7 @@ public class FMHomePageOlds extends BaseFragment implements
      * url # 不做操作
      */
     public void getIndex() {
-        PATH = HttpUtils.PATHS + HttpUtils.INDEXT_INDEX;
+        PATH = HttpPath.PATHS + HttpPath.INDEXT_INDEX;
         params = new RequestParams(PATH);
         System.out.println("首页 = " + PATH);
         x.http().get(params,
@@ -304,7 +301,7 @@ public class FMHomePageOlds extends BaseFragment implements
         infos = new ArrayList<>();
         for (int i = 0; i < bannerList.size(); i++) {
             info = new ADInfo();
-            info.setUrl(HttpUtils.NEW_HEADER + bannerList.get(i).getThumb().toString());
+            info.setUrl(HttpPath.NEW_HEADER + bannerList.get(i).getThumb().toString());
             info.setContent("");
             info.setImg("");
             infos.add(info);
@@ -556,8 +553,8 @@ public class FMHomePageOlds extends BaseFragment implements
      */
     public void getSignIndex(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITYSIGN_INDEX + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ACTIVITYSIGN_INDEX + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("签到信息 = " + PATH);
         x.http().get(params,
@@ -609,8 +606,8 @@ public class FMHomePageOlds extends BaseFragment implements
      */
     public void setSign(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITY_SIGN + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ACTIVITY_SIGN + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("签到 = " + PATH);
@@ -753,7 +750,7 @@ public class FMHomePageOlds extends BaseFragment implements
 
             }
             ImageUtils.loadIntoUseFitWidth(mContext,
-                    HttpUtils.NEW_HEADER + glistBeanList.get(i).getThumb(),
+                    HttpPath.NEW_HEADER + glistBeanList.get(i).getThumb(),
                     R.mipmap.icon_empty001,
                     R.mipmap.icon_error001,
                     holder.img);

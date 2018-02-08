@@ -20,7 +20,7 @@ import com.dq.huibao.bean.order.OrderDetail;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 
 import org.xutils.common.Callback;
@@ -124,8 +124,8 @@ public class OrderDettailActivity extends BaseActivity {
      */
     public void getOrderDetail(final String orderid, String phone, String token) {
         MD5_PATH = "id=" + orderid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ORDER_DETAIL + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ORDER_DETAIL + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("订单详情 = " + PATH);
         x.http().get(params,
@@ -239,7 +239,7 @@ public class OrderDettailActivity extends BaseActivity {
 
             }
             Glide.with(mContext)
-                    .load(HttpUtils.IMG_HEADER + goodsList.get(position).getThumb())
+                    .load(HttpPath.IMG_HEADER + goodsList.get(position).getThumb())
                     .asBitmap()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(holder.img);

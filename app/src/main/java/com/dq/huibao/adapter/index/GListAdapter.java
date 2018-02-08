@@ -14,7 +14,7 @@ import com.dq.huibao.R;
 import com.dq.huibao.bean.index.Index;
 import com.dq.huibao.ui.GoodsDetailsActivity;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class GListAdapter extends RecyclerView.Adapter<GListAdapter.MyViewHolder
         }
 
         ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.NEW_HEADER + glist.get(i).getThumb(),
+                HttpPath.NEW_HEADER + glist.get(i).getThumb(),
                 R.mipmap.icon_empty001,
                 R.mipmap.icon_error001,
                 holder.img);

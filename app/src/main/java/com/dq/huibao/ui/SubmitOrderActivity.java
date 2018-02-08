@@ -22,7 +22,8 @@ import com.dq.huibao.ui.addr.AddAddressActivity;
 import com.dq.huibao.ui.addr.AddrListActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
+import com.dq.huibao.utils.HttpxUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
@@ -145,7 +146,13 @@ public class SubmitOrderActivity extends BaseActivity {
                     String ss = Base64.encodeToString(s.getBytes(), Base64.DEFAULT);
                     ss = ss.replaceAll("[\\s*\t\n\r]", "");
 
-                    orderAdd(phone, token, cartids, addrid, ss);
+                    if (tag.equals("1")) {
+                        orderBuynow(phone, token, goodsid, addrid, count, optionid, URLEncoder.encode(shopList.get(0).getCommet(), "UTF-8"), shopList.get(0).getCommet());
+
+                    } else if (tag.equals("0")) {
+                        orderAdd(phone, token, cartids, addrid, ss);
+                    }
+
 
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -182,7 +189,7 @@ public class SubmitOrderActivity extends BaseActivity {
     public void getAddr(final String phone, final String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_GETADDR + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.MEMBER_GETADDR + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
         params = new RequestParams(PATH);
@@ -196,7 +203,6 @@ public class SubmitOrderActivity extends BaseActivity {
                         addrList.clear();
                         addrList = addr.getData();
                         if (addr.getStatus() == 1) {
-
                             //确认订单
                             for (int i = 0; i < addrList.size(); i++) {
                                 if (addrList.get(i).getIsdefault().equals("1")) {
@@ -248,8 +254,8 @@ public class SubmitOrderActivity extends BaseActivity {
     public void getCheckorder(String phone, String token, String cartids, String addrid) {
         MD5_PATH = "addrid=" + addrid + "&cartids=" + cartids + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.CONFIRM_CHECKORDER + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.CONFIRM_CHECKORDER + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("确认订单 = " + PATH);
@@ -305,8 +311,8 @@ public class SubmitOrderActivity extends BaseActivity {
     public void getCheckorder(String phone, String token, String goodsid, String addrid, String count, String optionid) {
         MD5_PATH = "addrid=" + addrid + "&count=" + count + "&goodsid=" + goodsid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.CONFIRM_BUYNOW + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.CONFIRM_BUYNOW + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("确认订单（商品详情） = " + PATH);
@@ -350,7 +356,7 @@ public class SubmitOrderActivity extends BaseActivity {
 
 
     /**
-     * 提交订单
+     * 提交订单(购物车)
      *
      * @param phone
      * @param token
@@ -361,8 +367,8 @@ public class SubmitOrderActivity extends BaseActivity {
     public void orderAdd(final String phone, final String token, String cartids, String addrid, final String remark) {
         MD5_PATH = "addrid=" + addrid + "&cartids=" + cartids + "&phone=" + phone + "&remark=" + remark + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.ORDER_ADD + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ORDER_ADD + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("提交订单 = " + PATH);
@@ -403,6 +409,62 @@ public class SubmitOrderActivity extends BaseActivity {
                     }
                 });
     }
+
+    /**
+     * 提交订单（立即购买）
+     *
+     * @param phone
+     * @param token
+     * @param cartids
+     * @param count
+     * @param addrid
+     * @param remark
+     */
+    public void orderBuynow(final String phone, final String token, String cartids, String addrid, String count, String optionid, final String remark, String remarks) {
+        MD5_PATH = "addrid=" + addrid + "&count=" + count + "&goodsid=" + cartids + "&optionid=" + optionid + "&phone=" + phone + "&remark=" + remark + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
+
+        PATH = HttpPath.PATHS + HttpPath.ORDER_BUYNOW + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String("addrid=" + addrid + "&count=" + count + "&goodsid=" + cartids + "&optionid=" + optionid + "&phone=" + phone + "&remark=" + remarks + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpPath.KEY);
+
+        System.out.println("提交订单（立即购买） = " + PATH);
+        HttpxUtils.Post(PATH, null, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println("提交订单（立即购买） = " + result);
+                AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                if (addrReturn.getStatus() == 1) {
+                    intent = new Intent(SubmitOrderActivity.this, PayActivity.class);
+                    intent.putExtra("ordersn", addrReturn.getData().toString());
+                    intent.putExtra("price", "" + pay_all);
+                    intent.putExtra("phone", phone);
+                    intent.putExtra("token", token);
+                    startActivityForResult(intent, CodeUtils.CONFIRM_ORDER);
+
+                    setResult();
+                    SubmitOrderActivity.this.finish();
+
+                } else {
+                    toast("" + addrReturn.getData());
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
 
     public void setResult() {
         intent = new Intent();

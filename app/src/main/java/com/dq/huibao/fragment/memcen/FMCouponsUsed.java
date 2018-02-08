@@ -21,7 +21,7 @@ import com.dq.huibao.bean.memcen.Coupons;
 import com.dq.huibao.ui.memcen.CouponsDetailActivity;
 import com.dq.huibao.ui.memcen.CouponsListActivity;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
@@ -118,7 +118,7 @@ public class FMCouponsUsed extends BaseFragment {
 
         if (!(spUserInfo.getLoginReturn().equals(""))) {
             LoginBean loginBean = GsonUtil.gsonIntance().gsonToBean(spUserInfo.getLoginReturn(), LoginBean.class);
-            unionid = loginBean.getData().getUnionid();
+            unionid = loginBean.getData().getUnionid() + "";
             //getCoupons(unionid, "1", "", 1);
         } else {
             toast("登录状态出错，请重新登录");
@@ -135,9 +135,9 @@ public class FMCouponsUsed extends BaseFragment {
      *                used 和past 都为空  未使用
      */
     public void getCoupons(String unionid, String used, String past, int page) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_MEMBER_COUPON +
+        PATH = HttpPath.PATH + HttpPath.SHOP_MEMBER_COUPON +
                 "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&doc=" +
-                MD5Util.getMD5String(HttpUtils.SHOP_MEMBER_COUPON + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
+                MD5Util.getMD5String(HttpPath.SHOP_MEMBER_COUPON + "unionid=" + unionid + "&stamp=" + (System.currentTimeMillis() / 1000) + "&dequanhuibaocom") +
                 "&used=" + used + "&past=" + past + "&page=" + page;
 
         params = new RequestParams(PATH);

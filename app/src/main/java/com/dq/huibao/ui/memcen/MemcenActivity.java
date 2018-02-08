@@ -31,7 +31,6 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.account.Login;
@@ -40,7 +39,7 @@ import com.dq.huibao.bean.common.Region;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.FileUtil;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 import com.dq.huibao.view.GlideCircleTransform;
@@ -249,7 +248,7 @@ public class MemcenActivity extends BaseActivity {
     public void getMember(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_MEMBER + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.MEM_MEMBER + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
         params = new RequestParams(PATH);
@@ -298,8 +297,8 @@ public class MemcenActivity extends BaseActivity {
     public void setUpImg(String file, String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_UPIMG + "sign=" +
-                MD5Util.getMD5String("phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEM_UPIMG + "sign=" +
+                MD5Util.getMD5String("phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpPath.KEY);
 
         System.out.println("上传图片 = " + PATH);
 
@@ -348,8 +347,8 @@ public class MemcenActivity extends BaseActivity {
     public void setMember(String headimgurl, String phone, String token, String nickname, String sex, final String region) {
         MD5_PATH = "headimg=" + headimgurl + "&nickname=" + nickname + "&phone=" + phone + "&region=" + region + "&sex=" + sex + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_EDITINFO + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEM_EDITINFO + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("修改个人信息 = " + PATH);
         x.http().post(params,
@@ -388,7 +387,7 @@ public class MemcenActivity extends BaseActivity {
     public void setDate() {
         etMemberRealname.setText("" + realname);
         Glide.with(this)
-                .load(HttpUtils.NEW_HEADER + headimgurl)
+                .load(HttpPath.NEW_HEADER + headimgurl)
                 .bitmapTransform(new GlideCircleTransform(this))
                 .crossFade(1000)
                 .error(R.mipmap.ic_header)
@@ -564,7 +563,7 @@ public class MemcenActivity extends BaseActivity {
      * 获取省市列表
      */
     public void getRegion() {
-        PATH = HttpUtils.PATHS + HttpUtils.COMMON_REGION;
+        PATH = HttpPath.PATHS + HttpPath.COMMON_REGION;
         params = new RequestParams(PATH);
         System.out.println("省市列表 = " + PATH);
 

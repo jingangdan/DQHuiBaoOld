@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.order.Order;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 
 import java.util.List;
 
@@ -54,13 +54,13 @@ public class OrderGoodsAdapter extends RecyclerView.Adapter<OrderGoodsAdapter.My
 //            });
 //        }
 //        ImageUtils.loadIntoUseFitWidths(mContext,
-//                HttpUtils.IMG_HEADER + goodsList.get(positon).getThumb(),
+//                HttpPath.IMG_HEADER + goodsList.get(positon).getThumb(),
 //                R.mipmap.icon_empty002,
 //                R.mipmap.icon_error002,
 //                holder.img);
 
         Glide.with(mContext)
-                .load(HttpUtils.IMG_HEADER + goodsList.get(positon).getThumb())
+                .load(HttpPath.IMG_HEADER + goodsList.get(positon).getThumb())
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(holder.img);

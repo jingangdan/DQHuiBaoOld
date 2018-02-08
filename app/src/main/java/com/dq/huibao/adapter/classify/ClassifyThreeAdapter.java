@@ -12,7 +12,7 @@ import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.goods.CateChildren;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -55,8 +55,8 @@ public class ClassifyThreeAdapter extends RecyclerView.Adapter<ClassifyThreeAdap
             });
         }
 
-        ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.IMG_HEADER + childrenBeanList.get(position).getThumb(),
+        ImageUtils.loadIntoUseFitWidths(mContext,
+                HttpPath.IMG_HEADER + childrenBeanList.get(position).getThumb(),
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.img);

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.dq.huibao.R;
 import com.dq.huibao.bean.order.Order;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -118,7 +118,7 @@ public class OrderTestAdapter extends BaseExpandableListAdapter {
         if (goodsInfo != null) {
 
             ImageUtils.loadIntoUseFitWidth(context,
-                    HttpUtils.IMG_HEADER + goodsInfo.getThumb(),
+                    HttpPath.IMG_HEADER + goodsInfo.getThumb(),
                     R.mipmap.icon_empty002,
                     R.mipmap.icon_error002,
                     cholder.img);

@@ -19,7 +19,7 @@ import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.common.Region;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
@@ -190,7 +190,7 @@ public class AddrEditActivity extends BaseActivity {
      * 获取省市列表
      */
     public void getRegion() {
-        PATH = HttpUtils.PATHS + HttpUtils.COMMON_REGION;
+        PATH = HttpPath.PATHS + HttpPath.COMMON_REGION;
         params = new RequestParams(PATH);
         System.out.println("获取省市列表 = " + PATH);
         x.http().get(params,
@@ -281,9 +281,9 @@ public class AddrEditActivity extends BaseActivity {
         MD5_PATH = "addr=" + UTF_addr + "&contact=" + UTF_contact + "&isdefault=" + isdefault + "&mobile=" + mobile +
                 "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEMBER_ADDADDR + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.MEMBER_ADDADDR + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String("addr=" + addr + "&contact=" + contact + "&isdefault=" + isdefault + "&mobile=" + mobile +
-                        "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpUtils.KEY);
+                        "&phone=" + phone + "&regionid=" + regionid + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("加密 = " + MD5_PATH);

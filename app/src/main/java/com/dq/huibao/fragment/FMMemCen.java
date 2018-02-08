@@ -41,7 +41,7 @@ import com.dq.huibao.ui.memcen.SignRuleActivity;
 import com.dq.huibao.ui.order.OrderActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 import com.dq.huibao.utils.ScreenUtils;
@@ -532,8 +532,8 @@ public class FMMemCen extends BaseFragment implements
     public void getMember(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.MEM_MEMBER + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.MEM_MEMBER + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("个人信息 = " + PATH);
@@ -581,7 +581,7 @@ public class FMMemCen extends BaseFragment implements
     public void setUserInfo(String avatar) {
 
         Glide.with(getActivity())
-                .load(HttpUtils.NEW_HEADER + avatar)
+                .load(HttpPath.NEW_HEADER + avatar)
                 .bitmapTransform(new GlideCircleTransform(getActivity()))
                 .crossFade(1000)
                 .error(R.mipmap.ic_header)
@@ -640,7 +640,7 @@ public class FMMemCen extends BaseFragment implements
      */
     public void loginOut(String phone, String token) {
 
-        PATH = HttpUtils.PATHS + HttpUtils.ACCOUNT_LOGINOUT +
+        PATH = HttpPath.PATHS + HttpPath.ACCOUNT_LOGINOUT +
                 "phone=" + phone + "&token=" + token + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&sign=" +
                 MD5Util.getMD5String("phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
@@ -688,8 +688,8 @@ public class FMMemCen extends BaseFragment implements
      */
     public void setSign(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITY_SIGN + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ACTIVITY_SIGN + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         params = new RequestParams(PATH);
         System.out.println("签到 = " + PATH);
@@ -733,8 +733,8 @@ public class FMMemCen extends BaseFragment implements
      */
     public void getSignIndex(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.ACTIVITYSIGN_INDEX + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.ACTIVITYSIGN_INDEX + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("签到信息 = " + PATH);
         x.http().get(params,

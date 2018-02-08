@@ -12,13 +12,11 @@ import android.widget.TextView;
 
 import com.dq.huibao.R;
 import com.dq.huibao.base.BaseActivity;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 import com.dq.huibao.utils.MD5Util;
 
-import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -85,7 +83,7 @@ public class InjoyActivity extends BaseActivity {
 
         tvInjoyStock.setText("" + sales);
         ImageUtils.loadIntoUseFitWidths(this,
-                HttpUtils.IMG_HEADER + img,
+                HttpPath.IMG_HEADER + img,
                 R.mipmap.icon_empty,
                 R.mipmap.icon_error,
                 ivInjoy);
@@ -124,8 +122,8 @@ public class InjoyActivity extends BaseActivity {
      */
     public void getPosterIndex(String goodsid, String phone, String token) {
         MD5_PATH = "goodsid=" + goodsid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.POSTER_INDEX + MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+        PATH = HttpPath.PATHS + HttpPath.POSTER_INDEX + MD5_PATH + "&sign=" +
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
 
         wvInjoy.loadUrl(PATH);
         wvInjoy.setHorizontalScrollBarEnabled(false);//水平不显示

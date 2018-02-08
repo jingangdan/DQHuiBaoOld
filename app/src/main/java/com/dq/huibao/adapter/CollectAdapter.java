@@ -16,7 +16,7 @@ import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.memcen.Collect;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 
 import java.util.List;
 
@@ -99,7 +99,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.MyViewHo
         }
 
         Glide.with(mContext)
-                .load(HttpUtils.NEW_HEADER + collectList.get(position).getThumb())
+                .load(HttpPath.NEW_HEADER + collectList.get(position).getThumb())
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(holder.img);

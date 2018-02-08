@@ -33,7 +33,7 @@ import com.dq.huibao.adapter.KeywordsAdapter;
 import com.dq.huibao.bean.classifytest.Keywords;
 import com.dq.huibao.sqlite.RecordSQLiteOpenHelper;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -319,7 +319,7 @@ public class KeywordsActivity extends Activity {
      * @param keywords
      */
     public void getSearch(String keywords) {
-        PATH = HttpUtils.PATH + HttpUtils.SHOP_SEARCH + "keywords=" + keywords;
+        PATH = HttpPath.PATH + HttpPath.SHOP_SEARCH + "keywords=" + keywords;
 
         params = new RequestParams(PATH);
         System.out.println("搜索 = " + PATH);

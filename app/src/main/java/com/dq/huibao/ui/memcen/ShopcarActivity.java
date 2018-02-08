@@ -21,11 +21,10 @@ import com.dq.huibao.adapter.cart.ShopCartAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.account.Login;
 import com.dq.huibao.bean.cart.Cart;
-import com.dq.huibao.refresh.PullToRefreshView;
 import com.dq.huibao.ui.SubmitOrderActivity;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 
@@ -173,7 +172,7 @@ public class ShopcarActivity extends BaseActivity implements
     public void getCart(String phone, String token) {
         MD5_PATH = "phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.CART_GET + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.CART_GET + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
         params = new RequestParams(PATH);
@@ -228,7 +227,7 @@ public class ShopcarActivity extends BaseActivity implements
                         String phone, String token, final String gid, String optionid, final int count, final int tag) {
         MD5_PATH = "count=" + count + "&goodsid=" + gid + "&optionid=" + optionid + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
 
-        PATH = HttpUtils.PATHS + HttpUtils.CART_ADD + MD5_PATH + "&sign=" +
+        PATH = HttpPath.PATHS + HttpPath.CART_ADD + MD5_PATH + "&sign=" +
                 MD5Util.getMD5String(MD5_PATH + "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k");
 
 
@@ -299,9 +298,9 @@ public class ShopcarActivity extends BaseActivity implements
      */
     public void cartDel(String phone, String token, String ids) {
         MD5_PATH = "ids=" + ids + "&phone=" + phone + "&timestamp=" + (System.currentTimeMillis() / 1000) + "&token=" + token;
-        PATH = HttpUtils.PATHS + HttpUtils.CART_DEL +
+        PATH = HttpPath.PATHS + HttpPath.CART_DEL +
                 MD5_PATH + "&sign=" +
-                MD5Util.getMD5String(MD5_PATH + HttpUtils.KEY);
+                MD5Util.getMD5String(MD5_PATH + HttpPath.KEY);
         params = new RequestParams(PATH);
         System.out.println("删除购物车 = " + PATH);
         x.http().post(params,

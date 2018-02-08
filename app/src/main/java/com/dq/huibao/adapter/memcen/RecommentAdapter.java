@@ -15,7 +15,7 @@ import com.dq.huibao.Interface.OnItemLongClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.memcen.Recomment;
 import com.dq.huibao.utils.BaseRecyclerViewHolder;
-import com.dq.huibao.utils.HttpUtils;
+import com.dq.huibao.utils.HttpPath;
 import com.dq.huibao.utils.ImageUtils;
 
 import java.util.List;
@@ -83,7 +83,7 @@ public class RecommentAdapter extends RecyclerView.Adapter<RecommentAdapter.MyVi
         String img = goodsList.get(position).getThumb();
 
         ImageUtils.loadIntoUseFitWidth(mContext,
-                HttpUtils.HEADER + img,
+                HttpPath.HEADER + img,
                 R.mipmap.icon_empty002,
                 R.mipmap.icon_error002,
                 holder.img);
