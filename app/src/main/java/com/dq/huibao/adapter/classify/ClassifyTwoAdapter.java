@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.goods.CateChildren;
@@ -27,6 +28,7 @@ public class ClassifyTwoAdapter extends RecyclerView.Adapter<ClassifyTwoAdapter.
     //private List<Classify.DataBean.ChildrenBean> childrenList;
     private List<CateChildren.DataBean> childrenList;
     private OnItemClickListener mOnItemClickListener;
+    private boolean sIsScrolling = false;
 
     //    public ClassifyTwoAdapter(Context mContext, List<Classify.DataBean.ChildrenBean> childrenList) {
 //        this.mContext = mContext;
@@ -72,13 +74,35 @@ public class ClassifyTwoAdapter extends RecyclerView.Adapter<ClassifyTwoAdapter.
 
         holder.recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3, GridLayoutManager.VERTICAL, false));
         ClassifyThreeAdapter classifyThreeAdapter = new ClassifyThreeAdapter(mContext, childrenList.get(position).getChildren());
+
+
+        holder.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING) {
+                    sIsScrolling = true;
+                    Glide.with(mContext).pauseRequests();
+                } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (sIsScrolling == true) {
+                        Glide.with(mContext).resumeRequests();
+                    }
+                    sIsScrolling = false;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
         holder.recyclerView.setAdapter(classifyThreeAdapter);
 
         classifyThreeAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int i) {
                 Intent intent = new Intent(mContext, GoodsListActivity.class);
-                intent.putExtra("content", "cate="+childrenList.get(position).getChildren().get(i).getId());
+                intent.putExtra("content", "cate=" + childrenList.get(position).getChildren().get(i).getId());
                 intent.putExtra("catename", childrenList.get(position).getChildren().get(i).getCatename());
                 intent.putExtra("keywords", "");
                 mContext.startActivity(intent);

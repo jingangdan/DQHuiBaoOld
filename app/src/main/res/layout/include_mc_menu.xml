@@ -86,12 +86,12 @@
                 android:text="积分商城" />
 
             <Button
+                android:id="@+id/but_mc_update"
                 style="@style/text_main"
                 android:layout_weight="1"
                 android:background="@null"
-                android:drawableTop="@mipmap/ic_order_status0"
-                android:text="待付款"
-                android:visibility="invisible" />
+                android:drawableTop="@mipmap/ic_update"
+                android:text="版本更新" />
 
         </LinearLayout>
 
@@ -200,24 +200,6 @@
             android:background="@null"
             android:drawableTop="@mipmap/ic_menu0013"
             android:text="退出登录" />
-
-
-        <Button
-            android:id="@+id/but_mc_menu11"
-            style="@style/text_main"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@mipmap/ic_menu0012"
-            android:text="消息提醒"
-            android:visibility="gone" />
-
-        <Button
-            style="@style/text_main"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@mipmap/ic_order_status0"
-            android:text="待付款"
-            android:visibility="gone" />
 
     </LinearLayout>
 

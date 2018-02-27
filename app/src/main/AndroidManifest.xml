@@ -16,6 +16,10 @@
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
+
     <!--微信开放平台
     appid：wxf00c62b2cd722747
     token：A64638FFAA4TgGoy4yOcl8p4pBfagsy3

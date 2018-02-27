@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
 import com.dq.huibao.bean.goods.CateChildren;
@@ -55,11 +56,18 @@ public class ClassifyThreeAdapter extends RecyclerView.Adapter<ClassifyThreeAdap
             });
         }
 
-        ImageUtils.loadIntoUseFitWidths(mContext,
-                HttpPath.IMG_HEADER + childrenBeanList.get(position).getThumb(),
-                R.mipmap.icon_empty002,
-                R.mipmap.icon_error002,
-                holder.img);
+//        ImageUtils.loadIntoUseFitWidth(mContext,
+//                HttpPath.IMG_HEADER + childrenBeanList.get(position).getThumb(),
+//                R.mipmap.icon_empty002,
+//                R.mipmap.icon_error002,
+//                holder.img);
+
+        Glide
+                .with(mContext)
+                .load(HttpPath.IMG_HEADER + childrenBeanList.get(position).getThumb())
+                .placeholder(R.mipmap.icon_empty002)
+                .error(R.mipmap.icon_error002)
+                .into(holder.img);
 
         holder.tv_neme.setText("" + childrenBeanList.get(position).getCatename());
 

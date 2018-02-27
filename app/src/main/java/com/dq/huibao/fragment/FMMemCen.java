@@ -2,8 +2,12 @@ package com.dq.huibao.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Display;
@@ -19,13 +23,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.allenliu.versionchecklib.core.AllenChecker;
+import com.allenliu.versionchecklib.core.VersionDialogActivity;
+import com.allenliu.versionchecklib.core.VersionParams;
 import com.bumptech.glide.Glide;
 import com.dq.huibao.R;
 import com.dq.huibao.adapter.memcen.RechargeActivity;
 import com.dq.huibao.base.BaseFragment;
+import com.dq.huibao.bean.CheckVersion;
 import com.dq.huibao.bean.account.Account;
 import com.dq.huibao.bean.account.Login;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.memcen.Sign;
 import com.dq.huibao.bean.memcen.SignIndex;
 import com.dq.huibao.refresh.PullToRefreshView;
@@ -39,12 +49,16 @@ import com.dq.huibao.ui.memcen.MemcenActivity;
 import com.dq.huibao.ui.memcen.ShopcarActivity;
 import com.dq.huibao.ui.memcen.SignRuleActivity;
 import com.dq.huibao.ui.order.OrderActivity;
+import com.dq.huibao.update.CustomVersionDialogActivity;
+import com.dq.huibao.update.UVService;
 import com.dq.huibao.utils.CodeUtils;
 import com.dq.huibao.utils.GsonUtil;
 import com.dq.huibao.utils.HttpPath;
+import com.dq.huibao.utils.HttpxUtils;
 import com.dq.huibao.utils.MD5Util;
 import com.dq.huibao.utils.SPUserInfo;
 import com.dq.huibao.utils.ScreenUtils;
+import com.dq.huibao.utils.VersionCodeUtils;
 import com.dq.huibao.view.DoubleWaveView;
 import com.dq.huibao.view.GlideCircleTransform;
 
@@ -54,6 +68,7 @@ import org.xutils.x;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -164,8 +179,6 @@ public class FMMemCen extends BaseFragment implements
     Button butMcMenu9;
     @Bind(R.id.but_mc_menu10)
     Button butMcMenu10;
-    @Bind(R.id.but_mc_menu11)
-    Button butMcMenu11;
     @Bind(R.id.but_mc_menu12)
     Button butMcMenu12;
     @Bind(R.id.but_mc_menu13)
@@ -176,6 +189,8 @@ public class FMMemCen extends BaseFragment implements
 
     @Bind(R.id.but_mc_collect)
     Button butMcCollect;
+    @Bind(R.id.but_mc_update)
+    Button butMcUpdate;
 
     /*会员等级 头像 昵称 余额 积分*/
     private String level, id, avatar, nickname, credit1, credit2, couponcount;
@@ -259,10 +274,11 @@ public class FMMemCen extends BaseFragment implements
             R.id.but_mc_menu0, R.id.but_mc_menu1, R.id.but_mc_menu2,
             R.id.but_mc_menu3, R.id.but_mc_menu4, R.id.but_mc_menu5,
             R.id.but_mc_menu6, R.id.but_mc_menu7, R.id.but_mc_menu8,
-            R.id.but_mc_menu9, R.id.but_mc_menu10, R.id.but_mc_menu11,
+            R.id.but_mc_menu9, R.id.but_mc_menu10,
             R.id.but_mc_menu12, R.id.but_mc_menu13,
             R.id.but_mc_aboutus, R.id.but_mc_collect,
-            R.id.but_mem_recharge
+            R.id.but_mem_recharge,
+            R.id.but_mc_update
     })
     public void onClick(View v) {
         switch (v.getId()) {
@@ -447,9 +463,9 @@ public class FMMemCen extends BaseFragment implements
                 //充值记录
                 toast("充值记录");
                 break;
-            case R.id.but_mc_menu11:
-                //消息提醒
-                toast("消息提醒");
+            case R.id.but_mc_update:
+                //检查版本更新
+                getVersion(VersionCodeUtils.getVerName(getActivity()));
                 break;
             case R.id.but_mc_menu12:
                 //收货地址
@@ -767,6 +783,166 @@ public class FMMemCen extends BaseFragment implements
                     }
                 });
 
+    }
+
+    /**
+     * 检查版本更新
+     *
+     * @param version
+     */
+    private String version_result = "";
+    private TextView tv_now, tv_new, tv_msg;
+    private Button but_cancle, but_shichang, but_update;
+
+    public void getVersion(final String version) {
+        PATH = HttpPath.PATHS + HttpPath.CHECK_VERSION + "version=" + version;
+        System.out.println("版本更新 = " + PATH);
+        HttpxUtils.Get(PATH,
+                null,
+                new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        version_result = result;
+                        System.out.println("版本更新 = " + result);
+                        final CheckVersion checkVersion = GsonUtil.gsonIntance().gsonToBean(result, CheckVersion.class);
+                        final String address = checkVersion.getData().getUpdateurl();
+                        if (checkVersion.getStatus() == 1) {
+                            //有新版本
+
+                            final AlertDialog dlg = new AlertDialog.Builder(getActivity()).create();
+                            dlg.show();
+                            Window window = dlg.getWindow();
+                            window.setGravity(Gravity.CENTER);//设置弹框在屏幕的下方
+                            window.setContentView(R.layout.custom_dialog_two_layout);
+
+                            //设置弹框的高为屏幕的一半宽是屏幕的宽
+                            WindowManager windowManager = getActivity().getWindowManager();
+                            Display display = windowManager.getDefaultDisplay();
+                            WindowManager.LayoutParams lp = dlg.getWindow().getAttributes();
+                            lp.width = (int) (display.getWidth() * 0.7); //设置宽度
+                            lp.height = (int) (display.getHeight() * 0.5); //设置宽度
+                            dlg.getWindow().setAttributes(lp);
+
+                            tv_now = dlg.findViewById(R.id.tv_cv_now);
+                            tv_new = dlg.findViewById(R.id.tv_cv_new);
+                            tv_msg = dlg.findViewById(R.id.tv_msg);
+                            but_cancle = dlg.findViewById(R.id.but_cv_cancle);
+                            but_shichang = dlg.findViewById(R.id.but_cv_shichang);
+                            but_update = dlg.findViewById(R.id.btn_update);
+
+                            tv_now.setText("当前版本：" + version);
+                            tv_new.setText("最新版本：" + checkVersion.getData().getServerVersion());
+                            tv_msg.setText("" + checkVersion.getData().getUpgradeinfo());
+
+                            but_cancle.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dlg.dismiss();
+                                }
+                            });
+
+                            but_shichang.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dlg.dismiss();
+                                     /*市场更新*/
+                                    gotoMarket(getActivity(), getActivity().getPackageName());
+                                }
+                            });
+
+                            but_update.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dlg.dismiss();
+                                    //立即更新
+                                    VersionParams.Builder builder = new VersionParams.Builder()
+                                            .setRequestUrl("http://www.baidu.com")
+                                            .setService(UVService.class);
+                                    getActivity().stopService(new Intent(getActivity(), UVService.class));
+                                    AllenChecker.startVersionCheck(getActivity(), builder.build());
+
+//                                    VersionParams.Builder builder = new VersionParams.Builder()
+//                                            .setRequestUrl(checkVersion.getData().getUpdateurl())
+//                                            .setDownloadAPKPath(getActivity().getApplicationContext().getFilesDir() + "/")
+//                                            .setService(UVService.class);
+//
+//                                    getActivity().stopService(new Intent(getActivity(), UVService.class));
+//
+//                                    if (!address.isEmpty())
+//                                        builder.setDownloadAPKPath(address);
+//                                    //更新界面选择
+//                                    CustomVersionDialogActivity.customVersionDialogIndex = 3;
+//                                    builder.setCustomDownloadActivityClass(VersionDialogActivity.class);
+//                                    //下载界面选择
+//                                    CustomVersionDialogActivity.isCustomDownloading = false;
+//                                    builder.setCustomDownloadActivityClass(VersionDialogActivity.class);
+//                                    //强制更新
+//                                    CustomVersionDialogActivity.isForceUpdate = false;
+//                                    builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
+//
+//                                    //强制重新下载
+//                                    builder.setForceRedownload(true);
+//                                    //是否显示通知栏
+//                                    builder.setShowNotification(true);
+//                                    builder.setShowDownloadingDialog(true);
+//
+//                                    AllenChecker.startVersionCheck(getActivity(), builder.build());
+
+                                }
+                            });
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(version_result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 0) {
+                            toast("" + addrReturn.getData());
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+    }
+
+    /**
+     * 打开市场
+     */
+    @SuppressLint("WrongConstant")
+    public static void gotoMarket(Context context, String pck) {
+        if (!isHaveMarket(context)) {
+            Toast.makeText(context, "您手机中没有安装应用市场！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=" + pck));
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+        }
+    }
+
+    /**
+     * 是否安装市场
+     */
+    private static boolean isHaveMarket(Context context) {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.MAIN");
+        intent.addCategory("android.intent.category.APP_MARKET");
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> infos = pm.queryIntentActivities(intent, 0);
+        return infos.size() > 0;
     }
 
     @Override

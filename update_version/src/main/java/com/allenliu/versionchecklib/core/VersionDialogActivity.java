@@ -1,6 +1,7 @@
 package com.allenliu.versionchecklib.core;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
@@ -133,7 +134,8 @@ public class VersionDialogActivity extends Activity implements DownloadListener,
         //判断是否是静默下载
         //静默下载直接在后台下载不显示版本信息 只有下载完成之后在显示版本信息
         if (title != null && updateMsg != null && downloadUrl != null && versionParams != null) {
-            showVersionDialog();
+//            showVersionDialog();
+            dealAPK();
         }
 
 
@@ -141,23 +143,27 @@ public class VersionDialogActivity extends Activity implements DownloadListener,
 
     protected void showVersionDialog() {
         if (!isDestroy) {
-            versionDialog = new AlertDialog.Builder(this).setTitle(title).setMessage(updateMsg).setPositiveButton(getString(R.string.versionchecklib_confirm), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (commitListener != null)
-                        commitListener.onCommitClick();
-                    dealAPK();
-                }
-            }).setNegativeButton(getString(R.string.versionchecklib_cancel), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            }).create();
+            versionDialog = new AlertDialog.Builder(this)
+                    .setTitle(title)
+                    .setMessage(updateMsg)
+                    .setPositiveButton(getString(R.string.versionchecklib_confirm), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (commitListener != null)
+                                commitListener.onCommitClick();
+                            dealAPK();
+                        }
+                    }).setNegativeButton(getString(R.string.versionchecklib_cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).create();
 
             versionDialog.setOnDismissListener(this);
             versionDialog.setCanceledOnTouchOutside(false);
             versionDialog.setCancelable(false);
+//            versionDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             versionDialog.show();
         }
     }
@@ -237,8 +243,9 @@ public class VersionDialogActivity extends Activity implements DownloadListener,
     }
 
     public void dealAPK() {
+        System.out.println("8888 = " + versionParams.getDownloadAPKPath());
         if (versionParams.isSilentDownload()) {
-            String downloadPath = versionParams.getDownloadAPKPath() + getString(R.string.versionchecklib_download_apkname, getPackageName());
+            String downloadPath = versionParams.getDownloadAPKPath();
             AppUtils.installApk(VersionDialogActivity.this, new File(downloadPath));
             finish();
         } else {
@@ -293,6 +300,7 @@ public class VersionDialogActivity extends Activity implements DownloadListener,
         }
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {

@@ -1,20 +1,36 @@
 package com.dq.huibao.ui;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.allenliu.versionchecklib.core.AllenChecker;
+import com.allenliu.versionchecklib.core.VersionDialogActivity;
+import com.allenliu.versionchecklib.core.VersionParams;
 import com.dq.huibao.R;
+import com.dq.huibao.bean.CheckVersion;
+import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.fragment.FMClassify;
 import com.dq.huibao.fragment.FMDistribution;
 import com.dq.huibao.fragment.FMFind;
@@ -22,9 +38,18 @@ import com.dq.huibao.fragment.FMHomePage;
 import com.dq.huibao.fragment.FMMemCen;
 import com.dq.huibao.fragment.FMShopcar;
 import com.dq.huibao.fragment.FMStore;
+import com.dq.huibao.update.CustomVersionDialogActivity;
+import com.dq.huibao.update.UVService;
+import com.dq.huibao.utils.GsonUtil;
+import com.dq.huibao.utils.HttpPath;
+import com.dq.huibao.utils.HttpxUtils;
+import com.dq.huibao.utils.VersionCodeUtils;
 
 import org.xutils.BuildConfig;
+import org.xutils.common.Callback;
 import org.xutils.x;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -102,6 +127,9 @@ public class MainActivity extends FragmentActivity {
 
     public static MainActivity mainActivity;
 
+    /*检查版本更新*/
+    private String PATH = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +137,11 @@ public class MainActivity extends FragmentActivity {
         ButterKnife.bind(this);
 
         mainActivity = this;
+
+//        System.out.println("5555 = " + VersionCodeUtils.getVerCode(this));
+//        System.out.println("55555 = " + VersionCodeUtils.getVerName(this));
+
+        getVersion(VersionCodeUtils.getVerName(this));
 
         x.Ext.init(this.getApplication());
         x.Ext.setDebug(BuildConfig.DEBUG);
@@ -329,9 +362,173 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-    /*版本更新 依赖update_version*/
 
-//    public void getVersion(){
+    /**
+     * 检查版本更新
+     *
+     * @param version
+     */
+    private String version_result = "";
+    private TextView tv_now, tv_new, tv_msg;
+    private Button but_cancle, but_shichang, but_update;
+
+    public void getVersion(final String version) {
+        PATH = HttpPath.PATHS + HttpPath.CHECK_VERSION + "version=" + version;
+        System.out.println("版本更新 = " + PATH);
+        HttpxUtils.Get(PATH,
+                null,
+                new Callback.CommonCallback<String>() {
+                    @SuppressLint("WrongConstant")
+                    @Override
+                    public void onSuccess(String result) {
+                        version_result = result;
+                        System.out.println("版本更新 = " + result);
+                        final CheckVersion checkVersion = GsonUtil.gsonIntance().gsonToBean(result, CheckVersion.class);
+                        final String address = checkVersion.getData().getUpdateurl();
+
+                        if (checkVersion.getStatus() == 1) {
+
+                            final AlertDialog dlg = new AlertDialog.Builder(mainActivity).create();
+                            dlg.show();
+                            Window window = dlg.getWindow();
+                            window.setGravity(Gravity.CENTER);//设置弹框在屏幕的下方
+                            window.setContentView(R.layout.custom_dialog_two_layout);
+
+                            //设置弹框的高为屏幕的一半宽是屏幕的宽
+                            WindowManager windowManager = mainActivity.getWindowManager();
+                            Display display = windowManager.getDefaultDisplay();
+                            WindowManager.LayoutParams lp = dlg.getWindow().getAttributes();
+                            lp.width = (int) (display.getWidth() * 0.7); //设置宽度
+                            lp.height = (int) (display.getHeight() * 0.5); //设置宽度
+                            dlg.getWindow().setAttributes(lp);
+
+                            tv_now = dlg.findViewById(R.id.tv_cv_now);
+                            tv_new = dlg.findViewById(R.id.tv_cv_new);
+                            tv_msg = dlg.findViewById(R.id.tv_msg);
+                            but_cancle = dlg.findViewById(R.id.but_cv_cancle);
+                            but_shichang = dlg.findViewById(R.id.but_cv_shichang);
+                            but_update = dlg.findViewById(R.id.btn_update);
+
+                            tv_now.setText("当前版本：" + version);
+                            tv_new.setText("最新版本：" + checkVersion.getData().getServerVersion());
+                            tv_msg.setText("" + checkVersion.getData().getUpgradeinfo());
+
+                            but_cancle.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dlg.dismiss();
+                                }
+                            });
+
+                            but_shichang.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                     /*市场更新*/
+                                     dlg.dismiss();
+                                    gotoMarket(mainActivity, mainActivity.getPackageName());
+                                }
+                            });
+
+                            but_update.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    /*立即更新*/
+                                    dlg.dismiss();
+                                    VersionParams.Builder builder = new VersionParams.Builder()
+                                            .setRequestUrl("http://www.baidu.com")
+                                            .setService(UVService.class);
+                                    stopService(new Intent(mainActivity, UVService.class));
+                                    AllenChecker.startVersionCheck(mainActivity, builder.build());
+
+//                                    VersionParams.Builder builder = new VersionParams.Builder()
+//                                            .setRequestUrl(checkVersion.getData().getUpdateurl())
+//                                            .setDownloadAPKPath(getApplicationContext().getFilesDir() + "/")
+//                                            .setService(UVService.class);
+//
+//                                    stopService(new Intent(mainActivity, UVService.class));
+//
+//                                    if (!address.isEmpty())
+//                                        builder.setDownloadAPKPath(address);
+//                                    //更新界面选择
+//                                    CustomVersionDialogActivity.customVersionDialogIndex = 3;
+//                                    builder.setCustomDownloadActivityClass(VersionDialogActivity.class);
+//                                    //下载界面选择
+//                                    CustomVersionDialogActivity.isCustomDownloading = false;
+//                                    builder.setCustomDownloadActivityClass(VersionDialogActivity.class);
+//                                    //强制更新
+//                                    CustomVersionDialogActivity.isForceUpdate = false;
+//                                    builder.setCustomDownloadActivityClass(CustomVersionDialogActivity.class);
+//
+//                                    //强制重新下载
+//                                    builder.setForceRedownload(true);
+//                                    //是否显示通知栏
+//                                    builder.setShowNotification(true);
+//                                    builder.setShowDownloadingDialog(true);
+//
+//                                    AllenChecker.startVersionCheck(mainActivity, builder.build());
+                                }
+                            });
+
+                        }
+
+                    }
+
+                    @SuppressLint("WrongConstant")
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                        System.out.println("版本更新1 = " + version_result);
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(version_result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 0) {
+                            System.out.println("" + addrReturn.getData());
+                            //Toast.makeText(mainActivity, "" + addrReturn.getData(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+
+    }
+
+    /**
+     * 打开市场
+     */
+    @SuppressLint("WrongConstant")
+    public static void gotoMarket(Context context, String pck) {
+        if (!isHaveMarket(context)) {
+            Toast.makeText(context, "您手机中没有安装应用市场！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=" + pck));
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+        }
+    }
+
+    /**
+     * 是否安装市场
+     */
+    private static boolean isHaveMarket(Context context) {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.MAIN");
+        intent.addCategory("android.intent.category.APP_MARKET");
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> infos = pm.queryIntentActivities(intent, 0);
+        return infos.size() > 0;
+    }
+
+    /*版本更新 依赖update_version*/
+//    public void getVersion(View view) {
 //        //you can add your request params and request method
 //        //eg.
 //        //只有requsetUrl service 是必须值 其他参数都有默认值，可选
@@ -344,9 +541,9 @@ public class MainActivity extends FragmentActivity {
 ////                .setRequestParams(httpParams)
 //                .setRequestUrl("http://www.baidu.com")
 ////                .setDownloadAPKPath(getApplicationContext().getFilesDir()+"/")
-//                .setService(DemoService.class);
+//                .setService(UVService.class);
 //
-//        stopService(new Intent(this, DemoService.class));
+//        stopService(new Intent(this, UVService.class));
 //        switch (view.getId()) {
 //            case R.id.sendbtn:
 //                String pauseTime = etPauseTime.getText().toString();
@@ -433,14 +630,15 @@ public class MainActivity extends FragmentActivity {
 //
 //            case R.id.cancelBtn:
 //                AllenChecker.cancelMission();
-////                VersionParams.Builder builder2 = new VersionParams.Builder();
-////                builder2.setOnlyDownload(true)
-////                        .setDownloadUrl("http://test-1251233192.coscd.myqcloud.com/1_1.apk")
-////                        .setTitle("检测到新版本")
-////                        .setForceRedownload(true)
-////                        .setUpdateMsg(getString(R.string.updatecontent));
-////                AllenChecker.startVersionCheck(this, builder2.build());
+//                VersionParams.Builder builder2 = new VersionParams.Builder();
+//                builder2.setOnlyDownload(true)
+//                        .setDownloadUrl("http://test-1251233192.coscd.myqcloud.com/1_1.apk")
+//                        .setTitle("检测到新版本")
+//                        .setForceRedownload(true)
+//                        .setUpdateMsg(getString(R.string.updatecontent));
+//                AllenChecker.startVersionCheck(this, builder2.build());
 //                break;
+//        }
 //    }
 
 

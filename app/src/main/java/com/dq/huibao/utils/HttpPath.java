@@ -181,6 +181,14 @@ public class HttpPath {
 
     public static final String KEY = "&key=ivKDDIZHF2b0Gjgvv2QpdzfCmhOpya5k";
 
+
+    /**
+     * 检查版本更新
+     * 参数：
+     * version=1.0.2
+     */
+    public static final String CHECK_VERSION = "Sys/checkversion?";
+
     /**
      * 1.
      * 验证手机号是否已经注册

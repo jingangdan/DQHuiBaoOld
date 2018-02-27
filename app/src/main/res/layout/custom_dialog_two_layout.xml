@@ -1,55 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/kuang_choose_white"
+    android:gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/lin_cv_top"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:background="#F15353"
-            android:scaleType="centerCrop" />
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/text_adware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="检测到新版本是否更新?" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lin_cv_buttom"
+        android:layout_below="@+id/lin_cv_top">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_cv_now"
+                style="@style/text_main"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="检测到新版本是否更新?"
-                android:textColor="@android:color/black"
-                android:textSize="13sp" />
+                android:gravity="left"
+                android:text="当前版本：" />
+
+            <TextView
+                android:id="@+id/tv_cv_new"
+                style="@style/text_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="最新版本：" />
+
+            <TextView
+                style="@style/text_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="left"
+                android:text="更新内容"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/tv_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="updatecontent"
-                android:textColor="#666"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btn_update"
+                style="@style/text_main"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/kuang_choose_red"
-                android:text="升级"
-                android:textColor="@android:color/white" />
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="........." />
+
+
         </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/lin_cv_buttom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/but_cv_cancle"
+            style="@style/but_style"
+            android:layout_weight="1"
+            android:text="暂不升级"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/but_cv_shichang"
+            style="@style/but_style"
+            android:layout_weight="1"
+            android:text="市场升级"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/btn_update"
+            style="@style/but_style"
+            android:layout_weight="1"
+            android:text="立即升级"
+            android:textSize="12dp" />
+
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>

@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -65,8 +66,7 @@ public class CustomVersionDialogActivity extends VersionDialogActivity implement
 
     @Override
     public void onDownloading(int progress) {
-
-//        Log.e("CustomVersionDialogActi", "正在下载中回调...");
+        Log.e("CustomVersionDialogActi", "正在下载中回调...");
     }
 
     @Override
@@ -88,9 +88,11 @@ public class CustomVersionDialogActivity extends VersionDialogActivity implement
         } else if (customVersionDialogIndex == 2) {
             customVersionDialogTwo();
         } else {
+            System.out.println("dialog样式");
             super.showVersionDialog();
+            super.dealAPK();
         }
-        Toast.makeText(this, "重写此方法显示自定义对话框", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "重写此方法显示自定义对话框", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -146,6 +148,7 @@ public class CustomVersionDialogActivity extends VersionDialogActivity implement
 
             }
         });
+        //versionDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         versionDialog.show();
     }
 
@@ -157,7 +160,7 @@ public class CustomVersionDialogActivity extends VersionDialogActivity implement
     @Override
     public void showFailDialog() {
         super.showFailDialog();
-        Toast.makeText(this, "重写此方法使用自定义失败加载框", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "重写此方法使用自定义失败加载框", Toast.LENGTH_SHORT).show();
     }
 
 

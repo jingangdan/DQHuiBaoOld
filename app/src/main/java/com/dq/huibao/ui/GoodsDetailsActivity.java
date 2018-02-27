@@ -1064,6 +1064,8 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
     String price = "", stock = "";
     String optionid = "";
 
+    Integer[] integers;
+
     public class SpecAdapter extends RecyclerView.Adapter<SpecAdapter.MyViewHolder> {
         private Context mContext;
         private List<GoodsDetail.DataBean.SpecBean> specBeanList;
@@ -1120,8 +1122,9 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                                 .error(R.mipmap.icon_error002)
                                 .into(iv_thumb);
                     }
+                    String itemid = specBeanList.get(i).getItems().get(position).getId();
 
-                    strings[i] = specBeanList.get(i).getItems().get(position).getId();
+                    strings[i] = itemid;
 
                     for (int j = 0; j < strings.length; j++) {
                         if (j == 0) {
@@ -1130,7 +1133,6 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                             string = string + "_" + strings[j];
                         }
                     }
-
                     for (int k = 0; k < optionsList.size(); k++) {
                         if (string.equals(optionsList.get(k).getSpecs())) {
                             optionid = optionsList.get(k).getId();
@@ -1142,6 +1144,7 @@ public class GoodsDetailsActivity extends Activity implements GradationScrollVie
                             tv_total.setText("库存：" + stock);
                         }
                     }
+                    System.out.println("string = " + string);
 
                 }
             });
