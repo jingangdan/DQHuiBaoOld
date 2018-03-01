@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.dq.huibao.Interface.OnItemClickListener;
 import com.dq.huibao.R;
+import com.dq.huibao.adapter.PayTypeAdapter;
 import com.dq.huibao.base.BaseActivity;
 import com.dq.huibao.bean.addr.AddrReturn;
 import com.dq.huibao.bean.pay.PayType;
@@ -35,6 +39,13 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -52,12 +63,17 @@ public class PayActivity extends BaseActivity {
     TextView tvPayOrdersn;
     @Bind(R.id.tv_pay_price)
     TextView tvPayPrice;
-    @Bind(R.id.rel_pay_weixin)
-    RelativeLayout relPayWeixin;
-    @Bind(R.id.rel_pay_yue)
-    RelativeLayout relPayYue;
-    @Bind(R.id.rel_pay_zhifubao)
-    RelativeLayout relPayZhifubao;
+    @Bind(R.id.rv_pay)
+    RecyclerView recyclerView;
+//    @Bind(R.id.rel_pay_weixin)
+//    RelativeLayout relPayWeixin;
+//    @Bind(R.id.rel_pay_yue)
+//    RelativeLayout relPayYue;
+//    @Bind(R.id.rel_pay_zhifubao)
+//    RelativeLayout relPayZhifubao;
+
+    private PayTypeAdapter mAdapter;
+    private List<PayType.DataBean.PaytypeBean> list = new ArrayList<>();
 
     /*接收页面传值*/
     private Intent intent;
@@ -120,6 +136,8 @@ public class PayActivity extends BaseActivity {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(PayActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
                     }
+
+                    System.out.println("111 = " + msg.obj.toString());
                     break;
                 }
                 case SDK_AUTH_FLAG: {
@@ -156,7 +174,36 @@ public class PayActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
         ButterKnife.bind(this);
-        setPayType();
+
+        mAdapter = new PayTypeAdapter(this, list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String code = list.get(position).getCode();
+                if (code.equals("balance")) {
+                    balance = code;
+                    if (!balance.equals("")) {
+                        setPayOrder(ordersn, balance, phone, token);
+                    }
+                } else if (code.equals("wxpay")) {
+                    wxpay = code;
+                    if (!wxpay.equals("")) {
+                        setPayOrder(ordersn, wxpay, phone, token);
+                    }
+                } else if (code.equals("alipay")) {
+                    alipay = code;
+                    if (!alipay.equals("")) {
+                        setPayOrder(ordersn, alipay, phone, token);
+                        //payV2();
+                    }
+                }
+            }
+        });
+
+        //setPayType();
         intent = getIntent();
         ordersn = intent.getStringExtra("ordersn");
         phone = intent.getStringExtra("phone");
@@ -173,27 +220,27 @@ public class PayActivity extends BaseActivity {
         setTitleName("支付");
     }
 
-    @OnClick({R.id.rel_pay_weixin, R.id.rel_pay_zhifubao, R.id.rel_pay_yue})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.rel_pay_weixin:
-                if (!wxpay.equals("")) {
-                    setPayOrder(ordersn, wxpay, phone, token);
-                }
-                break;
-            case R.id.rel_pay_zhifubao:
-                if (!alipay.equals("")) {
-                    setPayOrder(ordersn, alipay, phone, token);
-                    payV2();
-                }
-                break;
-            case R.id.rel_pay_yue:
-                if (!balance.equals("")) {
-                    setPayOrder(ordersn, balance, phone, token);
-                }
-                break;
-        }
-    }
+//    @OnClick({R.id.rel_pay_weixin, R.id.rel_pay_zhifubao, R.id.rel_pay_yue})
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.rel_pay_weixin:
+//                if (!wxpay.equals("")) {
+//                    setPayOrder(ordersn, wxpay, phone, token);
+//                }
+//                break;
+//            case R.id.rel_pay_zhifubao:
+//                if (!alipay.equals("")) {
+//                    setPayOrder(ordersn, alipay, phone, token);
+//                    //payV2();
+//                }
+//                break;
+//            case R.id.rel_pay_yue:
+//                if (!balance.equals("")) {
+//                    setPayOrder(ordersn, balance, phone, token);
+//                }
+//                break;
+//        }
+//    }
 
     /**
      * 选择支付方式
@@ -218,19 +265,22 @@ public class PayActivity extends BaseActivity {
                         if (payType.getStatus() == 1) {
                             price = payType.getData().getOrder().getPay_money();
                             tvPayPrice.setText("¥" + price);
+                            list.clear();
+                            list.addAll(payType.getData().getPaytype());
+                            mAdapter.notifyDataSetChanged();
 
-                            for (int i = 0; i < payType.getData().getPaytype().size(); i++) {
-                                if (payType.getData().getPaytype().get(i).equals("balance")) {
-                                    relPayYue.setVisibility(View.VISIBLE);
-                                    balance = payType.getData().getPaytype().get(i);
-                                } else if (payType.getData().getPaytype().get(i).equals("wxpay")) {
-                                    relPayWeixin.setVisibility(View.VISIBLE);
-                                    wxpay = payType.getData().getPaytype().get(i);
-                                } else if (payType.getData().getPaytype().get(i).equals("alipay")) {
-                                    relPayZhifubao.setVisibility(View.VISIBLE);
-                                    alipay = payType.getData().getPaytype().get(i);
-                                }
-                            }
+//                            for (int i = 0; i < payType.getData().getPaytype().size(); i++) {
+//                                if (payType.getData().getPaytype().get(i).equals("balance")) {
+//                                    relPayYue.setVisibility(View.VISIBLE);
+//                                    balance = payType.getData().getPaytype().get(i);
+//                                } else if (payType.getData().getPaytype().get(i).equals("wxpay")) {
+//                                    relPayWeixin.setVisibility(View.VISIBLE);
+//                                    wxpay = payType.getData().getPaytype().get(i);
+//                                } else if (payType.getData().getPaytype().get(i).equals("alipay")) {
+//                                    relPayZhifubao.setVisibility(View.VISIBLE);
+//                                    alipay = payType.getData().getPaytype().get(i);
+//                                }
+//                            }
                         }
 
                     }
@@ -271,31 +321,54 @@ public class PayActivity extends BaseActivity {
                 new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {
-                        System.out.println(result);
-                        if (paytype.equals("balance")) {
-                            AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
-                            if (addrReturn.getStatus() == 1) {
-                                toast("" + addrReturn.getData());
+                        System.out.println("第三方下单 = " + result);
+
+                        AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+                        if (addrReturn.getStatus() == 1) {
+                            if (paytype.equals("balance")) {
                                 intent = new Intent(PayActivity.this, OrderActivity.class);
                                 intent.putExtra("page", 2);
                                 intent.putExtra("phone", phone);
                                 intent.putExtra("token", token);
                                 startActivityForResult(intent, CodeUtils.PAY);
                                 PayActivity.this.finish();
-                            } else if (addrReturn.getStatus() == 0) {
-                                toast("" + addrReturn.getData());
+                            } else {
+                                if (paytype.equals("wxpay")) {
+                                    //微信支付
+                                } else if (paytype.equals("alipay")) {
+                                    //支付宝支付
+                                    setZhuFuBao(addrReturn.getData());
+                                } else if (paytype.equals("balance")) {
+                                    //余额支付
+                                }
                             }
                         } else {
-                            if (paytype.equals("wxpay")) {
-                                //微信支付
-                            } else if (paytype.equals("alipay")) {
-                                //支付宝支付
-                                // setZhifubao("","","","","","","");
-                                //setZhuFuBao(result);
-                            } else if (paytype.equals("balance")) {
-                                //余额支付
-                            }
+                            toast("" + addrReturn.getData());
                         }
+
+//                        if (paytype.equals("balance")) {
+//                            AddrReturn addrReturn = GsonUtil.gsonIntance().gsonToBean(result, AddrReturn.class);
+//                            if (addrReturn.getStatus() == 1) {
+//                                toast("" + addrReturn.getData());
+//                                intent = new Intent(PayActivity.this, OrderActivity.class);
+//                                intent.putExtra("page", 2);
+//                                intent.putExtra("phone", phone);
+//                                intent.putExtra("token", token);
+//                                startActivityForResult(intent, CodeUtils.PAY);
+//                                PayActivity.this.finish();
+//                            } else if (addrReturn.getStatus() == 0) {
+//                                toast("" + addrReturn.getData());
+//                            }
+//                        } else {
+//                            if (paytype.equals("wxpay")) {
+//                                //微信支付
+//                            } else if (paytype.equals("alipay")) {
+//                                //支付宝支付
+//                                setZhuFuBao(result);
+//                            } else if (paytype.equals("balance")) {
+//                                //余额支付
+//                            }
+//                        }
 
 
                     }
@@ -317,12 +390,12 @@ public class PayActivity extends BaseActivity {
                 });
     }
 
-    @SuppressLint("WrongConstant")
-    public void setPayType() {
-        relPayWeixin.setVisibility(View.GONE);
-        relPayZhifubao.setVisibility(View.GONE);
-        relPayYue.setVisibility(View.GONE);
-    }
+//    @SuppressLint("WrongConstant")
+//    public void setPayType() {
+//        relPayWeixin.setVisibility(View.GONE);
+//        relPayZhifubao.setVisibility(View.GONE);
+//        relPayYue.setVisibility(View.GONE);
+//    }
 
     /**
      * 微信支付
@@ -356,8 +429,9 @@ public class PayActivity extends BaseActivity {
 
 
     private void setZhuFuBao(String info) {
-
         final String orderInfo = info;
+        System.out.println("orderInfo  = " + info);
+
         Runnable payRunnable = new Runnable() {
 
             @Override
@@ -375,6 +449,34 @@ public class PayActivity extends BaseActivity {
 
         Thread payThread = new Thread(payRunnable);
         payThread.start();
+    }
+
+    /*解码*/
+    public static String formatDecoder(String originUrl) {
+        String output = "";
+        if (TextUtils.isEmpty(originUrl)) {
+            return "";
+        }
+        try {
+            output = java.net.URLDecoder.decode(originUrl, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return output;
+    }
+
+    /*编码*/
+    public static String formatEncode(String originUrl) {
+        String output = "";
+        if (TextUtils.isEmpty(originUrl)) {
+            return "";
+        }
+        try {
+            output = java.net.URLEncoder.encode(originUrl, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return output;
     }
 
     /**

@@ -62,108 +62,115 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"></View>
 
-    <RelativeLayout
-        android:id="@+id/rel_pay_weixin"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_pay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            style="@style/text_main"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_pay_weixin"
-            android:text="微信支付" />
+    </android.support.v7.widget.RecyclerView>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_next" />
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rel_pay_weixin"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/bg_white"-->
+        <!--android:padding="10dp">-->
 
-        <ImageView
-            android:id="@+id/iv_pay_weixin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/ic_weixin001" />
+        <!--<TextView-->
+            <!--style="@style/text_main"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toRightOf="@+id/iv_pay_weixin"-->
+            <!--android:text="微信支付" />-->
 
-    </RelativeLayout>
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@mipmap/ic_next" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/view_main" />
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_pay_weixin"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:src="@mipmap/ic_weixin001" />-->
 
-    <RelativeLayout
-        android:id="@+id/rel_pay_zhifubao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:padding="10dp">
+    <!--</RelativeLayout>-->
 
-        <ImageView
-            android:id="@+id/iv_pay_zhifubao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/ic_zhifubao" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/view_main" />-->
 
-        <TextView
-            style="@style/text_main"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_pay_zhifubao"
-            android:text="支付宝支付" />
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rel_pay_zhifubao"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/bg_white"-->
+        <!--android:padding="10dp">-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_next" />
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_pay_zhifubao"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:src="@mipmap/ic_zhifubao" />-->
 
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--style="@style/text_main"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toRightOf="@+id/iv_pay_zhifubao"-->
+            <!--android:text="支付宝支付" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/view_main" />
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@mipmap/ic_next" />-->
 
-    <RelativeLayout
-        android:id="@+id/rel_pay_yue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_white"
-        android:padding="10dp">
+    <!--</RelativeLayout>-->
 
-        <ImageView
-            android:id="@+id/iv_pay_yue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/ic_yue" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/view_main" />-->
 
-        <TextView
-            style="@style/text_main"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_pay_yue"
-            android:text="余额支付" />
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rel_pay_yue"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/bg_white"-->
+        <!--android:padding="10dp">-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_next" />
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_pay_yue"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:src="@mipmap/ic_yue" />-->
 
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--style="@style/text_main"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toRightOf="@+id/iv_pay_yue"-->
+            <!--android:text="余额支付" />-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@mipmap/ic_next" />-->
+
+    <!--</RelativeLayout>-->
 
 </LinearLayout>

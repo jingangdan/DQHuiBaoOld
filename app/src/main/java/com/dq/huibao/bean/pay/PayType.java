@@ -9,9 +9,10 @@ import java.util.List;
 
 public class PayType {
 
+
     /**
      * status : 1
-     * data : {"order":{"id":"31","pay_money":"140.40","ordersn":"SN201801240848234371"},"paytype":["balance","wxpay"]}
+     * data : {"order":{"id":"74","pay_money":"5.00","ordersn":"RN201802281650446425"},"paytype":[{"code":"alipay","img":"/Public/api/alipay.png","name":"支付宝支付"}]}
      */
 
     private int status;
@@ -35,12 +36,12 @@ public class PayType {
 
     public static class DataBean {
         /**
-         * order : {"id":"31","pay_money":"140.40","ordersn":"SN201801240848234371"}
-         * paytype : ["balance","wxpay"]
+         * order : {"id":"74","pay_money":"5.00","ordersn":"RN201802281650446425"}
+         * paytype : [{"code":"alipay","img":"/Public/api/alipay.png","name":"支付宝支付"}]
          */
 
         private OrderBean order;
-        private List<String> paytype;
+        private List<PaytypeBean> paytype;
 
         public OrderBean getOrder() {
             return order;
@@ -50,19 +51,19 @@ public class PayType {
             this.order = order;
         }
 
-        public List<String> getPaytype() {
+        public List<PaytypeBean> getPaytype() {
             return paytype;
         }
 
-        public void setPaytype(List<String> paytype) {
+        public void setPaytype(List<PaytypeBean> paytype) {
             this.paytype = paytype;
         }
 
         public static class OrderBean {
             /**
-             * id : 31
-             * pay_money : 140.40
-             * ordersn : SN201801240848234371
+             * id : 74
+             * pay_money : 5.00
+             * ordersn : RN201802281650446425
              */
 
             private String id;
@@ -92,13 +93,49 @@ public class PayType {
             public void setOrdersn(String ordersn) {
                 this.ordersn = ordersn;
             }
+        }
+
+        public static class PaytypeBean {
+            /**
+             * code : alipay
+             * img : /Public/api/alipay.png
+             * name : 支付宝支付
+             */
+
+            private String code;
+            private String img;
+            private String name;
+
+            public String getCode() {
+                return code;
+            }
+
+            public void setCode(String code) {
+                this.code = code;
+            }
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
 
             @Override
             public String toString() {
-                return "OrderBean{" +
-                        "id='" + id + '\'' +
-                        ", pay_money='" + pay_money + '\'' +
-                        ", ordersn='" + ordersn + '\'' +
+                return "PaytypeBean{" +
+                        "code='" + code + '\'' +
+                        ", img='" + img + '\'' +
+                        ", name='" + name + '\'' +
                         '}';
             }
         }
